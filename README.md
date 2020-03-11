@@ -33,10 +33,10 @@ You can install the released version of plot.pretty from
 
 ``` r
 # Install from CRAN 
-install.packages("Tools4DTS")
+install.packages("plot.pretty")
 
 # Or, install the development version from github:
-# ... 
+devtools::install_github("edwardlavender/utils.add")
 ```
 
 ## The definition of pretty axes
@@ -72,7 +72,7 @@ install.packages("Tools4DTS")
 
 ## Model predictions
 
-  - `list_CIs()` lists model predictions/‘confidence’ intervals from
+  - `list_CIs()` lists model predictions/confidence intervals from
     fitted values and standard errors (or similar);
   - `add_model_predictions()` adds model predictions (e.g. fitted lines,
     confidence intervals) to plots;
@@ -86,8 +86,8 @@ install.packages("Tools4DTS")
     (inlcuding standard diagnostic plots alongside residuals against
     covariates, timestamps and the autocorrelation function, if
     applicable);
-  - `Tools4DTS::plot_ts()` creates timeseries plots, using functions in
-    `plot.pretty`;
-  - `Tools4DTS::visTS()` is an R Shiny-Dashboard user interface for the
-    interactive exploration of (ecological) timeseries and creation of
-    publication quality plots;
+  - `Tools4ETS::plot_ts()`, which is based on `plot.pretty`, creates
+    pretty timeseries plots;
+  - `Tools4ETS::visTS()`, which is based on `plot.pretty`, is an R
+    Shiny-Dashboard user interface for the interactive exploration of
+    (ecological) timeseries and creation of publication quality plots;

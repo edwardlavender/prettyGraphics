@@ -34,7 +34,7 @@ You can install the released version of plot.pretty from [CRAN](https://CRAN.R-p
 install.packages("plot.pretty")
 
 # Or, install the development version from github:
-# ... 
+devtools::install_github("edwardlavender/utils.add")
 ```
 
 ## The definition of pretty axes
