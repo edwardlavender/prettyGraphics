@@ -1,0 +1,87 @@
+#' @title Add shading to a plot
+#' @description This function is used to add blocks of shading to a plot. Blocks can be added vertically or horizontally. This can help elucidate associations between a continuous variable and a factor. For example, in plots of depth ~ time, it can be helpful to delineate diel periods (i.e., day or night) with shading.
+#'
+#' @param x1 A sequence of starting values (x or y coordinates) for each block.
+#' @param x2 A sequence of ending values (x or y coordinates) for each block.
+#' @param lim A numeric vector of two numbers defining the height or width of each block, depending on whether x or y coordinates have been supplied to \code{x1} and \code{x2}.
+#' @param horiz A numeric input that defines whether or not shading blocks are horizontal (i.e.  \code{x1} and \code{x2} represent y coordinates and \code{lim} represents \code{xlim}) or vertical (i.e.  \code{x1} and \code{x2} represent x coordinates and \code{lim} represents \code{ylim}).
+#' @param lim A numeric input that defines the horizontal or vertical limits of each block.
+#' @param col The colour of each block.
+#' @param ... Other graphical parameters passed to \code{\link[graphics]{rect}}.
+#'
+#' @return The function adds blocks of shading to a plot.
+#'
+#' @examples
+#'
+#'#### Define some data; we'll define a timeseries example
+#' # Define times
+#' t <- seq.POSIXt(as.POSIXct("2016-01-01", tz = "UTC"),
+#'                 as.POSIXct("2016-01-02", tz = "UTC"),
+#'                 by = "30 mins")
+#' d <- data.frame(t = t)
+#' # Imagine our response is animal depth through time
+#' d$depth <- rnorm(nrow(d), 200, 25)
+#' # Define limits and visualise
+#' ylim <- range(d$depth)
+#' plot(d$t, d$depth, type = "n", ylim = ylim)
+#'
+#' #### Define arguments for add_shading
+#' # In this example, we'll add blocks of shading distinguishing 'day' versus 'night' to aid
+#' # ... interpretation of the animal depth timeseries we've simulated above. To do this,
+#' # ... we can use the Tools4ETS::define_time_blocks() function
+#' # ... to define a dataframe defining the time of sunrise and sunset  on each day of our timeseries.
+#' data_shade <-
+#'   Tools4ETS::define_time_blocks(t1 = min(t),
+#'                                 t2 = max(t),
+#'                                 type = "diel",
+#'                                 type_args = list(lon = 56, lat = -5),
+#'                                 to_plot = TRUE,
+#'                                 col = c("white", "dimgrey"))
+#'
+#' #### Add shading
+#' add_shading(data_shade$x1,
+#'             data_shade$x2,
+#'             horiz = FALSE,
+#'             lim = ylim,
+#'             col = data_shade$col)
+#'
+#' #### Add back depth timeseries using add_lines()
+#' add_lines(d$t, d$depth, lwd = 2)
+#'
+#' @details The function is vectorised over \code{x1}, \code{x2} and \code{col}.
+#'
+#' @author Edward Lavender
+#' @export
+
+
+#####################################
+#####################################
+#### add_shading()
+
+# Define a function to add shading between values:
+add_shading <- function(x1, x2, horiz = FALSE, lim, col, ...){
+
+  if(!horiz){
+    #### vertical blocks (as for depth timeseries)
+    r <- graphics::rect(xleft = x1,
+                        ybottom = lim[1],
+                        xright = x2,
+                        ytop = lim[2],
+                        col = col,...)
+  } else{
+    #### horizontal blocks
+    r <- graphics::rect(xleft = lim[1],
+                        ybottom = x1,
+                        xright = lim[1],
+                        ytop = x2,
+                        col = col,...)
+  }
+}
+
+# Vectorise function:
+add_shading <- Vectorize(add_shading, vectorize.args = c("x1", "x2", "col"))
+
+
+#### End of function.
+#####################################
+#####################################
