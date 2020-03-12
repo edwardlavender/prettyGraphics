@@ -36,7 +36,7 @@ You can install the released version of plot.pretty from
 install.packages("plot.pretty")
 
 # Or, install the development version from github:
-devtools::install_github("edwardlavender/utils.add")
+devtools::install_github("edwardlavender/plot.pretty")
 ```
 
 ## The definition of pretty axes
