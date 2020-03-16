@@ -150,8 +150,39 @@ plot_residuals <-
     #### (1) Histogram of residuals
 
     if(1 %in% plot){
+
+      # Define ypretty
+      if(is.list(pretty_axis_args$pretty[[1]])){
+        ypretty <- pretty_axis_args$pretty[[1]]$n
+      } else{
+        ypretty <- pretty_axis_args$pretty$n
+      }
+
+      # Define yaxis and xaxis
+      yaxis <- list()
+      xaxis <- list()
+      axis_args <- list("tick", "line", "pos", "outer", "font", "lty", "lwd" , "lwd.ticks", "col", "col.ticks",
+                        "hadj", "padj", "gap.axis", "cex.axis", "col.axis", "font.axis", "mgp", "xaxp", "yaxp",
+                        "tck", "tcl", "las", "fg", "col", "xpd", "xaxt", "yaxt", "lab")
+      if(is.list(pretty_axis_args$axis[[1]])){
+        for(i in axis_args){
+          if(!is.null(pretty_axis_args$axis[[1]][[i]])) xaxis[[i]] <- pretty_axis_args$axis[[1]][[i]]
+          if(!is.null(pretty_axis_args$axis[[2]][[i]])) yaxis[[i]] <- pretty_axis_args$axis[[2]][[i]]
+        }
+      } else{
+        for(i in axis_args){
+          if(!is.null(pretty_axis_args$axis[[i]])) {
+            xaxis[[i]] <- pretty_axis_args$axis[[i]]
+            yaxis[[i]] <- pretty_axis_args$axis[[i]]
+          }
+        }
+      }
+      # Make histogram
       plot.pretty::pretty_hist(choose_dat(1)$residuals,
-                               pretty_axis_args = pretty_axis_args,
+                               xn = 2,
+                               ypretty = 5,
+                               xaxis = xaxis,
+                               yaxis = yaxis,
                                mtext_args = mtext_args[["1"]])
     }
 
