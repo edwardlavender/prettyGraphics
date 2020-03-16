@@ -350,6 +350,17 @@ pretty_axis <-
           if(is.null(ilim)){
             ilim <- range(ix, na.rm = TRUE)
             attributes(ilim)$user <- FALSE
+            # Check that both limits are not identical; adjust them if so because you cannot have a graph
+            # ... with identical lower/upper limits
+            if(length(unique(ilim)) == 1){
+              warning("Lower and upper limits for one of the inputted variables are the same. This is usually because all values of this variable are identical. Limits and pretty labels are being adjusted, but manually inputted limits may be necessary...\n")
+              # Set lower limit to 0 or minus 1:
+              if(ilim[2] > 0){
+                ilim[1] <- 0
+              } else{
+                ilim[1] <- ilim[1] - 1
+              }
+            }
           } else{
             # ilim <- ilim[[1]]
             attributes(ilim)$user <- TRUE
