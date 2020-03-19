@@ -399,10 +399,10 @@ pretty_axis <-
                 # Calculate the interval between adjacent positions:
                 interval <- diff.f(iaxis$at[2], iaxis$at[1])
                 # Ensure min and max values of the data are within the axes:
-                if(min(iaxis$at) > min(ix)) {
+                if(min(iaxis$at) > min(ix, na.rm = TRUE)) {
                   iaxis$at <- sort(c(min(iaxis$at) - interval, iaxis$at))
                 }
-                if(max(iaxis$at) < max(ix)) {
+                if(max(iaxis$at) < max(ix, na.rm = TRUE)) {
                   iaxis$at <- sort(c(iaxis$at, max(iaxis$at) + interval))
                 }
                 # Redefine axis limits:
