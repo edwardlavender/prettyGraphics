@@ -39,9 +39,9 @@
 #' pretty_boxplot(d$x, d$y, data = d, width = c(5, 1))
 #' pretty_boxplot(d$x, d$y, data = d, varwidth = TRUE)
 #' # However,xlim, ylim arguments are set via pretty_axis_args and should not be supplied.
-#' #\dontrun{
-#' #  pretty_boxplot(d$x, d$y, xlim = c(1, 2))
-#' #}
+#' \dontrun{
+#'   pretty_boxplot(d$x, d$y, xlim = c(1, 2))
+#' }
 #'
 #' #### Example (4): Axis labels can be added via xlab, ylab and main
 #' # ... or via mtext_args for more control
