@@ -22,11 +22,11 @@ This function checks that arguments supplied via ... are allowed. This function 
 # Internally, within that function, we can implement check as follows:
 pf <- function(...){
       check...(not_allowed = c("xlim", "ylim"),...)
-      plot(1:10, 1:10, xlim = c(1, 10), ylim = c(1, 10),...) 
+      plot(1:10, 1:10, xlim = c(1, 10), ylim = c(1, 10),...)
       }
 # This works:
 pf(col = "red")
-# This returns an error 
+# This returns an error
 \dontrun{
 pf(col = "red", xlim = c(1, 15))
 }
