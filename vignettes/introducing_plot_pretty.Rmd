@@ -119,8 +119,8 @@ active_binding_example
 
 To illustrate some of the functionality of `plot.pretty`, I use an example dataset from the `Tools4ETS` package. This is a dataset which contains a sample of a depth and temperature observations at defined timestamps collected from two flapper skate, _Dipturus intermedius_, off the West Coast of Scotland by Scottish Natural Heritage and Marine Scotland Science. We'll load these data and focus on one individual for simplicity. For visualisation purposes, we'll also define a new column that contains depth expressed as a negative number:
 ```{r}
-df <- Tools4ETS::dat_flapper
-df <- df[which(df$id == "A"), ]
+dat_flapper <- Tools4ETS::dat_flapper
+df <- dat_flapper[which(dat_flapper$id == "A"), ]
 df$dn <- df$depth*-1
 utils::head(df, 3)
 utils::str(df)
@@ -421,6 +421,14 @@ pretty_density(x = df$depth,
                param = list(mean = coef(m1)[1], sd = sigma(m1)), 
                )
 par(pp)
+```
+
+## Boxplots: `pretty_boxplot()`
+
+For factor data, boxplots are often particularly informative, and these can be implemented via `pretty_boxplot()`. For example, we could explore the distribution of depths occupied by the two sampled individuals as follows: 
+
+```{r, fig.width = 7, fig.height = 5}
+pretty_boxplot(dat_flapper$id, dat_flapper$depth, xlab = "ID", ylab = "Depth (m)")
 ```
 
 ## Timeseries plot: `Tools4ETS::plot_ts()`

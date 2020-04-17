@@ -52,7 +52,7 @@ pretty_hist(
 The function returns a pretty histogram.
 }
 \description{
-This function makes prettier histograms. Histograms are created using \code{\link[graphics]{hist}} with more flexibilty for control over the axes. By default, the 'breaks' vector computed by \code{\link[graphics]{hist}} is used for the x axis, but every \code{xn} value can be selected for inclusion as an axis tick mark. Alternatively, x axis elements can be controlled using \code{xaxis}. The default y axis is defined with \code{\link[base]{pretty}} based on a named list of parameters provided by the user (e.g. including the approximate number of 'pretty' breaks). Alternatively, the y axis can be implemented via \code{yaxis} as for the x axis. Axis titles can be added using \code{xlab}, \code{ylab} or \code{main} or vias \code{\link[graphics]{mtext}} via \code{mtext_args} which offers more control.
+This function makes prettier histograms. Histograms are created using \code{\link[graphics]{hist}} with more flexibility for control over the axes. By default, the 'breaks' vector computed by \code{\link[graphics]{hist}} is used for the x axis, but every \code{xn} value can be selected for inclusion as an axis tick mark. Alternatively, x axis elements can be controlled using \code{xaxis}. The default y axis is defined with \code{\link[base]{pretty}} based on a named list of parameters provided by the user (e.g. including the approximate number of 'pretty' breaks). Alternatively, the y axis can be implemented via \code{yaxis} as for the x axis. Axis titles can be added using \code{xlab}, \code{ylab} or \code{main} or via \code{\link[graphics]{mtext}} via \code{mtext_args} which offers more control.
 }
 \details{
 By default, the x axis is a sequence of values

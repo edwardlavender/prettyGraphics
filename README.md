@@ -61,7 +61,7 @@ devtools::install_github("edwardlavender/plot.pretty")
 
 ## Shading
 
-  - `add_shading()` adds blocks of shading to a plot to eludidate
+  - `add_shading()` adds blocks of shading to a plot to elucidate
     relationships between a response and explanatory variables, one of
     which is a factor;
 
@@ -81,9 +81,10 @@ devtools::install_github("edwardlavender/plot.pretty")
 
   - `pretty_plot()` creates prettier plots for a variety of functions;
   - `pretty_hist()` creates prettier histograms;
+  - `pretty_boxplot()` creates prettier boxplots;
   - `pretty_density()` creates prettier probability density plots;
   - `plot_residuals()` creates prettier diagnostic residual plots
-    (inlcuding standard diagnostic plots alongside residuals against
+    (including standard diagnostic plots alongside residuals against
     covariates, timestamps and the autocorrelation function, if
     applicable);
   - `Tools4ETS::plot_ts()`, which is based on `plot.pretty`, creates
