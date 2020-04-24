@@ -24,6 +24,10 @@ implement_pretty_axis_args <-
         add = FALSE,
         return_list = TRUE
       )
+      # Remove pretty argument if supplied;
+      # This prevents issues when two lists are provided, in which case the original
+      # ... list will remain.
+      if("pretty" %in% names(pretty_axis_args)) paa$pretty <- NULL
       # Merge parameters
       pretty_axis_args <- rlist::list.merge(paa, pretty_axis_args)
       # Add list(NULL) if necessary
