@@ -19,13 +19,35 @@
 #'
 #' @examples
 #'
-#' #### Example 1: An example with graphics::plot()
+#' #### Example (1): An example with graphics::plot()
 #' set.seed(1)
 #' pretty_plot(stats::runif(10, 0, 1),
 #'             stats::runif(10, 0, 1),
 #'             points_args = list(pch = 21, col = scales::alpha("black", 0.8)))
 #'
-#' #### Example 2: An example with stats::qqnorm()
+#' #### Example (2): pretty_plot() can also work with factors.
+#' # ... As usual, the number of breaks can be controlled via pretty_axis_args:
+#' ## Define data:
+#' dx <- factor(LETTERS[1:10])
+#' dy <- 1:10
+#' ## Example plots:
+#' pp <- par(mfrow = c(2, 2))
+#' # Specify a break for every factor level via the pretty 'n' argument.
+#' # ... (this can also be achieved via the units argument)
+#' plot.pretty::pretty_plot(dx, dy,
+#'                          pretty_axis_args = list(side = 1:2, pretty = list(n = 10))
+#' )
+#' # Specify a break for every other factor level via the pretty 'n' argument.
+#' # ... (this can also be achieved via the units argument)
+#' plot.pretty::pretty_plot(dx, dy,
+#'                          pretty_axis_args = list(side = 1:2, pretty = list(n = 10/2))
+#' )
+#' # Comaprisons to default plots:
+#' graphics::plot(dx, dy)
+#' graphics::plot.default(dx, dy)
+#' par(pp)
+#'
+#' #### Example (3): An example with stats::qqnorm()
 #' # Define x and y values for qqnorm plot
 #' set.seed(1)
 #' qq <- qqplot(stats::rnorm(100, 0, 1), stats::rnorm(100, 0, 1), plot.it = FALSE)
@@ -63,6 +85,15 @@ pretty_plot <-
     pretty_axis_args$x <- list(x, y)
     # Implement pretty_axis
     axis_ls <- implement_pretty_axis_args(pretty_axis_args)
+    # Convert factors/characters to numbers for plotting
+    if(is.factor(x) | is.character(x)){
+      warning("'x' converted to a number for plotting in pretty_plot().")
+      x <- as.numeric(factor(x))
+    }
+    if(is.factor(y) | is.character(y)){
+      warning("'y' converted to a number for plotting in pretty_plot().")
+      y <- as.numeric(factor(y))
+    }
     # Plot the graph
     if("x" %in% plot_xy & "y" %in% plot_xy){
       f(x, y,

@@ -1,10 +1,10 @@
 #' @title Define pretty limits and axes for publication quality plots
-#' @description This function is used to define pretty limits and axes on plots for numeric or timestamp (i.e. \code{\link[base]{Dates}} or \code{\link[base]{DateTimeClasses}}) data. In most cases, the best approach is to implement the function prior to creating a plot. Based on the data to be plotted, the function defines axes limits and corresponding 'pretty' axis labels, returning a list of outputs. Then, a plot can be created using limits defined by the function, after which point axes can be added to the plot by passing the list back to the function. Axis limits, placement, the number of ticks, labels and other axes properties can be determined automatically (in which case the function tries hard to create 'pretty' axes), adjusted (e.g. via adjustments to the number of 'pretty' breaks) or user-defined (e.g. by specifying axis breaks). Each axis can be controlled independently (e.g., one axis can be user-defined while another axis can be determined automatically and the function defines appropriate limits and axis placement). The function is very flexible (see Examples).
+#' @description This function is used to define pretty limits and axes on plots. The function can handle numeric, timestamp (i.e. \code{\link[base]{Dates}} or \code{\link[base]{DateTimeClasses}}) or factor data. In most cases, the best approach is to implement the function prior to creating a plot. Based on the data to be plotted, the function defines axes limits and corresponding 'pretty' axis labels, returning a list of outputs. Then, a plot can be created using limits defined by the function, after which point axes can be added to the plot by passing the list back to the function. Axis limits, placement, the number of ticks, labels and other axes properties can be determined automatically (in which case the function tries hard to create 'pretty' axes), adjusted (e.g. via adjustments to the number of 'pretty' breaks) or user-defined (e.g. by specifying axis breaks). Each axis can be controlled independently (e.g., one axis can be user-defined while another axis can be determined automatically and the function defines appropriate limits and axis placement). The function is very flexible (see Examples).
 #'
 #' @param side A numeric input specifying the side(s) of a plot for which pretty axes should be defined.
-#' @param x A list, with one element for each side, defining the values to be plotted on that side of the plot.
-#' @param lim (optional) A list, with one element for each side, containing a vector of axes limits for that axis. If provided, then axes limits (pretty or regular) are forced to lie within provided limits. Otherwise, suitable limits can be suggested by the function based on the data provided in \code{x}.
-#' @param pretty A list of named arguments to be provided to \code{\link[base]{pretty}} or \code{\link[lubridate]{pretty_dates}} to create pretty axes. If \code{pretty = list(NULL)}, pretty sequences for an axis/axes are not created and a user-defined sequence is implemented instead (see below). If each axis should be controlled by the same pretty parameters, these can be specified in the pretty argument in a single list. If each axis should be controlled by different parameters, a nested list is required, with a list of arguments for each axis provided within the overall list (see Examples). The default option is to create pretty axes with approximately \code{n = 5} breaks.
+#' @param x A list, with one element for each side, defining the values to be plotted on that side of the plot. Numeric, timestamp (i.e. \code{\link[base]{Dates}} or \code{\link[base]{DateTimeClasses}}) or factor data are supported. Character vectors will be converted to factors for plotting.
+#' @param lim (optional) A list, with one element for each side, containing a vector of axes limits for that axis. If provided, then axes limits (pretty or regular) are forced to lie within provided limits. Otherwise, suitable limits can be suggested by the function based on the data provided in \code{x}. For factors, these limits are (1, number of factor levels).
+#' @param pretty A list of named arguments to be provided to \code{\link[base]{pretty}} (for numeric data), \code{\link[lubridate]{pretty_dates}} (for timestamp data) or an internal approach (for factors) to create pretty axes. If \code{pretty = list(NULL)}, pretty sequences for an axis/axes are not created and a user-defined sequence is implemented instead (see below). If each axis should be controlled by the same pretty parameters, these can be specified in the pretty argument in a single list. If each axis should be controlled by different parameters, a nested list is required, with a list of arguments for each axis provided within the overall list (see Examples). The default option is to create pretty axes with approximately \code{n = 5} breaks. For factors, the only implemented argument is \code{n}; any other supplied arguments are silently ignored.
 #' @param units (optional) A list of units for each side. If \code{pretty = list(NULL)}, then a regular sequence of values between axes limits will be defined. This can be controlled by supplying the distance between sequential values to this argument (otherwise, a default value is used). For numeric axes, this is a number; for POSIXct axes, this is a character which specifies the duration between sequential ticks (e.g. "secs").
 #' @param axis (optional) A list of arguments that are supplied to \code{\link[graphics]{axis}} or \code{\link[graphics]{axis.POSIXct}} that control axes (e.g. \code{cex.axis}, \code{pos}, \code{col}, etc.). As for the \code{pretty} argument, a single list of arguments will affect all axes; otherwise, a nested list can be provided so that each axis can be controlled independently (see Examples).
 #' @param axis_ls (optional) The output of a call to \code{pretty_axis()}. If this is provided, the function skips the definition of axis parameters and simply adds axes to a plot (see \code{add} below).
@@ -224,7 +224,56 @@
 #'      axes = FALSE,
 #'      xlim = axis_args$`1`$lim, ylim = axis_args$`2`$lim)
 #' pretty_axis(axis_ls = axis_args, add = TRUE)
-
+#'
+#' #### Example (12): For factors, pretty axes can be created via pretty or via units.
+#' # .. If pretty is supplied, approximately n factor levels are retained:
+#' # ... and corresponding labels are added by default.
+#' # Example data:
+#' dx <- factor(LETTERS[1:10])
+#' dy <- 1:10
+#' # Example with tick for every level:
+#' axis_ls <-
+#'   pretty_axis(side = 1:2,
+#'               x = list(dx, dy),
+#'               pretty = list(n = length(dx)),
+#'               add = FALSE,
+#'               return_list = TRUE
+#'   )
+#' axis_ls[[1]]
+#' # Note that x limits are automatically defined between 1 and the maximum number of factors:
+#' axis_ls[[1]]; length(levels(dx))
+#' # Example with tick mark for every other level
+#' axis_ls <-
+#'   pretty_axis(side = 1:2,
+#'               x = list(dx, dy),
+#'               pretty = list(n = length(dx)/2),
+#'               add = FALSE,
+#'               return_list = TRUE
+#'   )
+#' axis_ls[[1]]
+#'
+#' #### Example (13): For factors, pretty axes can also be specified via units:
+#' # For example, to select every factor level:
+#' axis_ls <-
+#'   pretty_axis(side = 1:2,
+#'               x = list(dx, dy),
+#'               pretty = list(list(), list(n = 5)),
+#'               units = list(1, NULL),
+#'               add = FALSE,
+#'               return_list = TRUE
+#'   )
+#' axis_ls[[1]]
+#' # Or, to select every other factor level:
+#' axis_ls <-
+#'   pretty_axis(side = 1:2,
+#'               x = list(dx, dy),
+#'               pretty = list(list(), list(n = 5)),
+#'               units = list(2, NULL),
+#'               add = FALSE,
+#'               return_list = TRUE
+#'   )
+#' axis_ls[[1]]
+#'
 
 ##############################################
 ##############################################
@@ -249,6 +298,17 @@ pretty_axis <-
 
     #### If axis parameters have not been supplied...
     if(is.null(axis_ls)){
+
+      #### Adjust data, if a factor or character is supplied
+      # Convert characters to factors, with a warning
+      x <- mapply(x, 1:length(x), FUN = function(elm, i){
+        if(inherits(elm, "character")){
+          warning(paste0("x[[", i, "]] coerced from a character to factor."))
+          return(factor(elm))
+        } else{
+          return(elm)
+        }
+      }, SIMPLIFY = FALSE)
 
       #### Adjust lists if necessary
       list.adjust <- function(l, f = plotrix::listDepth){
@@ -296,6 +356,14 @@ pretty_axis <-
           #print(iunits)
           #print(iaxis)
 
+          #### Convert factors to numbers, if necessary, so that limits can be calculated
+          if(is.factor(ix)){
+            ixlabels <- levels(ix)
+            ix <- 1:length(ixlabels)
+          } else{
+            ixlabels <- NULL
+          }
+
           #### Define functions that give different outputs depending on numeric or timestamp input
           ## if statements
           ifnumeric <- class(ix)[1] %in% c("numeric", "integer")
@@ -335,7 +403,7 @@ pretty_axis <-
           ## seq.f
           seq.f <- function(x1, x2, units){
             if(ifnumeric){
-              s <- seq(x1, x2, length.out = units)
+              s <- seq(x1, x2, by = units)
             } else if(iftime){
               duration <- difftime(x1, x2, units = units)
               if(units == "auto"){
@@ -382,6 +450,11 @@ pretty_axis <-
                 ipretty$n <- 5
               }
               iaxis$at <- do.call(pretty.f, ipretty)
+              # If x is a factor, overwrite any pretty labels and simply
+              # ... select approximately n labels within the specified range:
+              if(!is.null(ixlabels)){
+                iaxis$at <- seq(ilim[1], ilim[2], by = round(ilim[2]/ipretty$n))
+              }
 
               ## if ilim has been specified by the user...
               # the axes will stretch the full length of the limits but only have labels in the region of interest
@@ -392,10 +465,11 @@ pretty_axis <-
               pos2rem <- which(iaxis$at > ilim[2])
               if(length(pos2rem) > 0){iaxis$at <- iaxis$at[-c(pos2rem)]}
 
-              ## if ilim has been specified by the function,
+              ## if ilim has been specified by the function
+              # AND we are not dealing with a factor...
               # ... we'll continue and ensure ilim and iaxis$at coincide nicely
               # ... and are appropriate for the range of the data
-              if(!attributes(ilim)$user){
+              if(!attributes(ilim)$user & is.null(ixlabels)){
                 # Calculate the interval between adjacent positions:
                 interval <- diff.f(iaxis$at[2], iaxis$at[1])
                 # Ensure min and max values of the data are within the axes:
@@ -418,6 +492,16 @@ pretty_axis <-
             }
 
           } # close if(!is.null(iaxis$at)){
+
+          #### Define labels according to factor levels, if applicable.
+          if(!is.null(ixlabels)){
+            if(is.null(iaxis$labels)){
+              lat <- length(iaxis$at)
+              llabels <- length(ixlabels)
+              iaxis$labels <- rep(NA, lat)
+              iaxis$labels <- ixlabels[iaxis$at]
+            }
+          }
 
           #### Return ixaxis and other parameters
           iaxis$side <- iside
