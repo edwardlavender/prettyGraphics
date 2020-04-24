@@ -19,7 +19,7 @@ pretty_axis(
 \arguments{
 \item{side}{A numeric input specifying the side(s) of a plot for which pretty axes should be defined.}
 
-\item{x}{A list, with one element for each side, defining the values to be plotted on that side of the plot. Numeric, timestamp (i.e. \code{\link[base]{Dates}} or \code{\link[base]{DateTimeClasses}}) or factor data are supported. Character vectors will be converted to factors for plotting. Dates are converted to POSIXct objects for plotting purposes; for large vectors, supplying a POSIXct object initially will improve computation time.}
+\item{x}{A list, with one element for each side, defining the values to be plotted on that side of the plot. Numeric, timestamp (i.e. \code{\link[base]{Dates}} or \code{\link[base]{DateTimeClasses}}) or factor data are supported. Character vectors will be converted to factors for plotting.}
 
 \item{lim}{(optional) A list, with one element for each side, containing a vector of axes limits for that axis. If provided, then axes limits (pretty or regular) are forced to lie within provided limits. Otherwise, suitable limits can be suggested by the function based on the data provided in \code{x}. For factors, these limits are (1, number of factor levels).}
 
