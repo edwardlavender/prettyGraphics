@@ -19,7 +19,7 @@ pretty_axis(
 \arguments{
 \item{side}{A numeric input specifying the side(s) of a plot for which pretty axes should be defined.}
 
-\item{x}{A list, with one element for each side, defining the values to be plotted on that side of the plot. Numeric, timestamp (i.e. \code{\link[base]{Dates}} or \code{\link[base]{DateTimeClasses}}) or factor data are supported. Character vectors will be converted to factors for plotting.}
+\item{x}{A list, with one element for each side, defining the values to be plotted on that side of the plot. Numeric, timestamp (i.e. \code{\link[base]{Dates}} or \code{\link[base]{DateTimeClasses}}) or factor data are supported. Character vectors will be converted to factors for plotting. Dates are converted to POSIXct objects for plotting purposes; for large vectors, supplying a POSIXct object initially will improve computation time.}
 
 \item{lim}{(optional) A list, with one element for each side, containing a vector of axes limits for that axis. If provided, then axes limits (pretty or regular) are forced to lie within provided limits. Otherwise, suitable limits can be suggested by the function based on the data provided in \code{x}. For factors, these limits are (1, number of factor levels).}
 
@@ -27,7 +27,7 @@ pretty_axis(
 
 \item{units}{(optional) A list of units for each side. If \code{pretty = list(NULL)}, then a regular sequence of values between axes limits will be defined. This can be controlled by supplying the distance between sequential values to this argument (otherwise, a default value is used). For numeric axes, this is a number; for POSIXct axes, this is a character which specifies the duration between sequential ticks (e.g. "secs").}
 
-\item{axis}{(optional) A list of arguments that are supplied to \code{\link[graphics]{axis}} or \code{\link[graphics]{axis.POSIXct}} that control axes (e.g. \code{cex.axis}, \code{pos}, \code{col}, etc.). As for the \code{pretty} argument, a single list of arguments will affect all axes; otherwise, a nested list can be provided so that each axis can be controlled independently (see Examples).}
+\item{axis}{(optional) A list of arguments that are supplied to \code{\link[graphics]{axis}}, \code{\link[graphics]{axis.POSIXct}} or \code{\link[graphics]{axis.Date}} that control axes (e.g. \code{cex.axis}, \code{pos}, \code{col}, etc.). As for the \code{pretty} argument, a single list of arguments will affect all axes; otherwise, a nested list can be provided so that each axis can be controlled independently (see Examples).}
 
 \item{axis_ls}{(optional) The output of a call to \code{pretty_axis()}. If this is provided, the function skips the definition of axis parameters and simply adds axes to a plot (see \code{add} below).}
 
@@ -141,7 +141,7 @@ axis_args <-
 plot(x, y, axes = FALSE, xlim = axis_args$`1`$lim, ylim = axis_args$`2`$lim)
 pretty_axis(axis_ls = axis_args, add = TRUE)
 
-#### Example 7: Arguments are passed to axis() or axis.POSIXct() via the axis argument
+#### Example 7: Arguments are passed to axis(), axis.POSIXct() or axis.Date() via the axis argument
 # As above, if we supply these once they will affect all graphs:
 axis_args <-
   pretty_axis(side = 1:2,
@@ -207,7 +207,7 @@ plot(x, y,
 # Add pretty axes by passing the list of axis_args back to the function
 pretty_axis(axis_ls = axis_args, add = TRUE)
 
-#### Example 10: axis parameters for timestamps are passed to axis.POSIXct
+#### Example 10: axis parameters for timestamps are passed to axis.POSIXct() or axis.Date()
 # ... which can incorporate other options
 axis_args <-
   pretty_axis(side = 1:4,

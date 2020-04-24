@@ -6,7 +6,7 @@
 #' @param lim (optional) A list, with one element for each side, containing a vector of axes limits for that axis. If provided, then axes limits (pretty or regular) are forced to lie within provided limits. Otherwise, suitable limits can be suggested by the function based on the data provided in \code{x}. For factors, these limits are (1, number of factor levels).
 #' @param pretty A list of named arguments to be provided to \code{\link[base]{pretty}} (for numeric data), \code{\link[lubridate]{pretty_dates}} (for timestamp data) or an internal approach (for factors) to create pretty axes. If \code{pretty = list(NULL)}, pretty sequences for an axis/axes are not created and a user-defined sequence is implemented instead (see below). If each axis should be controlled by the same pretty parameters, these can be specified in the pretty argument in a single list. If each axis should be controlled by different parameters, a nested list is required, with a list of arguments for each axis provided within the overall list (see Examples). The default option is to create pretty axes with approximately \code{n = 5} breaks. For factors, the only implemented argument is \code{n}; any other supplied arguments are silently ignored.
 #' @param units (optional) A list of units for each side. If \code{pretty = list(NULL)}, then a regular sequence of values between axes limits will be defined. This can be controlled by supplying the distance between sequential values to this argument (otherwise, a default value is used). For numeric axes, this is a number; for POSIXct axes, this is a character which specifies the duration between sequential ticks (e.g. "secs").
-#' @param axis (optional) A list of arguments that are supplied to \code{\link[graphics]{axis}} or \code{\link[graphics]{axis.POSIXct}} that control axes (e.g. \code{cex.axis}, \code{pos}, \code{col}, etc.). As for the \code{pretty} argument, a single list of arguments will affect all axes; otherwise, a nested list can be provided so that each axis can be controlled independently (see Examples).
+#' @param axis (optional) A list of arguments that are supplied to \code{\link[graphics]{axis}}, \code{\link[graphics]{axis.POSIXct}} or \code{\link[graphics]{axis.Date}} that control axes (e.g. \code{cex.axis}, \code{pos}, \code{col}, etc.). As for the \code{pretty} argument, a single list of arguments will affect all axes; otherwise, a nested list can be provided so that each axis can be controlled independently (see Examples).
 #' @param axis_ls (optional) The output of a call to \code{pretty_axis()}. If this is provided, the function skips the definition of axis parameters and simply adds axes to a plot (see \code{add} below).
 #' @param add A logical input specifying whether or not to plot the axes. Usually, prettier plots result when \code{pretty_axis()} is called prior to plotting to define axis limits; then, the plot can be created with those limits; and then the list created by the first call to \code{pretty_axis()} can be supplied to the function again via the \code{axis_ls} argument, with \code{add = TRUE}, to add the axes (see Examples).
 #' @param return_list A logical input defining whether or not to return a list of axis parameters defined by the function.
@@ -116,7 +116,7 @@
 #' plot(x, y, axes = FALSE, xlim = axis_args$`1`$lim, ylim = axis_args$`2`$lim)
 #' pretty_axis(axis_ls = axis_args, add = TRUE)
 #'
-#' #### Example 7: Arguments are passed to axis() or axis.POSIXct() via the axis argument
+#' #### Example 7: Arguments are passed to axis(), axis.POSIXct() or axis.Date() via the axis argument
 #' # As above, if we supply these once they will affect all graphs:
 #' axis_args <-
 #'   pretty_axis(side = 1:2,
@@ -182,7 +182,7 @@
 #' # Add pretty axes by passing the list of axis_args back to the function
 #' pretty_axis(axis_ls = axis_args, add = TRUE)
 #'
-#' #### Example 10: axis parameters for timestamps are passed to axis.POSIXct
+#' #### Example 10: axis parameters for timestamps are passed to axis.POSIXct() or axis.Date()
 #' # ... which can incorporate other options
 #' axis_args <-
 #'   pretty_axis(side = 1:4,
@@ -299,15 +299,20 @@ pretty_axis <-
     #### If axis parameters have not been supplied...
     if(is.null(axis_ls)){
 
-      #### Adjust data, if a factor or character is supplied
-      # Convert characters to factors, with a warning
+      #### Adjust data:
+      #  If a character is supplied
+      # ... convert to factors, with a warning
       x <- mapply(x, 1:length(x), FUN = function(elm, i){
         if(inherits(elm, "character")){
           warning(paste0("x[[", i, "]] coerced from a character to factor."))
           return(factor(elm))
-        } else{
+        } else if(inherits(elm, c("Date", "POSIXct", "POSIXlt"))){
+          if(lubridate::tz(elm) == ""){
+            warning(paste0("x[[", i, "]] time zone currently ''; tz forced to UTC."))
+            lubridate::tz(elm) <- "UTC"
+          }
           return(elm)
-        }
+        } else return(elm)
       }, SIMPLIFY = FALSE)
 
       #### Adjust lists if necessary
@@ -367,7 +372,7 @@ pretty_axis <-
           #### Define functions that give different outputs depending on numeric or timestamp input
           ## if statements
           ifnumeric <- class(ix)[1] %in% c("numeric", "integer")
-          iftime <- class(ix)[1] %in% c("POSIXct", "POSIXlt")
+          iftime <- class(ix)[1] %in% c("POSIXct", "POSIXlt", "Date")
           ## units
           units.f <- function(iunits){
             if(length(iunits) == 0){
@@ -388,6 +393,10 @@ pretty_axis <-
               s <- pretty(x,...)
             } else if(iftime){
               s <- lubridate::pretty_dates(x,...)
+              # pretty_dates() converts objects to POSIXct so, we'll
+              # convert back to a Date if necessary, so that axes are defined
+              # on the same scale as the data
+              if(inherits(x, "Date")) s <- as.Date(s)
             }
             return(s)
           }
@@ -558,15 +567,15 @@ pretty_axis <-
         # Define at
         at <- elem$axis$at
         # Define appropriate function
-        ifnumeric <- class(at)[1] %in% c("numeric", "integer")
-        iftime <- class(at)[1] %in% c("POSIXct", "POSIXlt")
-        if(ifnumeric){
-          do.call("axis", tmp_axis_args)
-          do.call("axis", elem$axis)
-        } else if(iftime){
-          do.call("axis.POSIXct", tmp_axis_args)
-          do.call("axis.POSIXct", elem$axis)
+        if(inherits(at, c("numeric", "integer"))){
+          add_axis <- graphics::axis
+        } else if(inherits(at, c("POSIXct", "POSIXlt"))){
+          add_axis <- graphics::axis.POSIXct
+        } else if(inherits(at, "Date")){
+          add_axis <- graphics::axis.Date
         }
+        do.call(add_axis, tmp_axis_args)
+        do.call(add_axis, elem$axis)
       })
     } # close if(add)
 
