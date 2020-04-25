@@ -16,11 +16,12 @@
 #'
 #' @examples
 #'
-#' #### Generate example data
+#' #### Generate example data, e.g. sex, size and maturation status of an animal
 #' set.seed(1)
 #' dx <- sample(c("M", "F"), size = 100, replace = TRUE, prob = c(0.2, 0.8))
-#' dy <- stats::runif(length(dx), 0, 10)
-#' d <- data.frame(x = dx, y = dy)
+#' dy <- stats::runif(length(dx), 0, 50)
+#' dx2 <- ifelse(dx < 10, "immature", "mature")
+#' d <- data.frame(x = dx, x2 = dx2, y = dy)
 #'
 #' #### Example (1): Comparing graphics::boxplot() and plot.pretty::pretty_boxplot()
 #' pp <- par(mfrow = c(1, 2))
@@ -77,6 +78,11 @@
 #'   })
 #' )
 #' par(pp)
+#'
+#' #### Example (7): Example with multiple categories
+#' # pretty_boxplot() does not suppor formula notation, so multiple categories
+#' # ... have to be joined together prior to plotting
+#' pretty_boxplot(factor(paste0(d$x, ",", d$x2)), d$y)
 #'
 #' @author Edward Lavender
 #' @export
