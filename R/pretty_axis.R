@@ -299,6 +299,9 @@ pretty_axis <-
     #### If axis parameters have not been supplied...
     if(is.null(axis_ls)){
 
+      #### Force data to be supplied
+      stopifnot(!(length(x) == 0))
+
       #### Adjust data:
       #  If a character is supplied
       # ... convert to factors, with a warning
@@ -324,8 +327,8 @@ pretty_axis <-
         }
         return(l)
       }
+      # Adjust remaining lists
       lim <- list.adjust(lim, f = length)
-
       pretty <- list.adjust(pretty)
       units <- list.adjust(units, f = length)
       axis <- list.adjust(axis)
@@ -458,6 +461,9 @@ pretty_axis <-
             #### If the user has requested a pretty sequence...
             # we'll generate pretty dates within the ilim provided by the user, or more flexibly if not.
             if(length(ipretty) > 0){
+
+              #### Check if units have been supplied, if so, print a warning that these are ignored
+              if(!is.null(iunits)) warning("Both pretty and units specified for an axis. pretty arguments implemented.")
 
               #### Define pretty sequence
               ipretty$x <- ilim
