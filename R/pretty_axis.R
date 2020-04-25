@@ -299,12 +299,15 @@ pretty_axis <-
     #### If axis parameters have not been supplied...
     if(is.null(axis_ls)){
 
-      #### Force data to be supplied
+      #### Checks Force data to be supplied
       stopifnot(!(length(x) == 0))
+      lapply(list(x, lim, pretty, units, axis), function(elm) stopifnot(inherits(elm, "list")))
 
       #### Adjust data:
       #  If a character is supplied
       # ... convert to factors, with a warning
+      # If a timestamp if supplied
+      # ... make sure that tz is included.
       x <- mapply(x, 1:length(x), FUN = function(elm, i){
         if(inherits(elm, "character")){
           warning(paste0("x[[", i, "]] coerced from a character to factor."))
@@ -318,7 +321,7 @@ pretty_axis <-
         } else return(elm)
       }, SIMPLIFY = FALSE)
 
-      #### Adjust lists if necessary
+      #### Adjust lists if necessary, to ensure mapply() loops over lists correctly.
       list.adjust <- function(l, f = plotrix::listDepth){
         if(f(l) == 1){
           if(plotrix::listDepth(l) == 1){
@@ -327,7 +330,6 @@ pretty_axis <-
         }
         return(l)
       }
-      # Adjust remaining lists
       lim <- list.adjust(lim, f = length)
       pretty <- list.adjust(pretty)
       units <- list.adjust(units, f = length)
@@ -350,7 +352,6 @@ pretty_axis <-
             # print(head(ix))
           }
 
-
           #### Compact lists
           # unlist limits if necessary
           ilim <- unlist(ilim)
@@ -360,9 +361,6 @@ pretty_axis <-
           ipretty <- plyr::compact(ipretty)
           iunits <- plyr::compact(iunits)
           iaxis <- plyr::compact(iaxis)
-          #print(ipretty)
-          #print(iunits)
-          #print(iaxis)
 
           #### Convert factors to numbers, if necessary, so that limits can be calculated
           if(is.factor(ix)){
@@ -388,8 +386,10 @@ pretty_axis <-
               return(iunits)
             }
           }
+          # Down the line, if pretty is implemented as well as units
+          # ... ie., units != list() then we'll give a warning.
+          iunits_warn <- ifelse(length(iunits) != 0, TRUE, FALSE)
           iunits <- units.f(iunits)
-          #print(iunits)
           ## pretty.f
           pretty.f <- function(x,...){
             if(ifnumeric){
@@ -463,7 +463,7 @@ pretty_axis <-
             if(length(ipretty) > 0){
 
               #### Check if units have been supplied, if so, print a warning that these are ignored
-              if(!is.null(iunits)) warning("Both pretty and units specified for an axis. pretty arguments implemented.")
+              if(iunits_warn) warning("Both pretty and units specified for an axis. pretty arguments implemented.")
 
               #### Define pretty sequence
               ipretty$x <- ilim
