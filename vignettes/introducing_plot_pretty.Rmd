@@ -404,6 +404,16 @@ par(pp)
 ```
 More details are given in `?plot_residuals`. For the example depth timeseries, these plots demonstrate that out model needs to be interpreted with caution: residuals versus fitted values, temperature and timestamp look reasonable, but the model has not perfectly captured the autocorrelation among residuals and the assumption of normality is clearly violated. 
 
+## Number lines and timelines: `pretty_numline()`
+
+In some cases, one dimensional visualisation of observations, especially those collected through time, can be useful. For example, we could view a timeline of the depth timeseries observations as follows:
+
+```{r, fig.width = 7, fig.height = 5}
+pretty_numline(df$timestamp, pch = 21, col = "red", bg = "red", cex = 0.1)
+```
+
+This kind of approach is particularly useful for presence or presence/absence observations collected through time. `?pretty_numline()` provides further information and examples, including exemplifying the addition of one dimensional number lines or timelines to existing plots. 
+
 ## Histograms and density plots: `pretty_hist()` and `pretty_density()`
 
 Histograms and density plots are also useful components of data exploration and/or modelling diagnostics. Below, I use `pretty_hist()` to create a histogram of the distribution of depths and `pretty_density()` to explore the distribution of observed data in relation to a Gaussian distribution with parameters estimated by the model above: 
