@@ -4,7 +4,7 @@
 #' @param x A vector of observed data. Numeric/integer, factor, date, or date-time objects are supported.
 #' @param pretty_axis_args A named list of arguments that is passed to \code{\link[plot.pretty]{pretty_axis}} which is used to draw the number line or timeline. If \code{axis_ls} is supplied, \code{inherit} and \code{replace_axis} can be used to modify this element before the line is drawn, if desired.
 #' @param inherit (optional) If the \code{axis_ls} argument is supplied to \code{pretty_axis_args}, \code{inherit} can be supplied. This is a single integer which specifies which element of the \code{axis_ls} list should be used. This is useful because the \code{axis_ls} argument returned by \code{\link[plot.pretty]{pretty_axis}} will usually have multiple elements (one for each axis on an existing plot); but for one dimensional number lines or timelines, only one of these element is relevant
-#' @param replace_axis (optional) If the \code{axis_ls} argument is supplied to \code{pretty_axis_args}, \code{replace_axis} can be  supplied. This is a named list of arguments that is used to replace corresponding arguments (of the same name) in an inherited list (i.e., the inherited element of \code{axis_ls}, if supplied). This allows some components of an inherited list (e.g. tick marks) to be retained, while others (e.g. axis position) are easily adjusted.
+#' @param replace_axis (optional) If the \code{axis_ls} argument is supplied to \code{pretty_axis_args}, \code{replace_axis} can be  supplied. This is a named list of arguments that is used to replace corresponding arguments (of the same name) in an inherited list of axis argument (i.e., the inherited 'axis' of \code{axis_ls}, if supplied). This allows some components of an inherited list (e.g. tick marks) to be retained, while others (e.g. axis position) are easily adjusted.
 #' @param add A logical input which defines whether not the line should be added to an existing plot (\code{TRUE}) or not (\code{FALSE}).
 #' @param return_list A logical input which defines whether or not to return the list produced by \code{\link[plot.pretty]{pretty_axis}}.
 #' @param ... Additional arguments passed to \code{\link[graphics]{points}}, which is used to add observed data (\code{x}) to the line.
@@ -12,6 +12,50 @@
 #' @return The function produces a number line or a timeline. If \code{return_list = TRUE}, the function also returns the list of axis parameters defined by \code{\link[plot.pretty]{pretty_axis}}.
 #'
 #' @examples
+#'
+#' #### Generate some example (numeric) data for example number lines
+#' set.seed(1)
+#' x <- runif(5, 0, 10)
+#' y <- runif(5, 0, 10)
+#'
+#' #### Example (1): Plot a number line using default options
+#' pretty_numline(x)
+#'
+#' #### Example (2): Customise points via ...
+#' pretty_numline(x, pch = 21, bg = "red")
+#'
+#' #### Example (2): Customise the number line via pretty_axis_args
+#' pretty_numline(x, pretty_axis_args = list(side = 2, axis = list(las = TRUE)),
+#'                pch = 21, bg = "red")
+#'
+#' #### Example (3): Add a number line to an existing plot:
+#' # Create plot
+#' axis_ls <- pretty_plot(x, y, return_list = TRUE)
+#' # Method 1: manually specify pretty_axis_args as desired and specify add = TRUE:
+#' pretty_numline(x, pretty_axis_args = list(side = 3,
+#'                                           axis = list(pos = axis_ls[[2]]$lim[2])),
+#'                add = TRUE,
+#'                pch = 21, bg = "red")
+#' # Method 2: specify axis_ls argument to pretty_axis_args and, if applicable, inherit.
+#' # In this situation, necessary arguments (e.g. side) can be replaced via replace_axis
+#' # ... while the properties of the axis (i.e., labels, colour etc.) are maintained:
+#' axis_ls <- pretty_plot(x, y, return_list = TRUE)
+#' pretty_numline(x, pretty_axis_args = list(axis_ls = axis_ls),
+#'                # select the  first element of axis_ls i.e. axis_ls[[1]]
+#'                inherit = 1,
+#'                # replace the following arguments in axis_ls[[1]]$axis while retaining remaining
+#'                # ... arguments:
+#'                replace_axis = list(side = 3, pos = 5, labels = FALSE, lwd.ticks = 0),
+#'                add = TRUE,
+#'                pch = 21, bg = "red")
+#'
+#'
+#' #### Example (4): An examine with timeseries data i.e., a timeline
+#' set.seed(1)
+#' tseq <- seq.POSIXt(as.POSIXct("2017-01-01", tz = "UTC"),
+#'                    as.POSIXct("2018-01-01", tz = "UTC"), by = "days")
+#' pretty_numline(sample(tseq, size = 10), pch = 21, bg = "red")
+#'
 #'
 #' @author Edward Lavender
 #' @export
