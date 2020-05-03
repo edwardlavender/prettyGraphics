@@ -1,9 +1,8 @@
-plot_numline <-
+pretty_numline <-
   function(x,
            pretty_axis_args = list(side = 1),
            inherit = NULL,
-           side = NULL,
-           pos = NULL,
+           replace_axis = NULL,
            add = FALSE,
            ...){
 
@@ -18,30 +17,16 @@ plot_numline <-
       #### Warn if inherit has been supplied
       if(!is.null(inherit)) warning("pretty_axis_args$axis_ls is NULL; therefore, 'inherit' argument is ignored.")
 
-      #### Replace side in pretty_axis_args, if requested
-      if(!is.null(side)){
-        if(!is.null(pretty_axis_args$side)) warning("Existing 'side' element in pretty_axis_args is overwritten since 'side' suppled to plot_line().")
-        pretty_axis_args$side <- side
-      }
+      #### Warn if replace_axis list has been supplied
+      if(!is.null(replace_axis)) warning("pretty_axis_args$axis_ls is NULL; therefore, 'replace_list' argument is ignored")
 
       #### Check side has been supplied, otherwise force side = 1
       if(is.null(pretty_axis_args$side)){
         warning("pretty_axis_args$side is NULL; defaulting to side = 1.")
       }
 
-      #### Define position of axis, if requested
-      if(!is.null(pos)){
-        # Issue a warning if pos is being overwritten.
-        if("pos" %in% names(pretty_axis_args$axis)) warning("Existing 'pos' element in pretty_axis_args is overwritten since 'pos' suppled to plot_line().")
-        pretty_axis_args$axis$pos <- pos
-      } else{
-        if(!is.null(pretty_axis_args$axis$pos)){
-          pos <- pretty_axis_args$axis$pos
-        } else{
-          pos <- 0
-          pretty_axis_args$axis$pos <- pos
-        }
-      }
+      #### Force position of axis, if necessary
+      if(!("pos" %in% names(pretty_axis_args$axis))) pretty_axis_args$axis$pos <- 0
 
       #### Implement pretty_axis_args
       axis_ls <- implement_pretty_axis_args(pretty_axis_args)
@@ -64,17 +49,8 @@ plot_numline <-
         }
       }
 
-      #### Replace side in axis_ls, if requested
-      if(!is.null(side)){
-        if(!is.null(axis_ls[[1]]$axis$side)) warning("Existing 'side' element in pretty_axis_args is overwritten since 'side' suppled to plot_line().")
-        axis_ls[[1]]$axis$side <- side
-      }
-
-      #### Replace pos in axis_ls, if requested
-      if(!is.null(side)){
-        if(!is.null(axis_ls[[1]]$axis$pos)) warning("Existing 'side' element in pretty_axis_args is overwritten since 'side' suppled to plot_line().")
-        axis_ls[[1]]$axis$pos <- pos
-      }
+      #### Replace elements in axis_ls, if necessary
+      if(!is.null(replace_axis)) axis_ls[[1]]$axis <- rlist::list.merge(axis_ls[[1]]$axis, replace_axis)
 
     }
 
@@ -97,6 +73,7 @@ plot_numline <-
 
     #### Add points to number/timeline
     lx <- length(x)
+    pos <- axis_ls[[1]]$axis$pos
     if(xtype){
       points(x, rep(pos, lx),...)
     } else{
