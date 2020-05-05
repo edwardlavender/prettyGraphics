@@ -448,10 +448,11 @@ pretty_axis <-
               }
             }
           } else{
-            # ilim <- ilim[[1]]
+            # Check that provided limits are sensible
+            if(ilim[1] >= ilim[2]) { stop("Nonsensical user-specified axis limits: the lower limit for at least one axis is greater than or equal to the upper limit for the same axis. \n")}
+            # Define attributes
             attributes(ilim)$user <- TRUE
           }
-          #print(ilim)
 
 
           #### Define x axis positions
