@@ -85,12 +85,18 @@ summarise_in_bins <-
   function(x,
            y,
            dat = NULL,
-           bin,
+           bin = NULL,
            breaks = NULL,
            funs = list(mean = mean),
            shift = TRUE,
            to_plot = TRUE,
            output = "list"){
+
+    #### Initial checks
+    if(length(funs) == 0) stop("'funs' should not be an empty list.")
+    if(is.null(names(funs))) warning("'funs' is not a named list.")
+    if(is.null(bin) & is.null(breaks)) stop("'bin' and 'breaks' are both NULL; one of these must be specified.")
+    if(!is.null(bin) & !is.null(breaks)) warning("Both 'bin' and 'breaks' specified; input to 'bin' is ignored.")
 
     #### Define dataframe
     if(is.null(dat)){
@@ -106,7 +112,7 @@ summarise_in_bins <-
           return(seq.POSIXt)
         } else if(class(x)[1] == "Date"){
           return(seq.Date)
-        } else stop("class(x) is not supported: only numeric/integer/Date or date-time objects are supported.")
+        } else stop("class(x) is not supported: only numeric, integer, Date or date-time objects are supported.")
       }
       seq.f <- seq.f(dat$x)
       breaks <- seq.f(from = min(dat$x, na.rm = TRUE), to = max(dat$x, na.rm = TRUE), by = bin)

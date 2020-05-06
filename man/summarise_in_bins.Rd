@@ -8,7 +8,7 @@ summarise_in_bins(
   x,
   y,
   dat = NULL,
-  bin,
+  bin = NULL,
   breaks = NULL,
   funs = list(mean = mean),
   shift = TRUE,
