@@ -53,6 +53,9 @@ The function returns a plot and, if requested, a list of arguments that are used
 \description{
 \code{plot.pretty()} is a general function which creates plots with pretty axis for multiple plotting functions. The default option functions like \code{\link[graphics]{plot}} but implements pretty axes, using \code{\link[plot.pretty]{pretty_axis}}. Arguments can be passed to \code{\link[graphics]{plot}}, but additional arguments (e.g., \code{points_args}, \code{lines_args}, \code{mtext_args}, which can be used to add points, lines and control axis labels) provide additional flexibility where required. Some other plotting functions can be implemented by adjusting the plotting function, \code{f} and by specifying whether that plot depends on \code{x}, \code{y} or \code{x} and \code{y} (see Examples). The function can return the list returned by \code{\link[plot.pretty]{pretty_axis}} which can be useful for later adjustments to plots (e.g. setting the clipping region with \code{\link[graphics]{clip}}.
 }
+\details{
+\code{x} and \code{y} coordinates usually need to be provided. If only \code{x} is provided, \code{x} is treated as the response variable and plotted against an index (like \code{\link[graphics]{plot}}). Some other object classes  may be provided to \code{x}, from which x and y coordinates can be extracted, but in most cases this is not yet supported. The only other object classes currently supported are objects of class density.
+}
 \examples{
 
 #### Example (1): An example with graphics::plot()
@@ -78,12 +81,19 @@ plot.pretty::pretty_plot(dx, dy,
 plot.pretty::pretty_plot(dx, dy,
                          pretty_axis_args = list(side = 1:2, pretty = list(n = 10/2))
 )
-# Comaprisons to default plots:
+# Comparisons to default plots:
 graphics::plot(dx, dy)
 graphics::plot.default(dx, dy)
 par(pp)
 
-#### Example (3): An example with stats::qqnorm()
+#### Example (3): If only x is provided, x is plotted against an index
+pretty_plot(x = c(10, 20))
+
+#### Example (4): Coordinates usually need to be provided
+# ... but pretty_plot() works with density objects:
+pretty_plot(density(stats::rnorm(100, 0, 1)), type = "l")
+
+#### Example (5): An example with stats::qqnorm()
 # Define x and y values for qqnorm plot
 set.seed(1)
 qq <- qqplot(stats::rnorm(100, 0, 1), stats::rnorm(100, 0, 1), plot.it = FALSE)
