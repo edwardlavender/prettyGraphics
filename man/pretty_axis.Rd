@@ -106,6 +106,19 @@ axis_args <-
 plot(x, y, axes = FALSE, xlim = axis_args$`1`$lim, ylim = axis_args$`2`$lim)
 pretty_axis(axis_ls = axis_args, add = TRUE)
 
+# Axes limits can be specified for some axes but not others by suppling
+# ... NULL elements to the lim list, as follows:
+axis_args <-
+  pretty_axis(side = 1:2,
+              x = list(x, y),
+              lim = list(NULL, c(-19, 49)),
+              pretty = list(n = 5),
+              add = FALSE,
+              return_list = TRUE
+  )
+plot(x, y, axes = FALSE, xlim = axis_args$`1`$lim, ylim = axis_args$`2`$lim)
+pretty_axis(axis_ls = axis_args, add = TRUE)
+
 #### Example 5: We can create regular sequences instead of pretty ones
 # Instead of creating 'pretty' axes, we can choose to create a regular sequence
 # ... and specify the total number of units between the start and end points
