@@ -1,11 +1,11 @@
 #' @title Summarise continuous data in bins
 #' @description This function implements a common method for describing patterns in continuous data: summary statistics in bins. One variable (\code{x} is binned into user-defined bins or breaks. User-defined functions are then calculated for a second variable \code{y} within each of these bins. This can help elucidate associations between \code{y} and \code{x} during data exploration, particularly if those associations are noisy.
 #'
-#' @param x The x values which will be binned. Numeric or POSIXct objects are supported.
+#' @param x The x values which will be binned. Numeric/integer, POSIXct or Date objects are supported.
 #' @param y The y values for which summary statistics will be calculated in each bin.
 #' @param dat (optional) A dataframe containing columns 'x' and 'y' can be supplied instead of \code{x} and \code{y} above.
-#' @param bin A numeric or character input which defines the bin size. This is used to define a sequence of breaks, to which each value of \code{x} can be assigned and in each of which summary statistics are calculated. If \code{x} is a number, this should be a number; if x is a time in POSIXct format, this can be a character defining a unit of time; e.g., \code{"2 mins"}.
-#' @param breaks (optional) A numeric or POSIXct vector of breaks. This can be supplied instead of \code{bin}. If supplied, summary statistics are calculated across user-supplied breaks, rather than those calculated between the range of the data (\code{x}) based on the bin size.
+#' @param bin A numeric or character input which defines the bin size. This is used to define a sequence of breaks, to which each value of \code{x} can be assigned and in each of which summary statistics are calculated. If \code{x} is a number, this should be a number; if \code{x} is a time in POSIXct format, this can be a number (in seconds), a character defining a unit of time; e.g., \code{"2 mins"}; and if x is a Date, this can be a number (in days) or a character as for POSIXct objects. For Date objects, bins smaller in size than one day are nonsensical; convert \code{x} to a POSIXct object first.
+#' @param breaks (optional) A numeric, POSIXct or Date vector of breaks. This can be supplied instead of \code{bin}. If supplied, summary statistics are calculated across user-supplied breaks, rather than those calculated between the range of the data (\code{x}) based on the bin size.
 #' @param funs A named list of functions to evaluate.
 #' @param shift A logical input which defines whether or not to shift the value of each bin by half a bin width (i.e. to the mid-point of each bin). This is beneficial for plots because summary statistics are shown for the mid-point of each bin.
 #' @param to_plot A logical input which defines whether or not the summary statistics are to be plotted (in due course). If so, the function conducts some additional checks to make sure bins are within the limits of the data: if the bin size is relatively large and \code{shift = TRUE}, it is possible that most extreme bins can be shifted outside of the range of the data; any such bins are removed from the reported outputs for pretty plotting.
@@ -59,6 +59,20 @@
 #' # Visualise
 #' add_lines(summary_ls$mean$bin, summary_ls$mean$stat, col = "red", type = "b", lwd = 2)
 #'
+#' #### Example (4): Date example
+#' x <- seq.Date(as.Date("2016-01-01"), as.Date("2016-10-01"), "days")
+#' y <- stats::rnorm(length(x), as.numeric(x)*1e-3)
+#' graphics::plot(x, y)
+#' summary_ls <- summarise_in_bins(x = x,
+#'                                 y = y,
+#'                                 bin = "14 days",
+#'                                 funs = list(mean = mean,
+#'                                             median = median),
+#'                                 shift = TRUE,
+#'                                 to_plot = TRUE)
+#' # Visualise
+#' add_lines(summary_ls$mean$bin, summary_ls$mean$stat, col = "red", type = "b", lwd = 2)
+#'
 #' @author Edward Lavender
 #' @export
 #'
@@ -88,8 +102,11 @@ summarise_in_bins <-
       seq.f <- function(x){
         if(class(x)[1] %in% c("numeric", "integer")){
           return(seq)
-        } else if(class(x)[1] %in% c("POSIXct", "POSIXlt"))
+        } else if(class(x)[1] %in% c("POSIXct", "POSIXlt")){
           return(seq.POSIXt)
+        } else if(class(x)[1] == "Date"){
+          return(seq.Date)
+        } else stop("class(x) is not supported: only numeric/integer/Date or date-time objects are supported.")
       }
       seq.f <- seq.f(dat$x)
       breaks <- seq.f(from = min(dat$x, na.rm = TRUE), to = max(dat$x, na.rm = TRUE), by = bin)
@@ -109,6 +126,12 @@ summarise_in_bins <-
       } else if(class(x)[1] %in% c("POSIXct", "POSIXlt")){
         s <- seq.POSIXt(from = breaks[1], to = breaks[2], length.out = 2)
         bin_numeric <- as.numeric(difftime(s[2], s[1], units = "secs"))
+      } else if(class(x)[1] == "Date"){
+        s <- seq.Date(from = breaks[1], to = breaks[2], length.out = 2)
+        bin_numeric <- as.numeric(difftime(s[2], s[1], units = "days"))
+        if(bin_numeric < 1){
+          stop("For class(x) == Date, the bin size/gap between sequential breaks cannot be less than one day. Increase the bins size/gap between sequential breaks or convert x to a date-time object before implementing summarise_in_bins().")
+        }
       }
       bin_half <- bin_numeric/2
       dat$bin <- dat$bin + bin_half

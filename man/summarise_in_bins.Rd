@@ -17,15 +17,15 @@ summarise_in_bins(
 )
 }
 \arguments{
-\item{x}{The x values which will be binned. Numeric or POSIXct objects are supported.}
+\item{x}{The x values which will be binned. Numeric/integer, POSIXct or Date objects are supported.}
 
 \item{y}{The y values for which summary statistics will be calculated in each bin.}
 
 \item{dat}{(optional) A dataframe containing columns 'x' and 'y' can be supplied instead of \code{x} and \code{y} above.}
 
-\item{bin}{A numeric or character input which defines the bin size. This is used to define a sequence of breaks, to which each value of \code{x} can be assigned and in each of which summary statistics are calculated. If \code{x} is a number, this should be a number; if x is a time in POSIXct format, this can be a character defining a unit of time; e.g., \code{"2 mins"}.}
+\item{bin}{A numeric or character input which defines the bin size. This is used to define a sequence of breaks, to which each value of \code{x} can be assigned and in each of which summary statistics are calculated. If \code{x} is a number, this should be a number; if \code{x} is a time in POSIXct format, this can be a number (in seconds), a character defining a unit of time; e.g., \code{"2 mins"}; and if x is a Date, this can be a number (in days) or a character as for POSIXct objects. For Date objects, bins smaller in size than one day are nonsensical; convert \code{x} to a POSIXct object first.}
 
-\item{breaks}{(optional) A numeric or POSIXct vector of breaks. This can be supplied instead of \code{bin}. If supplied, summary statistics are calculated across user-supplied breaks, rather than those calculated between the range of the data (\code{x}) based on the bin size.}
+\item{breaks}{(optional) A numeric, POSIXct or Date vector of breaks. This can be supplied instead of \code{bin}. If supplied, summary statistics are calculated across user-supplied breaks, rather than those calculated between the range of the data (\code{x}) based on the bin size.}
 
 \item{funs}{A named list of functions to evaluate.}
 
@@ -84,6 +84,20 @@ summary_ls <- summarise_in_bins(x = x,
                                             median = median),
                                 shift = TRUE,
                                to_plot = TRUE)
+# Visualise
+add_lines(summary_ls$mean$bin, summary_ls$mean$stat, col = "red", type = "b", lwd = 2)
+
+#### Example (4): Date example
+x <- seq.Date(as.Date("2016-01-01"), as.Date("2016-10-01"), "days")
+y <- stats::rnorm(length(x), as.numeric(x)*1e-3)
+graphics::plot(x, y)
+summary_ls <- summarise_in_bins(x = x,
+                                y = y,
+                                bin = "14 days",
+                                funs = list(mean = mean,
+                                            median = median),
+                                shift = TRUE,
+                                to_plot = TRUE)
 # Visualise
 add_lines(summary_ls$mean$bin, summary_ls$mean$stat, col = "red", type = "b", lwd = 2)
 
