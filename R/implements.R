@@ -25,7 +25,7 @@ implement_pretty_axis_args <-
       #### Check: has 'side' been supplied?
       # Check side has been supplied: if it has, remove side from paa, otherwise print warning
       # ... and default to side = 1:2
-      if("side" %in% names(pretty_axis_args)){
+      if("side" %in% names(pretty_axis_args) & !("axis_ls" %in% names(pretty_axis_args))){
         paa$side <- NULL
       } else{
         warning("Argument 'side' not supplied to pretty_axis_args; defaulting to side = 1:2.")
