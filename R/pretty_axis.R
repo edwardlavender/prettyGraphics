@@ -312,9 +312,15 @@ pretty_axis <-
     #### If axis parameters have not been supplied...
     if(is.null(axis_ls)){
 
-      #### Checks Force data to be supplied
+      #### Checks
+      # Force data to be supplied
       stopifnot(!(length(x) == 0))
+      # Check lists are provided
       lapply(list(x, lim, pretty, units, axis), function(elm) stopifnot(inherits(elm, "list")))
+      # Check the length of lists is correct.
+      mapply(list(x, lim, units), list("x", "lim", "units"), FUN = function(elm, elm_name){
+        if(length(elm) > 0 & length(elm) > length(side)) stop(paste0(length(side), " side(s) supplied but argument '", elm_name, "' contains ", length(elm), " elements."))
+      })
 
       #### Adjust data:
       #  If a character is supplied
@@ -372,7 +378,7 @@ pretty_axis <-
           # this is necessary for mapply, but causes problems down the line
           # so, having passed the arguments to mapply, we'll now remove NULLs:
           ipretty <- plyr::compact(ipretty)
-          iunits <- plyr::compact(iunits)
+          iunits <- unlist(plyr::compact(iunits)) # unlist if necessary (if only one side supplied).
           iaxis <- plyr::compact(iaxis)
 
           #### Convert factors to numbers, if necessary, so that limits can be calculated
@@ -430,8 +436,9 @@ pretty_axis <-
             if(ifnumeric){
               s <- seq(x1, x2, by = units)
             } else if(iftime){
-              duration <- difftime(x1, x2, units = units)
+              # If units are "auto", use difftime() to determine suitable units.
               if(units == "auto"){
+                duration <- difftime(x1, x2, units = units)
                 units <- attributes(duration)$units
               }
               s <- seq.POSIXt(x1, x2, by = units)
@@ -577,6 +584,9 @@ pretty_axis <-
 
     } # close if(is.null(axis_ls))
 
+    #### Check names do not contain NA; this can occur if the wrong number of elements is supplied
+    # .. given the number of sides.
+    if(any(is.na(names(axis_ls)))) stop("names(axis_ls) contains NA(s). The number of sides and the number of elements in argument lists is not aligned.")
 
     ##############################################
     #### Add axis if requested
