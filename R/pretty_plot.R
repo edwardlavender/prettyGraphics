@@ -90,6 +90,8 @@ pretty_plot <-
            xlab = "", ylab = "", main = "",
            mtext_args = list(),
            return_list = FALSE,...){
+    # Inital checks
+    if(is.null(x)) stop("'x' is NULL.")
     # Object inheritance
     if(inherits(x, "density")){
       if(!is.null(y)) warning('y argument ignored when x is an object of class density.')
