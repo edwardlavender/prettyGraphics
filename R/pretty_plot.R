@@ -90,24 +90,32 @@ pretty_plot <-
            xlab = "", ylab = "", main = "",
            mtext_args = list(),
            return_list = FALSE,...){
-    # Inital checks
+
+    #### Inital checks
     if(is.null(x)) stop("'x' is NULL.")
-    # Object inheritance
+
+    #### Object inheritance
     if(inherits(x, "density")){
       if(!is.null(y)) warning('y argument ignored when x is an object of class density.')
       y <- x$y
       x <- x$x
     }
+
+    #### If y isn't supplied, plot x againist an index like graphics::plot()
     if(is.null(y)){
       warning("'y' argument not supplied; 'x' is plotted against an index.")
       index <- 1:length(x)
       y <- x
       x <- index
     }
+
+    #### Implement pretty_axis_args
     # Add x to pretty_axis_args
     pretty_axis_args$x <- list(x, y)
     # Implement pretty_axis
     axis_ls <- implement_pretty_axis_args(pretty_axis_args)
+
+    #### Variable type updates
     # Convert factors/characters to numbers for plotting
     if(is.factor(x) | is.character(x)){
       warning("'x' converted to a number for plotting in pretty_plot().")
@@ -117,7 +125,9 @@ pretty_plot <-
       warning("'y' converted to a number for plotting in pretty_plot().")
       y <- as.numeric(factor(y))
     }
-    # Plot the graph
+
+
+    #### Plot the graph
     if("x" %in% plot_xy & "y" %in% plot_xy){
       f(x, y,
         axes = FALSE,
@@ -140,30 +150,29 @@ pretty_plot <-
         ylim = axis_ls[[2]]$lim,...
       )
     }
-    # Add points
+
+    #### Add points
     if(length(points_args) > 0){
       points_args$x <- x
       points_args$y <- y
       do.call(graphics::points, points_args)
     }
 
-    # Add lines
+    #### Add lines
     if(length(lines_args) > 0){
       lines_args$x <- x
       lines_args$y <- y
       do.call(graphics::lines, lines_args)
     }
 
-    # Add pretty axis
+    #### Add pretty axis
     pretty_axis(axis_ls = axis_ls, add = TRUE, return_list = FALSE)
 
-    # Add axes
+    #### Add axes labelling
     implement_mtext_args(mtext_args)
 
-    # Return list
-    if(return_list){
-      return(axis_ls)
-    }
+    #### Return list
+    if(return_list) return(axis_ls)
 
   } # close pretty_plot()
 
