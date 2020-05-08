@@ -461,6 +461,9 @@ pretty_axis <-
               }
             }
           } else{
+            # Check that two limits are provided
+            length_ilim <- length(ilim)
+            if(length_ilim != 2) stop(paste0(length_ilim, " value(s) supplied as the limits for at least one axis; if supplied, two limits  are required."))
             # Check that provided limits are sensible
             if(ilim[1] >= ilim[2]) { stop("Nonsensical user-specified axis limits: the lower limit for at least one axis is greater than or equal to the upper limit for the same axis. \n")}
             # Define attributes
