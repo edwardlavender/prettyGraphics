@@ -1,0 +1,49 @@
+#' @title Define \code{\link[graphics]{par}}'s \code{mfrow} or \code{mfcol} arguments to fit \code{n} plots on a single page
+#' @description For a given number of plots, this function defines a vector of two values for the \code{mfrow} (or \code{mfcol}) arguments of \code{\link[graphics]{par}} such that all plots can fit on a single page. This is particularly useful if you are producing plots for multiple groups (e.g. individuals), each of which contains a varying number of subplots: in this scenario, you do not have to manually specify \code{mfrow} or \code{mfcol} for each plot; you can simply pass the number of plots to \code{plot_mf()}, inside \code{\link[graphics]{par}}, to define a suitable, case-specific layout.
+#'
+#' @param n An integer which defines the number of plots to be produced on a single page.
+#'
+#' @source This function was inspired by the implementation of the \code{pages} argument in \code{\link[mgcv]{plot.gam}}.
+#'
+#' @return The function returns a vector comprising two integers, which can be passed to the \code{mfrow} (or \code{mfcol}) arguments of \code{\link[graphics]{par}} to plot \code{n} plots on a single page.
+#'
+#' @examples
+#' #### Example (1): Implement pretty_mf() for n plots
+#' pretty_mf(10)
+#' pretty_mf(20)
+#' pretty_mf(23)
+#'
+#' #### Example (2): Use pretty_mf() to define par()'s mfrow argument:
+#' pp <- par(mfrow = pretty_mf(3))
+#' plot(1, 2); plot(2, 4); plot(8, 9)
+#' par(pp)
+#'
+#' #### Example (3): Use pretty_mf() to define par()'s mfcol argument in the same way:
+#' pp <- par(mfcol = pretty_mf(3))
+#' plot(1, 2); plot(2, 4); plot(8, 9)
+#' par(pp)
+#'
+#' @author Edward Lavender
+#' @export
+#'
+
+##########################################
+#### pretty_mf()
+
+pretty_mf <- function(n){
+  n <- as.integer(n)
+  c <- r <- trunc(sqrt(n))
+  if (c < 1)
+    r <- c <- 1
+  if (c * r < n)
+    c <- c + 1
+  if (c * r < n)
+    r <- r + 1
+  return(c(r, c))
+}
+
+
+#### End of code.
+##########################################
+##########################################
+
