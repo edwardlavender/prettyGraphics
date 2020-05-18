@@ -73,4 +73,6 @@ devtools::install_github("edwardlavender/plot.pretty")
 * `Tools4ETS::pretty_ts()`, which is based on `plot.pretty`, creates pretty timeseries plots;
 * `Tools4ETS::vis_ts()`, which is based on `plot.pretty`, is an R Shiny-Dashboard user interface for the interactive exploration of (ecological) timeseries and creation of publication quality plots;
 
+## Plot layout
 
+* `pretty_mf()` defines a suitable plotting window for a given number of plots;
