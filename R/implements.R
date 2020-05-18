@@ -42,7 +42,15 @@ implement_pretty_axis_args <-
       #### Merge parameters
       pretty_axis_args <- rlist::list.merge(paa, pretty_axis_args)
       # Add list(NULL) if necessary
-      utils.add::add_list_null(pretty_axis_args, c("lim", "units", "axis"))
+      add_list_null <- function(l, elm){
+        for(i in elm){
+          if(is.null(l[[i]])){
+            l[[i]] <- list(NULL)
+          }
+        }
+        return(l)
+      }
+      add_list_null(pretty_axis_args, c("lim", "units", "axis"))
 
       #### Define list
       axis_ls <- do.call("pretty_axis", pretty_axis_args)

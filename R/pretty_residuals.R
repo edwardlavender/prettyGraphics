@@ -32,7 +32,7 @@
 #'
 #' #### Example (1) Plot residuals using default options
 #' pp <- graphics::par(mfrow = c(3, 3))
-#' plot_residuals(residuals = stats::resid(m1),
+#' pretty_residuals(residuals = stats::resid(m1),
 #'                fv = fitted(m1),
 #'                lp = fitted(m1),
 #'                vars = c("z", "fct"),
@@ -42,7 +42,7 @@
 #' graphics::par(pp)
 #'
 #' #### Example (2) Plot a single plot
-#' plot_residuals(residuals = stats::resid(m1), plot = 7)
+#' pretty_residuals(residuals = stats::resid(m1), plot = 7)
 #'
 #' @author Edward Lavender
 #' @export
@@ -50,9 +50,9 @@
 
 ##############################################
 ##############################################
-#### plot_residuals()
+#### pretty_residuals()
 
-plot_residuals <-
+pretty_residuals <-
   function(residuals,
            fv = NULL,
            lp = fv,
@@ -297,7 +297,7 @@ plot_residuals <-
                                    return_list = TRUE
       )
 
-      wnlimit <- Tools4ETS::acf_in_white_noise(acf_obj)
+      wnlimit <- stats::qnorm((1 + 0.95)/2)/sqrt(acf_obj$n.used)
       wnupper <- 0 + wnlimit
       wnlower <- 0 - wnlimit
       graphics::polygon(c(pretty_acf_ls[[1]]$lim, rev(pretty_acf_ls[[1]]$lim)),

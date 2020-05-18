@@ -31,7 +31,7 @@ body{
 
 # Introduction
 
-`plot.pretty` is an R package designed to make the production of plots and data exploration easier, more flexible and prettier, with base R. The creation of this package was inspired by the development of another package, Tools4ETS, which provides tools for ecological timeseries in R. Consequently, `plot.pretty` has been particularly motivated by the requirements of datasets with continuous responses and explanatory variables (e.g., depth and time, in relation to covariates). The package is based on a number of functions which act as 'building blocks'; these help to define the initial arguments of a plot and then add elements to a plot sequentially. The package includes some integrative functions, which link these functions together to produce pretty plots in a variety of cases (e.g. a more flexible implementation of `graphics::plot()` with pretty axes, prettier histograms, density plots, timeseries, model residuals etc.). Notable functionality of `plot.pretty` includes the following: 
+`plot.pretty` is an R package designed to make the production of plots and data exploration easier, more flexible and prettier, with base R. The creation of this package was inspired by the development of another package, `Tools4ETS`, which provides tools for ecological timeseries in R. Consequently, `plot.pretty` has been particularly motivated by the requirements of datasets with continuous responses and explanatory variables (e.g., depth and time, in relation to covariates). The package is based on a number of functions which act as 'building blocks'; these help to define the initial arguments of a plot and then add elements to a plot sequentially. The package includes some integrative functions, which link these functions together to produce pretty plots in a variety of cases (e.g. a more flexible implementation of `graphics::plot()` with pretty axes, prettier histograms, density plots, timeseries, model residuals etc.). Notable functionality of `plot.pretty` includes the following: 
 
 * **The definition of pretty axes**. The definition of 'pretty' axes (i.e., axes with intelligible tick mark labels that are positioned in appropriate, adjoining positions, rather than as an approximate box around a plot) underlies publication-quality plots but these are not implemented automatically by base R. `pretty_axis()` is a very flexible function which makes this possible. A few other functions, such as `sci_notation()`, which can be used to add labels with scientific notation to a plot (i.e. $a \times 10^b$ rather than $ae^b$), and `add_lagging_point_zero()`, which brings all numbers up to the same number of decimal places, complement this function. `add_grid_rect_xy()` can be used to add a rectangular grid at user-defined positions (e.g. coinciding with axis labels), to aid interpretation  
 * **Colouring lines by a covariate**. In base R, it's easy to add lines to a plot to illustrate a relationship. However, it is a more long-winded process to add a line that is coloured by the values of a third variable, followed by a highly customisable colour bar legend, to illustrate the relationship between the response and more than one explanatory variable. This essential part of data exploration is implemented by `add_lines()` and `add_colour_bar()`. 
@@ -117,9 +117,8 @@ active_binding_example
 
 ## Example dataset
 
-To illustrate some of the functionality of `plot.pretty`, I use an example dataset from the `Tools4ETS` package. This is a dataset which contains a sample of a depth and temperature observations at defined timestamps collected from two flapper skate, _Dipturus intermedius_, off the West Coast of Scotland by Scottish Natural Heritage and Marine Scotland Science. We'll load these data and focus on one individual for simplicity. For visualisation purposes, we'll also define a new column that contains depth expressed as a negative number:
+To illustrate some of the functionality of `plot.pretty`, I use an example dataset from the `Tools4ETS` package which is included in `plot.pretty`. This is a dataset which contains a sample of a depth and temperature observations at defined timestamps collected from two flapper skate, _Dipturus intermedius_, off the West Coast of Scotland by Scottish Natural Heritage and Marine Scotland Science. We'll load these data and focus on one individual for simplicity. For visualisation purposes, we'll also define a new column that contains depth expressed as a negative number:
 ```{r}
-dat_flapper <- Tools4ETS::dat_flapper
 df <- dat_flapper[which(dat_flapper$id == "A"), ]
 df$dn <- df$depth*-1
 utils::head(df, 3)
@@ -268,25 +267,40 @@ Colouring lines by the value of a third variable is one useful approach in the e
 #### Reproduce blank plot with pretty limits
 plot2
 
-#### Use Tools4ETS to define the positions of day/night periods 
-data_shade <-
-  Tools4ETS::define_time_blocks(t1 = min(df$timestamp),
-                                t2 = max(df$timestamp + 24*60*60),
-                                type = "diel",
-                                type_args = list(lon = 56.41535, lat = -5.47184),
-                                to_plot = TRUE,
-                                col = c("white", scales::alpha("grey", 0.5))
-                                )
+#### Define the positions of day/night periods 
+# Note that Tools4ETS::define_time_blocks() could be used here to streamline the code below. 
+# Define the times of day/night across the timeseries:
+dates_block <- seq.POSIXt(min(df$timestamp), max(df$timestamp), by = "days")
+dat_block <- data.frame(date = sort(rep(dates_block, 2)), level = factor(c(rep(1:2, length(dates_block)))))
+dat_block$time <- rep(min(df$timestamp), nrow(dat_block))
+coords <- matrix(c(56, -5), nrow = 1)
+pos_sunrise <- which(dat_block$level == 1); pos_sunset <- which(dat_block$level == 2)
+dat_block$time[pos_sunrise] <- maptools::sunriset(coords,
+                                                  dateTime = dat_block$date[pos_sunrise],
+                                                  direction = "sunrise",
+                                                  POSIXct.out = TRUE)[,2]
+dat_block$time[pos_sunset] <- maptools::sunriset(coords,
+                                                 dateTime = dat_block$date[pos_sunset],
+                                                 direction = "sunset",
+                                                 POSIXct.out = TRUE)[,2]
+# Associate day/night periods with appropriate colour
+dat_block$col <- c("white", "dimgrey")[dat_block$level]
+# Rearrange dataframe:
+x1 <- dat_block$time[1:(nrow(dat_block)-1)]
+x2 <- dat_block$time[2:nrow(dat_block)]
+col <- dat_block$col[1:(nrow(dat_block)-1)]
+dat_block <- data.frame(x1 = x1, x2 = x2, col = col)
+dat_block$col <- as.character(dat_block$col)
+
 #### These can also be generated by the user. All that is required is that
 # ... the positions (and colours) of the blocks is specifed, here by x1, x2 and col:
-str(data_shade)
-
+utils::str(dat_block)
 #### Add shading to the plot, with vertical bars exactly within pretty y axis limits 
-add_shading(data_shade$x1,
-            data_shade$x2,
+add_shading(dat_block$x1,
+            dat_block$x2,
             horiz = FALSE,
             lim = axis_ls[[2]]$lim,
-            col = data_shade$col, 
+            col = dat_block$col, 
             border = FALSE) %>% invisible()
 
 #### Add back depth timeseries 
@@ -331,16 +345,16 @@ Further information is provided in the help file (see `?summarise_in_bins()`). H
 
 ## Add model predictions: `list_CIs()` and `add_model_predictions()`
 
-During or following data exploration, models are useful tools to elucidate trends and relationships. To evaluate the performance of models, it is often useful to plot model predictions ontop of observed data. Two functions make this easy with `plot.pretty`: `list_CIs()` and `add_model_predictions()`. To illustrate this, below I consider a model of depth as a smooth function of time. Prior to modelling, it is helpful to 'flag' and then 'thin' the timeseries using functions from `Tools4ETS` to reduce serial autocorrelation. Then, I model the thinned data as a function of time, and add predictions to the plot. 
+During or following data exploration, models are useful tools to elucidate trends and relationships. To evaluate the performance of models, it is often useful to plot model predictions ontop of observed data. Two functions make this easy with `plot.pretty`: `list_CIs()` and `add_model_predictions()`. To illustrate this, below I consider a model of depth as a smooth function of time, using a thinned subset of the data, and then add predictions to a plot of the depth timeseries. Note that this model is purely for demonstration purposes; for further discussion, see the `Tools4ETS` package.
 
 ```{r, fig.width = 7, fig.height = 5}
 #### Flag and thin timeseries to reduce serial autocorrelation 
-# See Tools4ETS for more details on these functions. 
-df <- cbind(df, Tools4ETS::flag_ts(df$timestamp, duration_threshold = 720))
-dat_flapper_thin <- Tools4ETS::thin_ts(df, flag1 = "flag1", first = 1, nth = 10)
+dat_flapper_thin <- df[seq(1, 5000, by = 10), ]
 
 #### Implement a preliminary model of depth ~ s(time) using mgcv::bam and the thinned dataset 
-m1 <- mgcv::bam(depth ~ s(scale(as.numeric(timestamp), scale = FALSE), bs = "cr", k = 10), rho = 0.83, data = dat_flapper_thin)
+m1 <- mgcv::bam(depth ~ s(scale(as.numeric(timestamp), scale = FALSE), bs = "cr", k = 10), 
+                rho = 0.78,
+                data = dat_flapper_thin)
 
 #### Use the predict function to define fitted values and SEs
 p <- mgcv::predict.bam(m1, se.fit = TRUE)
@@ -351,7 +365,7 @@ p <- mgcv::predict.bam(m1, se.fit = TRUE)
 # ... of list_CIs()
 CIs <- list_CIs(pred = p, fadj = function(x){-x})
 # We now have a list of fitted values, lower and upper CIs which we can plot 
-str(CIs)
+utils::str(CIs)
 
 #### Plot observed data 
 plot1
@@ -368,15 +382,15 @@ add_pretty_axis
 
 # Integrative functions 
 
-`pretty.plot` contains a few integrative functions which implement some of the building blocks described above for particular purposes, with more or less generality. Current functions include `plot_residuals()`, which produces a raft of pretty diagnostic residual plots for a model, `pretty_hist()` and `pretty_density()` which produce histograms and density plots (which can be useful in data exploration and model diagnostics) and `pretty_plot()` which is very like `graphics::plot()` but uses the power of `pretty_axis()` to make the axes and can handle several function types (e.g. `stats::qqnorm()`, see below). 
+`pretty.plot` contains a few integrative functions which implement some of the building blocks described above for particular purposes, with more or less generality. Current functions include `pretty_residuals()`, which produces a raft of pretty diagnostic residual plots for a model, `pretty_hist()` and `pretty_density()` which produce histograms and density plots (which can be useful in data exploration and model diagnostics) and `pretty_plot()` which is very like `graphics::plot()` but uses the power of `pretty_axis()` to make the axes and can handle several function types (e.g. `stats::qqnorm()`, see below). 
 
-## Model residuals: `plot_residuals()`
+## Model residuals: `pretty_residuals()`
 
-To examine the extent to which model assumptions are met, residual diagnostic plots are instructive. These include standard diagnostic plots (i.e., residuals versus fitted values, residuals versus the linear predictor, a histogram of residuals and a quantile-quantile plot of residuals) as well as plots of residuals against covariates (`vars`, below) and, for timeseries, timestamps and autocorrelation functions (ACF) of residuals. This functionality is provided by `plot_residuals()`, which plots standard diagnostic plots with pretty axes as well as residuals against one or more variables, timestamps and the ACF (if applicable). 
+To examine the extent to which model assumptions are met, residual diagnostic plots are instructive. These include standard diagnostic plots (i.e., residuals versus fitted values, residuals versus the linear predictor, a histogram of residuals and a quantile-quantile plot of residuals) as well as plots of residuals against covariates (`vars`, below) and, for timeseries, timestamps and autocorrelation functions (ACF) of residuals. This functionality is provided by `pretty_residuals()`, which plots standard diagnostic plots with pretty axes as well as residuals against one or more variables, timestamps and the ACF (if applicable). 
 
 ```{r, fig.width = 7, fig.height = 10}
 pp <- par(mfrow = c(4, 2), oma = c(2, 2, 1, 1), mar = c(3, 3, 3, 3))
-plot_residuals(residuals = m1$std.rsd, 
+pretty_residuals(residuals = m1$std.rsd, 
                fv = stats::fitted(m1),
                lp = stats::fitted(m1), 
                vars = "temp",
@@ -390,7 +404,7 @@ par(pp)
 For large datasets, it can be helpful if some plots are based on random subset of residuals. For example, below we'll use all residuals for most plots (some plots, like quantile-quantile plots, can be quite sensitive to the removal of data), but only plot a random sample of 50 % of residuals for plots 3 and 4, which show the residuals versus fitted values and the linear predictor. (In this case, the two plots are identical.) 
 ```{r, fig.width = 7, fig.height = 10}
 pp <- par(mfrow = c(4, 2), oma = c(2, 2, 1, 1), mar = c(3, 3, 3, 3))
-plot_residuals(residuals = m1$std.rsd, 
+pretty_residuals(residuals = m1$std.rsd, 
                fv = stats::fitted(m1),
                lp = stats::fitted(m1), 
                vars = "temp",
@@ -402,7 +416,7 @@ plot_residuals(residuals = m1$std.rsd,
                )
 par(pp)
 ```
-More details are given in `?plot_residuals`. For the example depth timeseries, these plots demonstrate that out model needs to be interpreted with caution: residuals versus fitted values, temperature and timestamp look reasonable, but the model has not perfectly captured the autocorrelation among residuals and the assumption of normality is clearly violated. 
+More details are given in `?pretty_residuals`. For the example depth timeseries, these plots demonstrate that out model needs to be interpreted with caution: residuals versus fitted values, temperature and timestamp look reasonable, but the model has not perfectly captured the autocorrelation among residuals and the assumption of normality is clearly violated. 
 
 ## Number lines and timelines: `pretty_numline()`
 
@@ -441,37 +455,9 @@ For factor data, boxplots are often particularly informative, and these can be i
 pretty_boxplot(dat_flapper$id, dat_flapper$depth, xlab = "ID", ylab = "Depth (m)")
 ```
 
-## Timeseries plot: `Tools4ETS::plot_ts()`
+## Timeseries plot: `Tools4ETS::pretty_ts()`
 
-For timeseries data, `Tools4ETS::plot_ts()` links most of the building blocks described above to streamline the creation of complex plots. In the example below, I plot depth against time. I could colour the timeseries by temperature, but I chose to add this as a new axis instead. Axis parameters are controlled by `pretty_axis_args` and `pretty_axis_args_y2` and labels by `mtext_args`. For demonstration purposes, I add diel shading, summary statistics and the predictions of a model. Of course, this is a much more complex plot than desirable, but it's purpose here is solely to demonstrate some of the functionality in `Tools4ETS::plot_ts()`. 
-
-```{r, fig.width = 7, fig.height = 5}
-pp <- par(oma = c(2, 2, 2, 2))
-Tools4ETS:::plot_ts(x = df$timestamp, 
-                    y1 = df$dn, 
-                    y2 = df$temp, 
-                    pretty_axis_args = list(side = c(3, 2), pretty = list(n = 10), axis = list(las = TRUE)),
-                    mtext_args = 
-                      list(
-                            list(side = 3, text = "Time", line = 2), 
-                            list(side = 2, text = "Depth (m)", line = 2), 
-                            list(side = 4, text = expression(paste("Temperature (", degree, "C)")), line = 2.5)
-                            ), 
-                    y2_method = "by_new_axis", 
-                    pretty_axis_args_y2 = list(side = 4, pretty = list(n = 10), axis = list(las = TRUE)),
-                    add_lines_args_y2 = list(col = "blue"),
-                    list_CIs_args = list(pred = p, fadj = function(x){ -x }), 
-                    add_model_predictions_args = list(x = dat_flapper_thin$timestamp),
-                    summarise_in_bins_args = list(bin = "12 hours", funs = list(mean = mean)),
-                    add_lines_args_summaries = list(lwd = 1, col = "red"),
-                    add_shading_type = "diel", 
-                    add_shading_dtb_args = list(type_args = list(lon = 56.41535, lat = -5.47184)), 
-                    add_shading_args = list(border = FALSE)
-                    ) %>% invisible()
-par(pp)
-```
-
-`?Tools4ETS::plot_ts()` provides further information and examples. `Tools4ETS::visTS()` is an extension of `plot_ts()` into an interactive environment which facilitates rapid data exploration and the production of publication-quality plots for timeseries data via an R Shiny-Dashboard interface. 
+For timeseries data, `Tools4ETS::pretty_ts()` links most of the building blocks described above to streamline the creation of complex plots. `?Tools4ETS::pretty_ts()` provides further information and examples. `Tools4ETS::vis_ts()` is an extension of `pretty_ts()` into an interactive environment which facilitates rapid data exploration and the production of publication-quality plots for timeseries data via an R Shiny-Dashboard interface. 
 
 ## Multiple plot functions: `pretty_plot()`
 
@@ -498,7 +484,7 @@ pretty_plot(x = df$timestamp,
             )
 ```
 
-`pretty_plot()` can use some other functions, like `stats::qqnorm()`, which is implemented under-the-hood in `plot_residuals()`, as follows:
+`pretty_plot()` can use some other functions, like `stats::qqnorm()`, which is implemented under-the-hood in `pretty_residuals()`, as follows:
 ```{r, fig.width = 7, fig.height = 5}
 pp <- par(mfrow = c(1, 2))
 qqnorm(m1$std.rsd)

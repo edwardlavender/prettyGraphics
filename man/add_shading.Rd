@@ -42,25 +42,42 @@ d$depth <- rnorm(nrow(d), 200, 25)
 ylim <- range(d$depth)
 plot(d$t, d$depth, type = "n", ylim = ylim)
 
-#### Define arguments for add_shading
+#### Define arguments for add_shading()
 # In this example, we'll add blocks of shading distinguishing 'day' versus 'night' to aid
 # ... interpretation of the animal depth timeseries we've simulated above. To do this,
-# ... we can use the Tools4ETS::define_time_blocks() function
-# ... to define a dataframe defining the time of sunrise and sunset  on each day of our timeseries.
-data_shade <-
-  Tools4ETS::define_time_blocks(t1 = min(t),
-                                t2 = max(t),
-                                type = "diel",
-                                type_args = list(lon = 56, lat = -5),
-                                to_plot = TRUE,
-                                col = c("white", "dimgrey"))
+# ... we could use the Tools4ETS::define_time_blocks() function but, for transparency,
+# ...  we'll use the following approach to define the times of day/night and associated colours
+# ... in a dataframe that we can then pass to add_shading():
+# Define the times of day/night across the timeseries:
+dates_block <- seq.POSIXt(min(t), max(t), by = "days")
+dat_block <- data.frame(date = sort(rep(dates_block, 2)), level = c(rep(1:2, length(dates_block))))
+dat_block$level <- factor(dat_block$level)
+coords <- matrix(c(56, -5), nrow = 1)
+pos_sunrise <- which(dat_block$level == 1)
+pos_sunset <- which(dat_block$level == 2)
+dat_block$time <- rep(min(t), nrow(dat_block))
+dat_block$time[pos_sunrise] <- maptools::sunriset(coords,
+                                                  dateTime = dat_block$date[pos_sunrise],
+                                                  direction = "sunrise",
+                                                  POSIXct.out = TRUE)[,2]
+dat_block$time[pos_sunset] <- maptools::sunriset(coords,
+                                                 dateTime = dat_block$date[pos_sunset],
+                                                 direction = "sunset",
+                                                 POSIXct.out = TRUE)[,2]
+dat_block$col <- c("white", "dimgrey")[dat_block$level]
+# Rearrange dataframe:
+x1 <- dat_block$time[1:(nrow(dat_block)-1)]
+x2 <- dat_block$time[2:nrow(dat_block)]
+col <- dat_block$col[1:(nrow(dat_block)-1)]
+dat_block <- data.frame(x1 = x1, x2 = x2, col = col)
+dat_block$col <- as.character(dat_block$col)
 
 #### Add shading
-add_shading(data_shade$x1,
-            data_shade$x2,
+add_shading(dat_block$x1,
+            dat_block$x2,
             horiz = FALSE,
             lim = ylim,
-            col = data_shade$col)
+            col = dat_block$col)
 
 #### Add back depth timeseries using add_lines()
 add_lines(d$t, d$depth, lwd = 2)

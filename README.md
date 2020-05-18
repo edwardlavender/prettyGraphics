@@ -84,12 +84,12 @@ devtools::install_github("edwardlavender/plot.pretty")
   - `pretty_boxplot()` creates prettier boxplots;
   - `pretty_density()` creates prettier probability density plots;
   - `pretty_numline()` creates pretty number lines and timelines;
-  - `plot_residuals()` creates prettier diagnostic residual plots
+  - `pretty_residuals()` creates prettier diagnostic residual plots
     (including standard diagnostic plots alongside residuals against
     covariates, timestamps and the autocorrelation function, if
     applicable);
-  - `Tools4ETS::plot_ts()`, which is based on `plot.pretty`, creates
+  - `Tools4ETS::pretty_ts()`, which is based on `plot.pretty`, creates
     pretty timeseries plots;
-  - `Tools4ETS::visTS()`, which is based on `plot.pretty`, is an R
+  - `Tools4ETS::vis_ts()`, which is based on `plot.pretty`, is an R
     Shiny-Dashboard user interface for the interactive exploration of
     (ecological) timeseries and creation of publication quality plots;

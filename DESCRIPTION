@@ -9,13 +9,13 @@ Imports:
     dplyr, plyr, lubridate, 
     plotrix, scales, Hmisc,
     rlist, 
-    stringi, stringr, 
-    utils.add, Tools4ETS
+    stringi, stringr, maptools
 Suggests:
     viridis,
     mgcv, 
     knitr, rmarkdown, 
     magrittr, pryr, devtools,
+Depends: R (>= 3.5)
 License: GPL-3
 URL: http://github.com/edwardlavender/plot.pretty/ 
 BugReports: http://github.com/edwardlavender/plot.pretty/issues
