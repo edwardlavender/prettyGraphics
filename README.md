@@ -69,6 +69,7 @@ devtools::install_github("edwardlavender/plot.pretty")
 
   - `summarise_in_bins()` computes statistical summaries of continuous
     data in bins, which can be added to plots using `add_lines()`;
+  - `add_error_bars()` adds error bars to a plot;
 
 ## Model predictions
 
