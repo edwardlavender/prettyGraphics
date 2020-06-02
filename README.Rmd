@@ -45,7 +45,6 @@ devtools::install_github("edwardlavender/plot.pretty")
 * `add_grid_xy_rect()` adds a rectangular grid to a plot at user-defined positions;
 
 ## Colouring lines by covariates
-
 * `add_lines()` adds a line to a plot illustrating a relationship between y and x that can be coloured by the values of a third variable;
 * `add_colour_bar()` adds a customisable colour bar legend to a plot;
 
@@ -76,4 +75,5 @@ devtools::install_github("edwardlavender/plot.pretty")
 
 ## Plot layout
 
-* `pretty_mf()` defines a suitable plotting window for a given number of plots;
+* `par_mf()` defines a suitable plotting window for a given number of plots;
+* `par_tri()` defines the indices of plots along the lower or upper triangle of a square multi-panel matrix;

@@ -97,5 +97,7 @@ devtools::install_github("edwardlavender/plot.pretty")
 
 ## Plot layout
 
-  - `pretty_mf()` defines a suitable plotting window for a given number
-    of plots;
+  - `par_mf()` defines a suitable plotting window for a given number of
+    plots;
+  - `par_tri()` defines the indices of plots along the lower or upper
+    triangle of a square multi-panel matrix;
