@@ -80,6 +80,7 @@ devtools::install_github("edwardlavender/plot.pretty")
   - `pretty_boxplot()` creates prettier boxplots;
   - `pretty_density()` creates prettier probability density plots;
   - `pretty_numline()` creates pretty number lines and timelines;
+  - `pretty_mat()` creates pretty matrices;
   - `pretty_residuals()` creates prettier diagnostic residual plots
     (including standard diagnostic plots alongside residuals against
     covariates, timestamps and the autocorrelation function, if

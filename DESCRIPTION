@@ -7,7 +7,7 @@ Maintainer: Edward Lavender <el72@st-andrews.ac.uk>
 Description: This package provides a compilation of functions which make exploring data and creating publication-quality plots easier with base R. The package has been motivated by the requirements of continuous, ecological datasets (i.e. continuous responses and covariates), although some functions are designed to handle factors.
 Imports: 
     dplyr, plyr, lubridate, 
-    plotrix, scales, Hmisc,
+    fields, plotrix, scales, Hmisc,
     rlist, 
     stringi, stringr, maptools, 
     lunar

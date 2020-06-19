@@ -59,6 +59,44 @@ check_input <- function(arg, input, supp, default = supp[1]){
 }
 
 
+######################################
+######################################
+#### list_merge() from utils.add
+# Source: https://github.com/edwardlavender/utils.add
+# 18/06/2020
+
+#' @title Merge lists accounting for empty lists
+#' @description This function is a wrapper for \code{\link[rlist]{list.merge}}. The difference is that this function first screens out any empty lists, which cause errors for \code{\link[rlist]{list.merge}}. If there is only one non-empty list, this is returned. Otherwise, \code{\link[rlist]{list.merge}} is used to merge lists in an iterative process. For large lists, this approach will be slower than calling \code{\link[rlist]{list.merge}} directly if there are no empty lists. Both \code{\link[rlist]{list.merge}} and \code{list_merge()} require named lists.
+#'
+#' @param ... named lists
+#' @keywords internal
+
+list_merge <- function(...){
+  # Define overall list
+  lists <- list(...)
+  # Identify empty lists
+  pos_empty <- which(sapply(lists, function(x) length(x) == 0))
+  # Remove any empty lists
+  if(length(pos_empty) > 0){
+    lists[pos_empty] <- NULL
+  }
+  # If there is only one list left, simply return that list
+  if(length(lists) == 1){
+    return(unlist(lists, recursive = FALSE))
+
+    # Otherwise, use rlist::list.merge() to join lists
+  } else{
+    # Define the first list
+    l <- lists[[1]]
+    # Iteractively add to this list
+    for(i in 2:length(lists)){
+      l <- rlist::list.merge(l, lists[[i]])
+    }
+    return(l)
+  }
+}
+
+
 #### End of code.
 ######################################
 ######################################
