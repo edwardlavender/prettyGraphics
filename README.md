@@ -25,6 +25,7 @@ functionality includes:
   - Adding model predictions to plots to compare observations with model
     predictions.
   - Integrative functions which create prettier plots more easily.
+  - Defining pretty plot layouts;
 
 ## Installation
 
@@ -52,27 +53,21 @@ devtools::install_github("edwardlavender/plot.pretty")
   - `add_grid_xy_rect()` adds a rectangular grid to a plot at
     user-defined positions;
 
-## Colouring lines by covariates
+## Data exploration
 
   - `add_lines()` adds a line to a plot illustrating a relationship
     between y and x that can be coloured by the values of a third
     variable;
   - `add_colour_bar()` adds a customisable colour bar legend to a plot;
-
-## Shading
-
   - `add_shading()` adds blocks of shading to a plot to elucidate
     relationships between a response and explanatory variables, one of
     which is a factor;
 
-## Statistical summaries
+## Statistical inference
 
   - `summarise_in_bins()` computes statistical summaries of continuous
     data in bins, which can be added to plots using `add_lines()`;
   - `add_error_bars()` adds error bars to a plot;
-
-## Model predictions
-
   - `list_CIs()` lists model predictions/confidence intervals from
     fitted values and standard errors (or similar);
   - `add_model_predictions()` adds model predictions (e.g. fitted lines,
@@ -94,6 +89,10 @@ devtools::install_github("edwardlavender/plot.pretty")
   - `Tools4ETS::vis_ts()`, which is based on `plot.pretty`, is an R
     Shiny-Dashboard user interface for the interactive exploration of
     (ecological) timeseries and creation of publication quality plots;
+
+## Specialised functions
+
+  - `add_moons()` add moons to a plot of lunar phase;
 
 ## Plot layout
 

@@ -1,5 +1,10 @@
 ######################################
 ######################################
+#### check functions
+# Source: utils.add: https://github.com/edwardlavender/utils.add
+# 19/06/2020
+
+######################################
 #### check...()
 
 #' @title Check that arguments supplied via ... are allowed
@@ -10,22 +15,8 @@
 #'
 #' @return The function checks other arguments supplied via ...; if these contain an argument that is not allowed, the function returns an error. Otherwise, nothing is returned.
 #'
-#' @examples
-#' #### Example (1) Imagine we have a function in wich xlim and ylim cannot be supplied via ...
-#' # Internally, within that function, we can implement check as follows:
-#' pf <- function(...){
-#'       check...(not_allowed = c("xlim", "ylim"),...)
-#'       plot(1:10, 1:10, xlim = c(1, 10), ylim = c(1, 10),...)
-#'       }
-#' # This works:
-#' pf(col = "red")
-#' # This returns an error
-#' \dontrun{
-#' pf(col = "red", xlim = c(1, 15))
-#' }
-#'
 #' @author Edward Lavender
-#' @export
+#' @keywords internal
 
 
 check... <- function(not_allowed,...){
@@ -40,7 +31,6 @@ check... <- function(not_allowed,...){
 
 
 ######################################
-######################################
 #### check_input()
 
 #' @title Check the input to a parent function argument
@@ -53,28 +43,8 @@ check... <- function(not_allowed,...){
 #'
 #' @return The function returns \code{input} or \code{default} (the latter with a warning) depending on whether or not \code{input} is within \code{supp} (i.e., whether or not the input to the argument of a parent function is supported).
 #'
-#' @examples
-#'
-#' #### Define an example function:
-#' # The function returns 1 or 2, depending on the input to 'output'
-#' return_1_or_2 <- function(output = 1){
-#'   # Check the output, changing the output to the default if necessary
-#'   output <- check_input(arg = "output", input = output, supp = 1:2, default = 1)
-#'   # Return a value according to 'output'
-#'   if(output == 1) return(1) else if(output == 2) return(2)
-#' }
-#'
-#' #### Example (1): If a supported input to output is provided, everything works perfectly:
-#' return_1_or_2(1); return_1_or_2(2)
-#'
-#' #### Example (2): # If an unsupported input to output is provided,
-#' # ... the default output is used with a warning:
-#' \dontrun{
-#' return_1_or_2(3)
-#' }
-#'
 #' @author Edward Lavender
-#' @export
+#' @keywords internal
 #'
 
 check_input <- function(arg, input, supp, default = supp[1]){
