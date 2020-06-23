@@ -4,17 +4,17 @@
 \alias{add_lagging_point_zero}
 \title{Add lagging .0(s) to a number}
 \usage{
-add_lagging_point_zero(x, n, ignore = FALSE)
+add_lagging_point_zero(x, n = NULL, ignore = FALSE)
 }
 \arguments{
 \item{x}{A numeric or character vector which contains some elements to which lagging .0(s) should be added.}
 
-\item{n}{A number which defines the desired number of decimal places. Any element in \code{x} with fewer than \code{n} decimal places will have the appropriate number of decimal places added. If \code{n} is less than the number of decimal places for any element in \code{x}, the function will return an error. In this case, round all numbers to the same precision first, before implementing \code{add_lagging_point_zero}.}
+\item{n}{A number which defines the desired number of decimal places. Any element in \code{x} with fewer than \code{n} decimal places will have the appropriate number of decimal places added. If \code{n} is less than the number of decimal places for any element in \code{x}, the function will return an error. In this case, round all numbers to the same precision first, before implementing \code{add_lagging_point_zero}. If \code{n = NULL}, the function defines \code{n} internally to be the maximum number of decimal places in \code{x}.}
 
-\item{ignore}{A logical input which specifies whether or not, under the condition that no number has any decimal places, the \code{n} argument should be ignored (i.e. if \code{TRUE}, the character vector, \code{x}, is simply returned without any adjustments).}
+\item{ignore}{A logical input which specifies whether or not, under the condition that no number has any decimal places, the \code{n} argument should be ignored (i.e. if \code{TRUE}, the input vector, \code{x}, is simply returned without any adjustments).}
 }
 \value{
-A character vector, as inputted, but in which any elements with fewer than \code{n} decimal places have had ".0"(s) added.
+A vector, as inputted, but in which any elements with fewer than \code{n} decimal places have had ".0"(s) added.
 }
 \description{
 This function adds lagging .0(s) to a number. This is useful for tidy graph labels (e.g. with scientific notation).
@@ -22,6 +22,9 @@ This function adds lagging .0(s) to a number. This is useful for tidy graph labe
 \examples{
 
 #### Example (1): Bring all numbers up to the same number of decimal places
+# Use maximum number of decimal places of any one number (i.e., default n specification):
+add_lagging_point_zero(c(0.01, 0.002))
+# Specify desired number of decimal places
 add_lagging_point_zero(c(0.01, 0.002), n = 4)
 
 #### Example (2): More examples

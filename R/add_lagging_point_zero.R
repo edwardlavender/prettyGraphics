@@ -2,14 +2,17 @@
 #' @description This function adds lagging .0(s) to a number. This is useful for tidy graph labels (e.g. with scientific notation).
 #'
 #' @param x A numeric or character vector which contains some elements to which lagging .0(s) should be added.
-#' @param n A number which defines the desired number of decimal places. Any element in \code{x} with fewer than \code{n} decimal places will have the appropriate number of decimal places added. If \code{n} is less than the number of decimal places for any element in \code{x}, the function will return an error. In this case, round all numbers to the same precision first, before implementing \code{add_lagging_point_zero}.
-#' @param ignore A logical input which specifies whether or not, under the condition that no number has any decimal places, the \code{n} argument should be ignored (i.e. if \code{TRUE}, the character vector, \code{x}, is simply returned without any adjustments).
+#' @param n A number which defines the desired number of decimal places. Any element in \code{x} with fewer than \code{n} decimal places will have the appropriate number of decimal places added. If \code{n} is less than the number of decimal places for any element in \code{x}, the function will return an error. In this case, round all numbers to the same precision first, before implementing \code{add_lagging_point_zero}. If \code{n = NULL}, the function defines \code{n} internally to be the maximum number of decimal places in \code{x}.
+#' @param ignore A logical input which specifies whether or not, under the condition that no number has any decimal places, the \code{n} argument should be ignored (i.e. if \code{TRUE}, the input vector, \code{x}, is simply returned without any adjustments).
 #'
-#' @return A character vector, as inputted, but in which any elements with fewer than \code{n} decimal places have had ".0"(s) added.
+#' @return A vector, as inputted, but in which any elements with fewer than \code{n} decimal places have had ".0"(s) added.
 #'
 #' @examples
 #'
 #' #### Example (1): Bring all numbers up to the same number of decimal places
+#' # Use maximum number of decimal places of any one number (i.e., default n specification):
+#' add_lagging_point_zero(c(0.01, 0.002))
+#' # Specify desired number of decimal places
 #' add_lagging_point_zero(c(0.01, 0.002), n = 4)
 #'
 #' #### Example (2): More examples
@@ -52,10 +55,11 @@
 #### add_lagging_point_zero
 
 add_lagging_point_zero <-
-  function(x, n, ignore = FALSE){
-    x <- as.character(x)
-    dp <- stringr::str_split_fixed(x, "[.]", 2)[, 2]
+  function(x, n = NULL, ignore = FALSE){
+    dp <- stringr::str_split_fixed(as.character(x), "[.]", 2)[, 2]
     if(all(nchar(dp) == 0) & ignore) return(x)
+    x <- as.character(x)
+    if(is.null(n)) n <- max(nchar(dp))
     diff <- n - nchar(dp)
     if(any(diff < 0)) stop("n is too small; some numbers have more decimal places than n.")
     pwd <- function(x, diff, n){
