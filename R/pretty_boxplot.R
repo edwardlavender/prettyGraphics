@@ -80,7 +80,7 @@
 #' par(pp)
 #'
 #' #### Example (7): Example with multiple categories
-#' # pretty_boxplot() does not suppor formula notation, so multiple categories
+#' # pretty_boxplot() does not support formula notation, so multiple categories
 #' # ... have to be joined together prior to plotting
 #' pretty_boxplot(factor(paste0(d$x, ",", d$x2)), d$y)
 #'
@@ -117,29 +117,8 @@ pretty_boxplot <-
       pretty_axis_args$side <- 1:2
     }
 
-    #### Define parameters for pretty axis for x axis
-    # Number of groups
-    ng <- length(levels(x))
-    # x a number
-    x_num <- as.numeric(x)
-    # Add data to pretty_axis_args
-    if(is.null(pretty_axis_args$x)) pretty_axis_args$x <- list(x_num, y)
-    # Add limits for x axis, while making sure there is an empty list for the y axis
-    if(is.null(pretty_axis_args$lim)) pretty_axis_args$lim <- lapply(pretty_axis_args$side, function(x) NULL)
-    if(is.null(pretty_axis_args$lim[[1]])){
-      xlim <- c(min(x_num) - adj, max(x_num) + adj)
-      pretty_axis_args$lim[[1]] <- xlim
-    }
-    # Add x at positions for x axis, ensuring there is a list for the y axis
-    if(is.null(pretty_axis_args$axis)) pretty_axis_args$axis <- lapply(pretty_axis_args$side, function(x) NULL)
-    # We need to duplicate any existing list, if only a single list has been provided that will apply to both axes
-    if(plotrix::listDepth(pretty_axis_args$axis) == 1) pretty_axis_args$axis <- lapply(pretty_axis_args$side, function(i) pretty_axis_args$axis)
-    if(is.null(pretty_axis_args$axis[[1]]$at)) pretty_axis_args$axis[[1]]$at <- c(pretty_axis_args$lim[[1]][1], 1:ng, pretty_axis_args$lim[[1]][2])
-    if(all(c(1, 3) %in% pretty_axis_args$side)) pretty_axis_args$axis[[which(pretty_axis_args$side == 3)]]$at <- pretty_axis_args$axis[[1]]$at
-    # Adjust labels, so we will only retain labels for the factor levels
-    if(is.null(pretty_axis_args$axis[[1]]$labels)) pretty_axis_args$axis[[1]]$labels <- c("", levels(x), "")
-    if(all(c(1, 3) %in% pretty_axis_args$side)) pretty_axis_args$axis[[which(pretty_axis_args$side == 3)]]$labels <- pretty_axis_args$axis[[1]]$labels
     #### Implement pretty_axis_args
+    pretty_axis_args$x <- list(x, y)
     axis_ls <- plot.pretty::implement_pretty_axis_args(pretty_axis_args)
 
     #### Create boxplot, with appropriate limits
@@ -147,16 +126,6 @@ pretty_boxplot <-
                       xlim = axis_ls[[1]]$lim, ylim = axis_ls[[2]]$lim,
                       frame.plot = FALSE, axes = FALSE,
                       xlab = xlab, ylab = ylab,...)
-
-    #### We could blank out the tick marks at the xlimits without labels by adding a line first,
-    # ... without ticks, and then suppressing ticks
-    xaxis <- axis_ls[[1]]$axis
-    xaxis$lwd.ticks <- 0
-    do.call(graphics::axis, xaxis)
-    # Update axis_ls to only contain tick marks at factor positions:
-    sel <- 2:(ng+1)
-    axis_ls[[1]]$axis$at <- axis_ls[[1]]$axis$at[sel]
-    axis_ls[[1]]$axis$labels <- axis_ls[[1]]$axis$labels[sel]
 
     #### Implement pretty_axis_args and implement_mtext_args
     plot.pretty::pretty_axis(axis_ls = axis_ls, add = TRUE)

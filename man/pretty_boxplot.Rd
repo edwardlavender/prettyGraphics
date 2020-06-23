@@ -107,7 +107,7 @@ invisible(
 par(pp)
 
 #### Example (7): Example with multiple categories
-# pretty_boxplot() does not suppor formula notation, so multiple categories
+# pretty_boxplot() does not support formula notation, so multiple categories
 # ... have to be joined together prior to plotting
 pretty_boxplot(factor(paste0(d$x, ",", d$x2)), d$y)
 
