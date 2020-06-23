@@ -349,6 +349,26 @@ choose_foo_axis <-
   }
 
 
+
+###################################
+###################################
+#### empty_list_to_list_null
+
+#' @title Replace \code{list()} with \code{list(NULL)}
+#' @description This function replaces an empty list with \code{list(NULL)}.
+#' @param list_name The name of the list.
+#' @param l A list.
+#' @return A list, as inputted, if the inputted list is not empty; or list(NULL) if the input is an empty list.
+#' @author Edward Lavender
+#' @keywords internal
+
+empty_list_to_list_null <-
+  function(list_name, l){
+    check_input_class(arg = list_name, input = l, if_class = NULL, to_class = "list", type = "stop")
+    if(length(l) == 0) return(list(NULL)) else return(l)
+  }
+
+
 ###################################
 ###################################
 #### list_adjust()

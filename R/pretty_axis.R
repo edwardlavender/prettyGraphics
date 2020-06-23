@@ -4,8 +4,8 @@
 #' @param side A numeric input specifying the side(s) of a plot for which pretty axes should be defined.
 #' @param x A list, with one element for each side, defining the values to be plotted on that side of the plot. Numeric, timestamp (i.e. \code{\link[base]{Dates}} or \code{\link[base]{DateTimeClasses}}) or factor data are supported. Character vectors will be converted to factors for plotting.
 #' @param lim (optional) A list, with one element for each side, containing a vector of axes limits for that axis. If provided, then axes limits (pretty or regular) are forced to lie within provided limits. Otherwise, suitable limits can be suggested by the function based on the data provided in \code{x}. For factors, these limits are (1, number of factor levels).
-#' @param pretty A list of named arguments to be provided to \code{\link[base]{pretty}} (for numeric data), \code{\link[lubridate]{pretty_dates}} (for timestamp data) or an internal approach (for factors) to create pretty axes. If \code{pretty = list(NULL)}, pretty sequences for an axis/axes are not created and a user-defined sequence is implemented instead (see below). If each axis should be controlled by the same pretty parameters, these can be specified in the pretty argument in a single list. If each axis should be controlled by different parameters, a nested list is required, with a list of arguments for each axis provided within the overall list (see Examples). The default option is to create pretty axes with approximately \code{n = 5} breaks. For factors, the only implemented argument is \code{n}; any other supplied arguments are silently ignored.
-#' @param units (optional) A list of units for each side. If \code{pretty = list(NULL)}, then a regular sequence of values between axes limits will be defined. This can be controlled by supplying the distance between sequential values to this argument (otherwise, a default value is used). For numeric axes, this is a number; for POSIXct axes, this is a character which specifies the duration between sequential ticks (e.g. "secs").
+#' @param pretty A list of named arguments to be provided to \code{\link[base]{pretty}} (for numeric data), \code{\link[lubridate]{pretty_dates}} (for timestamp data) or an internal approach (for factors) to create pretty axes. If \code{pretty = list()}, pretty sequences for an axis/axes are not created and a user-defined sequence is implemented instead (see below). If each axis should be controlled by the same pretty parameters, these can be specified in the pretty argument in a single list. If each axis should be controlled by different parameters, a nested list is required, with a list of arguments for each axis provided within the overall list (see Examples). The default option is to create pretty axes with approximately \code{n = 5} breaks. For factors, the only implemented argument is \code{n}; any other supplied arguments are silently ignored.
+#' @param units (optional) A list of units for each side. If \code{pretty = list()}, then a regular sequence of values between axes limits will be defined. This can be controlled by supplying the distance between sequential values to this argument (otherwise, a default value is used). For numeric axes, this is a number; for POSIXct axes, this is a character which specifies the duration between sequential ticks (e.g. "secs").
 #' @param axis (optional) A list of arguments that are supplied to \code{\link[graphics]{axis}}, \code{\link[graphics]{axis.POSIXct}} or \code{\link[graphics]{axis.Date}} that control axes (e.g. \code{cex.axis}, \code{pos}, \code{col}, etc.). As for the \code{pretty} argument, a single list of arguments will affect all axes; otherwise, a nested list can be provided so that each axis can be controlled independently (see Examples).
 #' @param control_axis (option) A named list of arguments that affect all axes. This is only useful if a nested list is provided to \code{axis} (see above). In this case, any arguments that should affect all axes can be provided via \code{control_axis} so that these do not need to be provided to each list in \code{axis}. (This is simply for convenience.)
 #' @param control_ndp (optional) An integer which defines the number of decimal places on numeric axes. If \code{NULL}, the number of decimal places is set automatically.
@@ -123,7 +123,7 @@
 #'   pretty_axis(side = 1:2,
 #'               x = list(x, y),
 #'               lim = list(x = c(-2, 12), y = c(-10, 41)),
-#'               pretty = list(list(NULL), list(n = 5)),
+#'               pretty = list(list(), list(n = 5)),
 #'               units = list(5, NULL),
 #'               axis_ls = NULL,
 #'               add = FALSE,
@@ -138,7 +138,7 @@
 #'   pretty_axis(side = 1:2,
 #'               x = list(x, y),
 #'               lim = list(x = c(-2, 12), y = c(-10, 41)),
-#'               pretty = list(list(NULL), list(n = 5)),
+#'               pretty = list(list(), list(n = 5)),
 #'               units = list(5, NULL),
 #'               axis = list(col = "red", cex.axis = 1.5),
 #'               axis_ls = NULL,
@@ -158,7 +158,7 @@
 #'               x = list(x, y),
 #'               lim = list(x = c(-2, 12), y = c(-10, 41)),
 #'               pretty = list(list(n = 10), list(n = 5)),
-#'               units = list(NULL),
+#'               units = list(),
 #'               axis = list(list(col = "blue", cex.axis = 1.5), list(col = "red", cex.axis = 1.5)),
 #'               axis_ls = NULL,
 #'               add = FALSE,
@@ -175,7 +175,7 @@
 #'               x = list(x, y),
 #'               lim = list(x = c(-2, 12), y = c(-10, 41)),
 #'               pretty = list(list(n = 10), list(n = 5)),
-#'               units = list(NULL),
+#'               units = list(),
 #'               axis = list(list(col = "blue"), list(col = "red")),
 #'               control_axis = list(cex.axis = 1.5),
 #'               axis_ls = NULL,
@@ -205,7 +205,7 @@
 #' axis_args <-
 #'   pretty_axis(side = 1:4,
 #'               x = list(x, y),
-#'               lim = list(NULL),
+#'               lim = list(),
 #'               pretty = list(n = 5),
 #'               axis = list(list(),
 #'                           list(las = TRUE),
@@ -229,7 +229,7 @@
 #' axis_args <-
 #'   pretty_axis(side = 1:4,
 #'               x = list(x, y),
-#'               lim = list(NULL),
+#'               lim = list(),
 #'               pretty = list(n = 5),
 #'               axis = list(list(format = "%H"),
 #'                            list(las = TRUE),
@@ -250,8 +250,8 @@
 #' axis_args <-
 #'   pretty_axis(side = 1:4,
 #'               x = list(x, y),
-#'               lim = list(NULL),
-#'               pretty = list(list(NULL), list(n = 3)),
+#'               lim = list(),
+#'               pretty = list(list(), list(n = 3)),
 #'               units = list("hours", NULL),
 #'               axis = list(list(format = "%H"),
 #'                           list(las = TRUE),
@@ -335,10 +335,10 @@
 pretty_axis <-
   function(side = 1:4,
            x = list(),
-           lim = list(NULL),
+           lim = list(),
            pretty = list(n = 5),
-           units = list(NULL),
-           axis = list(NULL),
+           units = list(),
+           axis = list(),
            control_axis = list(),
            control_ndp = NULL,
            control_factor_lim = 0,
@@ -366,12 +366,14 @@ pretty_axis <-
       #### Check that data are supplied
       stopifnot(!(length(x) == 0))
 
-      #### Check argument class is "list", where required.
-      mapply(c("x", "lim", "pretty", "units", "axis"),
-             list(x, lim, pretty, units, axis),
-             FUN = function(arg, elm){
-               check_input_class(arg = arg, input = elm, if_class = NULL, to_class = "list", type = "stop")
-               })
+      #### Check argument class is "list", where required, and convert empty lists to list(NULL).
+      # This is required to loop over lists correctly, but it is more intuitive for the user to specify
+      # ... list() rather than list(NULL) to blank out an option.
+      check_input_class(arg = "x", input = x, if_class = NULL, to_class = "list", type = "stop")
+      lim <- empty_list_to_list_null("lim", lim)
+      pretty <- empty_list_to_list_null("pretty", pretty)
+      units <- empty_list_to_list_null("units", units)
+      axis <- empty_list_to_list_null("axis", axis)
 
       #### Check the length of lists is correct.
       mapply(list(x, lim, units),
