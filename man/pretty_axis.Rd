@@ -11,6 +11,7 @@ pretty_axis(
   pretty = list(n = 5),
   units = list(NULL),
   axis = list(NULL),
+  axis_share = list(),
   control_ndp = NULL,
   axis_ls = NULL,
   add = FALSE,
@@ -29,6 +30,8 @@ pretty_axis(
 \item{units}{(optional) A list of units for each side. If \code{pretty = list(NULL)}, then a regular sequence of values between axes limits will be defined. This can be controlled by supplying the distance between sequential values to this argument (otherwise, a default value is used). For numeric axes, this is a number; for POSIXct axes, this is a character which specifies the duration between sequential ticks (e.g. "secs").}
 
 \item{axis}{(optional) A list of arguments that are supplied to \code{\link[graphics]{axis}}, \code{\link[graphics]{axis.POSIXct}} or \code{\link[graphics]{axis.Date}} that control axes (e.g. \code{cex.axis}, \code{pos}, \code{col}, etc.). As for the \code{pretty} argument, a single list of arguments will affect all axes; otherwise, a nested list can be provided so that each axis can be controlled independently (see Examples).}
+
+\item{axis_share}{(option) A named list of arguments that affect all axes. This is only useful if a nested list is provided to \code{axis} (see above). In this case, any arguments that should affect all axes can be provided via \code{axis_share} so that these do not need to be provided to each list in \code{axis}. (This is simply for convenience.)}
 
 \item{control_ndp}{(optional) An integer which defines the number of decimal places on numeric axes. If \code{NULL}, the number of decimal places is set automatically.}
 
@@ -191,6 +194,24 @@ axis_args <-
   )
 plot(x, y, axes = FALSE, xlim = axis_args$`1`$lim, ylim = axis_args$`2`$lim)
 pretty_axis(axis_ls = axis_args, add = TRUE)
+
+#### Shared arguments for each axis (e.g., cex.axis) can be passed via axis_share
+# ... list to reduce typing in cases where other axis parameters require separate control
+# ... (i.e., to avoid having to pass these arguments to every list in a nested list).
+axis_args <-
+  pretty_axis(side = 1:2,
+              x = list(x, y),
+              lim = list(x = c(-2, 12), y = c(-10, 41)),
+              pretty = list(list(n = 10), list(n = 5)),
+              units = list(NULL),
+              axis = list(list(col = "blue"), list(col = "red")),
+              axis_share = list(cex.axis = 1.5),
+              axis_ls = NULL,
+              add = FALSE,
+              return_list = TRUE
+  )
+axis_args[[1]]$axis$cex.axis
+axis_args[[2]]$axis$cex.axis
 
 #### Generate timestamp data
 # Generate some x and y values, where x values are timestamps

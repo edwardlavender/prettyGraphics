@@ -7,6 +7,7 @@
 #' @param pretty A list of named arguments to be provided to \code{\link[base]{pretty}} (for numeric data), \code{\link[lubridate]{pretty_dates}} (for timestamp data) or an internal approach (for factors) to create pretty axes. If \code{pretty = list(NULL)}, pretty sequences for an axis/axes are not created and a user-defined sequence is implemented instead (see below). If each axis should be controlled by the same pretty parameters, these can be specified in the pretty argument in a single list. If each axis should be controlled by different parameters, a nested list is required, with a list of arguments for each axis provided within the overall list (see Examples). The default option is to create pretty axes with approximately \code{n = 5} breaks. For factors, the only implemented argument is \code{n}; any other supplied arguments are silently ignored.
 #' @param units (optional) A list of units for each side. If \code{pretty = list(NULL)}, then a regular sequence of values between axes limits will be defined. This can be controlled by supplying the distance between sequential values to this argument (otherwise, a default value is used). For numeric axes, this is a number; for POSIXct axes, this is a character which specifies the duration between sequential ticks (e.g. "secs").
 #' @param axis (optional) A list of arguments that are supplied to \code{\link[graphics]{axis}}, \code{\link[graphics]{axis.POSIXct}} or \code{\link[graphics]{axis.Date}} that control axes (e.g. \code{cex.axis}, \code{pos}, \code{col}, etc.). As for the \code{pretty} argument, a single list of arguments will affect all axes; otherwise, a nested list can be provided so that each axis can be controlled independently (see Examples).
+#' @param axis_share (option) A named list of arguments that affect all axes. This is only useful if a nested list is provided to \code{axis} (see above). In this case, any arguments that should affect all axes can be provided via \code{axis_share} so that these do not need to be provided to each list in \code{axis}. (This is simply for convenience.)
 #' @param control_ndp (optional) An integer which defines the number of decimal places on numeric axes. If \code{NULL}, the number of decimal places is set automatically.
 #' @param axis_ls (optional) The output of a call to \code{pretty_axis()}. If this is provided, the function skips the definition of axis parameters and simply adds axes to a plot (see \code{add} below).
 #' @param add A logical input specifying whether or not to plot the axes. Usually, prettier plots result when \code{pretty_axis()} is called prior to plotting to define axis limits; then, the plot can be created with those limits; and then the list created by the first call to \code{pretty_axis()} can be supplied to the function again via the \code{axis_ls} argument, with \code{add = TRUE}, to add the axes (see Examples).
@@ -165,6 +166,24 @@
 #' plot(x, y, axes = FALSE, xlim = axis_args$`1`$lim, ylim = axis_args$`2`$lim)
 #' pretty_axis(axis_ls = axis_args, add = TRUE)
 #'
+#' #### Shared arguments for each axis (e.g., cex.axis) can be passed via axis_share
+#' # ... list to reduce typing in cases where other axis parameters require separate control
+#' # ... (i.e., to avoid having to pass these arguments to every list in a nested list).
+#' axis_args <-
+#'   pretty_axis(side = 1:2,
+#'               x = list(x, y),
+#'               lim = list(x = c(-2, 12), y = c(-10, 41)),
+#'               pretty = list(list(n = 10), list(n = 5)),
+#'               units = list(NULL),
+#'               axis = list(list(col = "blue"), list(col = "red")),
+#'               axis_share = list(cex.axis = 1.5),
+#'               axis_ls = NULL,
+#'               add = FALSE,
+#'               return_list = TRUE
+#'   )
+#' axis_args[[1]]$axis$cex.axis
+#' axis_args[[2]]$axis$cex.axis
+#'
 #' #### Generate timestamp data
 #' # Generate some x and y values, where x values are timestamps
 #' # ... in POSIXct format. Note the incorporation of tz.
@@ -308,6 +327,7 @@ pretty_axis <-
            pretty = list(n = 5),
            units = list(NULL),
            axis = list(NULL),
+           axis_share = list(),
            control_ndp = NULL,
            axis_ls = NULL,
            add = FALSE,
@@ -448,8 +468,11 @@ pretty_axis <-
           #### Define pretty labels
           if(is.null(iaxis$labels)) iaxis$labels <- pretty_labels(x = ix, at = iaxis$at, n = control_ndp)
 
-          #### Return ixaxis and other parameters
+          #### Other properties
           iaxis$side <- iside
+          if(length(axis_share) > 0) iaxis <- rlist::list.merge(iaxis, axis_share)
+
+          #### Return ixaxis and other parameters
           out <- list(axis = iaxis, lim = ilim)
           return(out)
 
