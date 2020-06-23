@@ -4,12 +4,14 @@
 \alias{pretty_labels}
 \title{Define pretty labels}
 \usage{
-pretty_labels(x, at)
+pretty_labels(x, at, n)
 }
 \arguments{
 \item{x}{An object, such as a numeric vector.}
 
 \item{at}{A numeric vector of axis positions.}
+
+\item{n}{(optional) An integer which defines the number of decimal places for numeric axes. This is passed to \code{\link[plot.pretty]{add_lagging_point_zero}}. If \code{NULL}, \code{n} is defined internally.}
 }
 \value{
 A vector of labels, of the same length as axis tick marks (\code{at}).

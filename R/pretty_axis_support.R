@@ -305,13 +305,14 @@ pretty_seq <-
 #' @description This function defines pretty axis labels from an object.
 #' @param x An object, such as a numeric vector.
 #' @param at A numeric vector of axis positions.
+#' @param n (optional) An integer which defines the number of decimal places for numeric axes. This is passed to \code{\link[plot.pretty]{add_lagging_point_zero}}. If \code{NULL}, \code{n} is defined internally.
 #' @details For factors, factor levels at positions specified by \code{at} are taken as labels. For numbers, \code{\link[plot.pretty]{add_lagging_point_zero}} and \code{\link[plot.pretty]{sci_notation}} are implemented as necessary to define pretty labels.
 #' @return A vector of labels, of the same length as axis tick marks (\code{at}).
 #' @author Edward Lavender
 #' @keywords internal
 
 pretty_labels <-
-  function(x, at){
+  function(x, at, n){
     if(is.factor(x)){
       lat <- length(at)
       llabels <- length(levels(x))
@@ -320,7 +321,7 @@ pretty_labels <-
     } else if(is_number(x)){
       # labels <- at
       labels <- sci_notation(at)
-      if(is_number(labels)) labels <- add_lagging_point_zero(x = labels, n = NULL, ignore = TRUE)
+      if(is_number(labels)) labels <- add_lagging_point_zero(x = labels, n = n, ignore = TRUE)
     } else{
       labels <- NULL
     }

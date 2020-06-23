@@ -11,6 +11,7 @@ pretty_axis(
   pretty = list(n = 5),
   units = list(NULL),
   axis = list(NULL),
+  control_ndp = NULL,
   axis_ls = NULL,
   add = FALSE,
   return_list = TRUE
@@ -28,6 +29,8 @@ pretty_axis(
 \item{units}{(optional) A list of units for each side. If \code{pretty = list(NULL)}, then a regular sequence of values between axes limits will be defined. This can be controlled by supplying the distance between sequential values to this argument (otherwise, a default value is used). For numeric axes, this is a number; for POSIXct axes, this is a character which specifies the duration between sequential ticks (e.g. "secs").}
 
 \item{axis}{(optional) A list of arguments that are supplied to \code{\link[graphics]{axis}}, \code{\link[graphics]{axis.POSIXct}} or \code{\link[graphics]{axis.Date}} that control axes (e.g. \code{cex.axis}, \code{pos}, \code{col}, etc.). As for the \code{pretty} argument, a single list of arguments will affect all axes; otherwise, a nested list can be provided so that each axis can be controlled independently (see Examples).}
+
+\item{control_ndp}{(optional) An integer which defines the number of decimal places on numeric axes. If \code{NULL}, the number of decimal places is set automatically.}
 
 \item{axis_ls}{(optional) The output of a call to \code{pretty_axis()}. If this is provided, the function skips the definition of axis parameters and simply adds axes to a plot (see \code{add} below).}
 
@@ -311,6 +314,14 @@ axis_ls <-
               return_list = TRUE
   )
 axis_ls[[1]]
+
+#### Example (14): Control the number of decimal places for numeric axes via control_ndp
+# axis label decimal places are chosen automatically with the default setting control_ndp = NULL:
+axis_ls <- pretty_axis(side = 1, x = list(seq(0, 1, by = 0.1)), control_ndp = 1)
+axis_ls[[1]]$axis$labels
+# user-specified decimal places:
+axis_ls <- pretty_axis(side = 1, x = list(seq(0, 1, by = 0.1)), control_ndp = 3)
+axis_ls[[1]]$axis$labels
 
 }
 \author{
