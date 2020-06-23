@@ -13,6 +13,7 @@ pretty_axis(
   axis = list(NULL),
   axis_share = list(),
   control_ndp = NULL,
+  control_factor_lim = 0,
   axis_ls = NULL,
   add = FALSE,
   return_list = TRUE
@@ -34,6 +35,8 @@ pretty_axis(
 \item{axis_share}{(option) A named list of arguments that affect all axes. This is only useful if a nested list is provided to \code{axis} (see above). In this case, any arguments that should affect all axes can be provided via \code{axis_share} so that these do not need to be provided to each list in \code{axis}. (This is simply for convenience.)}
 
 \item{control_ndp}{(optional) An integer which defines the number of decimal places on numeric axes. If \code{NULL}, the number of decimal places is set automatically.}
+
+\item{control_factor_lim}{(optional) A number which specifies an additive adjustment to limits for a factor axis, if not supplied by the user. For factors, limits by default are (1, number of factor levels); if \code{control_factor_lim} is supplied, they become (1 - \code{control_factor_lim}, number of factor levels + \code{control_factor_lim}).}
 
 \item{axis_ls}{(optional) The output of a call to \code{pretty_axis()}. If this is provided, the function skips the definition of axis parameters and simply adds axes to a plot (see \code{add} below).}
 
@@ -304,6 +307,16 @@ axis_ls <-
 axis_ls[[1]]
 # Note that x limits are automatically defined between 1 and the maximum number of factors:
 axis_ls[[1]]; length(levels(dx))
+# However, default factor limits can be extended via control_factor_lim
+axis_ls <-
+  pretty_axis(side = 1:2,
+              x = list(dx, dy),
+              pretty = list(n = length(dx)),
+              control_factor_lim = 0.5,
+              add = FALSE,
+              return_list = TRUE
+  )
+axis_ls[[1]]$lim
 # Example with tick mark for every other level
 axis_ls <-
   pretty_axis(side = 1:2,

@@ -9,6 +9,7 @@
 #' @param axis (optional) A list of arguments that are supplied to \code{\link[graphics]{axis}}, \code{\link[graphics]{axis.POSIXct}} or \code{\link[graphics]{axis.Date}} that control axes (e.g. \code{cex.axis}, \code{pos}, \code{col}, etc.). As for the \code{pretty} argument, a single list of arguments will affect all axes; otherwise, a nested list can be provided so that each axis can be controlled independently (see Examples).
 #' @param axis_share (option) A named list of arguments that affect all axes. This is only useful if a nested list is provided to \code{axis} (see above). In this case, any arguments that should affect all axes can be provided via \code{axis_share} so that these do not need to be provided to each list in \code{axis}. (This is simply for convenience.)
 #' @param control_ndp (optional) An integer which defines the number of decimal places on numeric axes. If \code{NULL}, the number of decimal places is set automatically.
+#' @param control_factor_lim (optional) A number which specifies an additive adjustment to limits for a factor axis, if not supplied by the user. For factors, limits by default are (1, number of factor levels); if \code{control_factor_lim} is supplied, they become (1 - \code{control_factor_lim}, number of factor levels + \code{control_factor_lim}).
 #' @param axis_ls (optional) The output of a call to \code{pretty_axis()}. If this is provided, the function skips the definition of axis parameters and simply adds axes to a plot (see \code{add} below).
 #' @param add A logical input specifying whether or not to plot the axes. Usually, prettier plots result when \code{pretty_axis()} is called prior to plotting to define axis limits; then, the plot can be created with those limits; and then the list created by the first call to \code{pretty_axis()} can be supplied to the function again via the \code{axis_ls} argument, with \code{add = TRUE}, to add the axes (see Examples).
 #' @param return_list A logical input defining whether or not to return a list of axis parameters defined by the function.
@@ -275,6 +276,16 @@
 #' axis_ls[[1]]
 #' # Note that x limits are automatically defined between 1 and the maximum number of factors:
 #' axis_ls[[1]]; length(levels(dx))
+#' # However, default factor limits can be extended via control_factor_lim
+#' axis_ls <-
+#'   pretty_axis(side = 1:2,
+#'               x = list(dx, dy),
+#'               pretty = list(n = length(dx)),
+#'               control_factor_lim = 0.5,
+#'               add = FALSE,
+#'               return_list = TRUE
+#'   )
+#' axis_ls[[1]]$lim
 #' # Example with tick mark for every other level
 #' axis_ls <-
 #'   pretty_axis(side = 1:2,
@@ -329,6 +340,7 @@ pretty_axis <-
            axis = list(NULL),
            axis_share = list(),
            control_ndp = NULL,
+           control_factor_lim = 0,
            axis_ls = NULL,
            add = FALSE,
            return_list = TRUE
@@ -458,6 +470,18 @@ pretty_axis <-
             #### Option (b) A regular sequence between limits
             } else{
               iaxis$at <- seq_x(ilim[1], ilim[2], units = iunits)
+            }
+          }
+
+          #### Post-processsing controls
+          # Limits can be expanded for factors by an amount specified by control_factor_lim
+          # This step needs to be implemented after defining tick marks, else tick marks
+          # ... are defined within expanded limits
+          if(is.factor(ix)){
+            # Only implement expansion if limits are not user-supplied.
+            if(!attributes(ilim)$user){
+              ilim <- c(min(ilim) - control_factor_lim, max(ilim) + control_factor_lim)
+              attributes(ilim)$user <- FALSE
             }
           }
 

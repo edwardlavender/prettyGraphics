@@ -126,6 +126,7 @@ pretty_x <- function(x,...){
 
   #### Check variable types
   if(is.character(x)) x <- factor(x)
+  if(is.factor(x)) x <- as.integer(x)
 
   #### Method for numbers
   if(is_number(x)){
@@ -138,11 +139,6 @@ pretty_x <- function(x,...){
     # convert back to a Date if necessary, so that axes are defined
     # on the same scale as the data
     if(inherits(x, "Date")) s <- as.Date(s)
-
-  #### method for factors
-  } else if(is.factor(x)){
-    # generate a regular sequence...
-    s <- seq(min(as.numeric(x), na.rm = TRUE), max(as.numeric(x), na.rm = TRUE),...)
   }
 
   #### Return sequence
@@ -186,7 +182,9 @@ define_lim_init <-
 
       #### Option (b) Define initial limits based on the data
       } else {
+        # Define limits
         lim <- range(x, na.rm = TRUE)
+        # Asign user = FALSE
         attributes(lim)$user <- FALSE
         # Check that both limits are not identical.
         # If so, adjust them: you cannot have a graph
@@ -260,10 +258,8 @@ pretty_seq <-
 
     #### Define pretty sequence
     pretty_args$x <- lim
-    if(is.null(pretty_args$n)) pretty_args$n <- 5
-    if(is.factor(x)){
-      pretty_args$by <- round(lim[2]/pretty_args$n)
-      pretty_args$n <- NULL
+    if(is.null(pretty_args$n)) {
+      if(!is.factor(x)) pretty_args$n <- 5 else pretty_args$n <- round(lim[2]/pretty_args$n)
     }
     at <- do.call(pretty_x, pretty_args)
 
