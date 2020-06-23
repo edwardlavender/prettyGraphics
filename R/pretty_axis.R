@@ -26,7 +26,7 @@
 #' x <- 1:10
 #' y <- rnorm(length(x), x*5-10, 5)
 #'
-#' #### Example 1: The default options
+#' #### The default options
 #' # The default options define the parameters of pretty axes with approx. n = 5 breaks
 #' # apply pretty_axis to generate a list of parameters for pretty axes;
 #' # we'll use the outputs to set the limits of the graph and then add pretty axes:
@@ -42,7 +42,7 @@
 #' # add pretty axes by passing the axis_args list back to the function
 #' pretty_axis(axis_ls = axis_args, add = TRUE)
 #'
-#' #### Example 2: Adjusting pretty axes via the pretty argument
+#' #### Adjusting pretty axes via the pretty argument
 #' # We can add arguments to the pretty list that are passed to pretty() or lubridate::pretty_dates()
 #' # ... to adjust the pretty axes produced.
 #' # ... For example, we can adjust the minimum number of intervals on all axes if required:
@@ -56,7 +56,7 @@
 #' plot(x, y, axes = FALSE, xlim = axis_args$`1`$lim, ylim = axis_args$`2`$lim)
 #' pretty_axis(axis_ls = axis_args, add = TRUE)
 #'
-#' #### Example 3: Adjusting different axes differently
+#' #### Adjusting different axes differently
 #' # In example 1 and 2, the changes to the pretty argument affect all axes
 #' # ... added to all specified sides. To make changes side-specific,
 #' # ... we need to specify the arguments for each side in a separate list.
@@ -71,7 +71,7 @@
 #' plot(x, y, axes = FALSE, xlim = axis_args$`1`$lim, ylim = axis_args$`2`$lim)
 #' pretty_axis(axis_ls = axis_args, add = TRUE)
 #'
-#' #### Example 4: Pretty labels can be constrained within limits:
+#' #### Pretty labels can be constrained within limits:
 #' # Pretty labels are forced to be within limits if these are specified by the user
 #' axis_args <-
 #'   pretty_axis(side = 1:2,
@@ -97,7 +97,7 @@
 #' plot(x, y, axes = FALSE, xlim = axis_args$`1`$lim, ylim = axis_args$`2`$lim)
 #' pretty_axis(axis_ls = axis_args, add = TRUE)
 #'
-#' #### Example 5: We can create regular sequences instead of pretty ones
+#' #### We can create regular sequences instead of pretty ones
 #' # Instead of creating 'pretty' axes, we can choose to create a regular sequence
 #' # ... and specify the total number of units between the start and end points
 #' # ... (if we don't specify this, the default is 5 units or
@@ -117,7 +117,7 @@
 #' plot(x, y, axes = FALSE, xlim = axis_args$`1`$lim, ylim = axis_args$`2`$lim)
 #' pretty_axis(axis_ls = axis_args, add = TRUE)
 #'
-#' #### Example 6: More on controlling each axis separately
+#' #### More on controlling each axis separately
 #' # Of course, we can have some axes with pretty axes and others with user defined units
 #' axis_args <-
 #'   pretty_axis(side = 1:2,
@@ -132,7 +132,7 @@
 #' plot(x, y, axes = FALSE, xlim = axis_args$`1`$lim, ylim = axis_args$`2`$lim)
 #' pretty_axis(axis_ls = axis_args, add = TRUE)
 #'
-#' #### Example 7: Arguments are passed to axis(), axis.POSIXct() or axis.Date() via the axis argument
+#' #### Arguments are passed to axis(), axis.POSIXct() or axis.Date() via the axis argument
 #' # As above, if we supply these once they will affect all graphs:
 #' axis_args <-
 #'   pretty_axis(side = 1:2,
@@ -148,7 +148,7 @@
 #' plot(x, y, axes = FALSE, xlim = axis_args$`1`$lim, ylim = axis_args$`2`$lim)
 #' pretty_axis(axis_ls = axis_args, add = TRUE)
 #'
-#' #### Example 8: Graphical properties of each axis can be controlled separately
+#' #### Graphical properties of each axis can be controlled separately
 #' # We can change individual axes by creating a list of arguments for each axis
 #' # changes to individual axes need to be specified via individual lists;
 #' # e.g. to make the first axis red and the second blue, and to have 10 pretty labels
@@ -185,6 +185,14 @@
 #' axis_args[[1]]$axis$cex.axis
 #' axis_args[[2]]$axis$cex.axis
 #'
+#' #### Control the number of decimal places for numeric axes via control_ndp
+#' # axis label decimal places are chosen automatically with the default setting control_ndp = NULL:
+#' axis_ls <- pretty_axis(side = 1, x = list(seq(0, 1, by = 0.1)), control_ndp = 1)
+#' axis_ls[[1]]$axis$labels
+#' # user-specified decimal places:
+#' axis_ls <- pretty_axis(side = 1, x = list(seq(0, 1, by = 0.1)), control_ndp = 3)
+#' axis_ls[[1]]$axis$labels
+#'
 #' #### Generate timestamp data
 #' # Generate some x and y values, where x values are timestamps
 #' # ... in POSIXct format. Note the incorporation of tz.
@@ -192,7 +200,7 @@
 #'                 as.POSIXct("2016-01-02", tz = "UTC"), by = "2 mins")
 #' y <- rnorm(length(x), as.numeric(x)*1e-6 + 100, 50)
 #'
-#' #### Example 9: We can use this function with timestamps in POSIXct format too.
+#' #### We can use this function with timestamps in POSIXct format too.
 #' # Apply pretty_axis() function prior to plot to obtain suitable limits:
 #' axis_args <-
 #'   pretty_axis(side = 1:4,
@@ -216,7 +224,7 @@
 #' # Add pretty axes by passing the list of axis_args back to the function
 #' pretty_axis(axis_ls = axis_args, add = TRUE)
 #'
-#' #### Example 10: axis parameters for timestamps are passed to axis.POSIXct() or axis.Date()
+#' #### Axis parameters for timestamps are passed to axis.POSIXct() or axis.Date()
 #' # ... which can incorporate other options
 #' axis_args <-
 #'   pretty_axis(side = 1:4,
@@ -237,7 +245,7 @@
 #'      xlim = axis_args$`1`$lim, ylim = axis_args$`2`$lim)
 #' pretty_axis(axis_ls = axis_args, add = TRUE)
 #'
-#' #### Example 11: Regular sequences, instead of 'pretty' axes can be generated with dates too
+#' #### Regular sequences, instead of 'pretty' axes can be generated with dates too
 #' # To do this, units takes a character input (e.g. "mins" or "hours")
 #' axis_args <-
 #'   pretty_axis(side = 1:4,
@@ -259,7 +267,7 @@
 #'      xlim = axis_args$`1`$lim, ylim = axis_args$`2`$lim)
 #' pretty_axis(axis_ls = axis_args, add = TRUE)
 #'
-#' #### Example (12): For factors, pretty axes can be created via pretty or via units.
+#' #### For factors, pretty axes can be created via pretty or via units.
 #' # .. If pretty is supplied, approximately n factor levels are retained:
 #' # ... and corresponding labels are added by default.
 #' # Example data:
@@ -296,7 +304,7 @@
 #'   )
 #' axis_ls[[1]]
 #'
-#' #### Example (13): For factors, pretty axes can also be specified via units:
+#' #### For factors, pretty axes can also be specified via units:
 #' # For example, to select every factor level:
 #' axis_ls <-
 #'   pretty_axis(side = 1:2,
@@ -318,13 +326,6 @@
 #'   )
 #' axis_ls[[1]]
 #'
-#' #### Example (14): Control the number of decimal places for numeric axes via control_ndp
-#' # axis label decimal places are chosen automatically with the default setting control_ndp = NULL:
-#' axis_ls <- pretty_axis(side = 1, x = list(seq(0, 1, by = 0.1)), control_ndp = 1)
-#' axis_ls[[1]]$axis$labels
-#' # user-specified decimal places:
-#' axis_ls <- pretty_axis(side = 1, x = list(seq(0, 1, by = 0.1)), control_ndp = 3)
-#' axis_ls[[1]]$axis$labels
 #'
 
 ##############################################
