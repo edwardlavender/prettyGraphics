@@ -13,7 +13,7 @@ pretty_axis(
   axis = list(),
   control_axis = list(),
   control_ndp = NULL,
-  control_factor_lim = 0,
+  control_factor_lim = 0.5,
   axis_ls = NULL,
   add = FALSE,
   return_list = TRUE

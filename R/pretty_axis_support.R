@@ -115,6 +115,7 @@ seq_x <- function(x1, x2, units){
 
 #' @title Create a regular pretty sequence
 #' @description This function creates a regular pretty sequence from numbers or times.
+#' @param An object.
 #' @param x A vector of numbers or times.
 #' @param ... Other arguments passed to \code{\link[base]{pretty}} or \code{\link[lubridate]{pretty_dates}}.
 #' @return The function returns a series of pretty numbers or times.
@@ -122,23 +123,23 @@ seq_x <- function(x1, x2, units){
 #' @seealso \code{link[plot.pretty]{pretty_seq}} is an extension of this function.
 #' @keywords internal
 
-pretty_x <- function(x,...){
-
-  #### Check variable types
-  if(is.character(x)) x <- factor(x)
-  if(is.factor(x)) x <- as.integer(x)
+pretty_x <- function(obj, x,...){
 
   #### Method for numbers
-  if(is_number(x)){
+  if(is_number(obj)){
     s <- pretty(x,...)
 
   #### Method for times
-  } else if(is_time(x)){
+  } else if(is_time(obj)){
     s <- lubridate::pretty_dates(x,...)
     # pretty_dates() converts objects to POSIXct so, we'll
     # convert back to a Date if necessary, so that axes are defined
     # on the same scale as the data
-    if(inherits(x, "Date")) s <- as.Date(s)
+    if(inherits(obj, "Date")) s <- as.Date(s)
+
+  #### Method for factors
+  } else if(is.factor(obj)){
+    s <- seq(min(as.integer(x), na.rm = TRUE), max(as.integer(x), na.rm = TRUE),...)
   }
 
   #### Return sequence
@@ -257,9 +258,15 @@ pretty_seq <-
     }
 
     #### Define pretty sequence
+    pretty_args$obj <- x
     pretty_args$x <- lim
-    if(is.null(pretty_args$n)) {
-      if(!is.factor(x)) pretty_args$n <- 5 else pretty_args$n <- round(lim[2]/pretty_args$n)
+    if(is.null(pretty_args$n)) pretty_args$n <- 5
+    if(is.factor(x)){
+      if(pretty_args$n > lim[2]){
+        warning("pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.")
+        pretty_args$by <- 1
+      } else pretty_args$by <- ceiling(lim[2]/pretty_args$n)
+      pretty_args$n <- NULL
     }
     at <- do.call(pretty_x, pretty_args)
 

@@ -4,12 +4,14 @@
 \alias{pretty_x}
 \title{Create a regular pretty sequence}
 \usage{
-pretty_x(x, ...)
+pretty_x(obj, x, ...)
 }
 \arguments{
 \item{x}{A vector of numbers or times.}
 
 \item{...}{Other arguments passed to \code{\link[base]{pretty}} or \code{\link[lubridate]{pretty_dates}}.}
+
+\item{An}{object.}
 }
 \value{
 The function returns a series of pretty numbers or times.

@@ -341,7 +341,7 @@ pretty_axis <-
            axis = list(),
            control_axis = list(),
            control_ndp = NULL,
-           control_factor_lim = 0,
+           control_factor_lim = 0.5,
            axis_ls = NULL,
            add = FALSE,
            return_list = TRUE
@@ -397,6 +397,23 @@ pretty_axis <-
           elm <- check_tz(arg, elm)
           return(elm)
         }, SIMPLIFY = FALSE)
+      }
+
+      #### Explicit consideration of NAs in data.
+      # This is generally useful, but necessary to stop errors with factor levels that are NA.
+      # Check the number of observations in each element of x is the same:
+      lx <- sapply(x, length)
+      if(length(unique(lx)) != 1) stop("x contains elements with different numbers of observations.")
+      # Create a dataframe and drop NAs
+      dat <- data.frame(do.call(cbind, x))
+      dat <- dat[stats::complete.cases(dat), , drop = FALSE]
+      # Check whether there are NAs and, if so, drop these.
+      nrw <- nrow(dat)
+      if(nrw != lx[1]){
+        lna <- lx[1] - nrw
+        warning(paste(lna, " observation pair(s) in x are NA; these are removed."))
+        x <- lapply(1:ncol(dat), function(i) return(dat[, i]))
+        if(length(x[[1]]) < 1) stop("No non NA observations left in x.")
       }
 
       #### Adjust lists if necessary, to ensure mapply() loops over lists correctly.
