@@ -405,7 +405,7 @@ pretty_axis <-
       lx <- sapply(x, length)
       if(length(unique(lx)) != 1) stop("x contains elements with different numbers of observations.")
       # Create a dataframe and drop NAs
-      dat <- data.frame(do.call(cbind, x))
+      dat <- data.frame(dplyr::bind_cols(x))
       dat <- dat[stats::complete.cases(dat), , drop = FALSE]
       # Check whether there are NAs and, if so, drop these.
       nrw <- nrow(dat)
