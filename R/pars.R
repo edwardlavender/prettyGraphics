@@ -96,7 +96,7 @@ par_tri <- function(mf, type = "upper.tri"){
   # a square matrix is required
   stopifnot(mf[1] == mf[2])
   # check frunction inputs
-  type <- check_input(arg = "type", input = type, supp = c("lower.tri", "upper.tri"), default = "upper.tri")
+  type <- check_input_value(arg = "type", input = type, supp = c("lower.tri", "upper.tri"), default = "upper.tri")
 
   #### Preprocessing
   if(type == "lower.tri") type_foo <- lower.tri else if(type == "upper.tri") type_foo <- upper.tri

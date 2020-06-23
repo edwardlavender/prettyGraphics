@@ -31,7 +31,7 @@ check... <- function(not_allowed,...){
 
 
 ######################################
-#### check_input()
+#### check_input_value()
 
 #' @title Check the input to a parent function argument
 #' @description Within a function, this function checks the input to an argument of that function. If the input is supported, the function simply returns this value. If the input is not supported, the function returns a warning and the default value. This function is designed to be implemented internally within functions and not intended for general use.
@@ -47,7 +47,7 @@ check... <- function(not_allowed,...){
 #' @keywords internal
 #'
 
-check_input <- function(arg, input, supp, default = supp[1]){
+check_input_value <- function(arg, input, supp, default = supp[1]){
   # If the input is not in a vector of supported arguments...
   if(!(input %in% supp)){
     # Provide a warning and revert to the default
@@ -57,6 +57,108 @@ check_input <- function(arg, input, supp, default = supp[1]){
   # Return input
   return(input)
 }
+
+
+###################################
+#### check_input_class()
+
+#' @title Check the class of an function input to a parent function
+#' @description This function checks that the class of an input to a parent function is appropriate. If not, the function either produces a helpful error message or returns a warning.
+#' @param arg A character string which defines the argument of the parent function.
+#' @param input The input to an argument of a parent function.
+#' @param if_class (optional) A character vector of classes of object. If supplied, the function will only proceed to check the class of the object if the \code{class(input)} is one of \code{if_class}. This is useful if \code{check_input_class()} is implemented in a loop.
+#' @param to_class The required class of the input.
+#' @param type A character which specifies whether to return an error (\code{"stop"}) or a warning ("warning").
+#' @param coerce_input A function used to coerce \code{input} to the correct object type, if \code{type = "warning"}.
+#' @return The function checks the class of the input. If the class is not the same as required by the parent function (i.e., as specified by \code{class}), the function returns a helpful error message, or a warning and an object whose class has been coerced to the correct class.
+#'
+#' @author Edward Lavender
+#' @keywords internal
+#'
+
+check_input_class <-
+  function(arg, input, if_class = NULL, to_class, type = "stop", coerce_input){
+
+    #### Define whether or not to proceed:
+    # Only proceed if if_class is NULL or, if supplied, then only proceed if the class of the object
+    # ... is of type(s) in if_class
+    proceed <- FALSE
+    if(is.null(if_class)){
+      proceed <- TRUE
+    } else{
+      if(inherits(input, if_class)) proceed <- TRUE
+    }
+
+    #### Check the class, if required
+    if(proceed){
+      # If the object is not of the necessary class
+      if(!inherits(input, to_class)){
+        # Either stop...
+        if(type == "stop"){
+          msg <- paste0("Argument '", arg, "' must be of class '", to_class, "', not class(es): '", paste(class(input), collapse = "', '"), "'.")
+          stop(msg)
+          # Or print a warning and use coerce_input() to convert the object to the desired class.
+        } else if(type == "warning"){
+          msg <- paste0("Argument '", arg, "' coerced to class '", to_class, "' from class(es): '", paste(class(input), collapse = "', '"), "'.")
+          warning(msg)
+          input <- coerce_input(input)
+        }
+      }
+    }
+
+    #### If we've passed all checks, return the input (possibly coerced to a new class)
+    return(input)
+  }
+
+######################################
+#### check_tz()
+
+#' @title Check the timezone of an object and force UTC if absent
+#' @description This function checks the time zone of an inputted  object. If the object is of class Date or POSIXct and a time zone is absent, then "UTC" is forced. Otherwise, the object is returned unchanged.
+#' @param arg (optional) A character string which defines the argument of the parent function.
+#' @param x An object.
+#' @return An object as inputted in which, if the object is of class Date or POSIXct and a time zone is absent, time zone "UTC" is forced.
+#' @author Edward Lavender
+#' @keywords internal
+
+check_tz <-
+  function(arg = NULL, x){
+    if(inherits(x, "Date") | inherits(x, "POSIXct")){
+      if(lubridate::tz(x) == ""){
+        if(is.null(arg)){
+          msg <- "time zone currently ''; tz forced to UTC."
+        } else{
+          msg <- paste0("Argument '", arg, "' time zone currently ''; tz forced to UTC.")
+        }
+        warning(msg)
+        lubridate::tz(x) <- "UTC"
+      }
+    }
+    return(x)
+  }
+
+
+#####################################
+#####################################
+#### utils.add::clip_within_range()
+
+#' @title Clip a vector to lie within a range
+#' @description This function clips a vector to lie within a range.
+#' @param x A vector, to be clipped.
+#' @param range A vector of two numbers, used to clip \code{x}.
+#' @return A vector, as inputted, solely comprising values within the range specified by \code{range}, inclusive.
+#' @author Edward Lavender
+#' @keywords internal
+
+clip_within_range <-
+  function(x, range){
+    stopifnot(length(range) == 2)
+    pos2rem <- which(x < range[1])
+    if(length(pos2rem) > 0) x <- x[-c(pos2rem)]
+    pos2rem <- which(x > range[2])
+    if(length(pos2rem) > 0) x <- x[-c(pos2rem)]
+    return(x)
+  }
 
 
 ######################################

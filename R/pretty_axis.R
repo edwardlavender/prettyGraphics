@@ -307,56 +307,71 @@ pretty_axis <-
 
 
     ##############################################
+    ##############################################
     #### Define axis parameters
 
     #### If axis parameters have not been supplied...
     if(is.null(axis_ls)){
 
-      #### Checks
-      # Force data to be supplied
-      stopifnot(!(length(x) == 0))
-      # Check lists are provided
-      lapply(list(x, lim, pretty, units, axis), function(elm) stopifnot(inherits(elm, "list")))
-      # Check the length of lists is correct.
-      mapply(list(x, lim, units), list("x", "lim", "units"), FUN = function(elm, elm_name){
-        if(length(elm) > 0 & length(elm) > length(side)) stop(paste0(length(side), " side(s) supplied but argument '", elm_name, "' contains ", length(elm), " elements."))
-      })
 
-      #### Adjust data:
-      #  If a character is supplied
-      # ... convert to factors, with a warning
-      # If a timestamp if supplied
-      # ... make sure that tz is included.
-      x <- mapply(x, 1:length(x), FUN = function(elm, i){
-        if(inherits(elm, "character")){
-          warning(paste0("x[[", i, "]] coerced from a character to factor."))
-          return(factor(elm))
-        } else if(inherits(elm, c("Date", "POSIXct", "POSIXlt"))){
-          if(lubridate::tz(elm) == ""){
-            warning(paste0("x[[", i, "]] time zone currently ''; tz forced to UTC."))
-            lubridate::tz(elm) <- "UTC"
-          }
+      ##############################################
+      #### Checks
+
+      #### Check that sides are provided in the correct order
+      # ...
+
+      #### Check that data are supplied
+      stopifnot(!(length(x) == 0))
+
+      #### Check argument class is "list", where required.
+      mapply(c("x", "lim", "pretty", "units", "axis"),
+             list(x, lim, pretty, units, axis),
+             FUN = function(arg, elm){
+               check_input_class(arg = arg, input = elm, if_class = NULL, to_class = "list", type = "stop")
+               })
+
+      #### Check the length of lists is correct.
+      mapply(list(x, lim, units),
+             list("x", "lim", "units"),
+             FUN = function(elm, elm_name){
+               if(length(elm) > 0 & length(elm) > length(side)) {
+                 stop(paste0(length(side), " side(s) supplied but argument '", elm_name, "' contains ", length(elm), " elements."))
+               }
+             })
+
+      #### Check data types
+      if(length(x) > 0){
+        x <- mapply(x, 1:length(x), FUN = function(elm, i){
+          # Define argument name
+          arg <- paste0("x[[", i, "]]")
+          #  If a character is supplied, convert to factor, with a warning:
+          elm <- check_input_class(arg = arg, input = elm,
+                                   if_class = "character", to_class = "factor",
+                                   type = "warning", coerce_input = factor)
+          # If a timestamp if supplied, ensure a tz is included:
+          elm <- check_tz(arg, elm)
           return(elm)
-        } else return(elm)
-      }, SIMPLIFY = FALSE)
+        }, SIMPLIFY = FALSE)
+      }
 
       #### Adjust lists if necessary, to ensure mapply() loops over lists correctly.
-      list.adjust <- function(l, f = plotrix::listDepth){
-        if(f(l) == 1){
-          if(plotrix::listDepth(l) == 1){
-            l <- lapply(side, function(a){ l })
-          }
-        }
-        return(l)
-      }
-      lim <- list.adjust(lim, f = length)
-      pretty <- list.adjust(pretty)
-      units <- list.adjust(units, f = length)
-      axis <- list.adjust(axis)
+      lim    <- list_adjust(l = lim, f = length, side = side)
+      pretty <- list_adjust(l = pretty, f = plotrix::listDepth, side = side)
+      units  <- list_adjust(l = units, f = length, side = side)
+      axis   <- list_adjust(l = axis, f = plotrix::listDepth, side = side)
 
-      #### Loop over all input lists simultaneously
+
+      ##############################################
+      #### Define axis ls
+
       axis_ls <-
-        mapply(side, x, lim, pretty, units, axis, SIMPLIFY = FALSE, FUN = function(iside, ix, ilim, ipretty, iunits, iaxis){
+        mapply(side, x, lim, pretty, units, axis,
+               SIMPLIFY = FALSE,
+               FUN = function(iside, ix, ilim, ipretty, iunits, iaxis){
+
+
+          ##############################################
+          #### Processing
 
           #### Testing
           testing <- FALSE
@@ -367,8 +382,6 @@ pretty_axis <-
             ipretty <- pretty[[1]]
             iunits <- units[[1]]
             iaxis <- axis[[1]]
-            # print(iside)
-            # print(head(ix))
           }
 
           #### Compact lists
@@ -381,172 +394,49 @@ pretty_axis <-
           iunits <- unlist(plyr::compact(iunits)) # unlist if necessary (if only one side supplied).
           iaxis <- plyr::compact(iaxis)
 
-          #### Convert factors to numbers, if necessary, so that limits can be calculated
-          if(is.factor(ix)){
-            ixlabels <- levels(ix)
-            ix <- 1:length(ixlabels)
-          } else{
-            ixlabels <- NULL
-          }
-
-          #### Define functions that give different outputs depending on numeric or timestamp input
-          ## if statements
-          ifnumeric <- class(ix)[1] %in% c("numeric", "integer")
-          iftime <- class(ix)[1] %in% c("POSIXct", "POSIXlt", "Date")
-          ## units
-          units.f <- function(iunits){
-            if(length(iunits) == 0){
-              if(ifnumeric){
-                iunits <- 5
-              } else if(iftime){
-                iunits <- "auto"
-              }
-            } else{
-              return(iunits)
-            }
-          }
+          #### Check units
           # Down the line, if pretty is implemented as well as units
           # ... ie., units != list() then we'll give a warning.
+          # This is necessary because pretty = list(n = 5) is implemented by default and remains
+          # ...implemented by default even if units are supplied.
           iunits_warn <- ifelse(length(iunits) != 0, TRUE, FALSE)
-          iunits <- units.f(iunits)
-          ## pretty.f
-          pretty.f <- function(x,...){
-            if(ifnumeric){
-              s <- pretty(x,...)
-            } else if(iftime){
-              s <- lubridate::pretty_dates(x,...)
-              # pretty_dates() converts objects to POSIXct so, we'll
-              # convert back to a Date if necessary, so that axes are defined
-              # on the same scale as the data
-              if(inherits(x, "Date")) s <- as.Date(s)
-            }
-            return(s)
-          }
-          ## diff.f
-          diff.f <- function(x2, x1){
-            if(ifnumeric){
-              d <- abs(x2 - x1)
-            } else if(iftime){
-              d <- difftime(x2, x1, units = "secs")
-            }
-            return(d)
-          }
-          ## seq.f
-          seq.f <- function(x1, x2, units){
-            if(ifnumeric){
-              s <- seq(x1, x2, by = units)
-            } else if(iftime){
-              # If units are "auto", use difftime() to determine suitable units.
-              if(units == "auto"){
-                duration <- difftime(x1, x2, units = units)
-                units <- attributes(duration)$units
-              }
-              s <- seq.POSIXt(x1, x2, by = units)
-            }
-            return(s)
-          }
+          iunits <- units_x(iunits, x = ix)
 
-          #### Define limits
-          if(is.null(ilim)){
-            # Extract these from iaxis$at, if provided.
-            if(!is.null(iaxis$at)){
-              ilim <- range(iaxis$at)
-            # Otherwise, define limits based on the data.
-            } else {
-              ilim <- range(ix, na.rm = TRUE)
-              attributes(ilim)$user <- FALSE
-              # Check that both limits are not identical; adjust them if so because you cannot have a graph
-              # ... with identical lower/upper limits
-              if(length(unique(ilim)) == 1){
-                warning("Lower and upper limits for one of the inputted variables are the same. This is usually because all values of this variable are identical. Limits and pretty labels are being adjusted, but manually inputted limits may be necessary...\n")
-                # Set lower limit to 0 or minus 1:
-                if(ilim[2] > 0){
-                  ilim[1] <- 0
-                } else{
-                  ilim[1] <- ilim[1] - 1
-                }
-              }
-            }
-          } else{
-            # Check that two limits are provided
-            length_ilim <- length(ilim)
-            if(length_ilim != 2) stop(paste0(length_ilim, " value(s) supplied as the limits for at least one axis; if supplied, two limits  are required."))
-            # Check that provided limits are sensible
-            if(ilim[1] >= ilim[2]) { stop("Nonsensical user-specified axis limits: the lower limit for at least one axis is greater than or equal to the upper limit for the same axis. \n")}
-            # Define attributes
-            attributes(ilim)$user <- TRUE
-          }
 
+          ##############################################
+          #### Define axis limits and tick mark positions
+
+          #### Define initial axis limits
+          ilim <- define_lim_init(x = ix, at = iaxis$at, lim = ilim)
 
           #### Define x axis positions
           # If positions have not been provided...
           if(is.null(iaxis$at)){
 
-            #### If the user has requested a pretty sequence...
-            # we'll generate pretty dates within the ilim provided by the user, or more flexibly if not.
+            #### Option (a) A pretty sequence
+            # If the user has requested pretty sequence...
             if(length(ipretty) > 0){
 
               #### Check if units have been supplied, if so, print a warning that these are ignored
               if(iunits_warn) warning("Both pretty and units specified for an axis. pretty arguments implemented.")
 
-              #### Define pretty sequence
-              ipretty$x <- ilim
-              if(is.null(ipretty$n)){
-                ipretty$n <- 5
-              }
-              iaxis$at <- do.call(pretty.f, ipretty)
-              # If x is a factor, overwrite any pretty labels and simply
-              # ... select approximately n labels within the specified range:
-              if(!is.null(ixlabels)){
-                iaxis$at <- seq(ilim[1], ilim[2], by = round(ilim[2]/ipretty$n))
-              }
+              #### Define pretty axis positions and limits
+              pretty_seq_ls <- pretty_seq(x = ix, lim = ilim, pretty_args = ipretty)
+              iaxis$at      <- pretty_seq_ls$at
+              ilim          <- pretty_seq_ls$lim
 
-              ## if ilim has been specified by the user...
-              # the axes will stretch the full length of the limits but only have labels in the region of interest
-              # This is dealt with at the plotting stage.
-              # At this stage, we need to remove any pretty labels outside limits:
-              pos2rem <- which(iaxis$at < ilim[1])
-              if(length(pos2rem) > 0){iaxis$at <- iaxis$at[-c(pos2rem)]}
-              pos2rem <- which(iaxis$at > ilim[2])
-              if(length(pos2rem) > 0){iaxis$at <- iaxis$at[-c(pos2rem)]}
-
-              ## if ilim has been specified by the function
-              # AND we are not dealing with a factor...
-              # ... we'll continue and ensure ilim and iaxis$at coincide nicely
-              # ... and are appropriate for the range of the data
-              if(!attributes(ilim)$user & is.null(ixlabels)){
-                # Calculate the interval between adjacent positions:
-                interval <- diff.f(iaxis$at[2], iaxis$at[1])
-                # Ensure min and max values of the data are within the axes:
-                if(min(iaxis$at) > min(ix, na.rm = TRUE)) {
-                  iaxis$at <- sort(c(min(iaxis$at) - interval, iaxis$at))
-                }
-                if(max(iaxis$at) < max(ix, na.rm = TRUE)) {
-                  iaxis$at <- sort(c(iaxis$at, max(iaxis$at) + interval))
-                }
-                # Redefine axis limits:
-                ilim <- range(iaxis$at); attributes(ilim)$user <- FALSE
-              }
-
+            #### Option (b) A regular sequence between limits
             } else{
-
-              #### If the user has not requested pretty sequence
-              # we'll simply generate a regular sequence of values between ilim
-              iaxis$at <- seq.f(ilim[1], ilim[2], units = iunits)
-
-            }
-
-          } # close if(!is.null(iaxis$at)){
-
-          #### Define labels according to factor levels, if applicable.
-          if(!is.null(ixlabels)){
-            if(is.null(iaxis$labels)){
-              lat <- length(iaxis$at)
-              llabels <- length(ixlabels)
-              iaxis$labels <- rep(NA, lat)
-              iaxis$labels <- ixlabels[iaxis$at]
+              iaxis$at <- seq_x(ilim[1], ilim[2], units = iunits)
             }
           }
+
+
+          ##############################################
+          #### Define other axis list components
+
+          #### Define pretty labels
+          if(is.null(iaxis$labels)) iaxis$labels <- pretty_labels(x = ix, at = iaxis$at)
 
           #### Return ixaxis and other parameters
           iaxis$side <- iside
@@ -558,12 +448,15 @@ pretty_axis <-
       #### List names
       names(axis_ls) <- side
 
+
+      ##############################################
+      #### Define axis positions
+
       #### Axis positioning
       # position of axis one side = 1 is based on min of side 2 or 4
-      # position of ac
       # position of axis on side = 2 is based on min of side 1 or 3
       # position of axis on side = 3 is based on max of side 2 or 4
-      # position of axis on side = 4 is baed on max of side 1 or 3
+      # position of axis on side = 4 is based on max of side 1 or 3
       s1s <- c("1", "2", "3", "4")
       s2s <- list(c("2", "4"), c("1", "3"), c("2", "4"), c("1", "3"))
       sfs <- list(min, min, max, max)
@@ -581,17 +474,19 @@ pretty_axis <-
           }
         }
       }
+    }
 
-    } # close if(is.null(axis_ls))
-
-    #### Check names do not contain NA; this can occur if the wrong number of elements is supplied
+    #### Check names do not contain NA,
+    # This can occur if the wrong number of elements is supplied
     # .. given the number of sides.
-    if(any(is.na(names(axis_ls)))) stop("names(axis_ls) contains NA(s). The number of sides and the number of elements in argument lists is not aligned.")
+    if(any(is.na(names(axis_ls)))){
+      stop("names(axis_ls) contains NA(s). The number of sides and the number of elements in argument lists is not aligned.")
+    }
+
 
     ##############################################
+    ##############################################
     #### Add axis if requested
-
-    #### If axes have been requested to be plotted...
 
     if(add){
       # loop over every element in axis_ls and add using user-provided parameters
@@ -606,28 +501,17 @@ pretty_axis <-
         # Define at
         at <- elem$axis$at
         # Define appropriate function
-        if(inherits(at, c("numeric", "integer"))){
-          add_axis <- graphics::axis
-        } else if(inherits(at, c("POSIXct", "POSIXlt"))){
-          add_axis <- graphics::axis.POSIXct
-        } else if(inherits(at, "Date")){
-          add_axis <- graphics::axis.Date
-        }
+        add_axis <- choose_foo_axis(at)
         do.call(add_axis, tmp_axis_args)
         do.call(add_axis, elem$axis)
       })
-    } # close if(add)
-
-
-    ##############################################
-    #### Return list if requested
-
-    #### Return list
-    if(return_list){
-      return(axis_ls)
     }
 
-  } # close function
+
+    #### Return pretty axis list, if requested.
+    if(return_list) return(axis_ls)
+
+  }
 
 
 

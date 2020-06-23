@@ -13,7 +13,7 @@ sci_notation(x)
 A vector of expression objects that can be added to a plot.
 }
 \description{
-Reformat numbers in scientific notation, translating the default 'e' notation used in base R to the 'x10' format more suitable for publication quality plots. All numbers in a vector are translated into expression objects with the 'x10' notation which can be added to plots. For consistency, any numbers without 'e' in a vector are treated similarly (e.g. \eqn{1} becomes \eqn{1 \times 10^0})
+Reformat numbers in scientific notation, translating the default 'e' notation used in base R to the 'x10' format more suitable for publication quality plots. If any number in a vector is expressed in R's default scientific notation, then all numbers in that vector are translated into expression objects with the 'x10' notation which can be added to plots. Thus, for consistency, any numbers without 'e' in that vector are treated similarly (e.g. \eqn{1} becomes \eqn{1 \times 10^0}). However, vectors which do not contain any number in R's default scientific notation are returned in as-is condition.
 }
 \examples{
 
