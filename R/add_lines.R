@@ -66,9 +66,9 @@ add_lines <-
       #### Define legend axis ('colour_bar_axis') using pretty_axis based on y2
       dpa <- list(side = 4,
                   x = list(dat$y2),
-                  lim = list(NULL),
-                  pretty = list(NULL),
-                  units = list(NULL),
+                  lim = list(),
+                  pretty = list(),
+                  units = list(),
                   axis = list(pos = 1),
                   axis_ls = NULL,
                   add = FALSE,
