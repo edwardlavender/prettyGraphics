@@ -428,9 +428,9 @@ pretty_numline(df$timestamp, pch = 21, col = "red", bg = "red", cex = 0.1)
 
 This kind of approach is particularly useful for presence or presence/absence observations collected through time. `?pretty_numline()` provides further information and examples, including exemplifying the addition of one dimensional number lines or timelines to existing plots. 
 
-## Histograms and density plots: `pretty_hist()` and `pretty_density()`
+## Histograms and density plots: `pretty_hist()` and `pretty_curve()`
 
-Histograms and density plots are also useful components of data exploration and/or modelling diagnostics. Below, I use `pretty_hist()` to create a histogram of the distribution of depths and `pretty_density()` to explore the distribution of observed data in relation to a Gaussian distribution with parameters estimated by the model above: 
+Histograms and density plots are also useful components of data exploration and/or modelling diagnostics. Below, I use `pretty_hist()` to create a histogram of the distribution of depths and `pretty_curve()` to explore the distribution of observed data in relation to a Gaussian distribution with parameters estimated by the model above: 
 
 ```{r, fig.width = 7, fig.height = 5}
 #### Plotting window 
@@ -440,10 +440,11 @@ pp <- par(mfrow = c(1, 2))
 pretty_hist(df$depth)
 
 #### pretty density plot 
-pretty_density(x = df$depth, 
-               f = stats::dnorm, 
-               param = list(mean = coef(m1)[1], sd = sigma(m1)), 
-               )
+pretty_curve(x = df$depth, 
+             f = stats::dnorm, 
+             param = list(mean = coef(m1)[1], sd = sigma(m1)), 
+             add_rug = TRUE
+             )
 par(pp)
 ```
 

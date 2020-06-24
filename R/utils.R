@@ -138,6 +138,37 @@ check_tz <-
   }
 
 
+###################################
+#### check_named_list()
+
+#' @title Check that a list is named
+#' @description This function checks that the top level of a list is named (ignoring empty lists if requested). If the list is not named, the function returns a helpful error message. Otherwise, the list is returned unchanged. This is particularly useful within functions that use \code{\link[base]{do.call}} to evaluate lists of arguments.
+#' @param arg (optional) A character string which defines the argument of a parent function.
+#' @param l A list.
+#' @param ignore_empty A logical input which defines whether or not to ignore empty lists.
+#' @return The function returns a helpful error message for unnamed lists (ignoring empty lists if requested) or the inputted list unchanged.
+#'
+#' @author Edward Lavender
+#' @keywords internal
+
+check_named_list <- function(arg = NULL, l, ignore_empty = TRUE){
+  if(plotrix::listDepth(l) > 1){
+    warning("Input list of check_named_list() is of depth > 1; only the top level is checked.")
+  }
+  list_is_empty <- (length(l) == 0)
+  if(!list_is_empty | !ignore_empty){
+    if(is.null(names(l)) | any(names(l) %in% "")){
+      if(is.null(arg)){
+        msg <- "Argument must be a named list."
+      } else {
+        msg <- paste0("Argument '", arg, "' must be a named list.")
+      }
+      stop(msg)
+    }
+  }
+  return(l)
+}
+
 #####################################
 #####################################
 #### utils.add::clip_within_range()
