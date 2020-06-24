@@ -118,8 +118,7 @@ pretty_boxplot <-
     }
 
     #### Implement pretty_axis_args
-    pretty_axis_args$x <- list(x, y)
-    axis_ls <- plot.pretty::implement_pretty_axis_args(pretty_axis_args)
+    axis_ls <- plot.pretty::implement_pretty_axis_args(list(x, y), pretty_axis_args)
 
     #### Create boxplot, with appropriate limits
     graphics::boxplot(y ~ x,

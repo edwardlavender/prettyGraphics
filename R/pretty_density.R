@@ -39,8 +39,7 @@ pretty_density <-
     param$x <- gammax
     gammay <- do.call(f, param)
 
-    pretty_axis_args$x <- list(gammax, gammay)
-    axis_ls <- implement_pretty_axis_args(pretty_axis_args)
+    axis_ls <- implement_pretty_axis_args(list(gammax, gammay), pretty_axis_args)
     graphics::plot(gammax, gammay,
                    type = "n",
                    axes = FALSE,

@@ -79,25 +79,22 @@ pretty_numline <-
     if(is.null(pretty_axis_args$axis_ls)) pretty_axis_args$axis_ls <- NULL
     if(is.null(pretty_axis_args$axis_ls) | length(pretty_axis_args$axis_ls) == 0){
 
-      #### Add x to pretty_axis_args
-      if(is.null(pretty_axis_args$x)) pretty_axis_args$x <- list(x)
-
       #### Warn if inherit has been supplied
       if(!is.null(inherit)) warning("pretty_axis_args$axis_ls is NULL; therefore, 'inherit' argument is ignored.")
 
       #### Warn if replace_axis list has been supplied
-      if(!is.null(replace_axis)) warning("pretty_axis_args$axis_ls is NULL; therefore, 'replace_list' argument is ignored")
+      if(!is.null(replace_axis)) warning("pretty_axis_args$axis_ls is NULL; therefore, 'replace_list' argument is ignored.")
 
       #### Check side has been supplied, otherwise force side = 1
       if(is.null(pretty_axis_args$side)){
-        warning("pretty_axis_args$side is NULL; defaulting to side = 1.")
+        message("pretty_axis_args$side is NULL; defaulting to side = 1.")
       }
 
       #### Force position of axis, if necessary
       if(!("pos" %in% names(pretty_axis_args$axis))) pretty_axis_args$axis$pos <- 0
 
       #### Implement pretty_axis_args
-      axis_ls <- implement_pretty_axis_args(pretty_axis_args)
+      axis_ls <- implement_pretty_axis_args(list(x), pretty_axis_args)
 
     #### Option (2): axis_ls has been supplied, but may require adjustments via side or pos.
     } else{

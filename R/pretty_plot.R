@@ -110,10 +110,7 @@ pretty_plot <-
     }
 
     #### Implement pretty_axis_args
-    # Add x to pretty_axis_args
-    pretty_axis_args$x <- list(x, y)
-    # Implement pretty_axis
-    axis_ls <- implement_pretty_axis_args(pretty_axis_args)
+    axis_ls <- implement_pretty_axis_args(list(x, y), pretty_axis_args)
 
     #### Variable type updates
     # Convert factors/characters to numbers for plotting

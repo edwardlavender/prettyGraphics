@@ -4,9 +4,11 @@
 \alias{implement_pretty_axis_args}
 \title{Implement \code{pretty_axis_args}}
 \usage{
-implement_pretty_axis_args(pretty_axis_args)
+implement_pretty_axis_args(x, pretty_axis_args)
 }
 \arguments{
+\item{x}{A list of of coordinates (\code{\link[plot.pretty]{pretty_axis}}).}
+
 \item{pretty_axis_args}{A named list of parameters that are passed to \code{\link[plot.pretty]{pretty_axis}}.}
 }
 \value{

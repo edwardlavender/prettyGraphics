@@ -4,13 +4,23 @@
 
 #' @title Implement \code{pretty_axis_args}
 #' @description This function implements the pretty_axis_args argument in functions. It is not intended to be called directly by the user.
+#' @param x A list of of coordinates (\code{\link[plot.pretty]{pretty_axis}}).
 #' @param pretty_axis_args A named list of parameters that are passed to \code{\link[plot.pretty]{pretty_axis}}.
 #' @return A list.
 #' @author Edward Lavender
 #' @export
 
 implement_pretty_axis_args <-
-  function(pretty_axis_args){
+  function(x, pretty_axis_args){
+
+    #### Check if x is supplied by the user in pretty_axis_args
+    # It shouldn't be, because pretty_axis_args use x from inputted coordinates instead, so provide a warning:
+    if(length(pretty_axis_args$x) > 0){
+      warning("'x' argument does not need to be supplied to pretty_axis_args. pretty_axis_args$x replaced with 'x' and 'y' coordinates.")
+    }
+    pretty_axis_args$x <- x
+
+    #### If pretty axis parameters have been supplied...
     if(length(pretty_axis_args) > 0){
 
       #### Define default parameters:
@@ -28,13 +38,12 @@ implement_pretty_axis_args <-
       if("side" %in% names(pretty_axis_args) | "axis_ls" %in% names(pretty_axis_args)){
         paa$side <- NULL
       } else{
-        warning("Argument 'side' not supplied to pretty_axis_args (nor 'axis_ls'); defaulting to side = 1:2.")
+        message("Argument 'side' not supplied to pretty_axis_args (nor 'axis_ls'); defaulting to side = 1:2.")
       }
 
       #### Check: has 'pretty' been supplied?
-      # Remove pretty argument if supplied;
-      # This prevents issues when two lists are provided, in which case the original
-      # ... list will remain.
+      # Remove pretty argument in default list if supplied;
+      # This prevents issues when two lists are provided, in which case the user-provided argument remains.
       if("pretty" %in% names(pretty_axis_args)) paa$pretty <- NULL
       # Likewise, remove pretty if units are supplied:
       if("units" %in% names(pretty_axis_args)) paa$pretty <- list(NULL)

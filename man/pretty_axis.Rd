@@ -357,6 +357,10 @@ axis_ls <-
   )
 axis_ls[[1]]
 
+#### For all data types, NAs are removed with a warning:
+\dontrun{
+pretty_axis(x = list(factor(c(1, 2, NA)), 1:3))
+}
 
 }
 \author{
