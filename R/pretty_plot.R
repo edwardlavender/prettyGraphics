@@ -115,12 +115,12 @@ pretty_plot <-
     #### Variable type updates
     # Convert factors/characters to numbers for plotting
     if(is.factor(x) | is.character(x)){
-      warning("'x' converted to a number for plotting in pretty_plot().")
-      x <- as.numeric(factor(x))
+      # warning("'x' converted to a number for plotting in pretty_plot().")
+      x <- as.integer(factor(x))
     }
     if(is.factor(y) | is.character(y)){
-      warning("'y' converted to a number for plotting in pretty_plot().")
-      y <- as.numeric(factor(y))
+      # warning("'y' converted to a number for plotting in pretty_plot().")
+      y <- as.integer(factor(y))
     }
 
 
