@@ -102,7 +102,11 @@ seq_x <- function(x1, x2, units){
       duration <- difftime(x1, x2, units = units)
       units <- attributes(duration)$units
     }
-    s <- seq.POSIXt(x1, x2, by = units)
+    if(inherits(x1, "Date")){
+      s <- seq.Date(x1, x2, by = units)
+    } else if(inherits(x1, "POSIXct")){
+      s <- seq.POSIXt(x1, x2, by = units)
+    }
   }
   return(s)
 }
@@ -168,50 +172,87 @@ define_lim_init <-
            lim = NULL
   ){
 
+    #### Return limits unchanged, if provided in full
+    if(length(lim) == 2 & length(which(!is.na(lim))) == 2 & length(attributes(lim)$user) == 2){
+      return(lim)
+    }
+
     #### Check variable types
     # Convert characters to factors, if necessary.
     if(is.character(x)) x <- factor(x)
+    # Check that numerical limits have not been provided for a factor
+    if(is.factor(x)){
+      if(!is.null(lim)){
+        warning("Limit(s) supplied for factors are ignored. In pretty_axis(), use control_factor_lim to adjust internally defined limits.")
+        lim <- NULL
+      }
+    }
     # Convert factors to numbers, if necessary, so that limits can be calculated.
     if(is.factor(x)) x <- 1:length(levels(x))
 
-    #### If the user has not defined limits, define limits.
-    if(is.null(lim)){
+    #### Limit pre-processing prior to limit definition
+    # If limits have not been provided, set both to NA
+    if(is.null(lim)) {
+      # Define limits from x first, to preserve the class of x.
+      lim <- rep(x[1], 2)
+      lim[1] <- NA; lim[2] <- NA;
+    }
+    # If only one limit has been provided, assume the first limit and set the second to NA
+    if(length(lim) == 1) lim <- c(lim, NA)
 
-      #### Option (a): Extract limits from axis positions (e.g., at) if provided.
-      if(!is.null(at)){
-        lim <- range(at)
+    #### Loop over each limit, define value (if necessary) and attributes
+    lim_ls <-
+      lapply(1:2, function(i){
 
-      #### Option (b) Define initial limits based on the data
-      } else {
-        # Define limits
-        lim <- range(x, na.rm = TRUE)
-        # Asign user = FALSE
-        attributes(lim)$user <- FALSE
-        # Check that both limits are not identical.
-        # If so, adjust them: you cannot have a graph
-        # ... with identical lower/upper limits
-        if(length(unique(lim)) == 1){
-          warning("Lower and upper limits for one of the inputted variables are the same. This is usually because all values of this variable are identical. Limits and pretty labels are being adjusted, but manually inputted limits may be necessary...\n")
-          # Set lower limit to 0 or minus 1:
-          if(lim[2] > 0){
-            lim[1] <- 0
-          } else{
-            lim[1] <- lim[1] - 1
+        #### Extract value of limit and function to define limits, if necessary
+        ilim <- lim[i]
+        # Lower limits are given from the minimum of axis positions/data;
+        # Uper limits are given from the maximum of axis positions/data;
+        define_lim <- list(min, max)[[i]]
+
+        #### Limits do not need to be defined
+        if(!is.na(ilim)){
+          attributes(ilim)$user <- TRUE
+          if(!is.null(at)){
+            if(define_lim(at) != ilim){
+              stop("Both limits and tick mark positions provided and are not equal.", call. = FALSE)
+            }
+          }
+
+          #### Limits need to be defined
+        } else{
+          ## Option (a): Extract limits from axis positions (e.g., at) if provided.
+          if(!is.null(at)){
+            ilim <- define_lim(at)
+            attributes(ilim)$user <- TRUE
+            ## Option (b) Define initial limits based on the data
+          } else {
+            # Define limits
+            ilim <- define_lim(x, na.rm = TRUE)
+            attributes(ilim)$user <- FALSE
           }
         }
+        return(ilim)
+      })
+    # Use do.call() to unlist list to preserve attributes
+    lim <- do.call("c", lim_ls)
+    attributes(lim)$user <- sapply(lim_ls, function(i) attributes(i)$user)
+
+    #### Final checks
+    # Check that both limits are not identical.
+    # If so, adjust them: you cannot have a graph with identical lower/upper limits.
+    if(length(unique(lim)) == 1){
+      warning("Lower and upper limits for one of the inputted variables are the same. This is usually because all values of this variable are identical. Limits are being adjusted, but manually inputted limits may be necessary...\n")
+      # Set lower limit to 0 or minus 1:
+      if(lim[2] > 0){
+        lim[1] <- 0
+      } else{
+        lim[1] <- lim[1] - 1
       }
-
-    #### If the user has defined limits
-    } else{
-
-      #### Check that two limits are provided
-      length_lim <- length(lim)
-      if(length_lim != 2) stop(paste0(length_lim, " value(s) supplied as the limits for at least one axis; if supplied, two limits  are required."))
-      #### Check that provided limits are sensible
-      if(lim[1] >= lim[2]) { stop("Nonsensical user-specified axis limits: the lower limit for at least one axis is greater than or equal to the upper limit for the same axis. \n")}
-
-      #### Define attributes
-      attributes(lim)$user <- TRUE
+    }
+    # Check that limits are sensible
+    if(lim[1] >= lim[2]) {
+      stop("Nonsensical user-specified axis limits: the lower limit for at least one axis is greater than or equal to the upper limit for the same axis. \n")
     }
 
     #### Return limits
@@ -246,16 +287,9 @@ pretty_seq <-
            lim = NULL,
            pretty_args = list(n = 5)){
 
-    #### Check and/or define limits
-    if(!is.null(lim)){
-      # Check limit length
-      if(length(lim) != 2) stop("lim must be a vector of length two.")
-      # Check limit attributes
-      if(is.null(attributes(lim)$user)) attributes(lim)$user <- TRUE
-    } else{
-      # Define limits
-      lim <- define_lim_init(x = x, at = NULL, lim = NULL)
-    }
+    #### Define intial limits
+    # If these have been provided, they are unchanged.
+    lim <- define_lim_init(x = x, lim = lim, at = NULL)
 
     #### Define pretty sequence
     pretty_args$obj <- x
@@ -279,18 +313,24 @@ pretty_seq <-
 
     #### Adjust limits to ensure consistency between limits, axis positions and data
     # If (a) limits are not user specified and (b) we are not dealing with a factor
-    if(!attributes(lim)$user & !is.factor(x)){
-      # Calculate the interval between adjacent positions:
+    if(!is.factor(x)){
       interval <- diff_x(at[2], at[1])
-      # Ensure min and max values of the data are within the axes:
-      if(min(at) > min(x, na.rm = TRUE)) {
-        at <- sort(c(min(at) - interval, at))
+      for(i in 1:2){
+        if(!attributes(lim)$user[i]){
+          # Ensure min and max values of the data are within the axes:
+          if(i == 1){
+            if(min(at) > min(x, na.rm = TRUE)) {
+              at <- sort(c(min(at) - interval, at))
+            }
+            lim[1] <- min(at)
+          } else if(i == 2){
+            if(max(at) < max(x, na.rm = TRUE)) {
+              at <- sort(c(at, max(at) + interval))
+            }
+            lim[2] <- max(at)
+          }
+        }
       }
-      if(max(at) < max(x, na.rm = TRUE)) {
-        at <- sort(c(at, max(at) + interval))
-      }
-      # Redefine axis limits:
-      lim <- range(at); attributes(lim)$user <- FALSE
     }
 
     #### Define outputs

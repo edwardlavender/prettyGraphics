@@ -97,6 +97,21 @@
 #' plot(x, y, axes = FALSE, xlim = axis_args$`1`$lim, ylim = axis_args$`2`$lim)
 #' pretty_axis(axis_ls = axis_args, add = TRUE)
 #'
+#' #### For any axis, only one limit can be fixed and the other will be define internally:
+#' # If only one limit is provided, this is assumed to be the first limit:
+#' pretty_axis(side = 1:2, x = list(x, y), lim = list(0, NULL))[[1]]$lim
+#' # The second limit can be coded explicitly as NA:
+#' pretty_axis(side = 1:2, x = list(x, y), lim = list(c(0, NA), NULL))[[1]]$lim
+#' # To hard-code the second limit, you must specify the first limit as NA:
+#' pretty_axis(side = 1:2, x = list(x, y), lim = list(c(0, NA), NULL))[[1]]$lim
+#' # Times work in the same way (see also later exampes):
+#' pretty_axis(side = 1:2,
+#'             x = list(as.Date(c("2016-01-04", "2016-05-01")), 1:2),
+#'             lim = list(as.Date("2016-01-01"), NULL))[[1]]$lim
+#' pretty_axis(side = 1:2,
+#'             x = list(as.POSIXct(c("2016-01-04", "2016-05-01")), 1:2),
+#'             lim = list(as.POSIXct("2016-01-01"), NULL))[[1]]$lim
+#'
 #' #### We can create regular sequences instead of pretty ones
 #' # Instead of creating 'pretty' axes, we can choose to create a regular sequence
 #' # ... and specify the total number of units between the start and end points
@@ -396,19 +411,26 @@ pretty_axis <-
              })
 
       #### Check data types
-      if(length(x) > 0){
-        x <- mapply(x, 1:length(x), FUN = function(elm, i){
-          # Define argument name
-          arg <- paste0("x[[", i, "]]")
-          #  If a character is supplied, convert to factor, with a warning:
-          elm <- check_input_class(arg = arg, input = elm,
-                                   if_class = "character", to_class = "factor",
-                                   type = "warning", coerce_input = factor)
-          # If a timestamp if supplied, ensure a tz is included:
-          elm <- check_tz(arg, elm)
-          return(elm)
-        }, SIMPLIFY = FALSE)
-      }
+      # Check data
+      x <- mapply(x, 1:length(x), FUN = function(elm, i){
+        # Define argument name
+        arg <- paste0("x[[", i, "]]")
+        #  If a character is supplied, convert to factor, with a warning:
+        elm <- check_input_class(arg = arg, input = elm,
+                                 if_class = "character", to_class = "factor",
+                                 type = "warning", coerce_input = factor)
+        # If a timestamp if supplied, ensure a tz is included:
+        elm <- check_tz(arg, elm)
+        return(elm)
+      }, SIMPLIFY = FALSE)
+      # Repeat for limits; we only need to check timestamps here because factor limits are ignored.
+      lim <- mapply(lim, 1:length(lim), FUN = function(elm, i){
+        # Define argument name
+        arg <- paste0("lim[[", i, "]]")
+        # If a timestamp if supplied, ensure a tz is included:
+        elm <- check_tz(arg, elm)
+        return(elm)
+      }, SIMPLIFY = FALSE)
 
       #### Explicit consideration of NAs in data.
       # This is generally useful, but necessary to stop errors with factor levels that are NA.
@@ -509,11 +531,8 @@ pretty_axis <-
           # This step needs to be implemented after defining tick marks, else tick marks
           # ... are defined within expanded limits
           if(is.factor(ix)){
-            # Only implement expansion if limits are not user-supplied.
-            if(!attributes(ilim)$user){
-              ilim <- c(min(ilim) - control_factor_lim, max(ilim) + control_factor_lim)
-              attributes(ilim)$user <- FALSE
-            }
+            ilim <- c(min(ilim) - control_factor_lim, max(ilim) + control_factor_lim)
+            attributes(ilim)$user <- c(FALSE, FALSE)
           }
 
 
