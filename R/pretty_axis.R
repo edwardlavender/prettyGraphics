@@ -367,8 +367,15 @@ pretty_axis <-
       #### Check that sides are provided in the correct order
       # ...
 
-      #### Check that data are supplied
-      stopifnot(!(length(x) == 0))
+      #### Extract x values from lim, if not supplied.
+      if(length(x) == 0){
+        if(length(lim) == 0){
+          stop("'x' or 'lim' must be supplied.")
+        } else{
+          message("pretty_axis() 'x' values taken from 'lim'.")
+          x <- lim
+        }
+      }
 
       #### Check argument class is "list", where required, and convert empty lists to list(NULL).
       # This is required to loop over lists correctly, but it is more intuitive for the user to specify
