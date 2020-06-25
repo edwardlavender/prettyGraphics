@@ -4,10 +4,12 @@
 \alias{sci_notation}
 \title{Tidy scientific notation}
 \usage{
-sci_notation(x)
+sci_notation(x, n = NULL)
 }
 \arguments{
 \item{x}{A numeric vector.}
+
+\item{n}{(optional) A number which defines the desired number of decimal places. This is passed to \code{\link[plot.pretty]{add_lagging_point_zero}}. If \code{n = NULL}, all numbers are brought up to the maximum number of decimal places.}
 }
 \value{
 A vector of expression objects that can be added to a plot.
@@ -17,7 +19,12 @@ Reformat numbers in scientific notation, translating the default 'e' notation us
 }
 \examples{
 
-#### Example (1):
+#### Example (1): sci_notation() returns an expression object
+sci_notation(seq(1e-10, 1e10, by = 1e9))
+# Except for vectors without scientific notation, which are left unchanged:
+sci_notation(1:10)
+
+#### Example (2): sci_notation() can be used to create pretty axis labels
 x <- seq(1e-10, 1e10, by = 1e9)
 y <- runif(length(x), 0, 100)
 xtidy <- sci_notation(x)
@@ -25,6 +32,13 @@ plot(x, y, axes = FALSE)
 axis(side = 1, at = x, labels = xtidy, pos = 0, las = 2)
 axis(side = 2, at = seq(0, 100, by = 10), pos = 1e-10)
 
+#### Example (3): The n argument can be used to adjust the number of decimal places upwards:
+sci_notation(c(1.29876e11, 1.29e11))
+sci_notation(c(1.29876e11, 1.29e11), n = 8)
+
+}
+\seealso{
+The function is implemented internally in \code{\link[plot.pretty]{pretty_axis}} for numeric observations.
 }
 \author{
 Edward Lavender

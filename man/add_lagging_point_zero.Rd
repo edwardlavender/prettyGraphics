@@ -17,7 +17,7 @@ add_lagging_point_zero(x, n = NULL, ignore = FALSE)
 A vector, as inputted, but in which any elements with fewer than \code{n} decimal places have had ".0"(s) added.
 }
 \description{
-This function adds lagging .0(s) to a number. This is useful for tidy graph labels (e.g. with scientific notation).
+This function adds lagging .0(s) to a number. This is useful for tidy graph labels.
 }
 \examples{
 
@@ -57,6 +57,13 @@ axis(side = 1, at, labels = labels1)
 
 # Labels after before add_lagging_point_zero() are tidier:
 axis(side = 2, at, labels = labels2)
+
+#### Example (4): For use with scientific notation, add_lagging_point_zero is implemented
+# ... in sci_notation via the n argument:
+sci_notation(1e12, n = 2)
+# Simply implementing add_lagging_point_zero() on scientific notation currently renders
+# ... undesirable output:
+add_lagging_point_zero(1e12, n = 5)
 
 }
 \author{

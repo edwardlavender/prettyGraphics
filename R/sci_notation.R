@@ -2,12 +2,18 @@
 #' @description Reformat numbers in scientific notation, translating the default 'e' notation used in base R to the 'x10' format more suitable for publication quality plots. If any number in a vector is expressed in R's default scientific notation, then all numbers in that vector are translated into expression objects with the 'x10' notation which can be added to plots. Thus, for consistency, any numbers without 'e' in that vector are treated similarly (e.g. \eqn{1} becomes \eqn{1 \times 10^0}). However, vectors which do not contain any number in R's default scientific notation are returned in as-is condition.
 #'
 #' @param x A numeric vector.
+#' @param n (optional) A number which defines the desired number of decimal places. This is passed to \code{\link[plot.pretty]{add_lagging_point_zero}}. If \code{n = NULL}, all numbers are brought up to the maximum number of decimal places.
 #'
 #' @return A vector of expression objects that can be added to a plot.
 #'
 #' @examples
 #'
-#' #### Example (1):
+#' #### Example (1): sci_notation() returns an expression object
+#' sci_notation(seq(1e-10, 1e10, by = 1e9))
+#' # Except for vectors without scientific notation, which are left unchanged:
+#' sci_notation(1:10)
+#'
+#' #### Example (2): sci_notation() can be used to create pretty axis labels
 #' x <- seq(1e-10, 1e10, by = 1e9)
 #' y <- runif(length(x), 0, 100)
 #' xtidy <- sci_notation(x)
@@ -15,6 +21,11 @@
 #' axis(side = 1, at = x, labels = xtidy, pos = 0, las = 2)
 #' axis(side = 2, at = seq(0, 100, by = 10), pos = 1e-10)
 #'
+#' #### Example (3): The n argument can be used to adjust the number of decimal places upwards:
+#' sci_notation(c(1.29876e11, 1.29e11))
+#' sci_notation(c(1.29876e11, 1.29e11), n = 8)
+#'
+#' @seealso  The function is implemented internally in \code{\link[plot.pretty]{pretty_axis}} for numeric observations.
 #' @author Edward Lavender
 #' @export
 
@@ -22,7 +33,7 @@
 ##############################################
 #### sci_notation
 
-sci_notation <- function(x) {
+sci_notation <- function(x, n = NULL) {
 
   #### Require numeric input
   stopifnot(is.numeric(x))
@@ -50,6 +61,7 @@ sci_notation <- function(x) {
 
     # Identify the numbers before and after "e"
     x <- stringr::str_split_fixed(x, pattern = "e", 2)
+    x[, 1] <- add_lagging_point_zero(x[, 1], n = n, ignore = TRUE)
 
     # Create a list of calls:
     lab <- list()

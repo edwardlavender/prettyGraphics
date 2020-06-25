@@ -1,5 +1,5 @@
 #' @title Add lagging .0(s) to a number
-#' @description This function adds lagging .0(s) to a number. This is useful for tidy graph labels (e.g. with scientific notation).
+#' @description This function adds lagging .0(s) to a number. This is useful for tidy graph labels.
 #'
 #' @param x A numeric or character vector which contains some elements to which lagging .0(s) should be added.
 #' @param n A number which defines the desired number of decimal places. Any element in \code{x} with fewer than \code{n} decimal places will have the appropriate number of decimal places added. If \code{n} is less than the number of decimal places for any element in \code{x}, the function will return an error. In this case, round all numbers to the same precision first, before implementing \code{add_lagging_point_zero}. If \code{n = NULL}, the function defines \code{n} internally to be the maximum number of decimal places in \code{x}.
@@ -45,6 +45,13 @@
 #'
 #' # Labels after before add_lagging_point_zero() are tidier:
 #' axis(side = 2, at, labels = labels2)
+#'
+#' #### Example (4): For use with scientific notation, add_lagging_point_zero is implemented
+#' # ... in sci_notation via the n argument:
+#' sci_notation(1e12, n = 2)
+#' # Simply implementing add_lagging_point_zero() on scientific notation currently renders
+#' # ... undesirable output:
+#' add_lagging_point_zero(1e12, n = 5)
 #'
 #' @author Edward Lavender
 #' @export
