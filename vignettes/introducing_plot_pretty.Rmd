@@ -349,7 +349,7 @@ During or following data exploration, models are useful tools to elucidate trend
 
 ```{r, fig.width = 7, fig.height = 5}
 #### Flag and thin timeseries to reduce serial autocorrelation 
-dat_flapper_thin <- df[seq(1, 5000, by = 10), ]
+dat_flapper_thin <- df[seq(1, nrow(df), by = 10), ]
 
 #### Implement a preliminary model of depth ~ s(time) using mgcv::bam and the thinned dataset 
 m1 <- mgcv::bam(depth ~ s(scale(as.numeric(timestamp), scale = FALSE), bs = "cr", k = 10), 
@@ -443,7 +443,7 @@ pretty_hist(df$depth)
 pretty_curve(x = df$depth, 
              f = stats::dnorm, 
              param = list(mean = coef(m1)[1], sd = sigma(m1)), 
-             add_rug = TRUE
+             add_rug = list(col = "skyblue", lwd = 2)
              )
 par(pp)
 ```
