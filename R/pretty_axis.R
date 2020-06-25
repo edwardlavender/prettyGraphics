@@ -380,7 +380,11 @@ pretty_axis <-
       #### Checks
 
       #### Check that sides are provided in the correct order
-      # ...
+      if(length(side) == 3) stop("Three axis sides are not currently supported.")
+      if(length(side) > 1){
+        if(!(side[1] %in% c(1, 3))) stop("side[1] should refer to an x axis (i.e., side[1] = 1 or 3).")
+        if(!(side[2] %in% c(2, 4))) stop("side[2] should refer to a y axis (i.e., side[2] = 2 or 4).")
+      }
 
       #### Extract x values from lim, if not supplied.
       if(length(x) == 0){
