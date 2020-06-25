@@ -1,5 +1,5 @@
 #' @title Pretty histograms
-#' @description This function makes prettier histograms. Histograms are created using \code{\link[graphics]{hist}} with more flexibility for control over the axes. By default, the 'breaks' vector computed by \code{\link[graphics]{hist}} is used for the x axis, but every \code{xn} value can be selected for inclusion as an axis tick mark. Alternatively, x axis elements can be controlled using \code{xaxis}. The default y axis is defined with \code{\link[base]{pretty}} based on a named list of parameters provided by the user (e.g. including the approximate number of 'pretty' breaks). Alternatively, the y axis can be implemented via \code{yaxis} as for the x axis. Axis titles can be added using \code{xlab}, \code{ylab} or \code{main} or via \code{\link[graphics]{mtext}} via \code{mtext_args} which offers more control.
+#' @description This function makes prettier histograms. Histograms are created using \code{\link[graphics]{hist}} with more flexibility for control over the axes. Unlike most functions in \code{\link[plot.pretty]{plot.pretty}}, \code{pretty_hist()} does not use \code{\link[plot.pretty]{pretty_axis}} to draw axes. Instead, by default, the 'breaks' vector computed by \code{\link[graphics]{hist}} is used for the x axis, but every \code{xn}th value can be selected for inclusion as an axis tick mark. This ensures that axis breaks and tick marks are always aligned. Alternatively, x axis elements can be controlled using \code{xaxis}. The default y axis is defined with \code{\link[base]{pretty}} based on a named list of parameters provided by the user (e.g. including the approximate number of 'pretty' breaks). Alternatively, the y axis can be implemented via \code{yaxis} as for the x axis. Axis titles can be added using \code{xlab}, \code{ylab} or \code{main} or via \code{\link[graphics]{mtext}} via \code{mtext_args} which offers more control.
 #'
 #' @param x A numeric vector for which to create a histogram.
 #' @param freq A logical input which defines whether or not to create a histogram of counts or probability densities.
@@ -13,14 +13,11 @@
 #' @param ylab The y axis label. This can be added via \code{mtext_args} for more control.
 #' @param main The plot title. This can be added via \code{mtext_args} for more control.
 #' @param mtext_args A named list of arguments passed to \code{\link[graphics]{mtext}} to add labels. A nested list is used to control each axis separately.
-#' @param ... other parameters passed to \code{\link[graphics]{hist}}.
+#' @param ... other parameters passed to \code{\link[graphics]{hist}}. Arguments that affect the axes should be implemented via \code{xaxis} or \code{yaxis}; any such arguments passed via \code{...} are silently ignored.
 #'
 #' @return The function returns a pretty histogram.
 #'
-#' @details By default, the x axis is a sequence of values
-#'
 #' @examples
-#'
 #' #### Example (1) The default options
 #' set.seed(1)
 #' x <- rnorm(1000, 0, 1)
@@ -33,7 +30,8 @@
 #' pp <- par(mfrow = c(1, 3))
 #' pretty_hist(x, xn = 2)
 #' pretty_hist(x, ypretty = list(n = 10))
-#' pretty_hist(x, xaxis = list(at = -5:5), xlim = c(-5, 5))
+#' pretty_hist(x, xaxis = list(at = -5:5))
+#' pretty_hist(x, yaxis = list(at = seq(0, 300, by = 100)))
 #' par(pp)
 #'
 #' #### Example (4) Axis labels can be adjusted via mtext() and mtext_args()
@@ -61,6 +59,29 @@
 #' hist(x)
 #' par(pp)
 #'
+#' #### Example (6) Some examples with dates and times
+#' ## Define some timeseries data
+#' x <- seq.Date(as.Date("2016-01-01"), as.Date("2017-01-01"), 1)
+#' x <- sample(x, size = 1000, replace = TRUE)
+#' ## Set plotting region
+#' pp <- par(mfrow = c(2, 2))
+#' ## hist() and pretty_hist() comparison
+#' # Note that for times, hist() displays density by default,
+#' # ... but freq = FALSE is needed for pretty_hist
+#' hist(x, breaks = "months")
+#' pretty_hist(x, breaks = "months", freq = FALSE)
+#' ## Usually for timeseries, you need to be explicit about breaks
+#' # ... for pretty plots:
+#' hist(x,
+#'      breaks = seq(min(x), max(x), by = "months"),
+#'      format = "%d-%m", las = 2)
+#' pretty_hist(x,
+#'             breaks = seq(min(x), max(x), by = "months"),
+#'             xaxis = list(format = "%d-%m", las = 2),
+#'             freq = FALSE
+#' )
+#' par(pp)
+#'
 #' @author Edward Lavender
 #' @export
 #'
@@ -71,7 +92,7 @@
 
 pretty_hist <-
   function(x,
-           freq = FALSE,
+           freq = TRUE,
            xn = 1,
            ypretty = list(n = 5),
            xaxis = list(),
@@ -81,17 +102,34 @@ pretty_hist <-
            xlab = "",
            ylab = "",
            main = "",
-           mtext_args = list(list(side = 1, text = "x", line = 2.5),
-                             list(side = 2, text = "Frequency", line = 2.5)
-           ),
+           mtext_args = list(),
            ...
-           ){
+  ){
 
-    #### Define pretty axes parameters
-    h <- graphics::hist(x,
-                        freq = freq,
-                        plot = FALSE,
-                        warn.unused = FALSE,...)
+    #### Checks
+    check...("plot",...)
+
+    #### Implement hist()
+    if(!is.null(xaxis$at) & is.null(xlim)) xlim <- range(xaxis$at)
+    if(!is.null(yaxis$at) & is.null(ylim)) ylim <- range(yaxis$at)
+    param <- list(x = x, freq = freq, xlim = xlim, ylim = ylim, plot = FALSE)
+    param <- list_merge(param, list(...))
+    if(is_number(x)) param$warn.unused <- FALSE
+    h <- do.call(graphics::hist, param)
+
+    #### Update breaks
+    convert_breaks <- function(x, breaks){
+      if(is_number(x)){
+        return(breaks)
+      } else if(inherits(x, "Date")){
+        return(as.Date(breaks, origin = "1970-01-01"))
+      } else if(inherits(x, "POSIXct")){
+        return(as.POSIXct(breaks, origin = "1970-01-01"))
+      } else{
+        stop("class(x) is unsupported: only classes numeric, integer, Date and POSIXct are supported.")
+      }
+    }
+    h$breaks <- convert_breaks(x = x, h$breaks)
 
     #### Define select
     if(freq){
@@ -106,10 +144,10 @@ pretty_hist <-
       xaxis$at <- xaxis$at[seq(1, length(xaxis$at), by = xn)]
     }
     if(is.null(xlim)) xlim <- range(h$breaks)
-    ypretty$x <- c(0, max(h[[select]]))
-    if(length(unique(ypretty$x)) == 1) ypretty$x[2] <- ypretty$x[2] + 1
-    if(is.null(yaxis$at)) yaxis$at <- do.call("pretty", ypretty)
-    if(is.null(ylim)) ylim <- range(yaxis$at)
+    if(is.null(ylim)) ylim <- c(0, NA)
+    yls <- pretty_seq(h[[select]], lim = ylim, pretty_args = ypretty)
+    ylim <- yls$lim
+    if(is.null(yaxis$at)) yaxis$at <- yls$at
     if(is.null(xaxis$pos)) xaxis$pos <- ylim[1]
     if(is.null(yaxis$pos)) yaxis$pos <- xlim[1]
 
@@ -119,18 +157,20 @@ pretty_hist <-
                    axes = FALSE,
                    xlim = xlim, ylim = ylim,
                    xlab = xlab, ylab = ylab, main = main,...
-                   )
+    )
 
     #### Add axes
     if(is.null(xaxis$side)) xaxis$side <- 1
     if(is.null(yaxis$side)) yaxis$side <- 2
-    do.call(graphics::axis, xaxis)
+    add_axis <- choose_foo_axis(xaxis$at)
+    do.call(add_axis, xaxis)
     do.call(graphics::axis, yaxis)
 
     #### Add axis labels
     implement_mtext_args(mtext_args)
 
   } # close function
+
 
 #### End of code.
 ###########################################

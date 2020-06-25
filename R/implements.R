@@ -46,7 +46,7 @@ implement_pretty_axis_args <-
       # This prevents issues when two lists are provided, in which case the user-provided argument remains.
       if("pretty" %in% names(pretty_axis_args)) paa$pretty <- NULL
       # Likewise, remove pretty if units are supplied:
-      if("units" %in% names(pretty_axis_args)) paa$pretty <- list(NULL)
+      if("units" %in% names(pretty_axis_args)) paa$pretty <- NULL
 
       #### Merge parameters
       pretty_axis_args <- rlist::list.merge(paa, pretty_axis_args)
