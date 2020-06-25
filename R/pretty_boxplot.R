@@ -108,14 +108,6 @@ pretty_boxplot <-
       warning("x co-erced to a factor.")
       x <- factor(x)
     }
-    # Check that side has been supplied in pretty_axis_args
-    # This check is implemented by implement_pretty_axis_args() but it is necessary here
-    # ... to avoid errors before implement_pretty_axis_args() is implemented
-    # ... (because we need to loop over each side, below).
-    if(!("side" %in% names(pretty_axis_args)) & !("axis_ls" %in% names(pretty_axis_args))){
-      warning("Argument 'side' not supplied to pretty_axis_args (nor 'axis_ls'); defaulting to side = 1:2.")
-      pretty_axis_args$side <- 1:2
-    }
 
     #### Implement pretty_axis_args
     axis_ls <- plot.pretty::implement_pretty_axis_args(list(x, y), pretty_axis_args)
