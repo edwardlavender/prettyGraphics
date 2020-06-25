@@ -19,7 +19,7 @@ add_error_bars(x, y, se, scale = 1, length = 0.05, add_fitted = NULL, ...)
 
 \item{add_fitted}{(optional) A named list of graphical parameters, passed to \code{\link[graphics]{points}} which, if provided, will add fitted values as points on top of error bars. An empty list (\code{add_fitted = list()}) will add fitted values to the plot using default graphical parameters.}
 
-\item{...}{Other arguments passed to \code{\link[graphics]{arrows}}, which is used to draw error bars, for customisation. Arguments \code{x0}, \code{x1}, \code{y0} and \code{y1} are obtained from \code{x}, \code{y}, \code{se} and \code{scale} and should not be provided. Likewise, \code{angle} is forced to be 90 degrees (i.e., error bars are forced to have horzontal tips (or no tips, if \code{length = 0})) and should not be provided.}
+\item{...}{Other arguments passed to \code{\link[graphics]{arrows}}, which is used to draw error bars, for customisation. Arguments \code{x0}, \code{x1}, \code{y0} and \code{y1} are obtained from \code{x}, \code{y}, \code{se} and \code{scale} and should not be provided. Likewise, \code{angle} is forced to be 90 degrees (i.e., error bars are forced to have horizontal tips (or no tips, if \code{length = 0})) and should not be provided.}
 }
 \description{
 This function is used to add error bars (and fitted values) to a plot. Error bars are drawn above and below fitted values.

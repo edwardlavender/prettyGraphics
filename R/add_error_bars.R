@@ -7,7 +7,7 @@
 #' @param scale A numeric value by which to multiply the \code{se} (e.g. to convert standard errors into 95 percent confidence intervals).
 #' @param length A numeric value which defines the length of the horizontal tips of the error bars. \code{length = 0} will suppress the horizontal tips of error bars.
 #' @param add_fitted (optional) A named list of graphical parameters, passed to \code{\link[graphics]{points}} which, if provided, will add fitted values as points on top of error bars. An empty list (\code{add_fitted = list()}) will add fitted values to the plot using default graphical parameters.
-#' @param ... Other arguments passed to \code{\link[graphics]{arrows}}, which is used to draw error bars, for customisation. Arguments \code{x0}, \code{x1}, \code{y0} and \code{y1} are obtained from \code{x}, \code{y}, \code{se} and \code{scale} and should not be provided. Likewise, \code{angle} is forced to be 90 degrees (i.e., error bars are forced to have horzontal tips (or no tips, if \code{length = 0})) and should not be provided.
+#' @param ... Other arguments passed to \code{\link[graphics]{arrows}}, which is used to draw error bars, for customisation. Arguments \code{x0}, \code{x1}, \code{y0} and \code{y1} are obtained from \code{x}, \code{y}, \code{se} and \code{scale} and should not be provided. Likewise, \code{angle} is forced to be 90 degrees (i.e., error bars are forced to have horizontal tips (or no tips, if \code{length = 0})) and should not be provided.
 #'
 #' @examples
 #' #### Simulate data
