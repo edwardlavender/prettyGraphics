@@ -59,7 +59,7 @@ devtools::install_github("edwardlavender/plot.pretty")
     between y and x that can be coloured by the values of a third
     variable;
   - `add_colour_bar()` adds a customisable colour bar legend to a plot;
-  - `add_shading()` adds blocks of shading to a plot to elucidate
+  - `add_shading_bar()` adds blocks of shading to a plot to elucidate
     relationships between a response and explanatory variables, one of
     which is a factor;
 
@@ -79,7 +79,7 @@ devtools::install_github("edwardlavender/plot.pretty")
   - `pretty_hist()` creates prettier histograms;
   - `pretty_boxplot()` creates prettier boxplots;
   - `pretty_curve()` evaluates and plots functions;
-  - `pretty_numline()` creates pretty number lines and timelines;
+  - `pretty_line()` creates pretty number lines and timelines;
   - `pretty_mat()` creates pretty matrices;
   - `pretty_residuals()` creates prettier diagnostic residual plots
     (including standard diagnostic plots alongside residuals against

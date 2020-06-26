@@ -25,12 +25,12 @@
 #' ylim <- range(d$depth)
 #' plot(d$t, d$depth, type = "n", ylim = ylim)
 #'
-#' #### Define arguments for add_shading()
+#' #### Define arguments for add_shading_bar()
 #' # In this example, we'll add blocks of shading distinguishing 'day' versus 'night' to aid
 #' # ... interpretation of the animal depth timeseries we've simulated above. To do this,
 #' # ... we could use the Tools4ETS::define_time_blocks() function but, for transparency,
 #' # ...  we'll use the following approach to define the times of day/night and associated colours
-#' # ... in a dataframe that we can then pass to add_shading():
+#' # ... in a dataframe that we can then pass to add_shading_bar():
 #' # Define the times of day/night across the timeseries:
 #' dates_block <- seq.POSIXt(min(t), max(t), by = "days")
 #' dat_block <- data.frame(date = sort(rep(dates_block, 2)), level = c(rep(1:2, length(dates_block))))
@@ -57,7 +57,7 @@
 #' dat_block$col <- as.character(dat_block$col)
 #'
 #' #### Add shading
-#' add_shading(dat_block$x1,
+#' add_shading_bar(dat_block$x1,
 #'             dat_block$x2,
 #'             horiz = FALSE,
 #'             lim = ylim,
@@ -74,10 +74,10 @@
 
 #####################################
 #####################################
-#### add_shading()
+#### add_shading_bar()
 
 # Define a function to add shading between values:
-add_shading <- function(x1, x2, horiz = FALSE, lim, col, ...){
+add_shading_bar <- function(x1, x2, horiz = FALSE, lim, col, ...){
 
   if(!horiz){
     #### vertical blocks (as for depth timeseries)
@@ -97,7 +97,7 @@ add_shading <- function(x1, x2, horiz = FALSE, lim, col, ...){
 }
 
 # Vectorise function:
-add_shading <- Vectorize(add_shading, vectorize.args = c("x1", "x2", "col"))
+add_shading_bar <- Vectorize(add_shading_bar, vectorize.args = c("x1", "x2", "col"))
 
 
 #### End of function.

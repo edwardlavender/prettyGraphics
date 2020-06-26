@@ -12,7 +12,7 @@
 #' @param dat A dataframe containing columns named as specified in \code{vars}. This should be the same dataframe that was used to fit the model from which residuals are extracted, although it can include extra variables not included in the model.
 #' @param plot A numeric vector (1:7) which defines the plots to produce (see Details, below).
 #' @param rand_pc A number which defines a percentage of residuals to plotted. If specified, a random subset of residuals, chosen according to a uniform distribution, are plotted. This is useful for some plots of residuals (e.g. residuals versus fitted values) which can be difficult to interpret with large datasets. However, note that some plots of residuals (e.g. quantile-quantile plots) respond poorly to selecting samples of residuals, and this option is not recommended in those cases - see \code{plot_rand_pc}, below.
-#' @param plot_rand_pc A numeric input which defines which plots will use thinned residuals. The residual plot that corresponds to each plot number is explained in Details.
+#' @param plot_rand_pc A numeric input which defines which plots will use thinned residuals. This isplots 3 - 6 by default (plots 1, 2 and 7 are still interpretable with large amounts of data.) The residual plot that corresponds to each plot number is explained in Details.
 #' @param points_args A named list of arguments that is passed to \code{\link[graphics]{points}} to add points to appropriate plots.
 #' @param lines_args A named list that is passed to \code{\link[graphics]{lines}} to add lines to appropriate plots.
 #' @param pretty_axis_args A named list of arguments that is passed to \code{\link[plot.pretty]{pretty_axis}} which is used to create pretty axes. For simplicity, this is implemented for most plots.
@@ -130,7 +130,7 @@ pretty_residuals <-
            dat = NULL,
            plot = 1:7,
            rand_pc = NULL,
-           plot_rand_pc = c(3, 4),
+           plot_rand_pc = 3:6,
            points_args = list(pch = 21,
                               col = scales::alpha("black", 0.3),
                               bg = scales::alpha("black", 0.3),

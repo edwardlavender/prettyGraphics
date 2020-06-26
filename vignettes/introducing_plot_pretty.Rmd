@@ -35,7 +35,7 @@ body{
 
 * **The definition of pretty axes**. The definition of 'pretty' axes (i.e., axes with intelligible tick mark labels that are positioned in appropriate, adjoining positions, rather than as an approximate box around a plot) underlies publication-quality plots but these are not implemented automatically by base R. `pretty_axis()` is a very flexible function which makes this possible. A few other functions, such as `sci_notation()`, which can be used to add labels with scientific notation to a plot (i.e. $a \times 10^b$ rather than $ae^b$), and `add_lagging_point_zero()`, which brings all numbers up to the same number of decimal places, complement this function. `add_grid_rect_xy()` can be used to add a rectangular grid at user-defined positions (e.g. coinciding with axis labels), to aid interpretation  
 * **Colouring lines by a covariate**. In base R, it's easy to add lines to a plot to illustrate a relationship. However, it is a more long-winded process to add a line that is coloured by the values of a third variable, followed by a highly customisable colour bar legend, to illustrate the relationship between the response and more than one explanatory variable. This essential part of data exploration is implemented by `add_lines()` and `add_colour_bar()`. 
-* **Shading**. Adding shading to a plot is another way to illustrate possible relationships, especially between a response/explanatory variable and a factor. For example, in plots of depth timeseries, it is often useful to add shading delineating day/night periods. Adding shading to a plot is made easy with `add_shading()`. 
+* **Shading**. Adding shading to a plot is another way to illustrate possible relationships, especially between a response/explanatory variable and a factor. For example, in plots of depth timeseries, it is often useful to add shading delineating day/night periods. Adding shading to a plot is made easy with `add_shading_bar()`. 
 * **Statistical summaries**. The definition and addition of statistical summarises to a plot can also help to reveal signal from noise for continuous data. For example, it might be helpful to calculate the mean value, the minimum, the maximum, the 89 % quantiles or another statistic in a sequence of bins $n$ units in width (e.g. $10 cm$, $0.5 ms^{-2}$, $12 hours$, etc.). This is facilitated by `summmarise_in_bins()` and `add_lines()`. 
 * **Model predictions**. The addition of model predictions (e.g. fitted values ± confidence intervals) on top of observations is critical step in the evaluation of models (e.g. to understand the extent to which they explain observed patterns). This is facilitated by `list_CIs()` and `add_model_predictions()`. 
 * **Integrative functions**. `plot.pretty` provides several functions which use the power of building block functions to create prettier plots, including histograms, density plots, residual plots and a number of others. For example, `pretty_plot()` functions like `graphics::plot()` but uses `pretty_axis()` to define pretty axes and is more flexible. `pretty_plot()` can incorporate multiple plotting functions (not just `graphics::plot()`) but some functions (e.g. `graphics::hist()`) necessitate a specialised plotting approach which `plot.pretty` may provide (e.g., `pretty_hist()`). 
@@ -259,7 +259,7 @@ add_pretty_axis
 
 See `?add_grid_rect_xy()` for further options. 
 
-## Add shading: `add_shading()`
+## Add shading: `add_shading_bar()`
 
 Colouring lines by the value of a third variable is one useful approach in the exploration of relationships. For discrete variables, adding rectangular shading demarking switches between values is also useful for inference. For instance, in the following example, we add vertical blocks of shading delineating day/night periods:
 
@@ -296,7 +296,7 @@ dat_block$col <- as.character(dat_block$col)
 # ... the positions (and colours) of the blocks is specifed, here by x1, x2 and col:
 utils::str(dat_block)
 #### Add shading to the plot, with vertical bars exactly within pretty y axis limits 
-add_shading(dat_block$x1,
+add_shading_bar(dat_block$x1,
             dat_block$x2,
             horiz = FALSE,
             lim = axis_ls[[2]]$lim,
@@ -310,7 +310,7 @@ add_lines(x = df$timestamp, y1 = df$dn)
 add_pretty_axis
 ```
 
-`?Tools4ETS::define_time_blocks()` and `?add_shading()` provide further information about these functions. In this case, adding shading reveals that this individual often seems to ascend at night -- a common behaviour in marine organisms termed diel vertical migration -- but this behaviour is highly variable, both in extent and direction (i.e. sometimes the individual is shallower in the day). These insights from data exploration help build understanding, in this case of the movements of a poorly studied and Critically Endangered elasmobranch.   
+`?Tools4ETS::define_time_blocks()` and `?add_shading_bar()` provide further information about these functions. In this case, adding shading reveals that this individual often seems to ascend at night -- a common behaviour in marine organisms termed diel vertical migration -- but this behaviour is highly variable, both in extent and direction (i.e. sometimes the individual is shallower in the day). These insights from data exploration help build understanding, in this case of the movements of a poorly studied and Critically Endangered elasmobranch.   
 
 ## Add statistical summarises: `summarise_in_bins()`
 
@@ -418,15 +418,15 @@ par(pp)
 ```
 More details are given in `?pretty_residuals`. For the example depth timeseries, these plots demonstrate that out model needs to be interpreted with caution: residuals versus fitted values, temperature and timestamp look reasonable, but the model has not perfectly captured the autocorrelation among residuals and the assumption of normality is clearly violated. 
 
-## Number lines and timelines: `pretty_numline()`
+## Number lines and timelines: `pretty_line()`
 
 In some cases, one dimensional visualisation of observations, especially those collected through time, can be useful. For example, we could view a timeline of the depth timeseries observations as follows:
 
 ```{r, fig.width = 7, fig.height = 5}
-pretty_numline(df$timestamp, pch = 21, col = "red", bg = "red", cex = 0.1)
+pretty_line(df$timestamp, pch = 21, col = "red", bg = "red", cex = 0.1)
 ```
 
-This kind of approach is particularly useful for presence or presence/absence observations collected through time. `?pretty_numline()` provides further information and examples, including exemplifying the addition of one dimensional number lines or timelines to existing plots. 
+This kind of approach is particularly useful for presence or presence/absence observations collected through time. `?pretty_line()` provides further information and examples, including exemplifying the addition of one dimensional number lines or timelines to existing plots. 
 
 ## Histograms and density plots: `pretty_hist()` and `pretty_curve()`
 
@@ -512,7 +512,7 @@ par(pp)
 
 # Future developments
 
-`pretty.plot` has been designed especially for continuous responses and explanatory variables, although some functions (e.g. `add_shading()`) help with discrete variables or factors. This functionality may be expanded in due course. Suggestions are welcome. However, the principle motivation for `plot.pretty` remains the requirements of (ecological) research, which means that `plot.pretty` does not aspire to provide the level of comprehensive functionality of other plotting packages (e.g. `ggplot2`, `plotly`). 
+`pretty.plot` has been designed especially for continuous responses and explanatory variables, although some functions (e.g. `add_shading_bar()`) help with discrete variables or factors. This functionality may be expanded in due course. Suggestions are welcome. However, the principle motivation for `plot.pretty` remains the requirements of (ecological) research, which means that `plot.pretty` does not aspire to provide the level of comprehensive functionality of other plotting packages (e.g. `ggplot2`, `plotly`). 
 
 # Acknowledgements
 

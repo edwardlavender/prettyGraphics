@@ -19,20 +19,20 @@
 #' y <- runif(5, 0, 10)
 #'
 #' #### Example (1): Plot a number line using default options
-#' pretty_numline(x)
+#' pretty_line(x)
 #'
 #' #### Example (2): Customise points via ...
-#' pretty_numline(x, pch = 21, bg = "red")
+#' pretty_line(x, pch = 21, bg = "red")
 #'
 #' #### Example (2): Customise the number line via pretty_axis_args
-#' pretty_numline(x, pretty_axis_args = list(side = 2, axis = list(las = TRUE)),
+#' pretty_line(x, pretty_axis_args = list(side = 2, axis = list(las = TRUE)),
 #'                pch = 21, bg = "red")
 #'
 #' #### Example (3): Add a number line to an existing plot:
 #' # Create plot
 #' axis_ls <- pretty_plot(x, y, return_list = TRUE)
 #' # Method 1: manually specify pretty_axis_args as desired and specify add = TRUE:
-#' pretty_numline(x, pretty_axis_args = list(side = 3,
+#' pretty_line(x, pretty_axis_args = list(side = 3,
 #'                                           axis = list(pos = axis_ls[[2]]$lim[2])),
 #'                add = TRUE,
 #'                pch = 21, bg = "red")
@@ -40,7 +40,7 @@
 #' # In this situation, necessary arguments (e.g. side) can be replaced via replace_axis
 #' # ... while the properties of the axis (i.e., labels, colour etc.) are maintained:
 #' axis_ls <- pretty_plot(x, y, return_list = TRUE)
-#' pretty_numline(x, pretty_axis_args = list(axis_ls = axis_ls),
+#' pretty_line(x, pretty_axis_args = list(axis_ls = axis_ls),
 #'                # select the  first element of axis_ls i.e. axis_ls[[1]]
 #'                inherit = 1,
 #'                # replace the following arguments in axis_ls[[1]]$axis while retaining remaining
@@ -54,7 +54,7 @@
 #' set.seed(1)
 #' tseq <- seq.POSIXt(as.POSIXct("2017-01-01", tz = "UTC"),
 #'                    as.POSIXct("2018-01-01", tz = "UTC"), by = "days")
-#' pretty_numline(sample(tseq, size = 10), pch = 21, bg = "red")
+#' pretty_line(sample(tseq, size = 10), pch = 21, bg = "red")
 #'
 #'
 #' @author Edward Lavender
@@ -63,9 +63,9 @@
 
 ############################################
 ############################################
-#### pretty_numline()
+#### pretty_line()
 
-pretty_numline <-
+pretty_line <-
   function(x,
            pretty_axis_args = list(side = 1),
            inherit = NULL,
