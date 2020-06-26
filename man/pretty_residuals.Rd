@@ -44,7 +44,7 @@ pretty_residuals(
 
 \item{timestamp}{A character which defines the name of a variable in  \code{dat} which refers to timestamps. This is useful for models of data collected through time. If \code{NULL} and this plot is selected, \code{residuals} are plotted against an index for the selected data.}
 
-\item{timestamp_fct}{(optional) A character which defines the name of a variable in \code{dat} which distinguishes independent timeseries. If \code{timestamp} is provided, it is desireable to plot the residuals ~ timestamp for only one of these levels (see \code{timestamp_fct_level}).}
+\item{timestamp_fct}{(optional) A character which defines the name of a variable in \code{dat} which distinguishes independent timeseries. If \code{timestamp} is provided, it is desirable to plot the residuals ~ timestamp for only one of these levels (see \code{timestamp_fct_level}).}
 
 \item{timestamp_fct_level}{An identifier of the independent timeseries in \code{timestamp_fct} to be plotted. If not provided, the function selects the longest timeseries.}
 

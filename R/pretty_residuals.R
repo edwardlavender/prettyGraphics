@@ -7,7 +7,7 @@
 #' @param lp A numeric vector which defines the values of the linear predictor from a model.
 #' @param vars A character vector which defines the names of variables in a dataframe (see \code{dat}, below) against which residuals will be plotted if \code{plot} includes option 5 (see below).
 #' @param timestamp A character which defines the name of a variable in  \code{dat} which refers to timestamps. This is useful for models of data collected through time. If \code{NULL} and this plot is selected, \code{residuals} are plotted against an index for the selected data.
-#' @param timestamp_fct (optional) A character which defines the name of a variable in \code{dat} which distinguishes independent timeseries. If \code{timestamp} is provided, it is desireable to plot the residuals ~ timestamp for only one of these levels (see \code{timestamp_fct_level}).
+#' @param timestamp_fct (optional) A character which defines the name of a variable in \code{dat} which distinguishes independent timeseries. If \code{timestamp} is provided, it is desirable to plot the residuals ~ timestamp for only one of these levels (see \code{timestamp_fct_level}).
 #' @param timestamp_fct_level An identifier of the independent timeseries in \code{timestamp_fct} to be plotted. If not provided, the function selects the longest timeseries.
 #' @param dat A dataframe containing columns named as specified in \code{vars}. This should be the same dataframe that was used to fit the model from which residuals are extracted, although it can include extra variables not included in the model.
 #' @param plot A numeric vector (1:7) which defines the plots to produce (see Details, below).
