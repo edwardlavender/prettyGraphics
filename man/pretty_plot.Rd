@@ -34,9 +34,9 @@ pretty_plot(
 
 \item{pretty_axis_args}{A named list or arguments passed to \code{\link[plot.pretty]{pretty_axis}} to define pretty axes.}
 
-\item{points_args}{A named list of arguments passed to \code{\link[graphics]{points}} to control points. These can also be supplied via \code{...} but \code{point_args} can provide additional flexibility where required.}
+\item{points_args}{A named list of arguments passed to \code{\link[graphics]{points}} to control points. These can also be supplied via \code{...} but \code{point_args} can provide additional flexibility where required. To implement this option, you probably want to specify \code{type = "n"} via \code{...} because \code{points_args} is evaluated after the plot is evaluated.}
 
-\item{lines_args}{A named list of arguments passed to \code{\link[graphics]{lines}} to control lines. These can also be supplied via \code{...} but \code{lines_args} can provide additional flexibility where required.}
+\item{lines_args}{A named list of arguments passed to \code{\link[graphics]{lines}} to control lines. These can also be supplied via \code{...} but \code{lines_args} can provide additional flexibility where required. To implement this option, you probably want to specify \code{type = "n"} via \code{...} because \code{lines_args} is evaluated after the plot is evaluated.}
 
 \item{xlab}{A character input which defines the label for the x axis. By default, this is "" so that labels can be added via \code{mtext_args} which is more flexible (see below). However, the label can be specified via \code{xlab} for speed.}
 

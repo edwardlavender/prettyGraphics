@@ -108,6 +108,12 @@ pretty_hist <-
 
     #### Checks
     check...("plot",...)
+    mapply(list("ypretty", "xaxis", "yaxis"),
+           list(ypretty, xaxis, yaxis),
+           FUN = function(arg, input){
+      check_input_class(arg = arg, input = input, to_class = "list", type = "stop")
+      check_named_list(arg = arg, l = input, ignore_empty = TRUE)
+    })
 
     #### Implement hist()
     if(!is.null(xaxis$at) & is.null(xlim)) xlim <- range(xaxis$at)

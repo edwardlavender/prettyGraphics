@@ -10,6 +10,8 @@ pretty_residuals(
   lp = fv,
   vars = NULL,
   timestamp = NULL,
+  timestamp_fct = NULL,
+  timestamp_fct_level = NULL,
   dat = NULL,
   plot = 1:7,
   rand_pc = NULL,
@@ -40,7 +42,11 @@ pretty_residuals(
 
 \item{vars}{A character vector which defines the names of variables in a dataframe (see \code{dat}, below) against which residuals will be plotted if \code{plot} includes option 5 (see below).}
 
-\item{timestamp}{A character which defines the name of a variable in  \code{dat} which refers to timestamps. This is useful for models of data collected through time.}
+\item{timestamp}{A character which defines the name of a variable in  \code{dat} which refers to timestamps. This is useful for models of data collected through time. If \code{NULL} and this plot is selected, \code{residuals} are plotted against an index for the selected data.}
+
+\item{timestamp_fct}{(optional) A character which defines the name of a variable in \code{dat} which distinguishes independent timeseries. If \code{timestamp} is provided, it is desireable to plot the residuals ~ timestamp for only one of these levels (see \code{timestamp_fct_level}).}
+
+\item{timestamp_fct_level}{An identifier of the independent timeseries in \code{timestamp_fct} to be plotted. If not provided, the function selects the longest timeseries.}
 
 \item{dat}{A dataframe containing columns named as specified in \code{vars}. This should be the same dataframe that was used to fit the model from which residuals are extracted, although it can include extra variables not included in the model.}
 
@@ -54,7 +60,7 @@ pretty_residuals(
 
 \item{lines_args}{A named list that is passed to \code{\link[graphics]{lines}} to add lines to appropriate plots.}
 
-\item{pretty_axis_args}{A named list of arguments that is passed to \code{\link[plot.pretty]{pretty_axis}} which is used to create pretty axes. For simplicity, this affects all plots.}
+\item{pretty_axis_args}{A named list of arguments that is passed to \code{\link[plot.pretty]{pretty_axis}} which is used to create pretty axes. For simplicity, this is implemented for most plots.}
 
 \item{mtext_args}{A named list of arguments that is passed to \code{\link[graphics]{mtext}} to add labels to each plot. List names correspond to plot numbers (see Details). The default is a nested list which tries to add suitable labels in suitable locations to all plots, but this can be edited.}
 }
@@ -77,7 +83,7 @@ dat$fct <- sample(1:2, size = nrow(dat), replace = TRUE)
 dat$z <- rnorm(nrow(dat), dat$x*0.01, 50)
 m1 <- lm(y ~ x, data = dat)
 
-#### Example (1) Plot residuals using default options
+#### Plot residuals using default options
 pp <- graphics::par(mfrow = c(3, 3))
 pretty_residuals(residuals = stats::resid(m1),
                fv = fitted(m1),
@@ -88,8 +94,73 @@ pretty_residuals(residuals = stats::resid(m1),
                )
 graphics::par(pp)
 
-#### Example (2) Plot a single plot
+#### Plot a single plot
 pretty_residuals(residuals = stats::resid(m1), plot = 7)
+
+#### Customisation of axes is via pretty_axis_args; changes affect most plots.
+pp <- graphics::par(mfrow = c(3, 3), oma = c(3, 3, 3, 3), mar = c(2, 2, 2, 2))
+pretty_residuals(residuals = stats::resid(m1),
+                 fv = fitted(m1),
+                 lp = fitted(m1),
+                 vars = c("z", "fct"),
+                 timestamp = "x",
+                 dat = dat,
+                 pretty_axis_args = list(side = 1:2, pretty = list(n = 10))
+)
+graphics::par(pp)
+
+#### Customisation of graphics is via points_args() and lines_args()
+# ... which are implemented for the relevant plots:
+pp <- graphics::par(mfrow = c(3, 3), oma = c(3, 3, 3, 3))
+pretty_residuals(residuals = stats::resid(m1),
+                 fv = fitted(m1),
+                 lp = fitted(m1),
+                 vars = c("z", "fct"),
+                 timestamp = "x",
+                 dat = dat,
+                 points_args = list(col = scales::alpha("red", 0.3)),
+                 lines_args = list(lwd = 1, col = "skyblue")
+)
+graphics::par(pp)
+
+#### There are several customisation options for plotting observations against timestamps
+# 'timestamp', 'timestamp_fct' and 'timestamp_fct_level' enable a specific timeseries to be
+# ... plotted:
+pretty_residuals(residuals = stats::resid(m1),
+                 fv = fitted(m1),
+                 lp = fitted(m1),
+                 dat = dat,
+                 plot = 6,
+                 timestamp = "x",
+                 timestamp_fct = "fct",
+                 timestamp_fct_level = 1
+)
+# If 'timestamp' is not provided, an index is plotted:
+pretty_residuals(residuals = stats::resid(m1),
+                 fv = fitted(m1),
+                 lp = fitted(m1),
+                 dat = dat,
+                 plot = 6,
+                 timestamp = NULL,
+                 timestamp_fct = "fct",
+                 timestamp_fct_level = 1)
+# If 'timestamp_fct' is not provided, data are assumed to comprise a single timeseries.
+pretty_residuals(residuals = stats::resid(m1),
+                 fv = fitted(m1),
+                 lp = fitted(m1),
+                 dat = dat,
+                 plot = 6,
+                 timestamp = "x",
+                 timestamp_fct = NULL,
+)
+# If 'timestamp_fct_level' is not provided, the longest timeseries is chosen by default:
+pretty_residuals(residuals = stats::resid(m1),
+                 fv = fitted(m1),
+                 lp = fitted(m1),
+                 dat = dat,
+                 plot = 6,
+                 timestamp = "x",
+                 timestamp_fct = "fct")
 
 }
 \author{

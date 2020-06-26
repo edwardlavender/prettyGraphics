@@ -6,14 +6,16 @@
 #' @param fv A numeric vector of fitted values from a model.
 #' @param lp A numeric vector which defines the values of the linear predictor from a model.
 #' @param vars A character vector which defines the names of variables in a dataframe (see \code{dat}, below) against which residuals will be plotted if \code{plot} includes option 5 (see below).
-#' @param timestamp A character which defines the name of a variable in  \code{dat} which refers to timestamps. This is useful for models of data collected through time.
+#' @param timestamp A character which defines the name of a variable in  \code{dat} which refers to timestamps. This is useful for models of data collected through time. If \code{NULL} and this plot is selected, \code{residuals} are plotted against an index for the selected data.
+#' @param timestamp_fct (optional) A character which defines the name of a variable in \code{dat} which distinguishes independent timeseries. If \code{timestamp} is provided, it is desireable to plot the residuals ~ timestamp for only one of these levels (see \code{timestamp_fct_level}).
+#' @param timestamp_fct_level An identifier of the independent timeseries in \code{timestamp_fct} to be plotted. If not provided, the function selects the longest timeseries.
 #' @param dat A dataframe containing columns named as specified in \code{vars}. This should be the same dataframe that was used to fit the model from which residuals are extracted, although it can include extra variables not included in the model.
 #' @param plot A numeric vector (1:7) which defines the plots to produce (see Details, below).
 #' @param rand_pc A number which defines a percentage of residuals to plotted. If specified, a random subset of residuals, chosen according to a uniform distribution, are plotted. This is useful for some plots of residuals (e.g. residuals versus fitted values) which can be difficult to interpret with large datasets. However, note that some plots of residuals (e.g. quantile-quantile plots) respond poorly to selecting samples of residuals, and this option is not recommended in those cases - see \code{plot_rand_pc}, below.
 #' @param plot_rand_pc A numeric input which defines which plots will use thinned residuals. The residual plot that corresponds to each plot number is explained in Details.
 #' @param points_args A named list of arguments that is passed to \code{\link[graphics]{points}} to add points to appropriate plots.
 #' @param lines_args A named list that is passed to \code{\link[graphics]{lines}} to add lines to appropriate plots.
-#' @param pretty_axis_args A named list of arguments that is passed to \code{\link[plot.pretty]{pretty_axis}} which is used to create pretty axes. For simplicity, this affects all plots.
+#' @param pretty_axis_args A named list of arguments that is passed to \code{\link[plot.pretty]{pretty_axis}} which is used to create pretty axes. For simplicity, this is implemented for most plots.
 #' @param mtext_args A named list of arguments that is passed to \code{\link[graphics]{mtext}} to add labels to each plot. List names correspond to plot numbers (see Details). The default is a nested list which tries to add suitable labels in suitable locations to all plots, but this can be edited.
 #'
 #' @details Seven types of diagnostic plots can be produced: 1, a histogram of residuals; 2, a quantile-quantile plot; 3, residuals versus fitted values; 4, residuals versus linear predictor; 5, residuals against one or more user-defined variables; 6, residuals against a timestamp/index; 7, an autocorrelation function of residuals. \code{\link[plot.pretty]{pretty_axis}} is used to control axes. This can be customised but changes affect all plots. Axis labels are implemented with \code{\link[graphics]{mtext}} via \code{mtext_args} to enable maximum user control over axes. The graphical characteristics of points and lines are specified in \code{points_args} and \code{lines_args}, respectively, and changes to these arguments affect all relevant plots. This implementation reflects a balance between user flexibility and simplicity.
@@ -30,7 +32,7 @@
 #' dat$z <- rnorm(nrow(dat), dat$x*0.01, 50)
 #' m1 <- lm(y ~ x, data = dat)
 #'
-#' #### Example (1) Plot residuals using default options
+#' #### Plot residuals using default options
 #' pp <- graphics::par(mfrow = c(3, 3))
 #' pretty_residuals(residuals = stats::resid(m1),
 #'                fv = fitted(m1),
@@ -41,8 +43,73 @@
 #'                )
 #' graphics::par(pp)
 #'
-#' #### Example (2) Plot a single plot
+#' #### Plot a single plot
 #' pretty_residuals(residuals = stats::resid(m1), plot = 7)
+#'
+#' #### Customisation of axes is via pretty_axis_args; changes affect most plots.
+#' pp <- graphics::par(mfrow = c(3, 3), oma = c(3, 3, 3, 3), mar = c(2, 2, 2, 2))
+#' pretty_residuals(residuals = stats::resid(m1),
+#'                  fv = fitted(m1),
+#'                  lp = fitted(m1),
+#'                  vars = c("z", "fct"),
+#'                  timestamp = "x",
+#'                  dat = dat,
+#'                  pretty_axis_args = list(side = 1:2, pretty = list(n = 10))
+#' )
+#' graphics::par(pp)
+#'
+#' #### Customisation of graphics is via points_args() and lines_args()
+#' # ... which are implemented for the relevant plots:
+#' pp <- graphics::par(mfrow = c(3, 3), oma = c(3, 3, 3, 3))
+#' pretty_residuals(residuals = stats::resid(m1),
+#'                  fv = fitted(m1),
+#'                  lp = fitted(m1),
+#'                  vars = c("z", "fct"),
+#'                  timestamp = "x",
+#'                  dat = dat,
+#'                  points_args = list(col = scales::alpha("red", 0.3)),
+#'                  lines_args = list(lwd = 1, col = "skyblue")
+#' )
+#' graphics::par(pp)
+#'
+#' #### There are several customisation options for plotting observations against timestamps
+#' # 'timestamp', 'timestamp_fct' and 'timestamp_fct_level' enable a specific timeseries to be
+#' # ... plotted:
+#' pretty_residuals(residuals = stats::resid(m1),
+#'                  fv = fitted(m1),
+#'                  lp = fitted(m1),
+#'                  dat = dat,
+#'                  plot = 6,
+#'                  timestamp = "x",
+#'                  timestamp_fct = "fct",
+#'                  timestamp_fct_level = 1
+#' )
+#' # If 'timestamp' is not provided, an index is plotted:
+#' pretty_residuals(residuals = stats::resid(m1),
+#'                  fv = fitted(m1),
+#'                  lp = fitted(m1),
+#'                  dat = dat,
+#'                  plot = 6,
+#'                  timestamp = NULL,
+#'                  timestamp_fct = "fct",
+#'                  timestamp_fct_level = 1)
+#' # If 'timestamp_fct' is not provided, data are assumed to comprise a single timeseries.
+#' pretty_residuals(residuals = stats::resid(m1),
+#'                  fv = fitted(m1),
+#'                  lp = fitted(m1),
+#'                  dat = dat,
+#'                  plot = 6,
+#'                  timestamp = "x",
+#'                  timestamp_fct = NULL,
+#' )
+#' # If 'timestamp_fct_level' is not provided, the longest timeseries is chosen by default:
+#' pretty_residuals(residuals = stats::resid(m1),
+#'                  fv = fitted(m1),
+#'                  lp = fitted(m1),
+#'                  dat = dat,
+#'                  plot = 6,
+#'                  timestamp = "x",
+#'                  timestamp_fct = "fct")
 #'
 #' @author Edward Lavender
 #' @export
@@ -58,6 +125,8 @@ pretty_residuals <-
            lp = fv,
            vars = NULL,
            timestamp = NULL,
+           timestamp_fct = NULL,
+           timestamp_fct_level = NULL,
            dat = NULL,
            plot = 1:7,
            rand_pc = NULL,
@@ -111,15 +180,21 @@ pretty_residuals <-
     dat$fv <- fv
     dat$lp <- lp
 
-    #### Check vars are included in the df
+    #### Check all required variables are included in the df
     if(!is.null(vars)){
       stopifnot(vars %in% colnames(dat))
     }
-
+    if(!is.null(timestamp)){
+      stopifnot(timestamp %in% colnames(dat))
+    }
+    if(!is.null(timestamp_fct)){
+      stopifnot(timestamp_fct %in% colnames(dat))
+      if(!is.null(timestamp_fct_level)) stopifnot(timestamp_fct_level %in% unique(dat[, timestamp_fct]))
+    }
 
 
     ##############################################
-    #### Thin the residuals if required
+    #### Processing
 
     #### Thin the residuals if requested
     if(!is.null(rand_pc)){
@@ -152,11 +227,12 @@ pretty_residuals <-
     if(1 %in% plot){
 
       # Define ypretty
-      if(is.list(pretty_axis_args$pretty[[1]])){
-        ypretty <- pretty_axis_args$pretty[[1]]$n
+      if(plotrix::listDepth(pretty_axis_args$pretty) == 2){
+        ypretty <- pretty_axis_args$pretty[[2]]$n
       } else{
         ypretty <- pretty_axis_args$pretty$n
       }
+      if(is.null(ypretty)) ypretty <- 5
 
       # Define yaxis and xaxis
       yaxis <- list()
@@ -180,7 +256,7 @@ pretty_residuals <-
       # Make histogram
       plot.pretty::pretty_hist(choose_dat(1)$residuals,
                                xn = 2,
-                               ypretty = 5,
+                               ypretty = list(n = ypretty),
                                xaxis = xaxis,
                                yaxis = yaxis,
                                mtext_args = mtext_args[["1"]])
@@ -200,7 +276,8 @@ pretty_residuals <-
                                 points_args = points_args,
                                 pretty_axis_args = pretty_axis_args,
                                 mtext_args = mtext_args[["2"]],
-                                return_list = TRUE)
+                                return_list = TRUE,
+                                type = "n")
       usr <- graphics::par("usr")
       graphics::clip(qq_axis_ls[[1]]$lim[1], qq_axis_ls[[1]]$lim[2], qq_axis_ls[[2]]$lim[1], qq_axis_ls[[2]]$lim[2])
       qq_lines_args <- lines_args
@@ -219,11 +296,12 @@ pretty_residuals <-
     if(3 %in% plot){
       pretty_plot(x = choose_dat(3)$fv,
                   y = choose_dat(3)$residuals,
-                  plot_xy = c("x", "y"),
+                  plot_xy = "xy",
                   f = graphics::plot,
                   points_args = points_args,
                   pretty_axis_args = pretty_axis_args,
-                  mtext_args = mtext_args[["3"]])
+                  mtext_args = mtext_args[["3"]],
+                  type = "n")
     }
 
 
@@ -234,11 +312,12 @@ pretty_residuals <-
     if(4 %in% plot){
       pretty_plot(x = choose_dat(4)$lp,
                   y = choose_dat(4)$residuals,
-                  plot_xy = c("x", "y"),
+                  plot_xy = "xy",
                   f = graphics::plot,
                   points_args = points_args,
                   pretty_axis_args = pretty_axis_args,
-                  mtext_args = mtext_args[["4"]])
+                  mtext_args = mtext_args[["4"]],
+                  type = "n")
     }
 
 
@@ -248,35 +327,74 @@ pretty_residuals <-
     #### (5) Residuals vs. factors/covariates (excluding timestamp)
 
     if(5 %in% plot){
-      mply <-
-        mapply(1:length(vars), vars, FUN = function(j, var){
-          df <- choose_dat(5)[, c("residuals", var)]
-          pretty_plot(x = as.numeric(df[, var]),
-                      y = df[, "residuals"],
-                      plot_xy = c("x", "y"),
-                      f = graphics::plot,
-                      points_args = points_args,
-                      pretty_axis_args = pretty_axis_args,
-                      mtext_args = mtext_args[["5"]][[j]])
-          # mtext args
-        })
+      if(!is.null(vars)){
+        mply <-
+          mapply(1:length(vars), vars, FUN = function(j, var){
+            df <- choose_dat(5)[, c("residuals", var)]
+            pretty_plot(x = df[, var],
+                        y = df[, "residuals"],
+                        plot_xy = "xy",
+                        f = graphics::plot,
+                        points_args = points_args,
+                        pretty_axis_args = pretty_axis_args,
+                        mtext_args = mtext_args[["5"]][[j]],
+                        type = "n")
+          })
+      } else{
+       warning("plot 5 residuals ~ vars is not implemented because vars = NULL.")
+      }
     }
-
-
-
 
     ##############################################
     ##############################################
     #### (6) residuals versus timestamp
 
     if(6 %in% plot){
-      pretty_plot(x = choose_dat(6)[, timestamp],
-                  y = choose_dat(6)[, "residuals"],
+
+      #### Define data
+      d6 <- choose_dat(6)
+
+      #### Select data for specific individual
+      ## a) timestamp_fct is NULL so assuming one individual
+      if(is.null(timestamp_fct)){
+        message("plot (6) residuals ~ timestamp: 'timestamp_fct' is NULL; assuming 'dat' only contains one independent timeseries.")
+        if(!is.null(timestamp_fct_level)) warning("'timestamp_fct' is NULL so 'timestamp_fct_level' is ignored.")
+
+        ## b) select data for specific individaul
+      } else{
+        # i) Define timestamp_fct_level using the individual with the longest timeseries, if not provided
+        if(is.null(timestamp_fct_level)){
+          message("plot (6) residuals ~ timestamp: selecting the 'timestamp_fct' with the longest timeseries.")
+          d6_ls <- split(d6, f = d6[, timestamp_fct])
+          d6_longest <- which.max(sapply(d6_ls, nrow))
+          timestamp_fct_level <- d6_ls[[d6_longest]][1, timestamp_fct]
+        }
+        # ii) Select appropriate data
+        d6 <- d6[d6[, timestamp_fct] == timestamp_fct_level, ]
+      }
+
+      #### Define timestamps if necessary
+      if(is.null(timestamp)){
+        message("plot (6) residuals ~ timestamp: timestamp is NULL so using an index for selected data.")
+        d6$index <- 1:nrow(d6)
+        timestamp <- "index"
+      }
+
+      #### Check that data are sorted by timestamp
+      if(is.unsorted(d6[, timestamp])){
+        warning("plot (6) residuals ~ timestamp: selected data are not sorted by timestamp. 'dat' needs to be ordered by fct_timestamp (if applicable) then timestamp.")
+      }
+
+      #### Plot
+      pretty_plot(x = d6[, timestamp],
+                  y = d6[, "residuals"],
                   f = graphics::plot,
+                  plot_xy = "xy",
                   points_args = points_args,
                   lines_args = lines_args,
                   pretty_axis_args = pretty_axis_args,
-                  mtext_args = mtext_args[["6"]])
+                  mtext_args = mtext_args[["6"]],
+                  type = "n")
     }
 
 
@@ -288,13 +406,12 @@ pretty_residuals <-
       acf_obj <- stats::acf(choose_dat(7)$residuals, plot = FALSE)
       pretty_acf_ls <- pretty_plot(x = 1:length(acf_obj$acf),
                                    y = as.numeric(acf_obj$acf),
-                                   plot_xy = c("x", "y"),
+                                   plot_xy = "xy",
                                    f = graphics::plot,
-                                   points_args = list(),
-                                   lines_args = list(),
                                    pretty_axis_args = pretty_axis_args,
                                    mtext_args = mtext_args[["7"]],
-                                   return_list = TRUE
+                                   return_list = TRUE,
+                                   type = "n"
       )
 
       wnlimit <- stats::qnorm((1 + 0.95)/2)/sqrt(acf_obj$n.used)
@@ -304,8 +421,14 @@ pretty_residuals <-
                         c(rep(wnlower, 2), rep(rev(wnupper), 2)),
                         col = scales::alpha("lightgrey", 0.8),
                         border = NA)
-      graphics::points(1:length(acf_obj$acf),  as.numeric(acf_obj$acf))
-      add_lines(1:length(acf_obj$acf), as.numeric(acf_obj$acf))
+      points_args_p7   <- points_args
+      points_args_p7$x <- 1:length(acf_obj$acf)
+      points_args_p7$y <- as.numeric(acf_obj$acf)
+      lines_args_p7    <- lines_args
+      lines_args_p7$x  <- 1:length(acf_obj$acf)
+      lines_args_p7$y  <- as.numeric(acf_obj$acf)
+      do.call(graphics::points, points_args_p7)
+      do.call(graphics::lines, lines_args_p7)
     }
 
 
