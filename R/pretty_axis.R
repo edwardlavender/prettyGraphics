@@ -440,7 +440,10 @@ pretty_axis <-
       # This is generally useful, but necessary to stop errors with factor levels that are NA.
       # Check the number of observations in each element of x is the same:
       lx <- sapply(x, length)
-      if(length(unique(lx)) != 1) stop("x contains elements with different numbers of observations.")
+      if(length(unique(lx)) != 1){
+        warning("'x' contains elements with different numbers of observations; collapsing each element (i) in 'x' to range(i).")
+        x <- lapply(x, function(e) range(e, na.rm = TRUE))
+      }
       # Create a dataframe and drop NAs
       dat <- data.frame(dplyr::bind_cols(x))
       dat <- dat[stats::complete.cases(dat), , drop = FALSE]

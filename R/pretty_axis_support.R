@@ -213,11 +213,6 @@ define_lim_init <-
         #### Limits do not need to be defined
         if(!is.na(ilim)){
           attributes(ilim)$user <- TRUE
-          if(!is.null(at)){
-            if(define_lim(at) != ilim){
-              stop("Both limits and tick mark positions provided and are not equal.", call. = FALSE)
-            }
-          }
 
           #### Limits need to be defined
         } else{
