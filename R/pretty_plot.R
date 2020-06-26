@@ -1,24 +1,24 @@
 #' @title Prettier default plots
-#' @description \code{\link[plot.pretty]{pretty_plot}} is a general function which creates plots with pretty axis for multiple plotting functions. The default option functions like \code{\link[graphics]{plot}} but implements pretty axes using \code{\link[plot.pretty]{pretty_axis}}. Arguments can be passed to \code{\link[graphics]{plot}}, but additional arguments (e.g., \code{points_args}, \code{lines_args} and \code{mtext_args}, which can be used to add points, lines and control axis labels respectively) provide additional flexibility if required. Some other plotting functions can be implemented by adjusting the plotting function, \code{f}, and by specifying whether that plot depends on \code{x}, \code{y} or \code{x} and \code{y}. The function can return the list from\code{\link[plot.pretty]{pretty_axis}} which can be useful for later adjustments to plots (e.g. setting the clipping region with \code{\link[graphics]{clip}}).
+#' @description \code{\link[prettyGraphics]{pretty_plot}} is a general function which creates plots with pretty axis for multiple plotting functions. The default option functions like \code{\link[graphics]{plot}} but implements pretty axes using \code{\link[prettyGraphics]{pretty_axis}}. Arguments can be passed to \code{\link[graphics]{plot}}, but additional arguments (e.g., \code{points_args}, \code{lines_args} and \code{mtext_args}, which can be used to add points, lines and control axis labels respectively) provide additional flexibility if required. Some other plotting functions can be implemented by adjusting the plotting function, \code{f}, and by specifying whether that plot depends on \code{x}, \code{y} or \code{x} and \code{y}. The function can return the list from\code{\link[prettyGraphics]{pretty_axis}} which can be useful for later adjustments to plots (e.g. setting the clipping region with \code{\link[graphics]{clip}}).
 #'
 #' @param x The x coordinates or an object from which coordinates can be extracted (see Details). Coordinates are used to create the axes and may be plotted (see \code{f} and \code{plot_coordinates}).
 #' @param y (optional) The y coordinates.
 #' @param f A function used to create a plot. The default is \code{\link[graphics]{plot}} but some other functions are supported. \code{f} should support the following arguments: \code{axes}, which are turned off automatically; \code{xlim}, \code{ylim}; \code{xlab}; \code{ylab}; and \code{main}. This feature is experimental.
 #' @param plot_xy A character vector specifying whether the plotting function, \code{f}, requires \code{"x"}, \code{"y"} or both (\code{"xy"}).
 #' @param plot_coordinates A logical input which defines whether or not the plotting function acts on coordinates extracted from \code{x} or the original object (see examples using \code{\link[raster]{image}}).
-#' @param pretty_axis_args A named list or arguments passed to \code{\link[plot.pretty]{pretty_axis}} to define pretty axes.
+#' @param pretty_axis_args A named list or arguments passed to \code{\link[prettyGraphics]{pretty_axis}} to define pretty axes.
 #' @param points_args A named list of arguments passed to \code{\link[graphics]{points}} to control points. These can also be supplied via \code{...} but \code{point_args} can provide additional flexibility where required. To implement this option, you probably want to specify \code{type = "n"} via \code{...} because \code{points_args} is evaluated after the plot is evaluated.
 #' @param lines_args A named list of arguments passed to \code{\link[graphics]{lines}} to control lines. These can also be supplied via \code{...} but \code{lines_args} can provide additional flexibility where required. To implement this option, you probably want to specify \code{type = "n"} via \code{...} because \code{lines_args} is evaluated after the plot is evaluated.
 #' @param xlab A character input which defines the label for the x axis. By default, this is "" so that labels can be added via \code{mtext_args} which is more flexible (see below). However, the label can be specified via \code{xlab} for speed.
 #' @param ylab A character input which defines the label for the y axis. By default, this is "" so that labels can be added via \code{mtext_args} which is more flexible (see below). However, the label can be specified via \code{ylab} for speed.
 #' @param main A character input which defines the label for the plot axis. By default, this is "" so that labels can be added via \code{mtext_args} which is more flexible (see below). However, the label can be specified via \code{main} for speed.
 #' @param mtext_args A named list of arguments passed to \code{\link[graphics]{mtext}} to control axes' labels. These can also be supplied via \code{xlab}, \code{ylab} and \code{main} but \code{mtext_args} can provide additional flexibility where required.
-#' @param return_list A logical input which defines whether or not to return the list produced by \code{\link[plot.pretty]{pretty_axis}}.
+#' @param return_list A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.
 #' @param ... Other parameters passed to \code{f}.
 #'
 #' @details \code{x} and \code{y} coordinates usually need to be provided. Some other object classes may be provided to \code{x}, from which x and y coordinates can be extracted to create axes. In this case, the user needs to indicate whether the plotting function, \code{f}, requires \code{x} and/or \code{y} and acts on extracted coordinates (\code{plot_coordinates = TRUE}) or the original object (\code{plot_coordinates = FALSE}). Objects of class density and RasterLayer are currently supported. If \code{plot_xy = "xy"} and only \code{x} is provided, \code{x} is treated as the response variable and plotted against an index (like \code{\link[graphics]{plot}}).
 #'
-#' @return The function returns a plot and, if requested, a list of arguments that are used to create pretty axes via \code{\link[plot.pretty]{pretty_axis}}.
+#' @return The function returns a plot and, if requested, a list of arguments that are used to create pretty axes via \code{\link[prettyGraphics]{pretty_axis}}.
 #'
 #' @examples
 #' #### Example (1): An example with graphics::plot()
@@ -36,12 +36,12 @@
 #' pp <- par(mfrow = c(2, 2))
 #' # Specify a break for every factor level via the pretty 'n' argument.
 #' # ... (this can also be achieved via the units argument)
-#' plot.pretty::pretty_plot(dx, dy,
+#' prettyGraphics::pretty_plot(dx, dy,
 #'                          pretty_axis_args = list(side = 1:2, pretty = list(n = 10))
 #' )
 #' # Specify a break for every other factor level via the pretty 'n' argument.
 #' # ... (this can also be achieved via the units argument)
-#' plot.pretty::pretty_plot(dx, dy,
+#' prettyGraphics::pretty_plot(dx, dy,
 #'                          pretty_axis_args = list(side = 1:2, pretty = list(n = 10/2))
 #' )
 #' # Comparisons to default plots:

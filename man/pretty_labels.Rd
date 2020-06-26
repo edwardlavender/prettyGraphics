@@ -11,7 +11,7 @@ pretty_labels(x, at, n)
 
 \item{at}{A numeric vector of axis positions.}
 
-\item{n}{(optional) An integer which defines the number of decimal places for numeric axes. This is passed to \code{\link[plot.pretty]{add_lagging_point_zero}}. If \code{NULL}, \code{n} is defined internally.}
+\item{n}{(optional) An integer which defines the number of decimal places for numeric axes. This is passed to \code{\link[prettyGraphics]{add_lagging_point_zero}}. If \code{NULL}, \code{n} is defined internally.}
 }
 \value{
 A vector of labels, of the same length as axis tick marks (\code{at}).
@@ -20,7 +20,7 @@ A vector of labels, of the same length as axis tick marks (\code{at}).
 This function defines pretty axis labels from an object.
 }
 \details{
-For factors, factor levels at positions specified by \code{at} are taken as labels. For numbers, \code{\link[plot.pretty]{add_lagging_point_zero}} and \code{\link[plot.pretty]{sci_notation}} are implemented as necessary to define pretty labels.
+For factors, factor levels at positions specified by \code{at} are taken as labels. For numbers, \code{\link[prettyGraphics]{add_lagging_point_zero}} and \code{\link[prettyGraphics]{sci_notation}} are implemented as necessary to define pretty labels.
 }
 \author{
 Edward Lavender

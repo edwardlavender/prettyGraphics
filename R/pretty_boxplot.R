@@ -1,9 +1,9 @@
 #' @title Pretty boxplots
-#' @description This function makes prettier boxplots. Boxplots are created using \code{\link[graphics]{boxplot}} but the axes are controlled via \code{\link[plot.pretty]{pretty_axis}} and an \code{adj} argument. The addition of axis labels is also more flexible because, while these can be implemented via \code{xlab}, \code{ylab} and \code{main} as usual, axis labels can also be controlled using \code{\link[graphics]{mtext}} via \code{mtext_args}.
+#' @description This function makes prettier boxplots. Boxplots are created using \code{\link[graphics]{boxplot}} but the axes are controlled via \code{\link[prettyGraphics]{pretty_axis}} and an \code{adj} argument. The addition of axis labels is also more flexible because, while these can be implemented via \code{xlab}, \code{ylab} and \code{main} as usual, axis labels can also be controlled using \code{\link[graphics]{mtext}} via \code{mtext_args}.
 #'
 #' @param x A factor vector.
 #' @param y A numeric vector.
-#' @param pretty_axis_args A named list of arguments passed to \code{\link[plot.pretty]{pretty_axis}} to control axes.
+#' @param pretty_axis_args A named list of arguments passed to \code{\link[prettyGraphics]{pretty_axis}} to control axes.
 #' @param adj A number which defines the distance from the first and last box-and-whiskers to the edges of the x axis.
 #' @param xlab The x axis label. This can be added via \code{mtext_args} for more control.
 #' @param ylab The y axis label. This can be added via \code{mtext_args} for more control.
@@ -23,7 +23,7 @@
 #' dx2 <- ifelse(dx < 10, "immature", "mature")
 #' d <- data.frame(x = dx, x2 = dx2, y = dy)
 #'
-#' #### Example (1): Comparing graphics::boxplot() and plot.pretty::pretty_boxplot()
+#' #### Example (1): Comparing graphics::boxplot() and prettyGraphics::pretty_boxplot()
 #' pp <- par(mfrow = c(1, 2))
 #' graphics::boxplot(y ~ x, data = d)
 #' pretty_boxplot(d$x, d$y)
@@ -110,7 +110,7 @@ pretty_boxplot <-
     }
 
     #### Implement pretty_axis_args
-    axis_ls <- plot.pretty::implement_pretty_axis_args(list(x, y), pretty_axis_args)
+    axis_ls <- prettyGraphics::implement_pretty_axis_args(list(x, y), pretty_axis_args)
 
     #### Create boxplot, with appropriate limits
     graphics::boxplot(y ~ x,
@@ -119,8 +119,8 @@ pretty_boxplot <-
                       xlab = xlab, ylab = ylab,...)
 
     #### Implement pretty_axis_args and implement_mtext_args
-    plot.pretty::pretty_axis(axis_ls = axis_ls, add = TRUE)
-    plot.pretty::implement_mtext_args(mtext_args)
+    prettyGraphics::pretty_axis(axis_ls = axis_ls, add = TRUE)
+    prettyGraphics::implement_mtext_args(mtext_args)
 
     #### Hide output list of pretty_axis
     invisible()

@@ -15,7 +15,7 @@ add_colour_bar(
 \arguments{
 \item{data_legend}{A dataframe with two columns named 'x' and 'col'. 'x' is a regular sequence of values. 'col' is the colour of each value. This is used to define the colour bar. \code{data_legend} can be extracted from \code{add_lines}.}
 
-\item{pretty_axis_args}{A list of arguments passed to \code{\link[plot.pretty]{pretty_axis}} via the \code{axis_ls} argument to add an axis to the colour bar, defining the meaning of different colours.}
+\item{pretty_axis_args}{A list of arguments passed to \code{\link[prettyGraphics]{pretty_axis}} via the \code{axis_ls} argument to add an axis to the colour bar, defining the meaning of different colours.}
 
 \item{mtext_args}{A list of arguments passed to \code{\link[graphics]{mtext}} to add a label to the legend.}
 

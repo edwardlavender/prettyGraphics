@@ -1,5 +1,5 @@
-#' @title Pull x and y coordinates from supported R objects for \code{\link[plot.pretty]{pretty_axis}}
-#' @description This function pulls 'x' and 'y' coordinates from some R objects. This is implemented within \code{\link[plot.pretty]{pretty_plot}}, \code{\link[plot.pretty]{pretty_axis}} to create axes for multiple object types.
+#' @title Pull x and y coordinates from supported R objects for \code{\link[prettyGraphics]{pretty_axis}}
+#' @description This function pulls 'x' and 'y' coordinates from some R objects. This is implemented within \code{\link[prettyGraphics]{pretty_plot}}, \code{\link[prettyGraphics]{pretty_axis}} to create axes for multiple object types.
 #' @param x x coordinates or an object from which x and y coordinates can be extracted.
 #' @param y y coordinates.
 #' @return A list with 'x' and 'y' coordinates, extracted from the object \code{x} or as inputted.

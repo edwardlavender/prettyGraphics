@@ -24,7 +24,7 @@ list_CIs(
 
 \item{plot_suggestions}{A logical input defining whether or not to make plot suggestions (e.g. y limits) when can help make prettier plots.}
 
-\item{pretty_param}{A list of parameters, passed to \code{\link[base]{pretty}}, if plot suggestions are requested. (\code{\link[plot.pretty]{pretty_axis}} is more flexible.)}
+\item{pretty_param}{A list of parameters, passed to \code{\link[base]{pretty}}, if plot suggestions are requested. (\code{\link[prettyGraphics]{pretty_axis}} is more flexible.)}
 }
 \value{
 A list with (usually) three elements: (1) 'fit', fitted values; (2) 'lowerCI', lower CIs (0.025 percentile); and (3) 'upperCI', upper CIs (97.5 percentile). If \code{plot_suggetions = TRUE}, 'yat' is a vector of suggested positions for y axis positions based on model predictions and 'ylim' is a vector of suggested y axis limits.
@@ -50,7 +50,7 @@ str(CIs)
 
 }
 \seealso{
-\code{\link[base]{pretty}} \code{\link[plot.pretty]{pretty_axis}}, \code{\link[stats]{predict}}
+\code{\link[base]{pretty}} \code{\link[prettyGraphics]{pretty_axis}}, \code{\link[stats]{predict}}
 }
 \author{
 Edward Lavender

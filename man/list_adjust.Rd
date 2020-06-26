@@ -11,13 +11,13 @@ list_adjust(l, f = plotrix::listDepth, side)
 
 \item{f}{A function used to adjust the list.}
 
-\item{side}{Input to \code{side} argument of \code{\link[plot.pretty]{pretty_axis}}.}
+\item{side}{Input to \code{side} argument of \code{\link[prettyGraphics]{pretty_axis}}.}
 }
 \value{
 The function returns an (adjusted) list.
 }
 \description{
-This function adjusts lists to ensure mapply loops over inputted arguments correctly in \code{\link[plot.pretty]{pretty_axis}}.
+This function adjusts lists to ensure mapply loops over inputted arguments correctly in \code{\link[prettyGraphics]{pretty_axis}}.
 }
 \author{
 Edward Lavender

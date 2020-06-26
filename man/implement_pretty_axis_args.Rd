@@ -7,9 +7,9 @@
 implement_pretty_axis_args(x, pretty_axis_args)
 }
 \arguments{
-\item{x}{A list of of coordinates (\code{\link[plot.pretty]{pretty_axis}}).}
+\item{x}{A list of of coordinates (\code{\link[prettyGraphics]{pretty_axis}}).}
 
-\item{pretty_axis_args}{A named list of parameters that are passed to \code{\link[plot.pretty]{pretty_axis}}.}
+\item{pretty_axis_args}{A named list of parameters that are passed to \code{\link[prettyGraphics]{pretty_axis}}.}
 }
 \value{
 A list.

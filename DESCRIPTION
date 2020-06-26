@@ -1,4 +1,4 @@
-Package: plot.pretty
+Package: prettyGraphics
 Type: Package
 Title: Prettier Plotting and Data Exploration for Continuous Data with Base R Made Easier 
 Version: 0.1.0
@@ -18,8 +18,8 @@ Suggests:
     magrittr, pryr, devtools
 Depends: R (>= 3.5)
 License: GPL-3
-URL: http://github.com/edwardlavender/plot.pretty/ 
-BugReports: http://github.com/edwardlavender/plot.pretty/issues
+URL: http://github.com/edwardlavender/prettyGraphics/ 
+BugReports: http://github.com/edwardlavender/prettyGraphics/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.1

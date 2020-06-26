@@ -1,10 +1,10 @@
 ---
-title: "Vignette: An introduction to plot.pretty"
+title: "Vignette: An introduction to prettyGraphics"
 author: "Edward Lavender^[Centre for Research into Ecological and Environmental Modelling, The Observatory, University of St Andrews, St Andrews, Scotland, KY16 9LZ and Scottish Oceans Institute, East Sands, University of St Andrews, St Andrews, Scotland, KY16 8LB, el72@st-andrews.ac.uk]"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{introducing_plot_pretty}
+  %\VignetteIndexEntry{introducing_prettyGraphics}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -31,14 +31,14 @@ body{
 
 # Introduction
 
-`plot.pretty` is an R package designed to make the production of plots and data exploration easier, more flexible and prettier, with base R. The creation of this package was inspired by the development of another package, `Tools4ETS`, which provides tools for ecological timeseries in R. Consequently, `plot.pretty` has been particularly motivated by the requirements of datasets with continuous responses and explanatory variables (e.g., depth and time, in relation to covariates). The package is based on a number of functions which act as 'building blocks'; these help to define the initial arguments of a plot and then add elements to a plot sequentially. The package includes some integrative functions, which link these functions together to produce pretty plots in a variety of cases (e.g. a more flexible implementation of `graphics::plot()` with pretty axes, prettier histograms, density plots, timeseries, model residuals etc.). Notable functionality of `plot.pretty` includes the following: 
+`prettyGraphics` is an R package designed to make the production of plots and data exploration easier, more flexible and prettier, with base R. The creation of this package was inspired by the development of another package, `Tools4ETS`, which provides tools for ecological timeseries in R. Consequently, `prettyGraphics` has been particularly motivated by the requirements of datasets with continuous responses and explanatory variables (e.g., depth and time, in relation to covariates). The package is based on a number of functions which act as 'building blocks'; these help to define the initial arguments of a plot and then add elements to a plot sequentially. The package includes some integrative functions, which link these functions together to produce pretty plots in a variety of cases (e.g. a more flexible implementation of `graphics::plot()` with pretty axes, prettier histograms, density plots, timeseries, model residuals etc.). Notable functionality of `prettyGraphics` includes the following: 
 
 * **The definition of pretty axes**. The definition of 'pretty' axes (i.e., axes with intelligible tick mark labels that are positioned in appropriate, adjoining positions, rather than as an approximate box around a plot) underlies publication-quality plots but these are not implemented automatically by base R. `pretty_axis()` is a very flexible function which makes this possible. A few other functions, such as `sci_notation()`, which can be used to add labels with scientific notation to a plot (i.e. $a \times 10^b$ rather than $ae^b$), and `add_lagging_point_zero()`, which brings all numbers up to the same number of decimal places, complement this function. `add_grid_rect_xy()` can be used to add a rectangular grid at user-defined positions (e.g. coinciding with axis labels), to aid interpretation  
 * **Colouring lines by a covariate**. In base R, it's easy to add lines to a plot to illustrate a relationship. However, it is a more long-winded process to add a line that is coloured by the values of a third variable, followed by a highly customisable colour bar legend, to illustrate the relationship between the response and more than one explanatory variable. This essential part of data exploration is implemented by `add_lines()` and `add_colour_bar()`. 
 * **Shading**. Adding shading to a plot is another way to illustrate possible relationships, especially between a response/explanatory variable and a factor. For example, in plots of depth timeseries, it is often useful to add shading delineating day/night periods. Adding shading to a plot is made easy with `add_shading_bar()`. 
 * **Statistical summaries**. The definition and addition of statistical summarises to a plot can also help to reveal signal from noise for continuous data. For example, it might be helpful to calculate the mean value, the minimum, the maximum, the 89 % quantiles or another statistic in a sequence of bins $n$ units in width (e.g. $10 cm$, $0.5 ms^{-2}$, $12 hours$, etc.). This is facilitated by `summmarise_in_bins()` and `add_lines()`. 
 * **Model predictions**. The addition of model predictions (e.g. fitted values ± confidence intervals) on top of observations is critical step in the evaluation of models (e.g. to understand the extent to which they explain observed patterns). This is facilitated by `list_CIs()` and `add_model_predictions()`. 
-* **Integrative functions**. `plot.pretty` provides several functions which use the power of building block functions to create prettier plots, including histograms, density plots, residual plots and a number of others. For example, `pretty_plot()` functions like `graphics::plot()` but uses `pretty_axis()` to define pretty axes and is more flexible. `pretty_plot()` can incorporate multiple plotting functions (not just `graphics::plot()`) but some functions (e.g. `graphics::hist()`) necessitate a specialised plotting approach which `plot.pretty` may provide (e.g., `pretty_hist()`). 
+* **Integrative functions**. `prettyGraphics` provides several functions which use the power of building block functions to create prettier plots, including histograms, density plots, residual plots and a number of others. For example, `pretty_plot()` functions like `graphics::plot()` but uses `pretty_axis()` to define pretty axes and is more flexible. `pretty_plot()` can incorporate multiple plotting functions (not just `graphics::plot()`) but some functions (e.g. `graphics::hist()`) necessitate a specialised plotting approach which `prettyGraphics` may provide (e.g., `pretty_hist()`). 
 
 The aim of this vignette is to introduce some of these functions, to highlight their flexibility and their use, and to show how they can be strung together to produce prettier plots designed to shed light on interesting questions. For each function, much more detail is provided in the help files. 
 
@@ -46,10 +46,10 @@ The aim of this vignette is to introduce some of these functions, to highlight t
 
 ## Installation and load
 
-First, install and load `plot.pretty`:
+First, install and load `prettyGraphics`:
 ```{r}
-# install.packages("plot.pretty")
-library(plot.pretty)
+# install.packages("prettyGraphics")
+library(prettyGraphics)
 ```
 
 This vignette also uses functions from the following packages, which you may need to install before loading and attaching: 
@@ -60,11 +60,11 @@ library(pryr)     # active binding, %<a-%
 
 ## R prerequisites
 
-`plot.pretty` and this vignette use a few tricks with which it is helpful to be familiar before proceeding. 
+`prettyGraphics` and this vignette use a few tricks with which it is helpful to be familiar before proceeding. 
 
 ### lists and `do.call()`
 
-The use of lists and `do.call()` is a backbone of `plot.pretty`. Lists are very useful objects in R which can store all sorts of objects. Lists contain elements, which may be named, that contain these objects. For example, in the following list, the first element is named `a` and it contains the number 10. The second element is unnamed and contains 0; the third element is unnamed and contains a dataframe; and the fourth element is an unamed list which contains the number 16:
+The use of lists and `do.call()` is a backbone of `prettyGraphics`. Lists are very useful objects in R which can store all sorts of objects. Lists contain elements, which may be named, that contain these objects. For example, in the following list, the first element is named `a` and it contains the number 10. The second element is unnamed and contains 0; the third element is unnamed and contains a dataframe; and the fourth element is an unamed list which contains the number 16:
 ```{r}
 l <- list(a = 10, 0, data.frame(x = 1, y = 2), list(16))
 utils::str(l)
@@ -84,7 +84,7 @@ p2 <- pretty(x, n = 5)
 p1; p2; identical(p1, p2)
 ```
 
-`plot.pretty` makes use of this functionality. For example, there is a function, `pretty_axis()` which can make pretty axes. This includes an argument, `pretty`, which takes in a list of arguments that are passed to `pretty()` or `lubridate::pretty_dates()` to make pretty axes. Here is a canned example in which I add pretty axes to side 1 and 2 of a plot using `pretty_axis()`. Each axis has approximately five pretty breaks, which the function defines by default based on the data to be plotted (`x` and `y` here). In this case, since `x` and `y` are numeric, the named list of arguments is passed to `pretty()` within the function to define the pretty sequence. `pretty_axzis()` then does some more work to define axis placement and then adds the axes to the plot. 
+`prettyGraphics` makes use of this functionality. For example, there is a function, `pretty_axis()` which can make pretty axes. This includes an argument, `pretty`, which takes in a list of arguments that are passed to `pretty()` or `lubridate::pretty_dates()` to make pretty axes. Here is a canned example in which I add pretty axes to side 1 and 2 of a plot using `pretty_axis()`. Each axis has approximately five pretty breaks, which the function defines by default based on the data to be plotted (`x` and `y` here). In this case, since `x` and `y` are numeric, the named list of arguments is passed to `pretty()` within the function to define the pretty sequence. `pretty_axzis()` then does some more work to define axis placement and then adds the axes to the plot. 
 
 ```{r, fig.height = 3, fig.width = 3, fig.align = "center"}
 x <- runif(10, 0, 10)
@@ -117,7 +117,7 @@ active_binding_example
 
 ## Example dataset
 
-To illustrate some of the functionality of `plot.pretty`, I use an example dataset from the `Tools4ETS` package which is included in `plot.pretty`. This is a dataset which contains a sample of a depth and temperature observations at defined timestamps collected from two flapper skate, _Dipturus intermedius_, off the West Coast of Scotland by Scottish Natural Heritage and Marine Scotland Science. We'll load these data and focus on one individual for simplicity. For visualisation purposes, we'll also define a new column that contains depth expressed as a negative number:
+To illustrate some of the functionality of `prettyGraphics`, I use an example dataset from the `Tools4ETS` package which is included in `prettyGraphics`. This is a dataset which contains a sample of a depth and temperature observations at defined timestamps collected from two flapper skate, _Dipturus intermedius_, off the West Coast of Scotland by Scottish Natural Heritage and Marine Scotland Science. We'll load these data and focus on one individual for simplicity. For visualisation purposes, we'll also define a new column that contains depth expressed as a negative number:
 ```{r}
 df <- dat_flapper[which(dat_flapper$id == "A"), ]
 df$dn <- df$depth*-1
@@ -125,9 +125,9 @@ utils::head(df, 3)
 utils::str(df)
 ```
 
-Although we will use these data as an example, it is important to emphasise that`plot.pretty`'s functions work for many continuous response and explanatory covariates; they are not restricted to timeseries (though they are particularly useful for some timeseries data.) A few functions are also designed to work with discrete data. 
+Although we will use these data as an example, it is important to emphasise that`prettyGraphics`'s functions work for many continuous response and explanatory covariates; they are not restricted to timeseries (though they are particularly useful for some timeseries data.) A few functions are also designed to work with discrete data. 
 
-# `plot.pretty` building blocks 
+# `prettyGraphics` building blocks 
 
 ## Pretty axes: `pretty_axis()`
 
@@ -345,7 +345,7 @@ Further information is provided in the help file (see `?summarise_in_bins()`). H
 
 ## Add model predictions: `list_CIs()` and `add_model_predictions()`
 
-During or following data exploration, models are useful tools to elucidate trends and relationships. To evaluate the performance of models, it is often useful to plot model predictions ontop of observed data. Two functions make this easy with `plot.pretty`: `list_CIs()` and `add_model_predictions()`. To illustrate this, below I consider a model of depth as a smooth function of time, using a thinned subset of the data, and then add predictions to a plot of the depth timeseries. Note that this model is purely for demonstration purposes; for further discussion, see the `Tools4ETS` package.
+During or following data exploration, models are useful tools to elucidate trends and relationships. To evaluate the performance of models, it is often useful to plot model predictions ontop of observed data. Two functions make this easy with `prettyGraphics`: `list_CIs()` and `add_model_predictions()`. To illustrate this, below I consider a model of depth as a smooth function of time, using a thinned subset of the data, and then add predictions to a plot of the depth timeseries. Note that this model is purely for demonstration purposes; for further discussion, see the `Tools4ETS` package.
 
 ```{r, fig.width = 7, fig.height = 5}
 #### Flag and thin timeseries to reduce serial autocorrelation 
@@ -506,13 +506,13 @@ par(pp)
 
 # Conclusions 
 
-`plot.pretty` is an R package designed to make common data exploration tasks and plot production for continuous data easier and more flexible. The package was particularly inspired by the need to visualise and explore ecological timeseries data but most functions have wider applicability. 
+`prettyGraphics` is an R package designed to make common data exploration tasks and plot production for continuous data easier and more flexible. The package was particularly inspired by the need to visualise and explore ecological timeseries data but most functions have wider applicability. 
 
-`pretty_axis()` is an especially useful function in the creation of publication quality plots in base R. The subsequent addition of lines, colour bars, statistical summaries, shading and model predictions adds value to data exploration and publication-quality plots, but can be surprisingly difficult with base R. `plot.pretty` facilitates these operations. Functions can be used as building blocks or via integrative functions, such as `pretty_plot()`. These operate similarly to functions in base R but harness some of the power of building block functions to create improved plots. 
+`pretty_axis()` is an especially useful function in the creation of publication quality plots in base R. The subsequent addition of lines, colour bars, statistical summaries, shading and model predictions adds value to data exploration and publication-quality plots, but can be surprisingly difficult with base R. `prettyGraphics` facilitates these operations. Functions can be used as building blocks or via integrative functions, such as `pretty_plot()`. These operate similarly to functions in base R but harness some of the power of building block functions to create improved plots. 
 
 # Future developments
 
-`pretty.plot` has been designed especially for continuous responses and explanatory variables, although some functions (e.g. `add_shading_bar()`) help with discrete variables or factors. This functionality may be expanded in due course. Suggestions are welcome. However, the principle motivation for `plot.pretty` remains the requirements of (ecological) research, which means that `plot.pretty` does not aspire to provide the level of comprehensive functionality of other plotting packages (e.g. `ggplot2`, `plotly`). 
+`pretty.plot` has been designed especially for continuous responses and explanatory variables, although some functions (e.g. `add_shading_bar()`) help with discrete variables or factors. This functionality may be expanded in due course. Suggestions are welcome. However, the principle motivation for `prettyGraphics` remains the requirements of (ecological) research, which means that `prettyGraphics` does not aspire to provide the level of comprehensive functionality of other plotting packages (e.g. `ggplot2`, `plotly`). 
 
 # Acknowledgements
 

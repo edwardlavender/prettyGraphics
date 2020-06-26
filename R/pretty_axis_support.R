@@ -38,7 +38,7 @@ is_time <-
 ###################################
 #### units_x()
 
-#' @title Define units within \code{\link[plot.pretty]{pretty_axis}}
+#' @title Define units within \code{\link[prettyGraphics]{pretty_axis}}
 #' @description This function defines suitable default units (i.e., distances between sequential observations in a regular sequence) for a given input type (numbers or times).
 #' @param iunits A number or character. If code{NULL}, the function defines suitable units based on the object class (see \code{x} and Value). Otherwise, the function returns \code{iunits} unchanged.
 #' @param x An object.
@@ -124,7 +124,7 @@ seq_x <- function(x1, x2, units){
 #' @param ... Other arguments passed to \code{\link[base]{pretty}} or \code{\link[lubridate]{pretty_dates}}.
 #' @return The function returns a series of pretty numbers or times.
 #' @author Edward Lavender
-#' @seealso \code{link[plot.pretty]{pretty_seq}} is an extension of this function.
+#' @seealso \code{link[prettyGraphics]{pretty_seq}} is an extension of this function.
 #' @keywords internal
 
 pretty_x <- function(obj, x,...){
@@ -343,8 +343,8 @@ pretty_seq <-
 #' @description This function defines pretty axis labels from an object.
 #' @param x An object, such as a numeric vector.
 #' @param at A numeric vector of axis positions.
-#' @param n (optional) An integer which defines the number of decimal places for numeric axes. This is passed to \code{\link[plot.pretty]{add_lagging_point_zero}}. If \code{NULL}, \code{n} is defined internally.
-#' @details For factors, factor levels at positions specified by \code{at} are taken as labels. For numbers, \code{\link[plot.pretty]{add_lagging_point_zero}} and \code{\link[plot.pretty]{sci_notation}} are implemented as necessary to define pretty labels.
+#' @param n (optional) An integer which defines the number of decimal places for numeric axes. This is passed to \code{\link[prettyGraphics]{add_lagging_point_zero}}. If \code{NULL}, \code{n} is defined internally.
+#' @details For factors, factor levels at positions specified by \code{at} are taken as labels. For numbers, \code{\link[prettyGraphics]{add_lagging_point_zero}} and \code{\link[prettyGraphics]{sci_notation}} are implemented as necessary to define pretty labels.
 #' @return A vector of labels, of the same length as axis tick marks (\code{at}).
 #' @author Edward Lavender
 #' @keywords internal
@@ -416,10 +416,10 @@ empty_list_to_list_null <-
 #### list_adjust()
 
 #' @title Adjust lists to ensure correct mapply loops
-#' @description This function adjusts lists to ensure mapply loops over inputted arguments correctly in \code{\link[plot.pretty]{pretty_axis}}.
+#' @description This function adjusts lists to ensure mapply loops over inputted arguments correctly in \code{\link[prettyGraphics]{pretty_axis}}.
 #' @param l A list.
 #' @param f A function used to adjust the list.
-#' @param side Input to \code{side} argument of \code{\link[plot.pretty]{pretty_axis}}.
+#' @param side Input to \code{side} argument of \code{\link[prettyGraphics]{pretty_axis}}.
 #' @return The function returns an (adjusted) list.
 #' @author Edward Lavender
 #' @keywords internal

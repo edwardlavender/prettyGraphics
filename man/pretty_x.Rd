@@ -20,7 +20,7 @@ The function returns a series of pretty numbers or times.
 This function creates a regular pretty sequence from numbers or times.
 }
 \seealso{
-\code{link[plot.pretty]{pretty_seq}} is an extension of this function.
+\code{link[prettyGraphics]{pretty_seq}} is an extension of this function.
 }
 \author{
 Edward Lavender

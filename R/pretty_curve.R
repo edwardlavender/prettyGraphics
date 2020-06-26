@@ -1,12 +1,12 @@
 #' @title Pretty function
-#' @description The function evaluates a user-supplied function at range of user-supplied \code{x} values (and with any other named parameters), and produces a pretty plot of the evaluated function using \code{\link[plot.pretty]{pretty_plot}}. The function was particularly motivated by the need to visualise probability density functions (e.g. \code{\link[stats]{GammaDist}}.
+#' @description The function evaluates a user-supplied function at range of user-supplied \code{x} values (and with any other named parameters), and produces a pretty plot of the evaluated function using \code{\link[prettyGraphics]{pretty_plot}}. The function was particularly motivated by the need to visualise probability density functions (e.g. \code{\link[stats]{GammaDist}}.
 #'
 #' @param x The x coordinates at which a function, \code{f}, should be evaluated.
 #' @param f A function which depends on a named argument, \code{x}, and any other named arguments (see \code{param}.)
 #' @param param A named list of other arguments required to evaluate the function.
 #' @param add_rug A named list of parameters, passed to \code{\link[graphics]{rug}} to add observed values to the plot. To add a rug using default parameters, simply specify \code{add_rug = list()}. If \code{x} values are not supplied in this list, they are taken from \code{x}. If \code{pos} is not supplied, the rug is positioned exactly along the x axis.
-#' @param return_list A logical input which defines whether or not to return the list of axis parameters produced by \code{\link[plot.pretty]{pretty_axis}}.
-#' @param ... Other parameters that are passed to \code{\link[plot.pretty]{pretty_plot}}, such as \code{pretty-axis_args} to adjust axes.
+#' @param return_list A logical input which defines whether or not to return the list of axis parameters produced by \code{\link[prettyGraphics]{pretty_axis}}.
+#' @param ... Other parameters that are passed to \code{\link[prettyGraphics]{pretty_plot}}, such as \code{pretty-axis_args} to adjust axes.
 #'
 #' @return The function evaluates a function and returns a plot.
 #'

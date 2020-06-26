@@ -9,7 +9,7 @@ sci_notation(x, n = NULL)
 \arguments{
 \item{x}{A numeric vector.}
 
-\item{n}{(optional) A number which defines the desired number of decimal places. This is passed to \code{\link[plot.pretty]{add_lagging_point_zero}}. If \code{n = NULL}, all numbers are brought up to the maximum number of decimal places.}
+\item{n}{(optional) A number which defines the desired number of decimal places. This is passed to \code{\link[prettyGraphics]{add_lagging_point_zero}}. If \code{n = NULL}, all numbers are brought up to the maximum number of decimal places.}
 }
 \value{
 A vector of expression objects that can be added to a plot.
@@ -38,7 +38,7 @@ sci_notation(c(1.29876e11, 1.29e11), n = 8)
 
 }
 \seealso{
-The function is implemented internally in \code{\link[plot.pretty]{pretty_axis}} for numeric observations.
+The function is implemented internally in \code{\link[prettyGraphics]{pretty_axis}} for numeric observations.
 }
 \author{
 Edward Lavender

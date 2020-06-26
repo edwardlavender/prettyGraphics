@@ -60,7 +60,7 @@ pretty_residuals(
 
 \item{lines_args}{A named list that is passed to \code{\link[graphics]{lines}} to add lines to appropriate plots.}
 
-\item{pretty_axis_args}{A named list of arguments that is passed to \code{\link[plot.pretty]{pretty_axis}} which is used to create pretty axes. For simplicity, this is implemented for most plots.}
+\item{pretty_axis_args}{A named list of arguments that is passed to \code{\link[prettyGraphics]{pretty_axis}} which is used to create pretty axes. For simplicity, this is implemented for most plots.}
 
 \item{mtext_args}{A named list of arguments that is passed to \code{\link[graphics]{mtext}} to add labels to each plot. List names correspond to plot numbers (see Details). The default is a nested list which tries to add suitable labels in suitable locations to all plots, but this can be edited.}
 }
@@ -71,7 +71,7 @@ Diagnostic plots of residuals.
 This function produces (pretty) diagnostic plots of residuals. Plots can include standard diagnostic plots (i.e., residuals versus fitted values, residuals versus the linear predictor, a histogram of residuals and quantile-quantile plots), diagnostic plots for timeseries (i.e., timeseries of residuals and autocorrelation functions of residuals); and other helpful plots (i.e., residuals against factor levels/continuous covariates). For large datasets, these plots can be produced for random subsets of the data to aid interpretation.
 }
 \details{
-Seven types of diagnostic plots can be produced: 1, a histogram of residuals; 2, a quantile-quantile plot; 3, residuals versus fitted values; 4, residuals versus linear predictor; 5, residuals against one or more user-defined variables; 6, residuals against a timestamp/index; 7, an autocorrelation function of residuals. \code{\link[plot.pretty]{pretty_axis}} is used to control axes. This can be customised but changes affect all plots. Axis labels are implemented with \code{\link[graphics]{mtext}} via \code{mtext_args} to enable maximum user control over axes. The graphical characteristics of points and lines are specified in \code{points_args} and \code{lines_args}, respectively, and changes to these arguments affect all relevant plots. This implementation reflects a balance between user flexibility and simplicity.
+Seven types of diagnostic plots can be produced: 1, a histogram of residuals; 2, a quantile-quantile plot; 3, residuals versus fitted values; 4, residuals versus linear predictor; 5, residuals against one or more user-defined variables; 6, residuals against a timestamp/index; 7, an autocorrelation function of residuals. \code{\link[prettyGraphics]{pretty_axis}} is used to control axes. This can be customised but changes affect all plots. Axis labels are implemented with \code{\link[graphics]{mtext}} via \code{mtext_args} to enable maximum user control over axes. The graphical characteristics of points and lines are specified in \code{points_args} and \code{lines_args}, respectively, and changes to these arguments affect all relevant plots. This implementation reflects a balance between user flexibility and simplicity.
 }
 \examples{
 #### Simulate and model data

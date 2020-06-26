@@ -6,7 +6,7 @@
 #' @param fadj A function by which to modify predictions (after the inverse link function has been applied, if applicable). For example, in models of animal depth timeseries, models are often implemented by considering depth as a positive number, but plotted with depth as a negative number, for visualisation purposes.
 #' @param centre A logical input defining whether or not to centre predictions. If \code{TRUE}, the mean fitted value is minused from predictions.
 #' @param plot_suggestions A logical input defining whether or not to make plot suggestions (e.g. y limits) when can help make prettier plots.
-#' @param pretty_param A list of parameters, passed to \code{\link[base]{pretty}}, if plot suggestions are requested. (\code{\link[plot.pretty]{pretty_axis}} is more flexible.)
+#' @param pretty_param A list of parameters, passed to \code{\link[base]{pretty}}, if plot suggestions are requested. (\code{\link[prettyGraphics]{pretty_axis}} is more flexible.)
 #'
 #' @return A list with (usually) three elements: (1) 'fit', fitted values; (2) 'lowerCI', lower CIs (0.025 percentile); and (3) 'upperCI', upper CIs (97.5 percentile). If \code{plot_suggetions = TRUE}, 'yat' is a vector of suggested positions for y axis positions based on model predictions and 'ylim' is a vector of suggested y axis limits.
 #'
@@ -26,7 +26,7 @@
 #' str(CIs)
 #'
 #'
-#' @seealso \code{\link[base]{pretty}} \code{\link[plot.pretty]{pretty_axis}}, \code{\link[stats]{predict}}
+#' @seealso \code{\link[base]{pretty}} \code{\link[prettyGraphics]{pretty_axis}}, \code{\link[stats]{predict}}
 #' @author Edward Lavender
 #' @export
 

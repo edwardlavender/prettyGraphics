@@ -1,13 +1,13 @@
 
-# plot.pretty
+# prettyGraphics
 
 <!-- badges: start -->
 
 <!-- badges: end -->
 
-`plot.pretty` is an R package designed to make the production of plots
+`prettyGraphics` is an R package designed to make the production of plots
 and data exploration easier, more flexible and prettier, with base R.
-`plot.pretty` has been particularly inspired by the requirements of
+`prettyGraphics` has been particularly inspired by the requirements of
 continuous ecological datasets, although some functions are designed to
 work with factors. The package includes multiple ‘building block’
 functions which help to define the initial arguments of a plot and then
@@ -29,15 +29,15 @@ functionality includes:
 
 ## Installation
 
-You can install the released version of plot.pretty from
+You can install the released version of prettyGraphics from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 # Install from CRAN 
-install.packages("plot.pretty")
+install.packages("prettyGraphics")
 
 # Or, install the development version from github:
-devtools::install_github("edwardlavender/plot.pretty")
+devtools::install_github("edwardlavender/prettyGraphics")
 ```
 
 ## The definition of pretty axes
@@ -85,9 +85,9 @@ devtools::install_github("edwardlavender/plot.pretty")
     (including standard diagnostic plots alongside residuals against
     covariates, timestamps and the autocorrelation function, if
     applicable);
-  - `Tools4ETS::pretty_ts()`, which is based on `plot.pretty`, creates
+  - `Tools4ETS::pretty_ts()`, which is based on `prettyGraphics`, creates
     pretty timeseries plots;
-  - `Tools4ETS::vis_ts()`, which is based on `plot.pretty`, is an R
+  - `Tools4ETS::vis_ts()`, which is based on `prettyGraphics`, is an R
     Shiny-Dashboard user interface for the interactive exploration of
     (ecological) timeseries and creation of publication quality plots;
 

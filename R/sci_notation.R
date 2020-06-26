@@ -2,7 +2,7 @@
 #' @description Reformat numbers in scientific notation, translating the default 'e' notation used in base R to the 'x10' format more suitable for publication quality plots. If any number in a vector is expressed in R's default scientific notation, then all numbers in that vector are translated into expression objects with the 'x10' notation which can be added to plots. Thus, for consistency, any numbers without 'e' in that vector are treated similarly (e.g. \eqn{1} becomes \eqn{1 \times 10^0}). However, vectors which do not contain any number in R's default scientific notation are returned in as-is condition.
 #'
 #' @param x A numeric vector.
-#' @param n (optional) A number which defines the desired number of decimal places. This is passed to \code{\link[plot.pretty]{add_lagging_point_zero}}. If \code{n = NULL}, all numbers are brought up to the maximum number of decimal places.
+#' @param n (optional) A number which defines the desired number of decimal places. This is passed to \code{\link[prettyGraphics]{add_lagging_point_zero}}. If \code{n = NULL}, all numbers are brought up to the maximum number of decimal places.
 #'
 #' @return A vector of expression objects that can be added to a plot.
 #'
@@ -25,7 +25,7 @@
 #' sci_notation(c(1.29876e11, 1.29e11))
 #' sci_notation(c(1.29876e11, 1.29e11), n = 8)
 #'
-#' @seealso  The function is implemented internally in \code{\link[plot.pretty]{pretty_axis}} for numeric observations.
+#' @seealso  The function is implemented internally in \code{\link[prettyGraphics]{pretty_axis}} for numeric observations.
 #' @author Edward Lavender
 #' @export
 

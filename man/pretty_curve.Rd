@@ -15,15 +15,15 @@ pretty_curve(x, f, param = list(), add_rug = NULL, return_list = FALSE, ...)
 
 \item{add_rug}{A named list of parameters, passed to \code{\link[graphics]{rug}} to add observed values to the plot. To add a rug using default parameters, simply specify \code{add_rug = list()}. If \code{x} values are not supplied in this list, they are taken from \code{x}. If \code{pos} is not supplied, the rug is positioned exactly along the x axis.}
 
-\item{return_list}{A logical input which defines whether or not to return the list of axis parameters produced by \code{\link[plot.pretty]{pretty_axis}}.}
+\item{return_list}{A logical input which defines whether or not to return the list of axis parameters produced by \code{\link[prettyGraphics]{pretty_axis}}.}
 
-\item{...}{Other parameters that are passed to \code{\link[plot.pretty]{pretty_plot}}, such as \code{pretty-axis_args} to adjust axes.}
+\item{...}{Other parameters that are passed to \code{\link[prettyGraphics]{pretty_plot}}, such as \code{pretty-axis_args} to adjust axes.}
 }
 \value{
 The function evaluates a function and returns a plot.
 }
 \description{
-The function evaluates a user-supplied function at range of user-supplied \code{x} values (and with any other named parameters), and produces a pretty plot of the evaluated function using \code{\link[plot.pretty]{pretty_plot}}. The function was particularly motivated by the need to visualise probability density functions (e.g. \code{\link[stats]{GammaDist}}.
+The function evaluates a user-supplied function at range of user-supplied \code{x} values (and with any other named parameters), and produces a pretty plot of the evaluated function using \code{\link[prettyGraphics]{pretty_plot}}. The function was particularly motivated by the need to visualise probability density functions (e.g. \code{\link[stats]{GammaDist}}.
 }
 \examples{
 #### Generate some example x values

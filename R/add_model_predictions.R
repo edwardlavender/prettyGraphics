@@ -2,7 +2,7 @@
 #' @description This function adds model predictions to a plot. This function is designed to streamline plotting codes. Model confidence intervals can be added as a polygon or as lines (with or without the fitted line added ontop). For large datasets, adding confidence intervals with lines is much faster.
 #'
 #' @param x A numeric vector defining the x values at which fitted values/CIs will be plotted.
-#' @param CI A named list with fitted values (optional) and lower and upper CIs (i.e. \code{CI$fit}, \code{CI$lowerCI}, \code{CI$upperCI}). This can be created by \code{\link[plot.pretty]{list_CIs}}.
+#' @param CI A named list with fitted values (optional) and lower and upper CIs (i.e. \code{CI$fit}, \code{CI$lowerCI}, \code{CI$upperCI}). This can be created by \code{\link[prettyGraphics]{list_CIs}}.
 #' @param fCI A character defining the method by which CIs will be added to a plot: as lines (\code{"lines"}) or as a shaded polygon (\code{"poly"}). For large datasets, \code{fCI = "lines"} is much faster.
 #' @param CI_gp A named list of graphical parameters for CIs. If \code{fCI = "lines"}, then two nested lists can be included to specify the lower and upper CI lines differently, if desired (see Examples).
 #' @param add_fitted A logical input defining whether or not add the fitted line.

@@ -16,7 +16,7 @@ add_model_predictions(
 \arguments{
 \item{x}{A numeric vector defining the x values at which fitted values/CIs will be plotted.}
 
-\item{CI}{A named list with fitted values (optional) and lower and upper CIs (i.e. \code{CI$fit}, \code{CI$lowerCI}, \code{CI$upperCI}). This can be created by \code{\link[plot.pretty]{list_CIs}}.}
+\item{CI}{A named list with fitted values (optional) and lower and upper CIs (i.e. \code{CI$fit}, \code{CI$lowerCI}, \code{CI$upperCI}). This can be created by \code{\link[prettyGraphics]{list_CIs}}.}
 
 \item{fCI}{A character defining the method by which CIs will be added to a plot: as lines (\code{"lines"}) or as a shaded polygon (\code{"poly"}). For large datasets, \code{fCI = "lines"} is much faster.}
 

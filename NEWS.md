@@ -1,3 +1,3 @@
-# plot.pretty 0.1.0
+# prettyGraphics 0.1.0
 
-* The first version of `plot.pretty`
+* The first version of `prettyGraphics`

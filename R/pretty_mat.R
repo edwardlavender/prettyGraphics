@@ -9,7 +9,7 @@
 #' @param zlim A numeric vector of length two which specifies the z axis limits (see \code{\link[fields]{image.plot}}),
 #' @param col A colour table to use for the image (see \code{\link[fields]{image.plot}}).
 #' @param col_diag (optional) A colour which, if provided, is used to shade the diagonal of the matrix. This is useful for symmetric square matrices.
-#' @param grid (optional) A named list which, if provided, is passed to \code{\link[plot.pretty]{add_grid_rect_xy}} to draw grid lines around each matrix cell. Arguments \code{x} and \code{y} default to the positions of each matrix cell and do not need to be provided. To use \code{\link[plot.pretty]{add_grid_rect_xy}}'s default graphical options, simply specify \code{grid = list()}.
+#' @param grid (optional) A named list which, if provided, is passed to \code{\link[prettyGraphics]{add_grid_rect_xy}} to draw grid lines around each matrix cell. Arguments \code{x} and \code{y} default to the positions of each matrix cell and do not need to be provided. To use \code{\link[prettyGraphics]{add_grid_rect_xy}}'s default graphical options, simply specify \code{grid = list()}.
 #' @param cex.axis A number which specifies the axis font size (specifically, the magnification to be used for axis annotation relative to the current setting of \code{cex}, see \code{\link[graphics]{par}}).
 #' @param las The style of axis labels (see \code{\link[graphics]{par}}).
 #' @param xlab The x axis label.

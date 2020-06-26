@@ -2,7 +2,7 @@
 % Please edit documentation in R/pretty_axis_support.R
 \name{units_x}
 \alias{units_x}
-\title{Define units within \code{\link[plot.pretty]{pretty_axis}}}
+\title{Define units within \code{\link[prettyGraphics]{pretty_axis}}}
 \usage{
 units_x(iunits, x)
 }

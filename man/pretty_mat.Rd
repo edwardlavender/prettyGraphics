@@ -26,7 +26,7 @@ pretty_mat(
 
 \item{col_diag}{(optional) A colour which, if provided, is used to shade the diagonal of the matrix. This is useful for symmetric square matrices.}
 
-\item{grid}{(optional) A named list which, if provided, is passed to \code{\link[plot.pretty]{add_grid_rect_xy}} to draw grid lines around each matrix cell. Arguments \code{x} and \code{y} default to the positions of each matrix cell and do not need to be provided. To use \code{\link[plot.pretty]{add_grid_rect_xy}}'s default graphical options, simply specify \code{grid = list()}.}
+\item{grid}{(optional) A named list which, if provided, is passed to \code{\link[prettyGraphics]{add_grid_rect_xy}} to draw grid lines around each matrix cell. Arguments \code{x} and \code{y} default to the positions of each matrix cell and do not need to be provided. To use \code{\link[prettyGraphics]{add_grid_rect_xy}}'s default graphical options, simply specify \code{grid = list()}.}
 
 \item{cex.axis}{A number which specifies the axis font size (specifically, the magnification to be used for axis annotation relative to the current setting of \code{cex}, see \code{\link[graphics]{par}}).}
 

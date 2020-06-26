@@ -11,12 +11,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-# plot.pretty
+# prettyGraphics
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-`plot.pretty` is an R package designed to make the production of plots and data exploration easier, more flexible and prettier, with base R. `plot.pretty` has been particularly inspired by the requirements of continuous ecological datasets, although some functions are designed to work with factors. The package includes multiple 'building block' functions which help to define the initial arguments of a plot and then add elements to a plot in sequence. Some integrative functions draw on the flexibility of building blocks to define prettier plots for a variety of equivalent plotting functions in base R (e.g. `graphics::plot()`, `graphics::hist()` and more). Key functionality includes: 
+`prettyGraphics` is an R package designed to make the production of plots and data exploration easier, more flexible and prettier, with base R. `prettyGraphics` has been particularly inspired by the requirements of continuous ecological datasets, although some functions are designed to work with factors. The package includes multiple 'building block' functions which help to define the initial arguments of a plot and then add elements to a plot in sequence. Some integrative functions draw on the flexibility of building blocks to define prettier plots for a variety of equivalent plotting functions in base R (e.g. `graphics::plot()`, `graphics::hist()` and more). Key functionality includes: 
 
   * The definition of pretty axes for plots. 
   * Colouring lines by covariates to elucidate relationships between several variables. 
@@ -28,14 +28,14 @@ knitr::opts_chunk$set(
 
 ## Installation
 
-You can install the released version of plot.pretty from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of prettyGraphics from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 # Install from CRAN 
-install.packages("plot.pretty")
+install.packages("prettyGraphics")
 
 # Or, install the development version from github:
-devtools::install_github("edwardlavender/plot.pretty")
+devtools::install_github("edwardlavender/prettyGraphics")
 ```
 
 ## The definition of pretty axes
@@ -67,8 +67,8 @@ devtools::install_github("edwardlavender/plot.pretty")
 * `pretty_line()` creates pretty number lines and timelines;
 * `pretty_mat()` creates pretty matrices;
 * `pretty_residuals()` creates prettier diagnostic residual plots (including standard diagnostic plots alongside residuals against covariates, timestamps and the autocorrelation function, if applicable); 
-* `Tools4ETS::pretty_ts()`, which is based on `plot.pretty`, creates pretty timeseries plots;
-* `Tools4ETS::vis_ts()`, which is based on `plot.pretty`, is an R Shiny-Dashboard user interface for the interactive exploration of (ecological) timeseries and creation of publication quality plots;
+* `Tools4ETS::pretty_ts()`, which is based on `prettyGraphics`, creates pretty timeseries plots;
+* `Tools4ETS::vis_ts()`, which is based on `prettyGraphics`, is an R Shiny-Dashboard user interface for the interactive exploration of (ecological) timeseries and creation of publication quality plots;
 
 ## Specialised functions
 
