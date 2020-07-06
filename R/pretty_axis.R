@@ -358,7 +358,7 @@ pretty_axis <-
            pretty = list(n = 5),
            units = list(),
            axis = list(),
-           control_axis = list(),
+           control_axis = list(las = TRUE),
            control_ndp = NULL,
            control_factor_lim = 0.5,
            axis_ls = NULL,
