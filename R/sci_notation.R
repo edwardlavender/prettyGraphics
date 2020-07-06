@@ -47,8 +47,11 @@ sci_notation <- function(x, n = NULL) {
 
     # Remove + symbol and leading zeros on expoent, if > 1
     x <- sub("\\+0", "", x); x
-    #Leaves - symbol but removes leading zeros on expoent, if < 1
+    # Remove + if remains (for exponents >= 10 for which there is no leading 0)
+    x <- sub("\\+", "", x)
+    # Leave - symbol but removes leading zeros on expoent, if < 1
     x <- sub("-0", "-", x); x
+
     # Replace e with 10^
     # x <- sub("e", "x10^", x); x
 
