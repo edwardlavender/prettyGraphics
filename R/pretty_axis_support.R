@@ -288,7 +288,7 @@ pretty_seq <-
 
     #### Define pretty sequence
     pretty_args$obj <- x
-    pretty_args$x <- lim
+    pretty_args$x <- x
     if(is.null(pretty_args$n)) pretty_args$n <- 5
     if(is.factor(x)){
       if(pretty_args$n > lim[2]){
