@@ -473,8 +473,6 @@ For example, we can re-create a pretty version of our depth timeseries plots, wi
 ```{r, fig.width = 7, fig.height = 5}
 pretty_plot(x = df$timestamp, 
             y = df$depth, 
-            plot_xy = c("x", "y"), 
-            f = graphics::plot, 
             type = "l", 
             pretty_axis_args = list(side = c(3, 2), pretty = list(n = 5), axis = list(las = TRUE)),
             mtext_args = 
@@ -512,7 +510,7 @@ par(pp)
 
 # Future developments
 
-`pretty.plot` has been designed especially for continuous responses and explanatory variables, although some functions (e.g. `add_shading_bar()`) help with discrete variables or factors. This functionality may be expanded in due course. Suggestions are welcome. However, the principle motivation for `prettyGraphics` remains the requirements of (ecological) research, which means that `prettyGraphics` does not aspire to provide the level of comprehensive functionality of other plotting packages (e.g. `ggplot2`, `plotly`). 
+`prettyGraphics` has been designed especially for continuous responses and explanatory variables, although some functions (e.g. `add_shading_bar()`) help with discrete variables or factors. This functionality may be expanded in due course. Suggestions are welcome. However, the principle motivation for `prettyGraphics` remains the requirements of (ecological) research, which means that `prettyGraphics` does not aspire to provide the level of comprehensive functionality of other plotting packages (e.g. `ggplot2`, `plotly`). 
 
 # Acknowledgements
 

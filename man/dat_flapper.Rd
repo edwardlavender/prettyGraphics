@@ -4,13 +4,15 @@
 \name{dat_flapper}
 \alias{dat_flapper}
 \title{A sample of flapper skate depth and temperature timeseries}
-\format{A dataframe with 20,161 observations and 4 variables:
+\format{
+A dataframe with 20,161 observations and 4 variables:
 \describe{
   \item{timestamp}{A POSIXct object defining the time of each observation (depth/temperature).}
   \item{temp}{A numeric value defining the water temperature (°C) around a given individual at a given time.}
   \item{depth}{A numeric value defining the depth (m) of a given individual at a given time.}
   \item{id}{A factor with two levels ("A" and "B") distinguishing sample timeseries from two different individuals.}
-}}
+}
+}
 \source{
 Depth timeseries were collected by Marine Scotland Science and Scottish Natural Heritage.
 }

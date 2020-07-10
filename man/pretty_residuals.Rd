@@ -21,16 +21,17 @@ pretty_residuals(
   lines_args = list(col = scales::alpha("black", 0.9)),
   pretty_axis_args = list(side = 1:2, pretty = list(n = 5), axis = list(las = TRUE,
     cex.axis = 1.5)),
-  mtext_args = list(`1` = list(list(side = 1, text = "Residuals", line = 2.5), list(side
-    = 2, text = "Frequency", line = 2.5)), `2` = list(list(side = 1, text =
-    "Theoretical Quantiles", line = 2.5), list(side = 2, text = "Sample Quantiles", line =
-    2.5)), `3` = list(list(side = 1, text = "Fitted Values", line = 2.5), list(side = 2,
-    text = "Residuals", line = 2.5)), `4` = list(list(side = 1, text = "Linear Predictor",
-    line = 2.5), list(side = 2, text = "Residuals", line = 2.5)), `5` = lapply(vars,
-    function(var) {     list(list(side = 1, text = var, line = 2.5), list(side = 2, text =
-    "Residuals", line = 2.5)) }), `6` = list(list(side = 1, text = "Timestamp", line =
-    2.5), list(side = 2, text = "Residuals", line = 2.5)), `7` = list(list(side = 1, text
-    = "Lag", line = 2.5), list(side = 2, text = "ACF", line = 2.5)))
+  mtext_args = list(`1` = list(list(side = 1, text = "Residuals", line = 2.5),
+    list(side = 2, text = "Frequency", line = 2.5)), `2` = list(list(side = 1, text =
+    "Theoretical Quantiles", line = 2.5), list(side = 2, text = "Sample Quantiles", line
+    = 2.5)), `3` = list(list(side = 1, text = "Fitted Values", line = 2.5), list(side =
+    2, text = "Residuals", line = 2.5)), `4` = list(list(side = 1, text =
+    "Linear Predictor", line = 2.5), list(side = 2, text = "Residuals", line = 2.5)), `5`
+    = lapply(vars, function(var) {     list(list(side = 1, text = var, line = 2.5),
+    list(side = 2, text = "Residuals", line = 2.5)) }), `6` = list(list(side = 1, text =
+    "Timestamp", line = 2.5), list(side = 2, text = "Residuals", line = 2.5)), `7` =
+    list(list(side = 1, text = "Lag", line = 2.5), list(side = 2, text = "ACF", line =
+    2.5)))
 )
 }
 \arguments{
