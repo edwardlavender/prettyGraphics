@@ -515,9 +515,3 @@ par(pp)
 # Acknowledgements
 
 This work was conducted during a PhD Studentship at the University of St Andrews, jointly funded by Scottish Natural Heritage and the Centre for Research into Ecological and Environmental Modelling. EL is a member of the Marine Alliance for Science and Technology Graduate School.
-
-# Session information
-
-```{r}
-devtools::session_info()
-```
