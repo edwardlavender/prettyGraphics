@@ -6,16 +6,18 @@ Author: Edward Lavender
 Maintainer: Edward Lavender <el72@st-andrews.ac.uk>
 Description: This package provides a compilation of functions which make exploring data and creating publication-quality plots easier with base R. The package has been motivated by the requirements of continuous, ecological datasets (i.e. continuous responses and covariates), although some functions are designed to handle factors.
 Imports: 
-    dplyr, plyr, lubridate, 
+    magrittr, dplyr, plyr, lubridate, 
     fields, raster, plotrix, scales, Hmisc,
+    plotly, shiny,
     rlist, 
-    stringi, stringr, maptools, 
-    lunar
+    stringi, stringr, 
+    maptools, rgeos, shinyWidgets, sp
 Suggests:
     viridis,
+    lunar,
     mgcv, 
     knitr, rmarkdown, 
-    magrittr, pryr, devtools
+    pryr, devtools
 Depends: R (>= 3.5)
 License: GPL-3
 URL: http://github.com/edwardlavender/prettyGraphics/ 

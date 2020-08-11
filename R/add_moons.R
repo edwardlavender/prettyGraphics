@@ -11,7 +11,7 @@
 #'
 #' @return Small subplots of the lunar phase (new moon, first quarter, full moon, third quarter, full moon) are added to an existing plot.
 #'
-#' @details This function requires the 'plotrix' package. Please install this before running this function, using: \code{install.packages("plotrix").}
+#' @details This function requires the 'lunar' package. Please install this before running this function, using: \code{install.packages("lunar").}
 #'
 #' @examples
 #'
@@ -57,11 +57,11 @@ add_moons <-
 
 
   ################################################
-  #### Check whether the user has plotrix installed
+  #### Check whether the user has packages installed
 
-  if(!requireNamespace("plotrix", quietly = TRUE)){
-    stop("Package \"plotrix\" is needed for this function to work. Please install it.",
-         call. = FALSE)
+    if(!requireNamespace("lunar", quietly = TRUE)){
+      stop("Package \"lunar\" is needed for this function to work. Please install it.",
+           call. = FALSE)
     }
 
 
