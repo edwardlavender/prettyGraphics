@@ -80,7 +80,7 @@ pretty_hist(x,
 par(pp)
 
 #### Example (5) Further  examples
-pp <- par(mfrow = c(3, 2))
+pp <- par(mfrow = c(4, 2))
 # e.g.
 x <- c(1.466667, 1.500000)
 pretty_hist(x)
@@ -91,6 +91,10 @@ pretty_hist(x)
 hist(x)
 # e.g.
 x <- c(runif(100, 0, 0.1987), runif(100, 30, 500))
+pretty_hist(x)
+hist(x)
+# e.g.
+x <- c(1e10, 1e20, 1e30)
 pretty_hist(x)
 hist(x)
 par(pp)

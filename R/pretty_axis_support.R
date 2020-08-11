@@ -237,13 +237,10 @@ define_lim_init <-
     # Check that both limits are not identical.
     # If so, adjust them: you cannot have a graph with identical lower/upper limits.
     if(length(unique(lim)) == 1){
-      warning("Lower and upper limits for one of the inputted variables are the same. This is usually because all values of this variable are identical. Limits are being adjusted, but manually inputted limits may be necessary...\n")
-      # Set lower limit to 0 or minus 1:
-      if(lim[2] > 0){
-        lim[1] <- 0
-      } else{
-        lim[1] <- lim[1] - 1
-      }
+      message("Lower and upper limits for one of the inputted variables are the same. This is usually because all values of this variable are identical. Limits are being adjusted (+/- 0.25), but manually inputted limits may be necessary...\n")
+      # Adjust limits
+      lim[1] <- lim[1] - 0.25
+      lim[2] <- lim[2] + 0.25
     }
     # Check that limits are sensible
     if(lim[1] >= lim[2]) {
@@ -282,17 +279,25 @@ pretty_seq <-
            lim = NULL,
            pretty_args = list(n = 5)){
 
-    #### Define intial limits
+    #### Check inputs
+    x <- check_input_class(arg = "x", input = x,
+                           if_class = "character", to_class = "factor",
+                           type = "warning", coerce_input = factor)
+
+    #### Define initial limits
     # If these have been provided, they are unchanged.
     lim <- define_lim_init(x = x, lim = lim, at = NULL)
 
     #### Define pretty sequence
+    # Save object
     pretty_args$obj <- x
-    pretty_args$x <- x
+    # Define 'x' argument of pretty args using limits unless factor with only one level
+    # ... then simply use supplied x
+    if(is.factor(x) & length(levels(x)) == 1) pretty_args$x <- x else pretty_args$x <- lim
     if(is.null(pretty_args$n)) pretty_args$n <- 5
     if(is.factor(x)){
       if(pretty_args$n > lim[2]){
-        warning("pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.")
+        message("pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.")
         pretty_args$by <- 1
       } else pretty_args$by <- ceiling(lim[2]/pretty_args$n)
       pretty_args$n <- NULL
@@ -350,7 +355,7 @@ pretty_seq <-
 #' @keywords internal
 
 pretty_labels <-
-  function(x, at, n){
+  function(x, at, n = NULL){
     if(is.factor(x)){
       lat <- length(at)
       llabels <- length(levels(x))

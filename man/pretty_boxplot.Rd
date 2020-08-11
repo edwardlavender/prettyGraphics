@@ -111,6 +111,10 @@ par(pp)
 # ... have to be joined together prior to plotting
 pretty_boxplot(factor(paste0(d$x, ",", d$x2)), d$y)
 
+#### Example (8): A single factor level
+n <- 1000
+pretty_boxplot(rep("A", n), stats::rnorm(n, 0, 50))
+
 }
 \author{
 Edward Lavender

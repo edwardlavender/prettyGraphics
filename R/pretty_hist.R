@@ -44,7 +44,7 @@
 #' par(pp)
 #'
 #' #### Example (5) Further  examples
-#' pp <- par(mfrow = c(3, 2))
+#' pp <- par(mfrow = c(4, 2))
 #' # e.g.
 #' x <- c(1.466667, 1.500000)
 #' pretty_hist(x)
@@ -55,6 +55,10 @@
 #' hist(x)
 #' # e.g.
 #' x <- c(runif(100, 0, 0.1987), runif(100, 30, 500))
+#' pretty_hist(x)
+#' hist(x)
+#' # e.g.
+#' x <- c(1e10, 1e20, 1e30)
 #' pretty_hist(x)
 #' hist(x)
 #' par(pp)
@@ -148,12 +152,16 @@ pretty_hist <-
     if(is.null(xaxis$at)) {
       xaxis$at <- h$breaks
       xaxis$at <- xaxis$at[seq(1, length(xaxis$at), by = xn)]
+      xaxis$labels <- pretty_labels(xaxis$at, xaxis$at, n = NULL)
     }
     if(is.null(xlim)) xlim <- range(h$breaks)
     if(is.null(ylim)) ylim <- c(0, NA)
     yls <- pretty_seq(h[[select]], lim = ylim, pretty_args = ypretty)
     ylim <- yls$lim
-    if(is.null(yaxis$at)) yaxis$at <- yls$at
+    if(is.null(yaxis$at)) {
+      yaxis$at <- yls$at
+      yaxis$labels <- pretty_labels(yaxis$at, yaxis$at, n = NULL)
+    }
     if(is.null(xaxis$pos)) xaxis$pos <- ylim[1]
     if(is.null(yaxis$pos)) yaxis$pos <- xlim[1]
 

@@ -4,7 +4,7 @@
 \alias{pretty_labels}
 \title{Define pretty labels}
 \usage{
-pretty_labels(x, at, n)
+pretty_labels(x, at, n = NULL)
 }
 \arguments{
 \item{x}{An object, such as a numeric vector.}
