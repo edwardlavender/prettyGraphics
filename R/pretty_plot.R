@@ -36,13 +36,13 @@
 #' pp <- par(mfrow = c(2, 2))
 #' # Specify a break for every factor level via the pretty 'n' argument.
 #' # ... (this can also be achieved via the units argument)
-#' prettyGraphics::pretty_plot(dx, dy,
-#'                          pretty_axis_args = list(side = 1:2, pretty = list(n = 10))
+#' pretty_plot(dx, dy,
+#'             pretty_axis_args = list(side = 1:2, pretty = list(n = 10))
 #' )
 #' # Specify a break for every other factor level via the pretty 'n' argument.
 #' # ... (this can also be achieved via the units argument)
-#' prettyGraphics::pretty_plot(dx, dy,
-#'                          pretty_axis_args = list(side = 1:2, pretty = list(n = 10/2))
+#' pretty_plot(dx, dy,
+#'             pretty_axis_args = list(side = 1:2, pretty = list(n = 10/2))
 #' )
 #' # Comparisons to default plots:
 #' graphics::plot(dx, dy)

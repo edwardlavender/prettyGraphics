@@ -20,3 +20,4 @@ This function implements the pretty_axis_args argument in functions. It is not i
 \author{
 Edward Lavender
 }
+\keyword{internal}

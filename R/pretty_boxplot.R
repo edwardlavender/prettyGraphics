@@ -114,7 +114,7 @@ pretty_boxplot <-
     }
 
     #### Implement pretty_axis_args
-    axis_ls <- prettyGraphics::implement_pretty_axis_args(list(x, y), pretty_axis_args)
+    axis_ls <- implement_pretty_axis_args(list(x, y), pretty_axis_args)
 
     #### Create boxplot, with appropriate limits
     graphics::boxplot(y ~ x,
@@ -123,8 +123,8 @@ pretty_boxplot <-
                       xlab = xlab, ylab = ylab,...)
 
     #### Implement pretty_axis_args and implement_mtext_args
-    prettyGraphics::pretty_axis(axis_ls = axis_ls, add = TRUE)
-    prettyGraphics::implement_mtext_args(mtext_args)
+    pretty_axis(axis_ls = axis_ls, add = TRUE)
+    implement_mtext_args(mtext_args)
 
     #### Hide output list of pretty_axis
     invisible()

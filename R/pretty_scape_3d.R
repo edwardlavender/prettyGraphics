@@ -175,13 +175,13 @@ pretty_scape_3d <-
     #### Define axes properties
     # Extract limits, if not provided
     if(is.null(xlim)){
-      xlim <- prettyGraphics::pretty_seq(x, lim = NULL, pretty_args = list(n = 5))
+      xlim <- pretty_seq(x, lim = NULL, pretty_args = list(n = 5))
     }
     if(is.null(ylim)){
-      ylim <- prettyGraphics::pretty_seq(y, lim = NULL, pretty_args = list(n = 5))
+      ylim <- pretty_seq(y, lim = NULL, pretty_args = list(n = 5))
     }
     if(is.null(zlim)){
-      zlim <- prettyGraphics::pretty_seq(as.vector(z), lim = NULL, pretty_args = list(n = 5))
+      zlim <- pretty_seq(as.vector(z), lim = NULL, pretty_args = list(n = 5))
     }
     # Define axis tick marks
     x_lab_ls <- list(title = xtitle, titlefont = font, range = xlim)

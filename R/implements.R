@@ -8,7 +8,7 @@
 #' @param pretty_axis_args A named list of parameters that are passed to \code{\link[prettyGraphics]{pretty_axis}}.
 #' @return A list.
 #' @author Edward Lavender
-#' @export
+#' @keywords internal
 
 implement_pretty_axis_args <-
   function(x, pretty_axis_args){
@@ -79,7 +79,7 @@ implement_pretty_axis_args <-
 #' @param mtext_args A named list.
 #' @return A list.
 #' @author Edward Lavender
-#' @export
+#' @keywords internal
 
 implement_mtext_args <-
   function(mtext_args){

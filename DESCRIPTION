@@ -1,10 +1,10 @@
 Package: prettyGraphics
 Type: Package
-Title: Prettier Plotting and Data Exploration for Continuous Data with Base R Made Easier 
+Title: Pretty Graphics with R
 Version: 0.1.0
 Author: Edward Lavender
 Maintainer: Edward Lavender <el72@st-andrews.ac.uk>
-Description: This package provides a compilation of functions which make exploring data and creating publication-quality plots easier with base R. The package has been motivated by the requirements of continuous, ecological datasets (i.e. continuous responses and covariates), although some functions are designed to handle factors.
+Description: Making publication-quality plotting and data exploration easier. 
 Imports: 
     magrittr, dplyr, plyr, lubridate, 
     fields, raster, plotrix, scales, TeachingDemos,

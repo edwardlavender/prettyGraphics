@@ -254,12 +254,12 @@ pretty_residuals <-
         }
       }
       # Make histogram
-      prettyGraphics::pretty_hist(choose_dat(1)$residuals,
-                               xn = 2,
-                               ypretty = list(n = ypretty),
-                               xaxis = xaxis,
-                               yaxis = yaxis,
-                               mtext_args = mtext_args[["1"]])
+      pretty_hist(choose_dat(1)$residuals,
+                  xn = 2,
+                  ypretty = list(n = ypretty),
+                  xaxis = xaxis,
+                  yaxis = yaxis,
+                  mtext_args = mtext_args[["1"]])
     }
 
 

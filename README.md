@@ -6,13 +6,13 @@
 <!-- badges: end -->
 
 `prettyGraphics` is an R package designed to make the production of
-plots and data exploration easier, more flexible and prettier, with base
-R. `prettyGraphics` has been particularly inspired by the requirements
-of continuous ecological datasets. The package includes multiple
-‘building block’ functions which help to define the initial arguments
-of a plot and then add elements to a plot in sequence. Some integrative
-functions draw on the flexibility of building blocks to define prettier
-plots for a variety of equivalent plotting functions in base R
+plots and data exploration easier, more flexible and prettier.
+`prettyGraphics` has been particularly inspired by the requirements of
+continuous ecological datasets. The package includes multiple ‘building
+block’ functions which help to define the initial arguments of a plot
+and then add elements to a plot in sequence. Some integrative functions
+draw on the flexibility of building blocks to define prettier plots for
+a variety of equivalent plotting functions in base R
 (e.g. `graphics::plot()`, `graphics::hist()` and more) or more
 specialised routines. Key functionality includes:
 
@@ -75,7 +75,6 @@ devtools::install_github("edwardlavender/prettyGraphics")
   - `pretty_hist()` creates prettier histograms;
   - `pretty_boxplot()` creates prettier boxplots;
   - `pretty_curve()` evaluates and plots functions;
-  - `pretty_line()` creates pretty number lines and timelines;
   - `pretty_mat()` creates pretty matrices;
   - `pretty_residuals()` creates prettier diagnostic residual plots
     (including standard diagnostic plots alongside residuals against
@@ -84,10 +83,15 @@ devtools::install_github("edwardlavender/prettyGraphics")
 
 ## Temporal data
 
+  - `pretty_line()` creates pretty number lines and timelines;
+  - `define_time_blocks()` defines time blocks (i.e., diel periods or
+    seasons) for each day in a time window (designed to work with
+    `add_shading_bar()`);
   - `pretty_ts()` creates pretty timeseries plots;
   - `vis_ts()` is an R Shiny-Dashboard user interface for the
     interactive exploration of (ecological) timeseries and creation of
     publication quality plots;
+  - `add_moons()` adds moons to a plot of lunar phase;
 
 ## Spatial data
 
@@ -95,10 +99,6 @@ devtools::install_github("edwardlavender/prettyGraphics")
     3-dimensional visualisations of landscapes/seascapes and/or
     environmental conditions; for large rasters, `crop_aggr_utm()` helps
     reduce raster dimensions for these functions;
-
-## Specialised functions
-
-  - `add_moons()` adds moons to a plot of lunar phase;
 
 ## Plot layout
 

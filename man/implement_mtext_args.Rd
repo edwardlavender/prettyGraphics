@@ -18,3 +18,4 @@ This function implements the \code{mtext_args} argument in functions. It is not 
 \author{
 Edward Lavender
 }
+\keyword{internal}

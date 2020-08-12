@@ -665,7 +665,7 @@ pretty_ts <-
       warning("add_moons_args$side unsupported and add_moons() not implemented.")
     }
     add_moons_args <- rlist::list.merge(dam, add_moons_args)
-    do.call(prettyGraphics::add_moons, add_moons_args)
+    do.call(add_moons, add_moons_args)
   }
 
   ################################################
