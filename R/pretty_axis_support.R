@@ -151,6 +151,43 @@ pretty_x <- function(obj, x,...){
 }
 
 
+###################################
+###################################
+#### seq_extend()
+
+#' @title Extend a regular sequence within limits
+#' @description This function extends a regular sequence in both directions towards user-defined limits.
+#' @param x A sequence... Need to handle dates etc....
+#' @param lim A vector of two which specify the lower and upper limits.
+#' @return The function returns a sequence.
+#' @examples
+#' # extend_seq(2:4, c(0, 10))
+#' # extend_seq(2:4, c(0, 4))
+#' # x <- seq.Date(as.Date("2016-01-01"), as.Date("2016-01-10"), 1)
+#' # extend_seq(x, as.Date(c("2015-12-10", "2016-01-20")))
+#' @author Edward Lavender
+#' @keywords internal
+#'
+seq_extend <- function(x, lim){
+  stopifnot(length(lim) == 2)
+  min_x <- min(x, na.rm = TRUE)
+  max_x <- max(x, na.rm = TRUE)
+  stopifnot(min_x >= lim[1] & max_x <= lim[2])
+  stopifnot(!is.null(x[1]) & !is.null(x[2]))
+  delta <- x[2] - x[1]
+  left <- seq(lim[1], min_x, by = delta)
+  if(length(left) > 1){
+    left <- left[1:(length(left) - 1)]
+    x <- c(left, x)
+  }
+  right <- seq(max_x, lim[2], by = delta)
+  if(length(right) > 1){
+    right <- right[2:length(right)]
+    x <- c(x, right)
+  }
+  return(x)
+}
+
 
 ###################################
 ###################################

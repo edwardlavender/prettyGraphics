@@ -26,8 +26,11 @@
 #' #### Example (2) A density plot
 #' pretty_hist(x, freq = FALSE)
 #'
-#' #### Example (3) Axes can be adjusted via xn, ypretty, or xaxis() and yaxis()
-#' pp <- par(mfrow = c(1, 3))
+#' #### Example (3) Axes can be adjusted via xlim, ylim, breaks,
+#' # ... xn, ypretty, or xaxis() and yaxis()
+#' pp <- par(mfrow = c(1, 6))
+#' pretty_hist(x, xlim = c(-10, 10), ylim = c(0, 1000))
+#' pretty_hist(x, breaks = seq(-5, 5, by = 1), ylim = c(0, 1000))
 #' pretty_hist(x, xn = 2)
 #' pretty_hist(x, ypretty = list(n = 10))
 #' pretty_hist(x, xaxis = list(at = -5:5))
@@ -151,6 +154,7 @@ pretty_hist <-
     #### Define graph axis and limits
     if(is.null(xaxis$at)) {
       xaxis$at <- h$breaks
+      if(!is.null(xlim)) xaxis$at <- seq_extend(xaxis$at, lim = xlim)
       xaxis$at <- xaxis$at[seq(1, length(xaxis$at), by = xn)]
       xaxis$labels <- pretty_labels(xaxis$at, xaxis$at, n = NULL)
     }
