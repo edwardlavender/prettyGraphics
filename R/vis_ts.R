@@ -96,8 +96,8 @@ ui <-
     dashboardSidebar(
       width = 250,
       sidebarMenu(
-        menuItem("Introduction", tabName = "introduction", icon = icon("angle-right")),
-        menuItem("Plot", tabName = "plot_timeseries", icon = icon("angle-right"))
+        menuItem("Plot", tabName = "plot_timeseries", icon = icon("angle-right")),
+        menuItem("Background", tabName = "introduction", icon = icon("angle-right"))
       ) # close sidebarMenu(
     ), # close dashboardSidebar(
 
@@ -114,31 +114,12 @@ ui <-
 
 
         ################################################
-        #### Introduction ("introduction")
-
-        tabItem(
-          tabName = "introduction",
-          # Define a title for the page
-          h1("visTS: An Interactive Application to Visualise One-Dimensional Timeseries"),
-          box(width = 12,
-              h2("Abstract"),
-
-              p("Observations of events occurring through time (i.e. timeseries) are ubiquitous across academic disciplines. For instance, in the field of animal ecology, high resolution timeseries of movement attributes (e.g. depth) are now commonly collected by electronic tags, providing insights into the drivers of animal movement across a hierarchy of temporal scales. The open source R statistical programming environment is an increasingly used platform to visualise and analyse these kinds of data. Yet the rapid and thorough visualisation and exploration of timeseries remains cumbersome in R, especially for timeseries collected over extended periods of time and/or at high resolution. This constrains the ease with which trends in timeseries occurring at particular scales can be identified and qualitatively compared across individuals, as well as the generation and/or exploration of hypotheses for putative trends and their drivers. To this end, visTS is an interactive application for the rapid visualisation and exploration of data collected through time based on R Shiny. This is part of Tools4ETS, an open source R package that provides tools for depth time series data in R, but the only requirement is a dataframe with observations and associated timestamps. visTS provides functionality to visualise rapidly timeseries data (for multiple sample units, such as individuals); to summarise timeseries statistically over different scales; and to explore potential drivers in variables of interest by adding shading that delineates different time periods (e.g. day, night), by overlaying timeseries of potential covariates or by colouring the original timeseries by the values of a covariate. The user can zoom in and out of the timeseries rapidly to explore these patterns at different scales. To ensure publication quality figures are produced, there are several customisation options and plots can be saved as high resolution .png files. While users will always find that the greatest flexibility comes with programming custom routines, visTS provides a useful tool for the rapid and thorough visualisation and exploration of timeseries, to facilitate the identification of trends, putative drivers and their consistency across multiple sample units.",
-
-                style = "font-size: 25px; font-family: Times New Roman; text-align: justify;"
-                ) # close paragraph
-          ) # close box
-
-          ), # close tabItem(tabName = "introduction"
-
-
-        ################################################
         #### Plot Options ("plot_options")
 
         tabItem(
           tabName = "plot_timeseries",
           # Define a title for the page:
-          h1("Interactive Visualisation of One-Dimensional Timeseries"),
+          h1("visTS: An Interactive Application to Visualise One-Dimensional Timeseries"),
 
           #### Open a fluidPage...
           # In the first part ("row") of the page,
@@ -201,9 +182,9 @@ ui <-
                    # Choose whether or not to add a second variable
                    # Define second variable
                    # Define how you would like to add the second variable (as a new axis or by colour):
-                   # Select whether you would like to add a second variable to the depth time series
+                   # Select whether you would like to add a second variable to the time series
                    checkboxInput(inputId = "variable2_yn",
-                                 label = strong("Add a second variable to the depth time series."),
+                                 label = strong("Add a second variable to the timeseries."),
                                  value = FALSE),
                   conditionalPanel(condition = "input.variable2_yn == true",
                                    uiOutput("variable2_choices"),
@@ -425,7 +406,28 @@ ui <-
                 ) # close fluidRow
 
             ) # close fluidPage
-        ) # close TabItem for tabName = "plot_timeseries",
+        ), # close TabItem for tabName = "plot_timeseries",
+
+
+        ################################################
+        #### Introduction ("introduction")
+
+        tabItem(
+          tabName = "introduction",
+          # Define a title for the page
+          h1("visTS: An Interactive Application to Visualise One-Dimensional Timeseries"),
+          box(width = 12,
+              h2("Background"),
+
+              p("Observations of events occurring through time (i.e. timeseries) are ubiquitous across academic disciplines. For instance, in the field of animal ecology, high resolution timeseries of movement attributes (e.g. depth) are now commonly collected by electronic tags, providing insights into the drivers of animal movement across a hierarchy of temporal scales. The open source R statistical programming environment is an increasingly used platform to visualise and analyse these kinds of data. Yet the rapid and thorough visualisation and exploration of timeseries remains cumbersome in R, especially for timeseries collected over extended periods of time and/or at high resolution. This constrains the ease with which trends in timeseries occurring at particular scales can be identified and qualitatively compared across individuals, as well as the generation and/or exploration of hypotheses for putative trends and their drivers. To this end, visTS is an interactive application for the rapid visualisation and exploration of data collected through time based on R Shiny. The only requirement is a dataframe with observations and associated timestamps. visTS provides functionality to visualise rapidly timeseries data (for multiple sample units, such as individuals); to summarise timeseries statistically over different scales; and to explore potential drivers in variables of interest by adding shading that delineates different time periods (e.g. day, night), by overlaying timeseries of potential covariates or by colouring the original timeseries by the values of a covariate. The user can zoom in and out of the timeseries rapidly to explore these patterns at different scales. To ensure publication quality figures are produced, there are several customisation options and plots can be saved as high resolution .png files. While users will always find that the greatest flexibility comes with programming custom routines, visTS provides a useful tool for the rapid and thorough visualisation and exploration of timeseries, to facilitate the identification of trends, putative drivers and their consistency across multiple sample units.",
+
+                style = "font-size: 25px; font-family: Times New Roman; text-align: justify;"
+              ) # close paragraph
+          ) # close box
+
+        ) # close tabItem(tabName = "introduction"
+
+
       ) # close tabItems
     ) # close dashboardBody
   ) # close dashboardPage
