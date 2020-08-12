@@ -45,7 +45,7 @@ plot(d$t, d$depth, type = "n", ylim = ylim)
 #### Define arguments for add_shading_bar()
 # In this example, we'll add blocks of shading distinguishing 'day' versus 'night' to aid
 # ... interpretation of the animal depth timeseries we've simulated above. To do this,
-# ... we could use the Tools4ETS::define_time_blocks() function but, for transparency,
+# ... we could use the define_time_blocks() function but, for transparency,
 # ...  we'll use the following approach to define the times of day/night and associated colours
 # ... in a dataframe that we can then pass to add_shading_bar():
 # Define the times of day/night across the timeseries:

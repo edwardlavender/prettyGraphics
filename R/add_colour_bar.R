@@ -1,5 +1,5 @@
 #' @title Add a colour bar legend to a plot
-#' @description This function adds a colour bar legend to a plot. The function accompanies \code{add_lines} and can be used to add a legend which corresponds to the lines drawn. This can be added to an existing plot using \code{\link[Hmisc]{subplot}}.
+#' @description This function adds a colour bar legend to a plot. The function accompanies \code{add_lines} and can be used to add a legend which corresponds to the lines drawn. This can be added to an existing plot using \code{\link[TeachingDemos]{subplot}}.
 #'
 #' @param data_legend A dataframe with two columns named 'x' and 'col'. 'x' is a regular sequence of values. 'col' is the colour of each value. This is used to define the colour bar. \code{data_legend} can be extracted from \code{add_lines}.
 #' @param pretty_axis_args A list of arguments passed to \code{\link[prettyGraphics]{pretty_axis}} via the \code{axis_ls} argument to add an axis to the colour bar, defining the meaning of different colours.
@@ -7,7 +7,7 @@
 #' @param data_raw (optional) A numeric vector that contains the raw data to which the the colour bar refers. If provided, \code{data_raw} is used to calculate the range of the raw data; this can be added to the legend via \code{mark_args} (see below).
 #' @param mark_args (optional) A list of arguments passed to \code{\link[graphics]{lines}} (excluding \code{x} and \code{y}). If provided, these arguments are used to draw lines on the colour bar delineating the range of the raw data. This can be useful in circumstances in which the range of the colour bar differs from the raw data (the user has control over this; see Examples). A single list affects both the lower and upper limit delimiters identically; a nested list with two elements controls the lower and upper limit independently.
 #'
-#' @return The function return a plot of the colour bar. This can be added to an existing plot with \code{link[Hmisc]{subplot}}.
+#' @return The function return a plot of the colour bar. This can be added to an existing plot with \code{link[TeachingDemos]{subplot}}.
 #'
 #' @examples
 #'
@@ -26,10 +26,10 @@
 #'                pretty_axis_args = colour_line_ls$axis_legend
 #' )
 
-#' #### Example (2): add_colour_bar can be used in combination with Hmisc::subplot()
+#' #### Example (2): add_colour_bar can be used in combination with TeachingDemos::subplot()
 #' pp <- par(oma = c(2, 2, 2, 6))
 #' plot(x, y1)
-#' Hmisc::subplot(add_colour_bar(data_legend = colour_line_ls$data_legend,
+#' TeachingDemos::subplot(add_colour_bar(data_legend = colour_line_ls$data_legend,
 #'                               pretty_axis_args = colour_line_ls$axis_legend
 #' ),
 #' x = 1275, y = 0, size = c(0.25, 2.75), vadj = 0, hadj = 0
@@ -40,7 +40,7 @@
 #' #### Example (3): the mtext_args argument can be used to add a label
 #' pp <- par(oma = c(2, 2, 2, 6))
 #' plot(x, y1)
-#' Hmisc::subplot(add_colour_bar(data_legend = colour_line_ls$data_legend,
+#' TeachingDemos::subplot(add_colour_bar(data_legend = colour_line_ls$data_legend,
 #'                               pretty_axis_args = colour_line_ls$axis_legend,
 #'                               mtext_args = list(side = 4,
 #'                                                 text = "Legend",
@@ -55,7 +55,7 @@
 #' #### Example (4): data_raw and mark_args can be used to delineate the range of data
 #' pp <- par(oma = c(2, 2, 2, 6))
 #' plot(x, y1)
-#' Hmisc::subplot(add_colour_bar(data_legend = colour_line_ls$data_legend,
+#' TeachingDemos::subplot(add_colour_bar(data_legend = colour_line_ls$data_legend,
 #'                               pretty_axis_args = colour_line_ls$axis_legend,
 #'                               data_raw = y2,
 #'                               mark_args = list(col = "dimgrey", lwd = 2)
@@ -68,7 +68,7 @@
 #' # ... using a nested list:
 #' pp <- par(oma = c(2, 2, 2, 6))
 #' plot(x, y1)
-#' Hmisc::subplot(add_colour_bar(data_legend = colour_line_ls$data_legend,
+#' TeachingDemos::subplot(add_colour_bar(data_legend = colour_line_ls$data_legend,
 #'                               pretty_axis_args = colour_line_ls$axis_legend,
 #'                               data_raw = y2,
 #'                               mark_args = list(list(col = "dimgrey"), list(col = "green"))
@@ -92,7 +92,7 @@
 #'                             pretty_axis_args = list(lim = list(range(y2)),
 #'                                                     pretty = list(n = 5))
 #'                                                     )
-#' Hmisc::subplot(add_colour_bar(data_legend = colour_line_ls$data_legend,
+#' TeachingDemos::subplot(add_colour_bar(data_legend = colour_line_ls$data_legend,
 #'                               pretty_axis_args = colour_line_ls$axis_legend
 #' ),
 #' x = 1275, y = 0, size = c(0.25, 2.75), vadj = 0, hadj = 0
@@ -104,7 +104,7 @@
 #' par(oma = c(2, 2, 2, 6))
 #' plot(x, y1)
 #' colour_line_ls <- add_lines(x, y1, y2, pretty_axis_args = list(pretty = list(n = 20)))
-#' Hmisc::subplot(add_colour_bar(data_legend = colour_line_ls$data_legend,
+#' TeachingDemos::subplot(add_colour_bar(data_legend = colour_line_ls$data_legend,
 #'                               pretty_axis_args = colour_line_ls$axis_legend
 #' ),
 #' x = 1275, y = 0, size = c(0.25, 2.75), vadj = 0, hadj = 0
@@ -119,7 +119,7 @@
 #'                             y2,
 #'                             pretty_axis_args = list(pretty = list(n = 20),
 #'                                                     axis = list(las = 2)))
-#' Hmisc::subplot(add_colour_bar(data_legend = colour_line_ls$data_legend,
+#' TeachingDemos::subplot(add_colour_bar(data_legend = colour_line_ls$data_legend,
 #'                               pretty_axis_args = colour_line_ls$axis_legend
 #' ),
 #' x = 1275, y = 0, size = c(0.25, 2.75), vadj = 0, hadj = 0
