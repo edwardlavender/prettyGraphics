@@ -118,7 +118,7 @@ pretty_scape_3d(r = r,  stretch = 50, aspectmode = "data",
                 add_markers = list(x = xyz$x, xyz$y, xyz$z))
 # Control point characteristics
 pretty_scape_3d(r = r,  stretch = 50, aspectmode = "data",
-                add_markers = list(x = xyz$x, xyz$y, xyz$z,
+                add_markers = list(x = xyz$x, y = xyz$y, z = xyz$z,
                                    marker = list(color = "red")))
 # Zoom into landscape around points via buffer argument
 # Note that the units are in m here (since we're using the UTM coordinate system)

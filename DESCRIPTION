@@ -7,10 +7,10 @@ Maintainer: Edward Lavender <el72@st-andrews.ac.uk>
 Description: Making publication-quality plotting and data exploration easier. 
 Imports: 
     magrittr, dplyr, plyr, lubridate, 
-    fields, raster, plotrix, scales, TeachingDemos,
+    fields, plotrix, scales, TeachingDemos,
     plotly, shiny, shinydashboard, shinyWidgets,
     rlist, stringi, stringr, 
-    maptools, rgeos, sp
+    maptools, rgeos, sp, raster
 Suggests:
     viridis,
     lunar,
