@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_moons.R
 \name{add_moons}
 \alias{add_moons}
-\title{add_moons}
+\title{Add subplots of the lunar phase to a plot}
 \usage{
 add_moons(
   side = 3,

@@ -15,7 +15,6 @@
 #' @return The function returns a pretty boxplot.
 #'
 #' @examples
-#'
 #' #### Generate example data, e.g. sex, size and maturation status of an animal
 #' set.seed(1)
 #' dx <- sample(c("M", "F"), size = 100, replace = TRUE, prob = c(0.2, 0.8))

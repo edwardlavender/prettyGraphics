@@ -27,7 +27,6 @@ This function uses \code{\link[prettyGraphics]{pretty_scape_3d}} in an interacti
 The R Shiny interface provides the following interactive options: (a) zoom around (interactively selected subsets of) inputted points, (b) aggregate the raster, (c) add planes at different heights, and stretch the raster vertically according to interactively specified options. The following function arguments are inputted interactively and should not be inputted via the function call: \code{buffer$width}, \code{aggregate$fact}, \code{plane} and \code{stretch}. To zoom around inputted points, you must specify \code{add_markers}. The \code{width} option to \code{buffer} is set interactively and should not be provided. To aggregate the raster, at least one argument must be supplied to \code{aggregate} (e.g. \code{fun}). The \code{fact} option is set interactively and should not be provided. In all cases, arguments to \code{plan} and \code{stretch} are set interactively, so these options should not be included in the function call. Other customisation arguments, passed to \code{\link[prettyGraphics]{pretty_scape_3d}}, can be included in the function call.
 }
 \examples{
-
 #### Use UTM raster for visualisation
 # This is best for visualisation because x, y and z coordinates are on the same scale (m)
 # Planar coordinates coordinates are also required to zoom around points (see ?rgeos::gBuffer)

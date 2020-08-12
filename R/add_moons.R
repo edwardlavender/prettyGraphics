@@ -1,5 +1,4 @@
-#' @title add_moons
-#'
+#' @title Add subplots of the lunar phase to a plot
 #' @description This function adds images of the lunar phase to lunar phase plots (for example, a lunar phase timeseries or a model-inferred smooth of a response ~ s(lunar phase)).
 #'
 #' @param side A numeric input that defines the side on to which you would like to add the moons. \code{side = 1}, \code{side = 2}, \code{side = 3}, \code{side = 4} add moons to the bottom, left, top and right axes respectively. The default is to add moons to the top of the plot. This is appropriate if the plot in question is a smooth of lunar phase. If the plot is a lunar phase timeseries, \code{side = 2} is more appropriate (see Examples).

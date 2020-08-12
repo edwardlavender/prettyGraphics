@@ -33,7 +33,6 @@ The function adds model predictions to a plot.
 This function adds model predictions to a plot. This function is designed to streamline plotting codes. Model confidence intervals can be added as a polygon or as lines (with or without the fitted line added ontop). For large datasets, adding confidence intervals with lines is much faster.
 }
 \examples{
-
 # Define some data for a model
 set.seed(1)
 x <- runif(100, 0, 100)

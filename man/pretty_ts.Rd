@@ -81,13 +81,12 @@ pretty_ts(
 
 \item{add_moons_args}{A named list of arguments passed to \code{\link[prettyGraphics]{add_moons}} to add moons to a plot.}
 
-\item{return_list}{A logical input which defines whether or not to return the list of axis parameters computed by \code{\link[prettyGraphics]{pretty_axis}}. This can be useful for the addition of elements to a plot created by \code{pretty_ts()}.}
+\item{return_list}{A logical input which defines whether or not to return the list of axis parameters computed by \code{\link[prettyGraphics]{pretty_axis}}. This can be useful for the addition of elements to a plot created by \code{\link[prettyGraphics]{pretty_ts}}.}
 }
 \description{
-This function facilitates the creation of publication quality plots for timeseries. The function pulls lots of the functions provided in a complementary R package, \code{prettyGraphics}, which can be implemented sequentially, into a single framework. While it is often useful to call functions sequentially, this can make data exploration quicker and simpler. The function underlies \code{\link[prettyGraphics]{vis_ts}}.
+This function facilitates the creation of publication-quality plots for timeseries. The function pulls lots of the functions provided in \code{prettyGraphics}, which can be implemented sequentially, into a single framework. While it is often useful to call functions sequentially, this can make data exploration quicker and simpler. The function underlies \code{\link[prettyGraphics]{vis_ts}}.
 }
 \examples{
-
 #### Simulate some example date
 set.seed(1)
 x <- seq.POSIXt(as.POSIXct("2016-01-01", tz = "UTC"),

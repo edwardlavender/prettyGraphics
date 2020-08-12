@@ -19,7 +19,7 @@ pretty_line(
 
 \item{pretty_axis_args}{A named list of arguments that is passed to \code{\link[prettyGraphics]{pretty_axis}} which is used to draw the number line or timeline. If \code{axis_ls} is supplied, \code{inherit} and \code{replace_axis} can be used to modify this element before the line is drawn, if desired.}
 
-\item{inherit}{(optional) If the \code{axis_ls} argument is supplied to \code{pretty_axis_args}, \code{inherit} can be supplied. This is a single integer which specifies which element of the \code{axis_ls} list should be used. This is useful because the \code{axis_ls} argument returned by \code{\link[prettyGraphics]{pretty_axis}} will usually have multiple elements (one for each axis on an existing plot); but for one dimensional number lines or timelines, only one of these element is relevant}
+\item{inherit}{(optional) If the \code{axis_ls} argument is supplied to \code{pretty_axis_args}, \code{inherit} can be supplied. This is a single integer which specifies which element of the \code{axis_ls} list should be used. This is useful because the \code{axis_ls} argument returned by \code{\link[prettyGraphics]{pretty_axis}} will usually have multiple elements (one for each axis on an existing plot); but for one dimensional number lines or timelines, only one of these element is relevant.}
 
 \item{replace_axis}{(optional) If the \code{axis_ls} argument is supplied to \code{pretty_axis_args}, \code{replace_axis} can be  supplied. This is a named list of arguments that is used to replace corresponding arguments (of the same name) in an inherited list of axis argument (i.e., the inherited 'axis' of \code{axis_ls}, if supplied). This allows some components of an inherited list (e.g. tick marks) to be retained, while others (e.g. axis position) are easily adjusted.}
 
@@ -36,7 +36,6 @@ The function produces a number line or a timeline. If \code{return_list = TRUE},
 This function produces a one dimensional (pretty) number line or timeline onto which observed data are added. The line is drawn by \code{\link[prettyGraphics]{pretty_axis}}. The function can produce a line as an independent plot, or add the line/points to an existing plot. In the latter case, rather than re-defining a new axis, a list of axis parameters for the existing plot (i.e. returned by \code{\link[prettyGraphics]{pretty_axis}}) can be inherited and, if necessary, modified, before its addition to an existing plot.
 }
 \examples{
-
 #### Generate some example (numeric) data for example number lines
 set.seed(1)
 x <- runif(5, 0, 10)

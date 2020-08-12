@@ -30,8 +30,8 @@
 #' @return The function returns a \code{\link[plotly]{plotly}} plot.
 #'
 #' @examples
-#'
 #' #### Define some bathymetry data
+#' library(raster)
 #' r <- dat_gebco
 #' r[r[] > 0] <- 0
 #'

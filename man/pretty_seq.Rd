@@ -7,9 +7,9 @@
 pretty_seq(x, lim = NULL, pretty_args = list(n = 5))
 }
 \arguments{
-\item{x}{An object.}
+\item{x}{An object representing some data to be plotted (e.g., x values).}
 
-\item{lim}{A vector of length two which define limits, from define_lim_init().}
+\item{lim}{(optional) A vector of length two which define the limits within which the sequence should lie.}
 
 \item{pretty_args}{A named list of arguments passed to pretty_x().}
 }

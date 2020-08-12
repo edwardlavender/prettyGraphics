@@ -2,14 +2,14 @@
 % Please edit documentation in R/pretty_curve.R
 \name{pretty_curve}
 \alias{pretty_curve}
-\title{Pretty function}
+\title{Pretty function plots}
 \usage{
 pretty_curve(x, f, param = list(), add_rug = NULL, return_list = FALSE, ...)
 }
 \arguments{
 \item{x}{The x coordinates at which a function, \code{f}, should be evaluated.}
 
-\item{f}{A function which depends on a named argument, \code{x}, and any other named arguments (see \code{param}.)}
+\item{f}{A function which depends on a named argument, \code{x}, and any other named arguments (see \code{param}).}
 
 \item{param}{A named list of other arguments required to evaluate the function.}
 
@@ -23,7 +23,7 @@ pretty_curve(x, f, param = list(), add_rug = NULL, return_list = FALSE, ...)
 The function evaluates a function and returns a plot.
 }
 \description{
-The function evaluates a user-supplied function at range of user-supplied \code{x} values (and with any other named parameters), and produces a pretty plot of the evaluated function using \code{\link[prettyGraphics]{pretty_plot}}. The function was particularly motivated by the need to visualise probability density functions (e.g. \code{\link[stats]{GammaDist}}.
+The function evaluates a user-supplied function at range of user-supplied \code{x} values (and with any other named parameters), and produces a pretty plot of the evaluated function using \code{\link[prettyGraphics]{pretty_plot}}. The function was particularly motivated by the need to visualise probability density functions (e.g. \code{\link[stats]{GammaDist}}).
 }
 \examples{
 #### Generate some example x values

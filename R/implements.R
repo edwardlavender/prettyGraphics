@@ -4,7 +4,7 @@
 
 #' @title Implement \code{pretty_axis_args}
 #' @description This function implements the pretty_axis_args argument in functions. It is not intended to be called directly by the user.
-#' @param x A list of of coordinates (\code{\link[prettyGraphics]{pretty_axis}}).
+#' @param x A list of of coordinates (see \code{\link[prettyGraphics]{pretty_axis}}).
 #' @param pretty_axis_args A named list of parameters that are passed to \code{\link[prettyGraphics]{pretty_axis}}.
 #' @return A list.
 #' @author Edward Lavender

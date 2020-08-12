@@ -42,7 +42,6 @@ The function returns a list or a dataframe with summary statistics for each bin,
 This function implements a common method for describing patterns in continuous data: summary statistics in bins. One variable (\code{x} is binned into user-defined bins or breaks. User-defined functions are then calculated for a second variable \code{y} within each of these bins. This can help elucidate associations between \code{y} and \code{x} during data exploration, particularly if those associations are noisy.
 }
 \examples{
-
 #### Example 1: Numeric example
 # Generate example data and visualise
 set.seed(1)

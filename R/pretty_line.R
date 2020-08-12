@@ -3,7 +3,7 @@
 #'
 #' @param x A vector of observed data. Numeric/integer, factor, date, or date-time objects are supported.
 #' @param pretty_axis_args A named list of arguments that is passed to \code{\link[prettyGraphics]{pretty_axis}} which is used to draw the number line or timeline. If \code{axis_ls} is supplied, \code{inherit} and \code{replace_axis} can be used to modify this element before the line is drawn, if desired.
-#' @param inherit (optional) If the \code{axis_ls} argument is supplied to \code{pretty_axis_args}, \code{inherit} can be supplied. This is a single integer which specifies which element of the \code{axis_ls} list should be used. This is useful because the \code{axis_ls} argument returned by \code{\link[prettyGraphics]{pretty_axis}} will usually have multiple elements (one for each axis on an existing plot); but for one dimensional number lines or timelines, only one of these element is relevant
+#' @param inherit (optional) If the \code{axis_ls} argument is supplied to \code{pretty_axis_args}, \code{inherit} can be supplied. This is a single integer which specifies which element of the \code{axis_ls} list should be used. This is useful because the \code{axis_ls} argument returned by \code{\link[prettyGraphics]{pretty_axis}} will usually have multiple elements (one for each axis on an existing plot); but for one dimensional number lines or timelines, only one of these element is relevant.
 #' @param replace_axis (optional) If the \code{axis_ls} argument is supplied to \code{pretty_axis_args}, \code{replace_axis} can be  supplied. This is a named list of arguments that is used to replace corresponding arguments (of the same name) in an inherited list of axis argument (i.e., the inherited 'axis' of \code{axis_ls}, if supplied). This allows some components of an inherited list (e.g. tick marks) to be retained, while others (e.g. axis position) are easily adjusted.
 #' @param add A logical input which defines whether not the line should be added to an existing plot (\code{TRUE}) or not (\code{FALSE}).
 #' @param return_list A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.
@@ -12,7 +12,6 @@
 #' @return The function produces a number line or a timeline. If \code{return_list = TRUE}, the function also returns the list of axis parameters defined by \code{\link[prettyGraphics]{pretty_axis}}.
 #'
 #' @examples
-#'
 #' #### Generate some example (numeric) data for example number lines
 #' set.seed(1)
 #' x <- runif(5, 0, 10)

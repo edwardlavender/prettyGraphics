@@ -7,7 +7,7 @@
 units_x(iunits, x)
 }
 \arguments{
-\item{iunits}{A number or character. If code{NULL}, the function defines suitable units based on the object class (see \code{x} and Value). Otherwise, the function returns \code{iunits} unchanged.}
+\item{iunits}{A number or character. If \code{NULL}, the function defines suitable units based on the object class (see \code{x} and Value). Otherwise, the function returns \code{iunits} unchanged.}
 
 \item{x}{An object.}
 }

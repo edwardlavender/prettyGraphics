@@ -84,8 +84,8 @@ This is a wrapper function for \code{\link[plotly]{plot_ly}} which streamlines t
 The raster dimension should be less than approximately 1800 cells by 1800 cells. The coordinate system for the raster and, if applicable, markers and the buffer width, all need to be identical, whether this is implicit or specified explicitly.
 }
 \examples{
-
 #### Define some bathymetry data
+library(raster)
 r <- dat_gebco
 r[r[] > 0] <- 0
 

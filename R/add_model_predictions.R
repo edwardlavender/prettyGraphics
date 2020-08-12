@@ -11,7 +11,6 @@
 #' @return The function adds model predictions to a plot.
 #'
 #' @examples
-#'
 #' # Define some data for a model
 #' set.seed(1)
 #' x <- runif(100, 0, 100)

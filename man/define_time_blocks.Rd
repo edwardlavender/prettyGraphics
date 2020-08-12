@@ -22,7 +22,7 @@ define_time_blocks(
 
 \item{type_args}{A named list of arguments needed to implement \code{type}. This is required for \code{type = "diel"}. A list containing "lon" and "lat" is needed; these arguments are passed to \code{\link[maptools]{sunriset}}.}
 
-\item{to_plot}{A logical input defining whether or not the returned dataframe is to use as an input for plotting (see \code{\link[prettyGraphics]{add_shading_bar}}. If so, the function conducts some processing so that the times are defined exactly along the limits provided by \code{t1} and \code{t2}. This also adjusts the dataframe returned (see Value).}
+\item{to_plot}{A logical input defining whether or not the returned dataframe is to be used as an input for plotting (see \code{\link[prettyGraphics]{add_shading_bar}}. If so, the function conducts some processing so that the times are defined exactly along the limits provided by \code{t1} and \code{t2}. This also adjusts the dataframe returned (see Value).}
 
 \item{col}{A vector of colours, one for each factor that are added to the dataframe if \code{to_plot = TRUE}. If \code{col} is \code{NULL}, colours are chosen by default.}
 }
@@ -33,7 +33,6 @@ The function returns a dataframe. If \code{to_plot = FALSE}, the dataframe conta
 This function defines 'blocks' (i.e., diel periods or seasons) for each day in a time window.
 }
 \examples{
-
 #### Example (1) define diel blocks between two dates
 define_time_blocks(t1 = as.POSIXct("2016-01-01", tz = "UTC"),
                    t2 = as.POSIXct("2016-01-10", tz = "UTC"),

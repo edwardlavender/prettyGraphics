@@ -26,7 +26,6 @@ The function adds a grid to a plot.
 This function adds a regular grid to a plot at positions specified by \code{x} and \code{y} vectors. This function differs from \code{\link[graphics]{grid}} in which the user can specify the number of cells in each direction, but not their positions.
 }
 \examples{
-
 #### Example (1)
 # Plot some example data and hide axes for neatness
 set.seed(1)

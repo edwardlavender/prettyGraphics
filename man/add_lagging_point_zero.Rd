@@ -9,7 +9,7 @@ add_lagging_point_zero(x, n = NULL, ignore = FALSE)
 \arguments{
 \item{x}{A numeric or character vector which contains some elements to which lagging .0(s) should be added.}
 
-\item{n}{A number which defines the desired number of decimal places. Any element in \code{x} with fewer than \code{n} decimal places will have the appropriate number of decimal places added. If \code{n} is less than the number of decimal places for any element in \code{x}, the function will return an error. In this case, round all numbers to the same precision first, before implementing \code{add_lagging_point_zero}. If \code{n = NULL}, the function defines \code{n} internally to be the maximum number of decimal places in \code{x}.}
+\item{n}{A number which defines the desired number of decimal places. Any element in \code{x} with fewer than \code{n} decimal places will have the appropriate number of decimal places added. If \code{n} is less than the number of decimal places for any element in \code{x}, the function will return an error. In this case, round all numbers to the same precision first, before implementing \code{\link[prettyGraphics]{add_lagging_point_zero}}. If \code{n = NULL}, the function defines \code{n} internally to be the maximum number of decimal places in \code{x}.}
 
 \item{ignore}{A logical input which specifies whether or not, under the condition that no number has any decimal places, the \code{n} argument should be ignored (i.e. if \code{TRUE}, the input vector, \code{x}, is simply returned without any adjustments).}
 }
@@ -17,10 +17,9 @@ add_lagging_point_zero(x, n = NULL, ignore = FALSE)
 A vector, as inputted, but in which any elements with fewer than \code{n} decimal places have had ".0"(s) added.
 }
 \description{
-This function adds lagging .0(s) to a number. This is useful for tidy graph labels.
+This function adds lagging .0(s) to a number. This is useful for tidy graph labels. This is implemented internally in \code{\link[prettyGraphics]{pretty_axis}}.
 }
 \examples{
-
 #### Example (1): Bring all numbers up to the same number of decimal places
 # Use maximum number of decimal places of any one number (i.e., default n specification):
 add_lagging_point_zero(c(0.01, 0.002))
@@ -34,8 +33,8 @@ add_lagging_point_zero(c(50.0, 1000, 150, 2000), 1)
 
 #### Example (3): the ignore argument returns an unchanged character vector if no numbers
 # ... in the vector have decimal places
-add_lagging_point_zero(seq(0.1, 1000, by = 100), 1, ignore = TRUE) # decimal places added
-add_lagging_point_zero(seq(0, 1000, by = 100), 1, ignore = TRUE)   # decimal places not added
+add_lagging_point_zero(seq(0.1, 1000, by = 100), 2, ignore = TRUE) # decimal places added
+add_lagging_point_zero(seq(0, 1000, by = 100), 2, ignore = TRUE)   # decimal places not added
 
 #### Example (3): Using add_lagging_point_zero() for prettier axis labels
 # Numeric vector input
@@ -58,7 +57,7 @@ axis(side = 1, at, labels = labels1)
 # Labels after before add_lagging_point_zero() are tidier:
 axis(side = 2, at, labels = labels2)
 
-#### Example (4): For use with scientific notation, add_lagging_point_zero is implemented
+#### Example (4): For use with scientific notation, add_lagging_point_zero() is implemented
 # ... in sci_notation via the n argument:
 sci_notation(1e12, n = 2)
 # Simply implementing add_lagging_point_zero() on scientific notation currently renders

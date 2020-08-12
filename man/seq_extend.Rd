@@ -7,7 +7,7 @@
 seq_extend(x, lim)
 }
 \arguments{
-\item{x}{A sequence... Need to handle dates etc....}
+\item{x}{A sequence.}
 
 \item{lim}{A vector of two which specify the lower and upper limits.}
 }

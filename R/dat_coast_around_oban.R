@@ -1,5 +1,5 @@
 #' @title The coastline around Oban
-#' @description A SpatialPolygonsDataFrame delineating the coastline around Oban in an area defined by area_boundaries_sample.
+#' @description A SpatialPolygonsDataFrame delineating the coastline around Oban, West Scotland.
 #'
 #' @format A SpatialPolygonsDataFrame.
 #'

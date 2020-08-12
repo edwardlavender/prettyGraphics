@@ -9,9 +9,9 @@ define_lim_init(x, at = NULL, lim = NULL)
 \arguments{
 \item{x}{A vector which contains user-supplied data.}
 
-\item{at}{A vector which contains user-supplied axis positions.}
+\item{at}{(optional) A vector which contains user-supplied axis positions.}
 
-\item{lim}{A vector of length two which contains user-supplied axis positions.}
+\item{lim}{(optional) A vector of length two which contains user-supplied limits.}
 }
 \value{
 This function returns a vector of two numbers representing initial limits.

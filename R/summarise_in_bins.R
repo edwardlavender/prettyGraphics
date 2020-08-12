@@ -14,7 +14,6 @@
 #' @returns The function returns a list or a dataframe with summary statistics for each bin, depending on the input to \code{output}.
 #'
 #' @examples
-#'
 #' #### Example 1: Numeric example
 #' # Generate example data and visualise
 #' set.seed(1)

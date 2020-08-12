@@ -2,7 +2,7 @@
 % Please edit documentation in R/list_CIs.R
 \name{list_CIs}
 \alias{list_CIs}
-\title{Define a list containing fitted values and confidence intervals for the linear predict/response from a model}
+\title{Define a list containing fitted values and confidence intervals for the linear predictor or response from a model}
 \usage{
 list_CIs(
   pred,
@@ -16,7 +16,7 @@ list_CIs(
 \arguments{
 \item{pred}{A list of fitted values and corresponding SEs (usually from \code{\link[stats]{predict}}).}
 
-\item{inv_link}{A function which defines the inverse link function. The default is \code{I} which leaves predictions unchanged. If supplied, the function applies the function after computing confidence intervals.}
+\item{inv_link}{A function which defines the inverse link function. The default is \code{I} which leaves predictions unchanged. If supplied, the function applies \code{inv_link} after computing confidence intervals.}
 
 \item{fadj}{A function by which to modify predictions (after the inverse link function has been applied, if applicable). For example, in models of animal depth timeseries, models are often implemented by considering depth as a positive number, but plotted with depth as a negative number, for visualisation purposes.}
 
@@ -50,7 +50,7 @@ str(CIs)
 
 }
 \seealso{
-\code{\link[base]{pretty}} \code{\link[prettyGraphics]{pretty_axis}}, \code{\link[stats]{predict}}
+\code{\link[base]{pretty}}, \code{\link[prettyGraphics]{pretty_axis}}, \code{\link[stats]{predict}}
 }
 \author{
 Edward Lavender

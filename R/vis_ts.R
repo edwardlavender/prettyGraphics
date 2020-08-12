@@ -11,7 +11,6 @@
 #' @return An interactive R Shiny application for visualising timeseries.
 #'
 #' @examples
-#'
 #' \dontrun{
 #' #### Example (1) Visualising POSIXct timeseries
 #' # Here we have a simple dataframe... other columns (i.e. covariates) can be included

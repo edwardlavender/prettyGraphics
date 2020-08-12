@@ -1,8 +1,8 @@
-#' @title Define a list containing fitted values and confidence intervals for the linear predict/response from a model
+#' @title Define a list containing fitted values and confidence intervals for the linear predictor or response from a model
 #' @description This function creates a list of fitted values and lower/upper confidence intervals (CIs) that can be easily plotted from a list of fitted values and standard errors (SEs). For predictions on the scale of the response, the user is advised the supply the function with predictions on the scale of the link function (e.g. from \code{predict(..., type = "link")}) and an inverse link function. If an inverse link is supplied, the function first computes lower/upper CIs and then applies the inverse link function (this order of operations is generally preferable to the computation of SEs on the scale of the response (e.g. from \code{predict(..., type = "response")}) and then using these to compute CIs). Predictions can be adjusted with user-defined functions and the function can also return plot suggestions (e.g. y limits of a plot) based on predictions.
 #'
 #' @param pred A list of fitted values and corresponding SEs (usually from \code{\link[stats]{predict}}).
-#' @param inv_link A function which defines the inverse link function. The default is \code{I} which leaves predictions unchanged. If supplied, the function applies the function after computing confidence intervals.
+#' @param inv_link A function which defines the inverse link function. The default is \code{I} which leaves predictions unchanged. If supplied, the function applies \code{inv_link} after computing confidence intervals.
 #' @param fadj A function by which to modify predictions (after the inverse link function has been applied, if applicable). For example, in models of animal depth timeseries, models are often implemented by considering depth as a positive number, but plotted with depth as a negative number, for visualisation purposes.
 #' @param centre A logical input defining whether or not to centre predictions. If \code{TRUE}, the mean fitted value is minused from predictions.
 #' @param plot_suggestions A logical input defining whether or not to make plot suggestions (e.g. y limits) when can help make prettier plots.
@@ -26,7 +26,7 @@
 #' str(CIs)
 #'
 #'
-#' @seealso \code{\link[base]{pretty}} \code{\link[prettyGraphics]{pretty_axis}}, \code{\link[stats]{predict}}
+#' @seealso \code{\link[base]{pretty}}, \code{\link[prettyGraphics]{pretty_axis}}, \code{\link[stats]{predict}}
 #' @author Edward Lavender
 #' @export
 

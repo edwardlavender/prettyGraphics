@@ -40,7 +40,7 @@ is_time <-
 
 #' @title Define units within \code{\link[prettyGraphics]{pretty_axis}}
 #' @description This function defines suitable default units (i.e., distances between sequential observations in a regular sequence) for a given input type (numbers or times).
-#' @param iunits A number or character. If code{NULL}, the function defines suitable units based on the object class (see \code{x} and Value). Otherwise, the function returns \code{iunits} unchanged.
+#' @param iunits A number or character. If \code{NULL}, the function defines suitable units based on the object class (see \code{x} and Value). Otherwise, the function returns \code{iunits} unchanged.
 #' @param x An object.
 #' @return If \code{iunits} is \code{NULL}, the function returns units = 5 for number inputs and units = "auto" for time inputs. Otherwise, the function returns \code{iunits} as inputted.
 #' @author Edward Lavender
@@ -157,7 +157,7 @@ pretty_x <- function(obj, x,...){
 
 #' @title Extend a regular sequence within limits
 #' @description This function extends a regular sequence in both directions towards user-defined limits.
-#' @param x A sequence... Need to handle dates etc....
+#' @param x A sequence.
 #' @param lim A vector of two which specify the lower and upper limits.
 #' @return The function returns a sequence.
 #' @examples
@@ -196,8 +196,8 @@ seq_extend <- function(x, lim){
 #' @title Define initial limits from a sequence of numbers.
 #' @description. This function defines initial limits for a sequence of numbers.
 #' @param x A vector which contains user-supplied data.
-#' @param at A vector which contains user-supplied axis positions.
-#' @param lim A vector of length two which contains user-supplied axis positions.
+#' @param at (optional) A vector which contains user-supplied axis positions.
+#' @param lim (optional) A vector of length two which contains user-supplied limits.
 #' @details If the user has supplied limits, this function checks limits to ensure that they are sensible, and flags them with a 'user' attribute (so that user-defined limits are recognisable and remain fixed). If the user has not supplied limits, limits are extracted from axis tick mark positions, if specified, or otherwise from the data provided.
 #' @return This function returns a vector of two numbers representing initial limits.
 #' @author Edward Lavender
@@ -295,8 +295,8 @@ define_lim_init <-
 
 #' @title Define a pretty sequence given data, limits and pretty parameters
 #' @description This function defines a pretty sequence given data, limits and parameters.
-#' @param x An object.
-#' @param lim A vector of length two which define limits, from define_lim_init().
+#' @param x An object representing some data to be plotted (e.g., x values).
+#' @param lim (optional) A vector of length two which define the limits within which the sequence should lie.
 #' @param pretty_args A named list of arguments passed to pretty_x().
 #'
 #' @return A list comprising 'at', a pretty sequence; and 'lim', limits, which may have been adjusted.

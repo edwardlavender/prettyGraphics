@@ -11,7 +11,6 @@
 #' @return The function adds a grid to a plot.
 #'
 #' @examples
-#'
 #' #### Example (1)
 #' # Plot some example data and hide axes for neatness
 #' set.seed(1)
@@ -27,7 +26,7 @@
 
 ##############################################
 ##############################################
-#### grid.rect.xy
+#### add_grid_rect_xy()
 
 add_grid_rect_xy <-
   function(x,

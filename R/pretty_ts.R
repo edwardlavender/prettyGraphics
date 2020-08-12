@@ -1,5 +1,5 @@
 #' @title Create publication-quality plots
-#' @description This function facilitates the creation of publication quality plots for timeseries. The function pulls lots of the functions provided in a complementary R package, \code{prettyGraphics}, which can be implemented sequentially, into a single framework. While it is often useful to call functions sequentially, this can make data exploration quicker and simpler. The function underlies \code{\link[prettyGraphics]{vis_ts}}.
+#' @description This function facilitates the creation of publication-quality plots for timeseries. The function pulls lots of the functions provided in \code{prettyGraphics}, which can be implemented sequentially, into a single framework. While it is often useful to call functions sequentially, this can make data exploration quicker and simpler. The function underlies \code{\link[prettyGraphics]{vis_ts}}.
 #'
 #' @param x The x coordinates.
 #' @param y1 The y coordinates.
@@ -25,10 +25,9 @@
 #' @param add_shading_dtb_args A named list of arguments that are passed to \code{\link[prettyGraphics]{define_time_blocks}} to compute diel/seasonal shading. These include a named list of arguments passed to \code{type_args} and colours.
 #' @param add_shading_args A named list of arguments passed to a\code{\link[prettyGraphics]{add_shading_bar}} to add shading to a plot. 'x1', 'x2', and 'lim' are computed automatically if \code{add_shading_type} is specified, but other graphical parameters passed to \code{\link[graphics]{rect}} (e.g. \code{border = "red"}) can be included here.
 #' @param add_moons_args A named list of arguments passed to \code{\link[prettyGraphics]{add_moons}} to add moons to a plot.
-#' @param return_list A logical input which defines whether or not to return the list of axis parameters computed by \code{\link[prettyGraphics]{pretty_axis}}. This can be useful for the addition of elements to a plot created by \code{pretty_ts()}.
+#' @param return_list A logical input which defines whether or not to return the list of axis parameters computed by \code{\link[prettyGraphics]{pretty_axis}}. This can be useful for the addition of elements to a plot created by \code{\link[prettyGraphics]{pretty_ts}}.
 #'
 #' @examples
-#'
 #' #### Simulate some example date
 #' set.seed(1)
 #' x <- seq.POSIXt(as.POSIXct("2016-01-01", tz = "UTC"),

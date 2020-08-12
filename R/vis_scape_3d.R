@@ -16,7 +16,6 @@
 #' @return The function returns an interactive R Shiny application.
 #'
 #' @examples
-#'
 #' #### Use UTM raster for visualisation
 #' # This is best for visualisation because x, y and z coordinates are on the same scale (m)
 #' # Planar coordinates coordinates are also required to zoom around points (see ?rgeos::gBuffer)
