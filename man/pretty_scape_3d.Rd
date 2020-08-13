@@ -44,7 +44,7 @@ pretty_scape_3d(
 
 \item{add_paths}{(optional) A named list of arguments that is passed to \code{\link[plotly]{add_paths}} to add lines to the plot.}
 
-\item{coastline}{(optional) A \code{\link[sp]{SpatialPointsDataFrame-class}} object which defines the coastline (if applicable).}
+\item{coastline}{(optional) A \code{\link[sp]{SpatialPointsDataFrame-class}} object which defines the coastline (if applicable). This option is probably only suitable if \code{aspectmode = "data"} (see below).}
 
 \item{coastline_paths}{A named list of arguments that is passed to \code{\link[plotly]{add_paths}} to add the coastline as lines to the plot.}
 

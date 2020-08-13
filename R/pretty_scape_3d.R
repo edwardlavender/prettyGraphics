@@ -9,7 +9,7 @@
 #' @param add_markers (optional) A named list of arguments that is passed to \code{\link[plotly]{add_markers}} to add points to the plot.
 #' @param thin_markers (optional) A logical input which defines whether or not plot all inputted markers (\code{thin_markers = FALSE}) or only those markers that fall within the domain of the raster (\code{thin_markers = TRUE}).
 #' @param add_paths (optional) A named list of arguments that is passed to \code{\link[plotly]{add_paths}} to add lines to the plot.
-#' @param coastline (optional) A \code{\link[sp]{SpatialPointsDataFrame-class}} object which defines the coastline (if applicable).
+#' @param coastline (optional) A \code{\link[sp]{SpatialPointsDataFrame-class}} object which defines the coastline (if applicable). This option is probably only suitable if \code{aspectmode = "data"} (see below).
 #' @param coastline_paths A named list of arguments that is passed to \code{\link[plotly]{add_paths}} to add the coastline as lines to the plot.
 #' @param plane (optional) A number which defines the height of a horizontal, 2 dimensional plane that can be added to the plot to aid inference. Note that if \code{stretch} is provided (see below), the height of the plane is also adjusted by \code{stretch} internally.
 #' @param plane_surface (optional) A named list of arguments that is passed to \code{\link[plotly]{add_surface}} to customise the plane added to the plot.
