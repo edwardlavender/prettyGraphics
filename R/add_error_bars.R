@@ -1,5 +1,5 @@
-#' @title Add error bars to a plot
-#' @description This function is used to add error bars (and fitted values) to a plot. Error bars are drawn above and below fitted values.
+#' @title Add symmetrical error bars to a plot
+#' @description This function is used to add symmetrical error bars (and fitted values) to a plot. Error bars are drawn above and below fitted values.
 #'
 #' @param x The x values at which the error bars will be placed (e.g. factor levels).
 #' @param y The y values around which error bars will be drawn (i.e., fitted values).

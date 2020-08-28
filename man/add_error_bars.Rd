@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_error_bars.R
 \name{add_error_bars}
 \alias{add_error_bars}
-\title{Add error bars to a plot}
+\title{Add symmetrical error bars to a plot}
 \usage{
 add_error_bars(x, y, se, scale = 1, length = 0.05, add_fitted = NULL, ...)
 }
@@ -22,7 +22,7 @@ add_error_bars(x, y, se, scale = 1, length = 0.05, add_fitted = NULL, ...)
 \item{...}{Other arguments passed to \code{\link[graphics]{arrows}}, which is used to draw error bars, for customisation. Arguments \code{x0}, \code{x1}, \code{y0} and \code{y1} are obtained from \code{x}, \code{y}, \code{se} and \code{scale} and should not be provided. Likewise, \code{angle} is forced to be 90 degrees (i.e., error bars are forced to have horizontal tips (or no tips, if \code{length = 0})) and should not be provided.}
 }
 \description{
-This function is used to add error bars (and fitted values) to a plot. Error bars are drawn above and below fitted values.
+This function is used to add symmetrical error bars (and fitted values) to a plot. Error bars are drawn above and below fitted values.
 }
 \examples{
 #### Simulate data
