@@ -10,7 +10,7 @@ Imports:
     fields, plotrix, scales, TeachingDemos,
     plotly, shiny, shinydashboard, shinyWidgets,
     rlist, stringi, stringr, 
-    maptools, rgeos, sp, raster
+    maptools, rgeos, sp, raster, rgdal
 Suggests:
     viridis,
     lunar,
@@ -19,8 +19,8 @@ Suggests:
     pryr, devtools
 Depends: R (>= 3.5)
 License: GPL-3
-URL: http://github.com/edwardlavender/prettyGraphics/ 
-BugReports: http://github.com/edwardlavender/prettyGraphics/issues
+URL: https://github.com/edwardlavender/prettyGraphics/ 
+BugReports: https://github.com/edwardlavender/prettyGraphics/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
