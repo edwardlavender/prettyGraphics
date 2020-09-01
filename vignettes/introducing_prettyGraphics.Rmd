@@ -554,4 +554,4 @@ pretty_scape_3d(r = r,
 
 # Acknowledgements
 
-This work was conducted during a PhD Studentship at the University of St Andrews, jointly funded by Scottish Natural Heritage and the Centre for Research into Ecological and Environmental Modelling. EL is a member of the Marine Alliance for Science and Technology Graduate School.
+This work was conducted during a PhD Studentship at the University of St Andrews, jointly funded by Scottish Natural Heritage, through the Marine Alliance for Science and Technology for Scotland (MASTS), and the Centre for Research into Ecological and Environmental Modelling. EL is a member of the MASTS Graduate School.
