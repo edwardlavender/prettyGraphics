@@ -10,12 +10,11 @@ implement_mtext_args(mtext_args)
 \item{mtext_args}{A named list.}
 }
 \value{
-A list.
+The function adds axes labels to a plot via \code{\link[graphics]{mtext}}.
 }
 \description{
-This function implements the \code{mtext_args} argument in functions. It is not intended to be called directly by the user.
+This function implements the \code{mtext_args} argument in functions.
 }
 \author{
 Edward Lavender
 }
-\keyword{internal}

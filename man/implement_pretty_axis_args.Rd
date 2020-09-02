@@ -12,12 +12,11 @@ implement_pretty_axis_args(x, pretty_axis_args)
 \item{pretty_axis_args}{A named list of parameters that are passed to \code{\link[prettyGraphics]{pretty_axis}}.}
 }
 \value{
-A list.
+A list, returned by \code{\link[prettyGraphics]{pretty_axis}}.
 }
 \description{
-This function implements the pretty_axis_args argument in functions. It is not intended to be called directly by the user.
+This function implements the \code{pretty_axis_args} argument in functions.
 }
 \author{
 Edward Lavender
 }
-\keyword{internal}

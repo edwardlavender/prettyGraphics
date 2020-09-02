@@ -3,22 +3,18 @@
 #### implement_pretty_axis_args
 
 #' @title Implement \code{pretty_axis_args}
-#' @description This function implements the pretty_axis_args argument in functions. It is not intended to be called directly by the user.
+#' @description This function implements the \code{pretty_axis_args} argument in functions.
 #' @param x A list of of coordinates (see \code{\link[prettyGraphics]{pretty_axis}}).
 #' @param pretty_axis_args A named list of parameters that are passed to \code{\link[prettyGraphics]{pretty_axis}}.
-#' @return A list.
+#' @return A list, returned by \code{\link[prettyGraphics]{pretty_axis}}.
 #' @author Edward Lavender
-#' @keywords internal
-
+#' @export
+#'
 implement_pretty_axis_args <-
   function(x, pretty_axis_args){
 
-    #### Check if x is supplied by the user in pretty_axis_args
-    # It shouldn't be, because pretty_axis_args use x from inputted coordinates instead, so provide a warning:
-    if(length(pretty_axis_args$x) > 0){
-      warning("'x' argument does not need to be supplied to pretty_axis_args. pretty_axis_args$x replaced with 'x' and 'y' coordinates.")
-    }
-    pretty_axis_args$x <- x
+    #### Add x to pretty_axis_args if not supplied
+    if(length(pretty_axis_args$x) == 0) pretty_axis_args$x <- x
 
     #### If pretty axis parameters have been supplied...
     if(length(pretty_axis_args) > 0){
@@ -75,11 +71,11 @@ implement_pretty_axis_args <-
 #### implement_mtext_args()
 
 #' @title Implement \code{mtext_args}
-#' @description This function implements the \code{mtext_args} argument in functions. It is not intended to be called directly by the user.
+#' @description This function implements the \code{mtext_args} argument in functions.
 #' @param mtext_args A named list.
-#' @return A list.
+#' @return The function adds axes labels to a plot via \code{\link[graphics]{mtext}}.
 #' @author Edward Lavender
-#' @keywords internal
+#' @export
 
 implement_mtext_args <-
   function(mtext_args){
