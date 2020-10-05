@@ -33,8 +33,11 @@ You can install the development version of `prettyGraphics` from
 [GitHub](https://github.com) with:
 
 ``` r
-devtools::install_github("edwardlavender/prettyGraphics")
+devtools::install_github("edwardlavender/prettyGraphics", build_vignette = TRUE)
 ```
+
+If you build the vignette, you can view this with
+`vignette("introducing_prettyGraphics", package = "prettyGraphics")`.
 
 ## The definition of pretty axes
 
