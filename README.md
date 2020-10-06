@@ -1,9 +1,9 @@
 
 # prettyGraphics
 
-<!-- badges: start -->
-
-<!-- badges: end -->
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 `prettyGraphics` is an R package designed to make the production of
 plots and data exploration easier, more flexible and prettier.
@@ -38,6 +38,11 @@ devtools::install_github("edwardlavender/prettyGraphics", build_vignette = TRUE)
 
 If you build the vignette, you can view this with
 `vignette("introducing_prettyGraphics", package = "prettyGraphics")`.
+The package can then be loaded and attached with:
+
+``` r
+library(prettyGraphics)
+```
 
 ## The definition of pretty axes
 
@@ -83,6 +88,30 @@ If you build the vignette, you can view this with
     (including standard diagnostic plots alongside residuals against
     covariates, timestamps and the autocorrelation function, if
     applicable);
+
+Here are some simple examples in which the default `graphics` and
+`prettyGraphics` plots are compared:
+
+``` r
+# Simulate some data 
+n <- 100
+x <- factor(sample(1:3, n, replace = TRUE))
+y <- stats::rnorm(n, 0, 1)
+# Compare graphics and prettyGraphics defaults for some example plots 
+pp <- par(mfrow = c(1, 6), mar = c(2, 2, 2, 2))
+plot.default(x, y, main = "[default] plot(x, y)")
+pretty_plot(x, y, main = "pretty_plot(x, y)")
+hist(y, main = "[default] hist(x)")
+pretty_hist(y, main = "pretty_hist(x)")
+boxplot(y ~ x, main = "[default] boxplot(y ~ x)")
+pretty_boxplot(x, y, main = "pretty_boxplot(x, y)")
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+``` r
+par(pp)
+```
 
 ## Temporal data
 
