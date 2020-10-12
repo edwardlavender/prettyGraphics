@@ -1,5 +1,5 @@
 #' @title Summarise continuous data in bins
-#' @description This function implements a common method for describing patterns in continuous data: summary statistics in bins. One variable (\code{x} is binned into user-defined bins or breaks. User-defined functions are then calculated for a second variable \code{y} within each of these bins. This can help elucidate associations between \code{y} and \code{x} during data exploration, particularly if those associations are noisy.
+#' @description This function implements a common method for describing patterns in continuous data: summary statistics in bins. One variable (\code{x}) is binned into user-defined bins or breaks. User-defined functions are then calculated for a second variable \code{y} within each of these bins. This can help elucidate associations between \code{y} and \code{x} during data exploration, particularly if those associations are noisy.
 #'
 #' @param x The x values which will be binned. Numeric/integer, POSIXct or Date objects are supported.
 #' @param y The y values for which summary statistics will be calculated in each bin.
