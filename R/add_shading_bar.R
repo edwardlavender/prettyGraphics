@@ -90,7 +90,7 @@ add_shading_bar <- function(x1, x2, horiz = FALSE, lim, col, ...){
     #### horizontal blocks
     r <- graphics::rect(xleft = lim[1],
                         ybottom = x1,
-                        xright = lim[1],
+                        xright = lim[2],
                         ytop = x2,
                         col = col,...)
   }
