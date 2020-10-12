@@ -48,6 +48,7 @@ library(prettyGraphics)
 * `add_lines()` adds a line to a plot illustrating a relationship between y and x that can be coloured by the values of a third variable;
 * `add_colour_bar()` adds a customisable colour bar legend to a plot;
 * `add_shading_bar()` adds blocks of shading to a plot to elucidate relationships between a response and explanatory variables, one of which is a factor;
+* `add_shading_quantiles()` adds shading for the quantiles of observed variation to a plot;
 
 ## Statistical inference 
 

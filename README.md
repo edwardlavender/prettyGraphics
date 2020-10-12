@@ -66,6 +66,8 @@ library(prettyGraphics)
   - `add_shading_bar()` adds blocks of shading to a plot to elucidate
     relationships between a response and explanatory variables, one of
     which is a factor;
+  - `add_shading_quantiles()` adds shading for the quantiles of observed
+    variation to a plot;
 
 ## Statistical inference
 
