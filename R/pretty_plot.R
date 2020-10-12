@@ -105,7 +105,7 @@ pretty_plot <-
     if(is.null(x)) stop("'x' is NULL.")
     if(!any(class(x) %in% c("numeric", "integer", "factor", "character", "Date", "POSIXct",
                             "density", "RasterLayer"))){
-      stop("class(x) not currently supported.")
+      message("class(x) may not be supported.")
     }
     check_input_value(arg = "plot_xy", input = plot_xy, supp = c("x", "y", "xy"), default = "xy")
     check...("axes",...)
