@@ -122,6 +122,8 @@ par(pp)
     seasons) for each day in a time window (designed to work with
     `add_shading_bar()`);
   - `pretty_ts()` creates pretty timeseries plots;
+  - `pretty_ts_mat()` creates 2-dimensional plots of the within and
+    between day variation in a timeseries;
   - `vis_ts()` is an R Shiny-Dashboard user interface for the
     interactive exploration of (ecological) timeseries and creation of
     publication quality plots;
