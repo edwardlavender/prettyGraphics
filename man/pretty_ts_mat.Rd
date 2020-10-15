@@ -25,7 +25,7 @@ pretty_ts_mat(
 
 \item{y}{A numeric vector of values of the response variable.}
 
-\item{res}{A number which defines the resolution (in minutes) between sequential observations.}
+\item{res}{A number which defines the (minimum) resolution (in minutes) between sequential observations. The function works best with regularly spaced observations in time (see Examples).}
 
 \item{t1_units}{A function which defines the units of the axis of within-day variation. Since \code{res} is in minutes, \code{function(x) x} results in units of minutes, while the default \code{function(x) x/60} results in units of hours.}
 
@@ -85,6 +85,14 @@ pretty_ts_mat(dfa$timestamp, dfa$depth,
                   ytick_every = 120,
                   ylab = "Time (mins)")
 # Other customisation is implemented via ... (see ?prettyGraphics::pretty_mat)
+
+#### Example (5) The function works best with regularly spaced observations
+# For irregularly spaced observations, there are gaps. Therefore, some initial
+# ... regularisation may be beneficial here.
+x <- seq.POSIXt(as.POSIXct("2016-01-01"), as.POSIXct("2016-01-10"), by = "1 min")
+x <- sample(x, size = length(x)/2, replace = FALSE)
+y <- runif(length(x), 0, 1)
+pretty_ts_mat(x, y, res = 2)
 
 }
 \references{
