@@ -23,8 +23,9 @@ pretty_pgram(
 
 \item{scale}{A logical input that defines whether or not to scale the spectral densities returned by \code{\link[stats]{spectrum}} (by doubling) so that the area under the periodogram values equals the variance.}
 
-\item{log}{A logical input that defines whether or not to log (scaled) spectral densities. This is \code{FALSE} by default.
-#' @param x_units A function that is used to process the x-axis units, after having converted frequencies into the number of cycles per unit time. For example, if the x-axis is given as frequency per minute, \code{function(x) x*60} will convert the x-axis into frequency per hour.}
+\item{log}{A logical input that defines whether or not to log (scaled) spectral densities. This is \code{FALSE} by default.}
+
+\item{x_units}{A function that is used to process the x-axis units, after having converted frequencies into the number of cycles per unit time. For example, if the x-axis is given as frequency per minute, \code{function(x) x*60} will convert the x-axis into frequency per hour.}
 
 \item{x_type}{A character input that specifies whether to plot frequencies (\code{"f"}) or periods (\code{"T"} = 1/f) on the x-axis.}
 

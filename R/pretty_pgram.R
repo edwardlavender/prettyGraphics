@@ -4,7 +4,7 @@
 #' @param sampling_interval A number that defines the sampling interval between sequential observations. If provided, this is used to re-express the frequencies that are returned by \code{\link[stats]{spectrum}} (where they are defined as the number of time cycles per time interval) into the number of cycles per unit time.
 #' @param scale A logical input that defines whether or not to scale the spectral densities returned by \code{\link[stats]{spectrum}} (by doubling) so that the area under the periodogram values equals the variance.
 #' @param log A logical input that defines whether or not to log (scaled) spectral densities. This is \code{FALSE} by default.
-#' #' @param x_units A function that is used to process the x-axis units, after having converted frequencies into the number of cycles per unit time. For example, if the x-axis is given as frequency per minute, \code{function(x) x*60} will convert the x-axis into frequency per hour.
+#' @param x_units A function that is used to process the x-axis units, after having converted frequencies into the number of cycles per unit time. For example, if the x-axis is given as frequency per minute, \code{function(x) x*60} will convert the x-axis into frequency per hour.
 #' @param x_type A character input that specifies whether to plot frequencies (\code{"f"}) or periods (\code{"T"} = 1/f) on the x-axis.
 #' @param plot_args A named list of arguments that is passed to \code{\link[prettyGraphics]{pretty_plot}} to customise the plot that is produced.
 #' @param verbose A logical input that defines whether or not to print messages to the console defining the actions implemented.
