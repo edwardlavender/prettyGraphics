@@ -72,7 +72,10 @@ pretty_pgram <- function(x,
 
   #### Re-express frequencies
   ## Re-express frequencies per unit time
-  x_type <- check_input_value(input = x_type, supp = c("f", "T"))
+  x_type <- check_input_value(arg = "x_type",
+                              input = x_type,
+                              supp = c("f", "T"),
+                              default = "f")
   if(!is.null(sampling_interval)){
     if(verbose) cat("Re-expressing frequencies per unit time...\n")
     x_spec <- x_spec/sampling_interval
