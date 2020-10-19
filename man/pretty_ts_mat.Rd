@@ -96,7 +96,7 @@ pretty_ts_mat(x, y, res = 2)
 
 }
 \references{
-Teo, S.L., Sandstrom, P.T., Chapman, E.D., Null, R.E., Brown, K., Klimley, A.P., Block, B.A., 2013. Archival and acoustic tags reveal the post-spawning migrations, diving behav- ior, and thermal habitat of hatchery-origin Sacramento River steelhead kelts (\emph{Oncorhynchus mykiss}). Environ. Biol. Fish 96, 175–187.
+Teo, S.L., Sandstrom, P.T., Chapman, E.D., Null, R.E., Brown, K., Klimley, A.P., Block, B.A., 2013. Archival and acoustic tags reveal the post-spawning migrations, diving behavior, and thermal habitat of hatchery-origin Sacramento River steelhead kelts (\emph{Oncorhynchus mykiss}). Environ. Biol. Fish 96, 175–187.
 }
 \seealso{
 The plot is produced by \code{\link[prettyGraphics]{pretty_mat}}.
