@@ -33,7 +33,7 @@ The function adds model predictions to a plot.
 This function adds model predictions to a plot. This function is designed to streamline plotting codes. Model confidence intervals can be added as a polygon or as lines (with or without the fitted line added ontop). For large datasets, adding confidence intervals with lines is much faster.
 }
 \details{
-The function is designed for continuous explanatory variables (i.e., adding regresion lines and CIs to a plot). See \code{\link[prettyGraphics]{add_error_bars}} for discrete explanatory variables.
+The function is designed for continuous explanatory variables (i.e., adding regression lines and CIs to a plot). See \code{\link[prettyGraphics]{add_error_bars}} for discrete explanatory variables.
 }
 \examples{
 # Define some data for a model

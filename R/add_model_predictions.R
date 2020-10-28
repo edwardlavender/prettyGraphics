@@ -9,7 +9,7 @@
 #' @param fitted_gp A named list of graphical parameters for the fitted line (passed to \code{\link[graphics]{lines}}).
 #'
 #' @return The function adds model predictions to a plot.
-#' @details The function is designed for continuous explanatory variables (i.e., adding regresion lines and CIs to a plot). See \code{\link[prettyGraphics]{add_error_bars}} for discrete explanatory variables.
+#' @details The function is designed for continuous explanatory variables (i.e., adding regression lines and CIs to a plot). See \code{\link[prettyGraphics]{add_error_bars}} for discrete explanatory variables.
 #'
 #' @examples
 #' # Define some data for a model
