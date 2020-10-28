@@ -4,7 +4,7 @@
 \alias{pretty_labels}
 \title{Define pretty labels}
 \usage{
-pretty_labels(x, at, n = NULL)
+pretty_labels(x, at, n = NULL, sci_notation_args = list())
 }
 \arguments{
 \item{x}{An object, such as a numeric vector.}
@@ -12,6 +12,8 @@ pretty_labels(x, at, n = NULL)
 \item{at}{A numeric vector of axis positions.}
 
 \item{n}{(optional) An integer which defines the number of decimal places for numeric axes. This is passed to \code{\link[prettyGraphics]{add_lagging_point_zero}}. If \code{NULL}, \code{n} is defined internally.}
+
+\item{sci_notation_args}{A named list of arguments passed to \code{\link[prettyGraphics]{sci_notation}} (excluding \code{x}).}
 }
 \value{
 A vector of labels, of the same length as axis tick marks (\code{at}).

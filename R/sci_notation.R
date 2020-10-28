@@ -1,16 +1,17 @@
 #' @title Tidy scientific notation
-#' @description Reformat numbers in scientific notation, translating the default 'e' notation used in base R to the 'x10' format more suitable for publication quality plots. If any number in a vector is expressed in R's default scientific notation, then all numbers in that vector are translated into expression objects with the 'x10' notation which can be added to plots. Thus, for consistency, any numbers without 'e' in that vector are treated similarly (e.g. \eqn{1} becomes \eqn{1 \times 10^0}). However, vectors which do not contain any number in R's default scientific notation are returned in as-is condition.
+#' @description This function is used to express numbers in scientific notation for plotting purposes. Specific elements in a vector \code{x}, or all elements in that vector, are converted into scientific notation if their absolute order of magnitude is greater than a user-specified value. Scientific notation is expressed using the 'x10' format, suitable for publication-quality plots, rather than R's default 'e' notation. The number of decimal places can be user-defined or defined automatically such that only the minimum number of decimal places required to distinguish numbers in a sequence is used (i.e., as suitable for pretty axes on a plot).
 #'
 #' @param x A numeric vector.
-#' @param n (optional) A number which defines the desired number of decimal places. This is passed to \code{\link[prettyGraphics]{add_lagging_point_zero}}. If \code{n = NULL}, all numbers are brought up to the maximum number of decimal places.
-#'
-#' @return A vector of expression objects that can be added to a plot.
+#' @param magnitude An integer that defines the order of magnitude (below or above 0) after which numbers in all or specific elements in x are converted to scientific notation (see \code{specific}).
+#' @param digits An integer that defines the number of decimal places. If \code{NULL}, this is defined automatically to be the minimum number of decimal places required to distinguish numbers.
+#' @param specific A logical input that defines whether or not to convert only the specific numbers in \code{x} whose order of magnitude exceed \code{magnitude} into scientific notation. Otherwise, if the absolute order of magnitude of element in \code{x} exceeds \code{magnitude}, all elements are reformatted in scientific notation. (However, 0 is always retained as 0.)
+#' @param make_sci A logical input that defines whether or not to create scientific notation. This acts as an overall control: if \code{make_sci} is \code{FALSE}, the function simplify returns \code{x} unchanged.
 #'
 #' @examples
-#'
 #' #### Example (1): sci_notation() returns an expression object
 #' sci_notation(seq(1e-10, 1e10, by = 1e9))
-#' # Except for vectors without scientific notation, which are left unchanged:
+#' # Except for vectors in which all elements are below the specified magnitude,
+#' # ... which are left unchanged:
 #' sci_notation(1:10)
 #'
 #' #### Example (2): sci_notation() can be used to create pretty axis labels
@@ -18,71 +19,114 @@
 #' y <- runif(length(x), 0, 100)
 #' xtidy <- sci_notation(x)
 #' plot(x, y, axes = FALSE)
-#' axis(side = 1, at = x, labels = xtidy, pos = 0, las = 2)
-#' axis(side = 2, at = seq(0, 100, by = 10), pos = 1e-10)
+#' axis(side = 1, at = x, labels = xtidy, pos = min(y), las = 2)
+#' axis(side = 2, at = seq(0, 100, by = 10), pos = min(x))
+#' # This is implemented automatically by pretty_axis() (e.g., via pretty_plot()):
+#' pretty_plot(x, y)
 #'
-#' #### Example (3): The n argument can be used to adjust the number of decimal places upwards:
-#' sci_notation(c(1.29876e11, 1.29e11))
-#' sci_notation(c(1.29876e11, 1.29e11), n = 8)
+#' #### Example (3): The digits argument controls the number of decimal places:
+#' # The default is to select the minimum number of decimal places to distinguish
+#' # ... numbers:
+#' sci_notation(c(1.29876e11, 1.29e11, 1.29e12))
+#' sci_notation(c(1.29876e11, 1.298769e11, 1.29e12))
+#' sci_notation(c(1.29876e11, 1.298769e12, 1.29e13))
+#' # Otherwise, this can be directly specified:
+#' sci_notation(c(1.29876e11, 1.29e11), digits = 8)
+#'
+#' #### Example (4) Magnitude and specific control implementation
+#' sci_notation(c(0, 1, 2, 1e9), magnitude = 0)
+#' sci_notation(c(0, 1, 2, 1e9), magnitude = 5, specific = FALSE)
+#' sci_notation(c(0, 1, 2, 1e9), magnitude = 5, specific = TRUE)
+#'
+#' @return A vector of expression objects that can be added to a plot.
 #'
 #' @seealso  The function is implemented internally in \code{\link[prettyGraphics]{pretty_axis}} for numeric observations.
 #' @author Edward Lavender
 #' @export
+#'
 
-##############################################
-##############################################
-#### sci_notation
 
-sci_notation <- function(x, n = NULL) {
-
-  #### Require numeric input
-  stopifnot(is.numeric(x))
-
-  #### If any of the numbers inputted contains 'e' then we're
-  # ... dealing with scientific notation
-  if(any(stringi::stri_detect_fixed(as.character(x), "e"))){
-
-    # Convert to characer
-    x <- as.character(x); x
-
-    # Remove + symbol and leading zeros on expoent, if > 1
-    x <- sub("\\+0", "", x); x
-    # Remove + if remains (for exponents >= 10 for which there is no leading 0)
-    x <- sub("\\+", "", x)
-    # Leave - symbol but removes leading zeros on expoent, if < 1
-    x <- sub("-0", "-", x); x
-
-    # Replace e with 10^
-    # x <- sub("e", "x10^", x); x
-
-    # Deal with 0, if present, which loses the e
-    # ... notation when converted to a character (we need to add this back)
-    x0_pos <- which(x == "0")
-    if(length(x0_pos) > 0){
-      x[x0_pos] <- paste0(x[x0_pos], "e0")
+sci_notation <- function(x,
+                         magnitude = 5L,
+                         digits = NULL,
+                         specific = TRUE,
+                         make_sci = TRUE){
+  # Return x unchanged if make_sci is FALSE
+  if(!make_sci) return(x)
+  # Define power
+  pwr  <- floor(log10(abs(x)))
+  # If there are no elements in x greater than the specified magnitude, then return the numbers unchanged
+  if(!any(abs(pwr)[!is.infinite(abs(pwr))] >= 5)) return(x)
+  # Define coefficient to specified number of decimal places
+  coef <- x/10^pwr
+  # Determine minimum suitable number of digits to distinguish numbers
+  if(is.null(digits)){
+    # If all the whole strings or powers are unique (i.e., if there are numbers with both
+    #... the same whole strings and the same powers) then digits = 0
+    coef_char <- as.character(coef)
+    whole_strings <- substr(coef_char, 1, 1)
+    if(!any(duplicated(whole_strings) & duplicated(pwr))){
+      digits <- 0
+    # Otherwise, determine the minimum number of digits to separate all numbers
+    } else{
+      # Focus on elements in x for which the whole strings (integer component) and powers are the same
+      # And, for each of these elements,
+      # ... determine the minimum number of digits required to distinguish those elements
+      ws_pwr_pairs <- data.frame(ws = whole_strings,
+                                 pwr = pwr,
+                                 ws_pwr = paste0(whole_strings, "_", pwr)
+                                 )
+      digits_vec <- sapply(unique(ws_pwr_pairs$ws_pwr[duplicated(ws_pwr_pairs$ws_pwr)]), function(pair){
+        # Isolate elements in coef_char that are relevant for consideration
+        pos_pair <- which(ws_pwr_pairs$ws_pwr == pair)
+        n <- length(pos_pair)
+        coef_char_sbt <- coef_char[pos_pair]
+        coef_char_sbt <- sprintf("%f", as.numeric(coef_char_sbt))
+        # Isolate decimal strings
+        decimal_strings <- substr(coef_char_sbt, 3, nchar(coef_char_sbt))
+        # For decimal places from 1:16, determine whether the strings are unique
+        decimal_strings_unique <- rep(NA, 16)
+        for(stop in 1:16){
+          decimal_strings_to_stop <- substr(decimal_strings, 1, stop)
+          decimal_strings_unique[stop] <- (length(unique(decimal_strings_to_stop)) == n) + 0
+        }
+        # If any of the strings are unique, pick the minimum number of decimal places required:
+        if(any(decimal_strings_unique == 1)){
+          digits <- min(which(decimal_strings_unique > 0))
+          # Otherwise, return the maximum number of digits before all zeros or the max number of digits = 16
+        } else{
+          digits <- min(c(nchar(decimal_strings_to_stop)), 16)
+        }
+        return(digits)
+      })
+      # We need the maximum of the minimum value for the number of digits
+      digits <- max(digits_vec)
     }
-
-    # Identify the numbers before and after "e"
-    x <- stringr::str_split_fixed(x, pattern = "e", 2)
-    x[, 1] <- add_lagging_point_zero(x[, 1], n = n, ignore = TRUE)
-
-    # Create a list of calls:
-    lab <- list()
-    for(i in 1:nrow(x)){
-      lab[[i]] <- bquote(.(x[i, 1]) ~ "x" ~ 10^.(x[i, 2]))
-    }
-
-    # Convert to expressions which can be stored in a vector
-    lab <- do.call(expression, lab)
-
-    # Return lab
-    return(lab)
-
-  } else{
-    return(x)
   }
-
-} # close function
+  # Define coefficients to the desired number of decimal places
+  coef <- sprintf(paste0("%.", digits, "f"), coef)
+  # Create a list of calls:
+  lab <- list()
+  for(i in 1:length(x)){
+    lab[[i]] <- bquote(.(coef[i]) ~ "x" ~ 10^.(pwr[i]))
+  }
+  # Post-process any 0's
+  if(any(x == 0)){
+    pos0 <- which(x == 0)
+    lab[pos0] <- sprintf(paste0("%.", digits, "f"), 0)
+  }
+  # Post-process any numbers less than magnitude, if specific = TRUE
+  if(specific){
+    if(any(abs(pwr) < magnitude)){
+      pos1 <- which(abs(pwr) < magnitude)
+      lab[pos1] <- sprintf(paste0("%.", digits, "f"), x[pos1])
+    }
+  }
+  # Convert to expressions which can be stored in a vector
+  lab <- do.call(expression, lab)
+  # Return labels
+  return(lab)
+}
 
 
 #### End of code.

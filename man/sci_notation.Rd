@@ -4,24 +4,36 @@
 \alias{sci_notation}
 \title{Tidy scientific notation}
 \usage{
-sci_notation(x, n = NULL)
+sci_notation(
+  x,
+  magnitude = 5L,
+  digits = NULL,
+  specific = TRUE,
+  make_sci = TRUE
+)
 }
 \arguments{
 \item{x}{A numeric vector.}
 
-\item{n}{(optional) A number which defines the desired number of decimal places. This is passed to \code{\link[prettyGraphics]{add_lagging_point_zero}}. If \code{n = NULL}, all numbers are brought up to the maximum number of decimal places.}
+\item{magnitude}{An integer that defines the order of magnitude (below or above 0) after which numbers in all or specific elements in x are converted to scientific notation (see \code{specific}).}
+
+\item{digits}{An integer that defines the number of decimal places. If \code{NULL}, this is defined automatically to be the minimum number of decimal places required to distinguish numbers.}
+
+\item{specific}{A logical input that defines whether or not to convert only the specific numbers in \code{x} whose order of magnitude exceed \code{magnitude} into scientific notation. Otherwise, if the absolute order of magnitude of element in \code{x} exceeds \code{magnitude}, all elements are reformatted in scientific notation. (However, 0 is always retained as 0.)}
+
+\item{make_sci}{A logical input that defines whether or not to create scientific notation. This acts as an overall control: if \code{make_sci} is \code{FALSE}, the function simplify returns \code{x} unchanged.}
 }
 \value{
 A vector of expression objects that can be added to a plot.
 }
 \description{
-Reformat numbers in scientific notation, translating the default 'e' notation used in base R to the 'x10' format more suitable for publication quality plots. If any number in a vector is expressed in R's default scientific notation, then all numbers in that vector are translated into expression objects with the 'x10' notation which can be added to plots. Thus, for consistency, any numbers without 'e' in that vector are treated similarly (e.g. \eqn{1} becomes \eqn{1 \times 10^0}). However, vectors which do not contain any number in R's default scientific notation are returned in as-is condition.
+This function is used to express numbers in scientific notation for plotting purposes. Specific elements in a vector \code{x}, or all elements in that vector, are converted into scientific notation if their absolute order of magnitude is greater than a user-specified value. Scientific notation is expressed using the 'x10' format, suitable for publication-quality plots, rather than R's default 'e' notation. The number of decimal places can be user-defined or defined automatically such that only the minimum number of decimal places required to distinguish numbers in a sequence is used (i.e., as suitable for pretty axes on a plot).
 }
 \examples{
-
 #### Example (1): sci_notation() returns an expression object
 sci_notation(seq(1e-10, 1e10, by = 1e9))
-# Except for vectors without scientific notation, which are left unchanged:
+# Except for vectors in which all elements are below the specified magnitude,
+# ... which are left unchanged:
 sci_notation(1:10)
 
 #### Example (2): sci_notation() can be used to create pretty axis labels
@@ -29,12 +41,24 @@ x <- seq(1e-10, 1e10, by = 1e9)
 y <- runif(length(x), 0, 100)
 xtidy <- sci_notation(x)
 plot(x, y, axes = FALSE)
-axis(side = 1, at = x, labels = xtidy, pos = 0, las = 2)
-axis(side = 2, at = seq(0, 100, by = 10), pos = 1e-10)
+axis(side = 1, at = x, labels = xtidy, pos = min(y), las = 2)
+axis(side = 2, at = seq(0, 100, by = 10), pos = min(x))
+# This is implemented automatically by pretty_axis() (e.g., via pretty_plot()):
+pretty_plot(x, y)
 
-#### Example (3): The n argument can be used to adjust the number of decimal places upwards:
-sci_notation(c(1.29876e11, 1.29e11))
-sci_notation(c(1.29876e11, 1.29e11), n = 8)
+#### Example (3): The digits argument controls the number of decimal places:
+# The default is to select the minimum number of decimal places to distinguish
+# ... numbers:
+sci_notation(c(1.29876e11, 1.29e11, 1.29e12))
+sci_notation(c(1.29876e11, 1.298769e11, 1.29e12))
+sci_notation(c(1.29876e11, 1.298769e12, 1.29e13))
+# Otherwise, this can be directly specified:
+sci_notation(c(1.29876e11, 1.29e11), digits = 8)
+
+#### Example (4) Magnitude and specific control implementation
+sci_notation(c(0, 1, 2, 1e9), magnitude = 0)
+sci_notation(c(0, 1, 2, 1e9), magnitude = 5, specific = FALSE)
+sci_notation(c(0, 1, 2, 1e9), magnitude = 5, specific = TRUE)
 
 }
 \seealso{

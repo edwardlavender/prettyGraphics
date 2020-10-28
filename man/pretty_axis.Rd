@@ -12,7 +12,8 @@ pretty_axis(
   units = list(),
   axis = list(),
   control_axis = list(las = TRUE),
-  control_ndp = NULL,
+  control_sci_notation = list(),
+  control_digits = NULL,
   control_factor_lim = 0.5,
   axis_ls = NULL,
   add = FALSE,
@@ -32,9 +33,11 @@ pretty_axis(
 
 \item{axis}{(optional) A list of arguments that are supplied to \code{\link[graphics]{axis}}, \code{\link[graphics]{axis.POSIXct}} or \code{\link[graphics]{axis.Date}} that control axes (e.g. \code{cex.axis}, \code{pos}, \code{col}, etc.). As for the \code{pretty} argument, a single list of arguments will affect all axes; otherwise, a nested list can be provided so that each axis can be controlled independently (see Examples).}
 
-\item{control_axis}{(option) A named list of arguments that affect all axes. This is only useful if a nested list is provided to \code{axis} (see above). In this case, any arguments that should affect all axes can be provided via \code{control_axis} so that these do not need to be provided to each list in \code{axis}. (This is simply for convenience.)}
+\item{control_axis}{(optional) A named list of arguments that affect all axes. This is only useful if a nested list is provided to \code{axis} (see above). In this case, any arguments that should affect all axes can be provided via \code{control_axis} so that these do not need to be provided to each list in \code{axis}. (This is simply for convenience.)}
 
-\item{control_ndp}{(optional) An integer which defines the number of decimal places on numeric axes. If \code{NULL}, the number of decimal places is set automatically.}
+\item{control_sci_notation}{A named list of arguments that controls scientific notation (see \code{\link[prettyGraphics]{sci_notation}}).}
+
+\item{control_digits}{(optional) An integer which defines the number of decimal places on numeric axes. If \code{NULL}, the number of decimal places is set automatically. This argument affects all numeric axes, unless (a) axis labels are all integers; (b) \code{\link[prettyGraphics]{pretty_axis}} is implemented via \code{\link[prettyGraphics]{pretty_plot}} and \code{x} is plotted against an index; or (c) \code{\link[prettyGraphics]{sci_notation}} is implemented in which case decimal places should be controlled independently for axes with scientific notation via the \code{digits} argument in \code{control_sci_notation} (see \code{\link[prettyGraphics]{sci_notation}}).}
 
 \item{control_factor_lim}{(optional) A number which specifies an additive adjustment to limits for a factor axis. For factors, with one or more level, limits become (0.75 - \code{control_factor_lim}) and (1.25 + \code{control_factor_lim}) or (1 - \code{control_factor_lim}) and (the number of factor levels + \code{control_factor_lim}) respectively.}
 
@@ -230,12 +233,12 @@ axis_args <-
 axis_args[[1]]$axis$cex.axis
 axis_args[[2]]$axis$cex.axis
 
-#### Control the number of decimal places for numeric axes via control_ndp
-# axis label decimal places are chosen automatically with the default setting control_ndp = NULL:
-axis_ls <- pretty_axis(side = 1, x = list(seq(0, 1, by = 0.1)), control_ndp = 1)
+#### Control the number of decimal places for numeric axes via control_digits
+# axis label decimal places are chosen automatically with the default setting control_digits = NULL:
+axis_ls <- pretty_axis(side = 1, x = list(seq(0, 1, by = 0.1)), control_digits = 1)
 axis_ls[[1]]$axis$labels
 # user-specified decimal places:
-axis_ls <- pretty_axis(side = 1, x = list(seq(0, 1, by = 0.1)), control_ndp = 3)
+axis_ls <- pretty_axis(side = 1, x = list(seq(0, 1, by = 0.1)), control_digits = 3)
 axis_ls[[1]]$axis$labels
 
 #### Generate timestamp data

@@ -19,6 +19,9 @@ A vector, as inputted, but in which any elements with fewer than \code{n} decima
 \description{
 This function adds lagging .0(s) to a number. This is useful for tidy graph labels. This is implemented internally in \code{\link[prettyGraphics]{pretty_axis}}.
 }
+\details{
+This function is not designed to work with scientific notation. Digits for scientific notation can be controlled via \code{\link[prettyGraphics]{sci_notation}}.
+}
 \examples{
 #### Example (1): Bring all numbers up to the same number of decimal places
 # Use maximum number of decimal places of any one number (i.e., default n specification):
@@ -57,12 +60,9 @@ axis(side = 1, at, labels = labels1)
 # Labels after before add_lagging_point_zero() are tidier:
 axis(side = 2, at, labels = labels2)
 
-#### Example (4): For use with scientific notation, add_lagging_point_zero() is implemented
-# ... in sci_notation via the n argument:
-sci_notation(1e12, n = 2)
-# Simply implementing add_lagging_point_zero() on scientific notation currently renders
-# ... undesirable output:
-add_lagging_point_zero(1e12, n = 5)
+#### Example (4): add_lagging_point_zero() is not designed to work with scientific notation
+# ... Use sci_notation() instead:
+sci_notation(1e9, digits = 2)
 
 }
 \author{

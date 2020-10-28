@@ -5,6 +5,8 @@
 #' @param n A number which defines the desired number of decimal places. Any element in \code{x} with fewer than \code{n} decimal places will have the appropriate number of decimal places added. If \code{n} is less than the number of decimal places for any element in \code{x}, the function will return an error. In this case, round all numbers to the same precision first, before implementing \code{\link[prettyGraphics]{add_lagging_point_zero}}. If \code{n = NULL}, the function defines \code{n} internally to be the maximum number of decimal places in \code{x}.
 #' @param ignore A logical input which specifies whether or not, under the condition that no number has any decimal places, the \code{n} argument should be ignored (i.e. if \code{TRUE}, the input vector, \code{x}, is simply returned without any adjustments).
 #'
+#' @details This function is not designed to work with scientific notation. Digits for scientific notation can be controlled via \code{\link[prettyGraphics]{sci_notation}}.
+#'
 #' @return A vector, as inputted, but in which any elements with fewer than \code{n} decimal places have had ".0"(s) added.
 #'
 #' @examples
@@ -45,12 +47,9 @@
 #' # Labels after before add_lagging_point_zero() are tidier:
 #' axis(side = 2, at, labels = labels2)
 #'
-#' #### Example (4): For use with scientific notation, add_lagging_point_zero() is implemented
-#' # ... in sci_notation via the n argument:
-#' sci_notation(1e12, n = 2)
-#' # Simply implementing add_lagging_point_zero() on scientific notation currently renders
-#' # ... undesirable output:
-#' add_lagging_point_zero(1e12, n = 5)
+#' #### Example (4): add_lagging_point_zero() is not designed to work with scientific notation
+#' # ... Use sci_notation() instead:
+#' sci_notation(1e9, digits = 2)
 #'
 #' @author Edward Lavender
 #' @export
