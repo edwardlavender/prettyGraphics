@@ -46,6 +46,8 @@ library(prettyGraphics)
 
 ## The definition of pretty axes
 
+  - `pretty_seq()` defines defines pretty sequences, given data, limits
+    and pretty parameters;
   - `pretty_axis()` is a very flexible function which is used to define
     and add pretty axes to plots (i.e., axes with intelligible tick mark
     labels that are positioned in appropriate, adjoining positions,

@@ -9,13 +9,14 @@
 #' \item{\link{pretty_axis}}{This function defines and adds pretty axes to plots.}
 #' \item{\link{sci_notation}}{This function translates the 'e' notation used by base R into scientific notation.}
 #' \item{\link{add_lagging_point_zero}}{This function brings all numbers up the the same number of decimal places.}
+#' \item{\link{add_grid_rect_xy}}{This function adds a rectangular grid to a plot at user-defined positions.}
 #' }
 #'
 #' @section Data exploration: \describe{
-#' \item{\link{add_grid_rect_xy}}{This function adds a rectangular grid to a plot at user-defined positions.}
 #' \item{\link{add_lines}}{This function adds lines to a plot, possibly colouring lines by the values of a covariate.}
 #' \item{\link{add_colour_bar}}{This function adds a customisable colour bar legend to a plot.}
 #' \item{\link{add_shading_bar}}{This function adds blocks of shading to a plot to elucidate relationships between a response and explanatory variables, one of which is a factor.}
+#' \item{\link{add_shading_quantiles}}{This functions adds shading for the quantiles of observed variation to a plot.}
 #' }
 #'
 #' @section Statistical inference: \describe{
@@ -38,6 +39,8 @@
 #'  \item{\link{pretty_line}}{This function creates pretty number lines and timelines.}
 #'  \item{\link{define_time_blocks}}{This function defines 'blocks' (i.e., diel periods or seasons) for each day in a time window.}
 #'  \item{\link{pretty_ts}}{This function creates pretty timeseries plots.}
+#'  \item{\link{pretty_ts_mat}}{This function creates 2-dimensional plots of the within and between day variation in a timeseries.}
+#'  \item{\link{pretty_pgram}}{This function creates processed periodogram plots (power spectra).}
 #'  \item{\link{vis_ts}}{An interactive Shiny-Dashboard application for the exploration of timeseries data.}
 #'  \item{\link{add_moons}}{This function add moons to a plot of lunar phase.}
 #' }
