@@ -70,6 +70,8 @@ library(prettyGraphics)
     which is a factor;
   - `add_shading_quantiles()` adds shading for the quantiles of observed
     variation to a plot;
+  - `add_boundary_box()` adds a boundary box around observations at
+    specified coordinates;
 
 ## Statistical inference
 

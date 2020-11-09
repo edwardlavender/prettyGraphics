@@ -24,6 +24,7 @@ Several functions facilitate the creation of pretty axes. Of these, the main fun
 \item{\link{add_colour_bar}}{This function adds a customisable colour bar legend to a plot.}
 \item{\link{add_shading_bar}}{This function adds blocks of shading to a plot to elucidate relationships between a response and explanatory variables, one of which is a factor.}
 \item{\link{add_shading_quantiles}}{This functions adds shading for the quantiles of observed variation to a plot.}
+\item{\link{add_boundary_box}}{This functions adds a boundary box around observations at specified coordinates.}
 }
 }
 
