@@ -444,6 +444,7 @@ pretty_axis <-
       if(length(unique(lx)) != 1){
         warning("'x' contains elements with different numbers of observations; collapsing each element (i) in 'x' to range(i).")
         x <- lapply(x, function(e) range(e, na.rm = TRUE))
+        lx <- c(2, 2)
       }
       # Create a dataframe and drop NAs
       dat <- data.frame(dplyr::bind_cols(x))
