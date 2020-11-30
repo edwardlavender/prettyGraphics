@@ -58,6 +58,7 @@ library(prettyGraphics)
 * `add_error_bars()` adds error bars to a plot;
 * `list_CIs()` lists model predictions/confidence intervals from fitted values and standard errors (or similar);
 * `add_model_predictions()` adds model predictions (e.g. fitted lines, confidence intervals) to plots;
+* `pretty_smooth_1d()` plots pretty one dimensional smooths estimated by `mgcv::gam()`;
 
 ## Standard plotting functions 
 

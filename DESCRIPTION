@@ -12,6 +12,7 @@ Imports:
     rlist, stringi, stringr, 
     maptools, rgeos, sp, raster, rgdal
 Suggests:
+    pbapply,
     viridis,
     lunar,
     mgcv, 
