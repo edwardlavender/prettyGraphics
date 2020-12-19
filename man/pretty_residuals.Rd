@@ -45,9 +45,9 @@ pretty_residuals(
 
 \item{timestamp}{A character which defines the name of a variable in  \code{dat} which refers to timestamps. This is useful for models of data collected through time. If \code{NULL} and this plot is selected, \code{residuals} are plotted against an index for the selected data.}
 
-\item{timestamp_fct}{(optional) A character which defines the name of a variable in \code{dat} which distinguishes independent time series. If \code{timestamp} is provided, it is desirable to plot the residuals ~ timestamp for only one of these levels (see \code{timestamp_fct_level}).}
+\item{timestamp_fct}{(optional) A character which defines the name of a variable in \code{dat} which distinguishes independent time-series. If \code{timestamp} is provided, it is desirable to plot the residuals ~ timestamp for only one of these levels (see \code{timestamp_fct_level}).}
 
-\item{timestamp_fct_level}{An identifier of the independent time series in \code{timestamp_fct} to be plotted. If not provided, the function selects the longest time series.}
+\item{timestamp_fct_level}{An identifier of the independent time-series in \code{timestamp_fct} to be plotted. If not provided, the function selects the longest time-series.}
 
 \item{dat}{A dataframe containing columns named as specified in \code{vars}. This should be the same dataframe that was used to fit the model from which residuals are extracted, although it can include extra variables not included in the model.}
 
@@ -69,7 +69,7 @@ pretty_residuals(
 Diagnostic plots of residuals.
 }
 \description{
-This function produces (pretty) diagnostic plots of residuals. Plots can include standard diagnostic plots (i.e., residuals versus fitted values, residuals versus the linear predictor, a histogram of residuals and quantile-quantile plots), diagnostic plots for time series (i.e., time series of residuals and autocorrelation functions of residuals); and other helpful plots (i.e., residuals against factor levels/continuous covariates). For large datasets, these plots can be produced for random subsets of the data to aid interpretation.
+This function produces (pretty) diagnostic plots of residuals. Plots can include standard diagnostic plots (i.e., residuals versus fitted values, residuals versus the linear predictor, a histogram of residuals and quantile-quantile plots), diagnostic plots for time-series (i.e., time-series of residuals and autocorrelation functions of residuals); and other helpful plots (i.e., residuals against factor levels/continuous covariates). For large datasets, these plots can be produced for random subsets of the data to aid interpretation.
 }
 \details{
 Seven types of diagnostic plots can be produced: 1, a histogram of residuals; 2, a quantile-quantile plot; 3, residuals versus fitted values; 4, residuals versus linear predictor; 5, residuals against one or more user-defined variables; 6, residuals against a timestamp/index; 7, an autocorrelation function of residuals. \code{\link[prettyGraphics]{pretty_axis}} is used to control axes. This can be customised but changes affect all plots. Axis labels are implemented with \code{\link[graphics]{mtext}} via \code{mtext_args} to enable maximum user control over axes. The graphical characteristics of points and lines are specified in \code{points_args} and \code{lines_args}, respectively, and changes to these arguments affect all relevant plots. This implementation reflects a balance between user flexibility and simplicity.
@@ -125,7 +125,7 @@ pretty_residuals(residuals = stats::resid(m1),
 graphics::par(pp)
 
 #### There are several customisation options for plotting observations against timestamps
-# 'timestamp', 'timestamp_fct' and 'timestamp_fct_level' enable a specific time series to be
+# 'timestamp', 'timestamp_fct' and 'timestamp_fct_level' enable a specific time-series to be
 # ... plotted:
 pretty_residuals(residuals = stats::resid(m1),
                  fv = fitted(m1),
@@ -145,7 +145,7 @@ pretty_residuals(residuals = stats::resid(m1),
                  timestamp = NULL,
                  timestamp_fct = "fct",
                  timestamp_fct_level = 1)
-# If 'timestamp_fct' is not provided, data are assumed to comprise a single time series.
+# If 'timestamp_fct' is not provided, data are assumed to comprise a single time-series.
 pretty_residuals(residuals = stats::resid(m1),
                  fv = fitted(m1),
                  lp = fitted(m1),
@@ -154,7 +154,7 @@ pretty_residuals(residuals = stats::resid(m1),
                  timestamp = "x",
                  timestamp_fct = NULL,
 )
-# If 'timestamp_fct_level' is not provided, the longest time series is chosen by default:
+# If 'timestamp_fct_level' is not provided, the longest time-series is chosen by default:
 pretty_residuals(residuals = stats::resid(m1),
                  fv = fitted(m1),
                  lp = fitted(m1),

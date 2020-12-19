@@ -18,7 +18,7 @@ list_CIs(
 
 \item{inv_link}{A function which defines the inverse link function. The default is \code{I} which leaves predictions unchanged. If supplied, the function applies \code{inv_link} after computing confidence intervals.}
 
-\item{fadj}{A function by which to modify predictions (after the inverse link function has been applied, if applicable). For example, in models of animal depth time series, models are often implemented by considering depth as a positive number, but plotted with depth as a negative number, for visualisation purposes.}
+\item{fadj}{A function by which to modify predictions (after the inverse link function has been applied, if applicable). For example, in models of animal depth time-series, models are often implemented by considering depth as a positive number, but plotted with depth as a negative number, for visualisation purposes.}
 
 \item{centre}{A logical input defining whether or not to centre predictions. If \code{TRUE}, the mean fitted value is minused from predictions.}
 

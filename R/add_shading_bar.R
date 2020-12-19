@@ -13,7 +13,7 @@
 #'
 #' @examples
 #'
-#'#### Define some data; we'll define a time series example
+#'#### Define some data; we'll define a time-series example
 #' # Define times
 #' t <- seq.POSIXt(as.POSIXct("2016-01-01", tz = "UTC"),
 #'                 as.POSIXct("2016-01-02", tz = "UTC"),
@@ -27,11 +27,11 @@
 #'
 #' #### Define arguments for add_shading_bar()
 #' # In this example, we'll add blocks of shading distinguishing 'day' versus 'night' to aid
-#' # ... interpretation of the animal depth time series we've simulated above. To do this,
+#' # ... interpretation of the animal depth time-series we've simulated above. To do this,
 #' # ... we could use the define_time_blocks() function but, for transparency,
 #' # ...  we'll use the following approach to define the times of day/night and associated colours
 #' # ... in a dataframe that we can then pass to add_shading_bar():
-#' # Define the times of day/night across the time series:
+#' # Define the times of day/night across the time-series:
 #' dates_block <- seq.POSIXt(min(t), max(t), by = "days")
 #' dat_block <- data.frame(date = sort(rep(dates_block, 2)), level = c(rep(1:2, length(dates_block))))
 #' dat_block$level <- factor(dat_block$level)
@@ -63,7 +63,7 @@
 #'             lim = ylim,
 #'             col = dat_block$col)
 #'
-#' #### Add back depth time series using add_lines()
+#' #### Add back depth time-series using add_lines()
 #' add_lines(d$t, d$depth, lwd = 2)
 #'
 #' @details The function is vectorised over \code{x1}, \code{x2} and \code{col}.
@@ -80,7 +80,7 @@
 add_shading_bar <- function(x1, x2, horiz = FALSE, lim, col, ...){
 
   if(!horiz){
-    #### vertical blocks (as for depth time series)
+    #### vertical blocks (as for depth time-series)
     r <- graphics::rect(xleft = x1,
                         ybottom = lim[1],
                         xright = x2,

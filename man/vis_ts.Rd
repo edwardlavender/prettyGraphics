@@ -2,7 +2,7 @@
 % Please edit documentation in R/vis_ts.R
 \name{vis_ts}
 \alias{vis_ts}
-\title{Visualise one dimensional time series via R Shiny}
+\title{Visualise one dimensional time-series via R Shiny}
 \usage{
 vis_ts(data)
 }
@@ -10,14 +10,14 @@ vis_ts(data)
 \item{data}{A dataframe containing a response variable, timestamps (and, optionally) explanatory variables. Timestamps can be integer/numeric, \code{\link[base]{DateTimeClasses}} or a \code{\link[base]{Date}} objects.}
 }
 \value{
-An interactive R Shiny application for visualising time series.
+An interactive R Shiny application for visualising time-series.
 }
 \description{
-Interactive visualisation and exploration of one dimensional time series, based on \code{\link[prettyGraphics]{pretty_ts}}.
+Interactive visualisation and exploration of one dimensional time-series, based on \code{\link[prettyGraphics]{pretty_ts}}.
 }
 \examples{
 \dontrun{
-#### Example (1) Visualising POSIXct time series
+#### Example (1) Visualising POSIXct time-series
 # Here we have a simple dataframe... other columns (i.e. covariates) can be included
 # ... alongside factor columns.
 x <- seq.POSIXt(as.POSIXct("2016-01-01", tz = "UTC"),
@@ -30,7 +30,7 @@ vis_ts(data = dat)
 }
 
 \dontrun{
-#### Example (2) Visualising numeric time series
+#### Example (2) Visualising numeric time-series
 x <- 1:1000
 y <- rnorm(length(x), x*0.1- 500, 1000)
 y2 <- rnorm(length(x), x*0.5, 500)

@@ -17,7 +17,7 @@ pretty_pgram(
 )
 }
 \arguments{
-\item{x}{An object of class "spec" (see \code{\link[stats]{spectrum}}) or a univariate time series to be passed to \code{\link[stats]{spectrum}}.}
+\item{x}{An object of class "spec" (see \code{\link[stats]{spectrum}}) or a univariate time-series to be passed to \code{\link[stats]{spectrum}}.}
 
 \item{sampling_interval}{A number that defines the sampling interval between sequential observations. If provided, this is used to re-express the frequencies that are returned by \code{\link[stats]{spectrum}} (where they are defined as the number of time cycles per time interval) into the number of cycles per unit time.}
 
@@ -33,7 +33,7 @@ pretty_pgram(
 
 \item{verbose}{A logical input that defines whether or not to print messages to the console defining the actions implemented.}
 
-\item{...}{Additional arguments to estimate the spectral density that are passed to \code{\link[stats]{spectrum}}, if \code{x} is a univariate time series.}
+\item{...}{Additional arguments to estimate the spectral density that are passed to \code{\link[stats]{spectrum}}, if \code{x} is a univariate time-series.}
 }
 \value{
 The function returns a plot of the spectral density (i.e., a spectral power plot).

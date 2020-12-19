@@ -3,7 +3,7 @@
 #'
 #' @param pred A list of fitted values and corresponding SEs (usually from \code{\link[stats]{predict}}).
 #' @param inv_link A function which defines the inverse link function. The default is \code{I} which leaves predictions unchanged. If supplied, the function applies \code{inv_link} after computing confidence intervals.
-#' @param fadj A function by which to modify predictions (after the inverse link function has been applied, if applicable). For example, in models of animal depth time series, models are often implemented by considering depth as a positive number, but plotted with depth as a negative number, for visualisation purposes.
+#' @param fadj A function by which to modify predictions (after the inverse link function has been applied, if applicable). For example, in models of animal depth time-series, models are often implemented by considering depth as a positive number, but plotted with depth as a negative number, for visualisation purposes.
 #' @param centre A logical input defining whether or not to centre predictions. If \code{TRUE}, the mean fitted value is minused from predictions.
 #' @param plot_suggestions A logical input defining whether or not to make plot suggestions (e.g. y limits) when can help make prettier plots.
 #' @param pretty_param A list of parameters, passed to \code{\link[base]{pretty}}, if plot suggestions are requested. (\code{\link[prettyGraphics]{pretty_axis}} is more flexible.)
