@@ -6,7 +6,8 @@
 #' @param f A function used to create a plot. The default is \code{\link[graphics]{plot}} but some other functions are supported. \code{f} should support the following arguments: \code{axes}, which are turned off automatically; \code{xlim}, \code{ylim}; \code{xlab}; \code{ylab}; and \code{main}. This feature is experimental.
 #' @param plot_xy A character vector specifying whether the plotting function, \code{f}, requires \code{"x"}, \code{"y"} or both (\code{"xy"}).
 #' @param plot_coordinates A logical input which defines whether or not the plotting function acts on coordinates extracted from \code{x} or the original object (see examples using \code{\link[raster]{image}}).
-#' @param pretty_axis_args A named list or arguments passed to \code{\link[prettyGraphics]{pretty_axis}} to define pretty axes.
+#' @param pretty_axis_args A named list or arguments passed to \code{\link[prettyGraphics]{pretty_axis}} to define pretty axes. For convenience, x and y axis limits can also be specified via \code{xlim} and \code{ylim} (see below).
+#' @param xlim,ylim A vector of two axis limits. This is a short-cut to specifying axis limits via \code{pretty_axis_args} (see \code{\link[prettyGraphics]{pretty_axis}}).
 #' @param points_args A named list of arguments passed to \code{\link[graphics]{points}} to control points. These can also be supplied via \code{...} but \code{point_args} can provide additional flexibility where required. To implement this option, you probably want to specify \code{type = "n"} via \code{...} because \code{points_args} is evaluated after the plot is evaluated.
 #' @param lines_args A named list of arguments passed to \code{\link[graphics]{lines}} to control lines. These can also be supplied via \code{...} but \code{lines_args} can provide additional flexibility where required. To implement this option, you probably want to specify \code{type = "n"} via \code{...} because \code{lines_args} is evaluated after the plot is evaluated.
 #' @param xlab A character input which defines the label for the x axis. By default, this is "" so that labels can be added via \code{mtext_args} which is more flexible (see below). However, the label can be specified via \code{xlab} for speed.
@@ -95,6 +96,7 @@ pretty_plot <-
            plot_xy = "xy",
            plot_coordinates = TRUE,
            pretty_axis_args = list(side = 1:2, pretty = list(n = 5)),
+           xlim = NULL, ylim = NULL,
            points_args = list(),
            lines_args = list(),
            xlab = "", ylab = "", main = "",
@@ -128,7 +130,10 @@ pretty_plot <-
     }
 
     #### Implement pretty_axis_args
-    axis_ls <- implement_pretty_axis_args(xy, pretty_axis_args)
+    axis_ls <- implement_pretty_axis_args(x = xy,
+                                          pretty_axis_args = pretty_axis_args,
+                                          xlim = xlim,
+                                          ylim = ylim)
 
     #### Variable type updates
     # Convert factors/characters to numbers for plotting

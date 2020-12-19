@@ -6,15 +6,29 @@
 #' @description This function implements the \code{pretty_axis_args} argument in functions.
 #' @param x A list of of coordinates (see \code{\link[prettyGraphics]{pretty_axis}}).
 #' @param pretty_axis_args A named list of parameters that are passed to \code{\link[prettyGraphics]{pretty_axis}}.
+#' @param xlim,ylim A vector of x and y axis limits that are passed to \code{\link[prettyGraphics]{pretty_axis}}. These can also be supplied via \code{pretty_axis_args}, but supplying \code{xlim} and \code{ylim} can be more convenient.
 #' @return A list, returned by \code{\link[prettyGraphics]{pretty_axis}}.
 #' @author Edward Lavender
 #' @export
 #'
 implement_pretty_axis_args <-
-  function(x, pretty_axis_args){
+  function(x, pretty_axis_args = NULL, xlim = NULL, ylim = NULL){
 
-    #### Add x to pretty_axis_args if not supplied
+    #### Set up pretty_axis_args
+    ## Define list
+    if(is.null(pretty_axis_args)) pretty_axis_args <- list()
+    ## Add x to pretty_axis_args if not supplied
     if(length(pretty_axis_args$x) == 0) pretty_axis_args$x <- x
+    ## Add limits, if supplied
+    if(is.null(pretty_axis_args$lim)) pretty_axis_args$lim <- list()
+    if(!is.null(xlim)){
+      if(!is.null(pretty_axis_args$lim[[1]])) warning("pretty_axis_args$lim[[1]] replaced by input to 'xlim'.")
+      pretty_axis_args$lim[[1]] <- xlim
+    }
+    if(!is.null(ylim)){
+      if(!is.null(pretty_axis_args$lim[[2]])) warning("pretty_axis_args$lim[[2]] replaced by input to 'ylim'.")
+      pretty_axis_args$lim[[2]] <- ylim
+    }
 
     #### If pretty axis parameters have been supplied...
     if(length(pretty_axis_args) > 0){

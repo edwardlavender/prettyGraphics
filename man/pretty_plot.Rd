@@ -11,6 +11,8 @@ pretty_plot(
   plot_xy = "xy",
   plot_coordinates = TRUE,
   pretty_axis_args = list(side = 1:2, pretty = list(n = 5)),
+  xlim = NULL,
+  ylim = NULL,
   points_args = list(),
   lines_args = list(),
   xlab = "",
@@ -32,7 +34,9 @@ pretty_plot(
 
 \item{plot_coordinates}{A logical input which defines whether or not the plotting function acts on coordinates extracted from \code{x} or the original object (see examples using \code{\link[raster]{image}}).}
 
-\item{pretty_axis_args}{A named list or arguments passed to \code{\link[prettyGraphics]{pretty_axis}} to define pretty axes.}
+\item{pretty_axis_args}{A named list or arguments passed to \code{\link[prettyGraphics]{pretty_axis}} to define pretty axes. For convenience, x and y axis limits can also be specified via \code{xlim} and \code{ylim} (see below).}
+
+\item{xlim, ylim}{A vector of two axis limits. This is a short-cut to specifying axis limits via \code{pretty_axis_args} (see \code{\link[prettyGraphics]{pretty_axis}}).}
 
 \item{points_args}{A named list of arguments passed to \code{\link[graphics]{points}} to control points. These can also be supplied via \code{...} but \code{point_args} can provide additional flexibility where required. To implement this option, you probably want to specify \code{type = "n"} via \code{...} because \code{points_args} is evaluated after the plot is evaluated.}
 

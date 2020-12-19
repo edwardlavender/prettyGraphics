@@ -4,12 +4,19 @@
 \alias{implement_pretty_axis_args}
 \title{Implement \code{pretty_axis_args}}
 \usage{
-implement_pretty_axis_args(x, pretty_axis_args)
+implement_pretty_axis_args(
+  x,
+  pretty_axis_args = NULL,
+  xlim = NULL,
+  ylim = NULL
+)
 }
 \arguments{
 \item{x}{A list of of coordinates (see \code{\link[prettyGraphics]{pretty_axis}}).}
 
 \item{pretty_axis_args}{A named list of parameters that are passed to \code{\link[prettyGraphics]{pretty_axis}}.}
+
+\item{xlim, ylim}{A vector of x and y axis limits that are passed to \code{\link[prettyGraphics]{pretty_axis}}. These can also be supplied via \code{pretty_axis_args}, but supplying \code{xlim} and \code{ylim} can be more convenient.}
 }
 \value{
 A list, returned by \code{\link[prettyGraphics]{pretty_axis}}.
