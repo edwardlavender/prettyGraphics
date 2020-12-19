@@ -1,12 +1,17 @@
 #' @title Pretty function plots
-#' @description The function evaluates a user-supplied function at range of user-supplied \code{x} values (and with any other named parameters), and produces a pretty plot of the evaluated function using \code{\link[prettyGraphics]{pretty_plot}}. The function was particularly motivated by the need to visualise probability density functions (e.g. \code{\link[stats]{GammaDist}}).
+#' @description The function evaluates a user-supplied function at user-supplied \code{x} values (or an interpolated sequence of values across \code{x} and for defined values for other named parameters), and produces a pretty plot of the evaluated function using \code{\link[prettyGraphics]{pretty_plot}}. The function was particularly motivated by the need to visualise probability density functions (e.g. \code{\link[stats]{GammaDist}}).
 #'
-#' @param x The x coordinates at which a function, \code{f}, should be evaluated.
+#' @param x The x coordinates at which a function, \code{f}, should be evaluated. These may be interpolated between a user-specified range defined by user-specified limits depending on inputs to \code{x_interp}, \code{from}, \code{to} and \code{n} (see below).
+#' @param x_interp A logical input that defines whether or not \code{x} values should be interpolated between limits before function evaluation.
+#' @param from,to,n If \code{x_interp = TRUE}, \code{from}, \code{to} and \code{n} specify the range and the number of values between these limits at which the function is evaluated. By default, \code{x_interp = TRUE} and the function is evaluated for \code{n = 101} values spanning the range of \code{x}
+#' @param x_interp A logical input that defines whether or not a regular sequence of coordinates should be interpolated within the limits of \code{x} at which the function is evaluated. This is only implemented if \code{x} is not a sorted sequence.
 #' @param f A function which depends on a named argument, \code{x}, and any other named arguments (see \code{param}).
 #' @param param A named list of other arguments required to evaluate the function.
+#' @param xlab,ylab The x and y axis labels. These can also be added via the \code{mtext_args} argument of \code{\link[prettyGraphics]{pretty_plot}} via \code{...}.
+#' @param type A character that specifies the plot type (see \code{\link[graphics]{plot.default}}).
 #' @param add_rug A named list of parameters, passed to \code{\link[graphics]{rug}} to add observed values to the plot. To add a rug using default parameters, simply specify \code{add_rug = list()}. If \code{x} values are not supplied in this list, they are taken from \code{x}. If \code{pos} is not supplied, the rug is positioned exactly along the x axis.
 #' @param return_list A logical input which defines whether or not to return the list of axis parameters produced by \code{\link[prettyGraphics]{pretty_axis}}.
-#' @param ... Other parameters that are passed to \code{\link[prettyGraphics]{pretty_plot}}, such as \code{pretty-axis_args} to adjust axes.
+#' @param ... Other parameters that are passed to \code{\link[prettyGraphics]{pretty_plot}}, such as \code{pretty_axis_args} to adjust axes.
 #'
 #' @return The function evaluates a function and returns a plot.
 #'
@@ -45,8 +50,13 @@
 
 pretty_curve <-
   function(x,
+           x_interp = TRUE,
+           from = min(x, na.rm = TRUE), to = max(x, na.rm = TRUE), n = 101,
            f,
            param = list(),
+           xlab = "x",
+           ylab = paste0("f(", paste0(c("x", names(param)), collapse = ", "), ")"),
+           type = "l",
            add_rug = NULL,
            return_list = FALSE,
            ...){
@@ -55,12 +65,13 @@ pretty_curve <-
     check...("return_list",...)
 
     #### Evaluate the function
-    # gammax <- seq(0, max(x), length.out = 100)
+    if(x_interp) x <- seq(from, to, length.out = n)
     param$x <- x
     y <- do.call(f, param)
+    param$x <- NULL
 
     #### Plot graph
-    axis_ls <- pretty_plot(x, y, return_list = TRUE,...)
+    axis_ls <- pretty_plot(x, y, xlab = xlab, ylab = ylab, type = type, return_list = TRUE,...)
 
     #### Add rug
     if(is.list(add_rug)){
