@@ -18,7 +18,7 @@
 #' @param pretty_axis_args_y2 A named list of arguments passed to \code{\link[prettyGraphics]{pretty_axis}} to create a second y axis if \code{y2_method = "by_new_axis"}.
 #' @param add_lines_args_y2 A named list of arguments passed to \code{\link[prettyGraphics]{add_lines}} to add \code{y2} as a line on a second axis.
 #' @param list_CIs_args A named list of arguments passed to \code{\link[prettyGraphics]{list_CIs}} to add model predictions to a plot.
-#' @param add_model_predictions_args A named list of arguments passed to \code{\link[prettyGraphics]{add_model_predictions}} to add model predictions.
+#' @param add_error_envelope_args A named list of arguments passed to \code{\link[prettyGraphics]{add_error_envelope}} to add model predictions.
 #' @param summarise_in_bins_args A named list of arguments passed to \code{\link[prettyGraphics]{summarise_in_bins}} to compute summary statistics.
 #' @param add_lines_args_summaries A named list of arguments passed to \code{\link[prettyGraphics]{add_lines}} to add summary lines to a plot.
 #' @param add_shading_type A character input specifying the type of shading to be added. \code{"diel"} and \code{"season"} are supported. Custom shading can be added via supplying arguments to \code{add_shading_args} (see below).
@@ -253,7 +253,7 @@
 #'             )
 #'
 #' #### (19) The visualisation of model predictions can be controlled by supplying
-#' # ... arguments to add_model_predictions() via add_model_predictions_args
+#' # ... arguments to add_error_envelope() via add_error_envelope_args
 #' pretty_ts(x = x,
 #'             y1 = y1,
 #'             y2 = y2,
@@ -267,7 +267,7 @@
 #'             add_lines_args_y2 = list(col = "red"),
 #'             pretty_axis_args_y2 = list(pretty = list(n = 5), axis = list(las = TRUE)),
 #'             list_CIs_args = list(pred = p),
-#'             add_model_predictions_args = list(CI_gp = list(col = "skyblue"),
+#'             add_error_envelope_args = list(CI_gp = list(col = "skyblue"),
 #'                                               fitted_gp = list(col = "blue"))
 #'             )
 #'
@@ -365,7 +365,7 @@ pretty_ts <-
     add_lines_args_y2 = list(),
     # Model predictions
     list_CIs_args = list(),
-    add_model_predictions_args = list(),
+    add_error_envelope_args = list(),
     # Statistical summaries and shading
     summarise_in_bins_args = list(),
     add_lines_args_summaries = list(lwd = 1),
@@ -624,24 +624,24 @@ pretty_ts <-
                  add_fitted = TRUE,
                  fitted_gp = list(col = "black", lwd = 1, lty = 1)
     )
-    add_model_predictions_args <- list_merge(damp, add_model_predictions_args)
+    add_error_envelope_args <- list_merge(damp, add_error_envelope_args)
     # Delete the default border = FALSE option if fCI = "lines" because
     # ... this is not an argument to lines:
-    if(add_model_predictions_args$fCI == "lines"){
-      add_model_predictions_args$CI_gp$border <- NULL
+    if(add_error_envelope_args$fCI == "lines"){
+      add_error_envelope_args$CI_gp$border <- NULL
     }
   }
 
-  # Implement do.call("add_model_predictions", add_model_predictions_args) outside
+  # Implement do.call("add_error_envelope", add_error_envelope_args) outside
   # ... of if(length(list_CIs_args) > 0) because the user may supply a suitable list
   # ... e.g. created by simulate_posterior_obs() without going via list_CIs()
-  if(length(list_CIs_args) > 0 | length(add_model_predictions_args) > 0){
+  if(length(list_CIs_args) > 0 | length(add_error_envelope_args) > 0){
     damp <- list(fCI = "poly",
                  CI_gp = list(col = "lightgrey", border = FALSE),
                  add_fitted = TRUE,
                  fitted_gp = list(col = "black", lwd = 1, lty = 1))
-    add_model_predictions_args <- rlist::list.merge(damp, add_model_predictions_args)
-    do.call("add_model_predictions", add_model_predictions_args)
+    add_error_envelope_args <- rlist::list.merge(damp, add_error_envelope_args)
+    do.call("add_error_envelope", add_error_envelope_args)
   }
 
 

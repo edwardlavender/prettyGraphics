@@ -22,7 +22,7 @@ pretty_ts(
   pretty_axis_args_y2 = list(side = 4, pretty = list(n = 10)),
   add_lines_args_y2 = list(),
   list_CIs_args = list(),
-  add_model_predictions_args = list(),
+  add_error_envelope_args = list(),
   summarise_in_bins_args = list(),
   add_lines_args_summaries = list(lwd = 1),
   add_shading_type = NULL,
@@ -67,7 +67,7 @@ pretty_ts(
 
 \item{list_CIs_args}{A named list of arguments passed to \code{\link[prettyGraphics]{list_CIs}} to add model predictions to a plot.}
 
-\item{add_model_predictions_args}{A named list of arguments passed to \code{\link[prettyGraphics]{add_model_predictions}} to add model predictions.}
+\item{add_error_envelope_args}{A named list of arguments passed to \code{\link[prettyGraphics]{add_error_envelope}} to add model predictions.}
 
 \item{summarise_in_bins_args}{A named list of arguments passed to \code{\link[prettyGraphics]{summarise_in_bins}} to compute summary statistics.}
 
@@ -311,7 +311,7 @@ pretty_ts(x = x,
             )
 
 #### (19) The visualisation of model predictions can be controlled by supplying
-# ... arguments to add_model_predictions() via add_model_predictions_args
+# ... arguments to add_error_envelope() via add_error_envelope_args
 pretty_ts(x = x,
             y1 = y1,
             y2 = y2,
@@ -325,7 +325,7 @@ pretty_ts(x = x,
             add_lines_args_y2 = list(col = "red"),
             pretty_axis_args_y2 = list(pretty = list(n = 5), axis = list(las = TRUE)),
             list_CIs_args = list(pred = p),
-            add_model_predictions_args = list(CI_gp = list(col = "skyblue"),
+            add_error_envelope_args = list(CI_gp = list(col = "skyblue"),
                                               fitted_gp = list(col = "blue"))
             )
 

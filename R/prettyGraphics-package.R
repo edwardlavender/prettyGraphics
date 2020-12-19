@@ -24,7 +24,7 @@
 #' \item{\link{summarise_in_bins}}{This function computes statistical summaries of continuous data in bins.}
 #' \item{\link{add_error_bars}}{This function adds error bars to a plot.}
 #' \item{\link{list_CIs}}{This function  lists model predictions/confidence intervals from fitted values and standard errors (or similar).}
-#' \item{\link{add_model_predictions}}{This function adds model predictions (e.g. fitted lines, confidence intervals) to plots.}
+#' \item{\link{add_error_envelope}}{This function adds model predictions (e.g. fitted lines, confidence intervals) to plots.}
 #' \item{\link{pretty_smooth_1d}}{This function adds plots pretty one-dimensional smooths.}
 #' }
 #'
