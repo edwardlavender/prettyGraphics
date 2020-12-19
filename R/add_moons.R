@@ -1,8 +1,8 @@
 #' @title Add subplots of the lunar phase to a plot
-#' @description This function adds images of the lunar phase to lunar phase plots (for example, a lunar phase timeseries or a model-inferred smooth of a response ~ s(lunar phase)).
+#' @description This function adds images of the lunar phase to lunar phase plots (for example, a lunar phase time series or a model-inferred smooth of a response ~ s(lunar phase)).
 #'
-#' @param side A numeric input that defines the side on to which you would like to add the moons. \code{side = 1}, \code{side = 2}, \code{side = 3}, \code{side = 4} add moons to the bottom, left, top and right axes respectively. The default is to add moons to the top of the plot. This is appropriate if the plot in question is a smooth of lunar phase. If the plot is a lunar phase timeseries, \code{side = 2} is more appropriate (see Examples).
-#' @param position A numeric input that defines the position at which moons will be added to the plot. If \code{side = 1} or \code{side = 3}, this refers to the height at which moons will be added. If \code{side = 2} or \code{side = 4}, this refers to the x value at which moons will be added (see Examples). This should be a single number; i.e. moons are all plotted at the same height (in the case of a smooth plot) or distance along the x axis (in the case of a timeseries plot).
+#' @param side A numeric input that defines the side on to which you would like to add the moons. \code{side = 1}, \code{side = 2}, \code{side = 3}, \code{side = 4} add moons to the bottom, left, top and right axes respectively. The default is to add moons to the top of the plot. This is appropriate if the plot in question is a smooth of lunar phase. If the plot is a lunar phase time series, \code{side = 2} is more appropriate (see Examples).
+#' @param position A numeric input that defines the position at which moons will be added to the plot. If \code{side = 1} or \code{side = 3}, this refers to the height at which moons will be added. If \code{side = 2} or \code{side = 4}, this refers to the x value at which moons will be added (see Examples). This should be a single number; i.e. moons are all plotted at the same height (in the case of a smooth plot) or distance along the x axis (in the case of a time series plot).
 #' @param outer A logical input that defines whether or not the moons will be drawn beyond the range of the x or y axis. If this is the case, \code{outer = TRUE}; otherwise, set \code{outer = FALSE}.
 #' @param nv A numeric input that defines the number of vertices that are used to define moon shapes.
 #' @param radius1 A numeric input that defines the radii of the moons added in user units. The default is 0.1.
@@ -25,7 +25,7 @@
 #'           radius1 = 0.1,
 #'           units = "radians")
 #'
-#' #### Example (2): Add plots to a lunar phase timeseries
+#' #### Example (2): Add plots to a lunar phase time series
 #' x <- seq.POSIXt(as.POSIXct("2016-01-01"), as.POSIXct("2016-05-01"), "days")
 #' y <- lunar::lunar.phase(x)
 #' plot(x, y, type = "l")

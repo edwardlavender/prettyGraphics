@@ -49,7 +49,7 @@
 #'                pch = 21, bg = "red")
 #'
 #'
-#' #### Example (4): An examine with timeseries data i.e., a timeline
+#' #### Example (4): An examine with time series data i.e., a timeline
 #' set.seed(1)
 #' tseq <- seq.POSIXt(as.POSIXct("2017-01-01", tz = "UTC"),
 #'                    as.POSIXct("2018-01-01", tz = "UTC"), by = "days")

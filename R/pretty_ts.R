@@ -1,5 +1,5 @@
 #' @title Create publication-quality plots
-#' @description This function facilitates the creation of publication-quality plots for timeseries. The function pulls lots of the functions provided in \code{prettyGraphics}, which can be implemented sequentially, into a single framework. While it is often useful to call functions sequentially, this can make data exploration quicker and simpler. The function underlies \code{\link[prettyGraphics]{vis_ts}}.
+#' @description This function facilitates the creation of publication-quality plots for time series. The function pulls lots of the functions provided in \code{prettyGraphics}, which can be implemented sequentially, into a single framework. While it is often useful to call functions sequentially, this can make data exploration quicker and simpler. The function underlies \code{\link[prettyGraphics]{vis_ts}}.
 #'
 #' @param x The x coordinates.
 #' @param y1 The y coordinates.

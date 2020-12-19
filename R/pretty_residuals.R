@@ -1,14 +1,14 @@
 #' @title Diagnostic plots of model residuals
 #'
-#' @description This function produces (pretty) diagnostic plots of residuals. Plots can include standard diagnostic plots (i.e., residuals versus fitted values, residuals versus the linear predictor, a histogram of residuals and quantile-quantile plots), diagnostic plots for timeseries (i.e., timeseries of residuals and autocorrelation functions of residuals); and other helpful plots (i.e., residuals against factor levels/continuous covariates). For large datasets, these plots can be produced for random subsets of the data to aid interpretation.
+#' @description This function produces (pretty) diagnostic plots of residuals. Plots can include standard diagnostic plots (i.e., residuals versus fitted values, residuals versus the linear predictor, a histogram of residuals and quantile-quantile plots), diagnostic plots for time series (i.e., time series of residuals and autocorrelation functions of residuals); and other helpful plots (i.e., residuals against factor levels/continuous covariates). For large datasets, these plots can be produced for random subsets of the data to aid interpretation.
 #'
 #' @param residuals A numeric vector of residuals from a model.
 #' @param fv A numeric vector of fitted values from a model.
 #' @param lp A numeric vector which defines the values of the linear predictor from a model.
 #' @param vars A character vector which defines the names of variables in a dataframe (see \code{dat}, below) against which residuals will be plotted if \code{plot} includes option 5 (see below).
 #' @param timestamp A character which defines the name of a variable in  \code{dat} which refers to timestamps. This is useful for models of data collected through time. If \code{NULL} and this plot is selected, \code{residuals} are plotted against an index for the selected data.
-#' @param timestamp_fct (optional) A character which defines the name of a variable in \code{dat} which distinguishes independent timeseries. If \code{timestamp} is provided, it is desirable to plot the residuals ~ timestamp for only one of these levels (see \code{timestamp_fct_level}).
-#' @param timestamp_fct_level An identifier of the independent timeseries in \code{timestamp_fct} to be plotted. If not provided, the function selects the longest timeseries.
+#' @param timestamp_fct (optional) A character which defines the name of a variable in \code{dat} which distinguishes independent time series. If \code{timestamp} is provided, it is desirable to plot the residuals ~ timestamp for only one of these levels (see \code{timestamp_fct_level}).
+#' @param timestamp_fct_level An identifier of the independent time series in \code{timestamp_fct} to be plotted. If not provided, the function selects the longest time series.
 #' @param dat A dataframe containing columns named as specified in \code{vars}. This should be the same dataframe that was used to fit the model from which residuals are extracted, although it can include extra variables not included in the model.
 #' @param plot A numeric vector (1:7) which defines the plots to produce (see Details, below).
 #' @param rand_pc A number which defines a percentage of residuals to plotted. If specified, a random subset of residuals, chosen according to a uniform distribution, are plotted. This is useful for some plots of residuals (e.g. residuals versus fitted values) which can be difficult to interpret with large datasets. However, note that some plots of residuals (e.g. quantile-quantile plots) respond poorly to selecting samples of residuals, and this option is not recommended in those cases - see \code{plot_rand_pc}, below.
@@ -73,7 +73,7 @@
 #' graphics::par(pp)
 #'
 #' #### There are several customisation options for plotting observations against timestamps
-#' # 'timestamp', 'timestamp_fct' and 'timestamp_fct_level' enable a specific timeseries to be
+#' # 'timestamp', 'timestamp_fct' and 'timestamp_fct_level' enable a specific time series to be
 #' # ... plotted:
 #' pretty_residuals(residuals = stats::resid(m1),
 #'                  fv = fitted(m1),
@@ -93,7 +93,7 @@
 #'                  timestamp = NULL,
 #'                  timestamp_fct = "fct",
 #'                  timestamp_fct_level = 1)
-#' # If 'timestamp_fct' is not provided, data are assumed to comprise a single timeseries.
+#' # If 'timestamp_fct' is not provided, data are assumed to comprise a single time series.
 #' pretty_residuals(residuals = stats::resid(m1),
 #'                  fv = fitted(m1),
 #'                  lp = fitted(m1),
@@ -102,7 +102,7 @@
 #'                  timestamp = "x",
 #'                  timestamp_fct = NULL,
 #' )
-#' # If 'timestamp_fct_level' is not provided, the longest timeseries is chosen by default:
+#' # If 'timestamp_fct_level' is not provided, the longest time series is chosen by default:
 #' pretty_residuals(residuals = stats::resid(m1),
 #'                  fv = fitted(m1),
 #'                  lp = fitted(m1),
@@ -357,14 +357,14 @@ pretty_residuals <-
       #### Select data for specific individual
       ## a) timestamp_fct is NULL so assuming one individual
       if(is.null(timestamp_fct)){
-        message("plot (6) residuals ~ timestamp: 'timestamp_fct' is NULL; assuming 'dat' only contains one independent timeseries.")
+        message("plot (6) residuals ~ timestamp: 'timestamp_fct' is NULL; assuming 'dat' only contains one independent time series.")
         if(!is.null(timestamp_fct_level)) warning("'timestamp_fct' is NULL so 'timestamp_fct_level' is ignored.")
 
         ## b) select data for specific individaul
       } else{
-        # i) Define timestamp_fct_level using the individual with the longest timeseries, if not provided
+        # i) Define timestamp_fct_level using the individual with the longest time series, if not provided
         if(is.null(timestamp_fct_level)){
-          message("plot (6) residuals ~ timestamp: selecting the 'timestamp_fct' with the longest timeseries.")
+          message("plot (6) residuals ~ timestamp: selecting the 'timestamp_fct' with the longest time series.")
           d6_ls <- split(d6, f = d6[, timestamp_fct])
           d6_longest <- which.max(sapply(d6_ls, nrow))
           timestamp_fct_level <- d6_ls[[d6_longest]][1, timestamp_fct]
