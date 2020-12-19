@@ -99,7 +99,7 @@ pretty_plot <-
            xlim = NULL, ylim = NULL,
            points_args = list(),
            lines_args = list(),
-           xlab = "", ylab = "", main = "",
+           xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), main = "",
            mtext_args = list(),
            return_list = FALSE,...){
 

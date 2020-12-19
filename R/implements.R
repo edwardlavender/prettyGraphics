@@ -22,11 +22,11 @@ implement_pretty_axis_args <-
     ## Add limits, if supplied
     if(is.null(pretty_axis_args$lim)) pretty_axis_args$lim <- list()
     if(!is.null(xlim)){
-      if(!is.null(pretty_axis_args$lim[[1]])) warning("pretty_axis_args$lim[[1]] replaced by input to 'xlim'.")
+      if(!is.null(pretty_axis_args$lim[1][[1]])) warning("pretty_axis_args$lim[[1]] replaced by input to 'xlim'.")
       pretty_axis_args$lim[[1]] <- xlim
     }
     if(!is.null(ylim)){
-      if(!is.null(pretty_axis_args$lim[[2]])) warning("pretty_axis_args$lim[[2]] replaced by input to 'ylim'.")
+      if(!is.null(pretty_axis_args$lim[2][[1]])) warning("pretty_axis_args$lim[[2]] replaced by input to 'ylim'.")
       pretty_axis_args$lim[[2]] <- ylim
     }
 
