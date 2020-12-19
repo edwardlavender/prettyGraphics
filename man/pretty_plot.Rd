@@ -15,9 +15,9 @@ pretty_plot(
   ylim = NULL,
   points_args = list(),
   lines_args = list(),
-  xlab = deparse(substitute(x)),
-  ylab = deparse(substitute(y)),
-  main = "",
+  xlab,
+  ylab,
+  main,
   mtext_args = list(),
   return_list = FALSE,
   ...

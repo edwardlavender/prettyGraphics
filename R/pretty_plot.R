@@ -99,11 +99,11 @@ pretty_plot <-
            xlim = NULL, ylim = NULL,
            points_args = list(),
            lines_args = list(),
-           xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), main = "",
+           xlab, ylab, main,
            mtext_args = list(),
            return_list = FALSE,...){
 
-    #### Inital checks
+    #### Initial checks
     if(is.null(x)) stop("'x' is NULL.")
     if(!any(class(x) %in% c("numeric", "integer", "factor", "character", "Date", "POSIXct",
                             "density", "RasterLayer"))){
@@ -112,25 +112,44 @@ pretty_plot <-
     check_input_value(arg = "plot_xy", input = plot_xy, supp = c("x", "y", "xy"), default = "xy")
     check...("axes",...)
 
+    #### Axis titles (before objects are re-defined)
+    x_depar <- deparse(substitute(x))
+    if(missing(xlab)) {
+      xlab_missing <- TRUE
+      xlab <- x_depar
+    } else xlab_missing <- FALSE
+    if(missing(ylab)) {
+      ylab_missing <- TRUE
+      ylab <- deparse(substitute(y))
+    } else ylab_missing <- FALSE
+    if(missing(main)) main <- ""
+
     #### Object inheritance for pretty_axis()
+    # Extract coordinates
     xy <- pull_xy(x, y)
+    # Replace labels, if necessary (suitable for some object types)
+    if(xlab_missing & !is.null(xy$xlab)) xlab <- xy$xlab
+    if(ylab_missing & !is.null(xy$ylab)) ylab <- xy$ylab
+    # Extract coordinates for plotting from list
     if(plot_coordinates){
       x <- xy$x
       y <- xy$y
     }
 
-    #### If y isn't supplied, plot x againist an index like graphics::plot()
+    #### If y isn't supplied, plot x against an index like graphics::plot()
     if(plot_xy == "xy" & is.null(xy$y)){
       message("'y' argument not supplied; 'x' is plotted against an index.")
       index <- 1:length(x)
       y <- xy$x
       x <- index
+      if(xlab_missing) xlab <- "Index"
+      if(ylab_missing) ylab <- x_depar
       # Redefine xy list for implement_pretty_axis_args, below.
       xy <- list(x = index, y = xy$x)
     }
 
     #### Implement pretty_axis_args
-    axis_ls <- implement_pretty_axis_args(x = xy,
+    axis_ls <- implement_pretty_axis_args(x = list(xy$x, xy$y),
                                           pretty_axis_args = pretty_axis_args,
                                           xlim = xlim,
                                           ylim = ylim)
@@ -193,7 +212,7 @@ pretty_plot <-
     #### Return list
     if(return_list) return(axis_ls)
 
-  } # close pretty_plot()
+  }
 
 
 

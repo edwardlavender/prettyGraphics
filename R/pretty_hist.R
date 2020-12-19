@@ -106,8 +106,8 @@ pretty_hist <-
            yaxis = list(las = TRUE),
            xlim = NULL,
            ylim = NULL,
-           xlab = "",
-           ylab = "",
+           xlab = deparse(substitute(x)),
+           ylab = ifelse(freq, "Frequency", "Density"),
            main = "",
            mtext_args = list(),
            ...

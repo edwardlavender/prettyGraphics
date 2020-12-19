@@ -2,7 +2,7 @@
 % Please edit documentation in R/pull_xy.R
 \name{pull_xy}
 \alias{pull_xy}
-\title{Pull x and y coordinates from supported R objects for \code{\link[prettyGraphics]{pretty_axis}}}
+\title{Pull x and y coordinates from supported R objects for pretty plotting functions}
 \usage{
 pull_xy(x, y = NULL)
 }
@@ -12,10 +12,10 @@ pull_xy(x, y = NULL)
 \item{y}{y coordinates.}
 }
 \value{
-A list with 'x' and 'y' coordinates, extracted from the object \code{x} or as inputted.
+A list with 'x' and 'y' coordinates, extracted from the object \code{x} or as inputted, as well as 'xlab' and 'ylab' labels, if manual labels are desirable.
 }
 \description{
-This function pulls 'x' and 'y' coordinates from some R objects. This is implemented within \code{\link[prettyGraphics]{pretty_plot}}, \code{\link[prettyGraphics]{pretty_axis}} to create axes for multiple object types.
+This function pulls 'x' and 'y' coordinates from some R objects. This is implemented within \code{\link[prettyGraphics]{pretty_axis}} and \code{\link[prettyGraphics]{pretty_plot}} to create axes for multiple object types. Suggested x and y axis labels are also returned: these are NULL if automatically defined labels are deemed appropriate or character strings which can be used to replace automatically defined labels.
 }
 \author{
 Edward Lavender

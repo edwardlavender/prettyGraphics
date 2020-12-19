@@ -9,8 +9,8 @@ pretty_boxplot(
   y,
   pretty_axis_args = list(side = 1:2),
   adj = 0.5,
-  xlab = "",
-  ylab = "",
+  xlab = deparse(substitute(x)),
+  ylab = deparse(substitute(y)),
   mtext_args = list(),
   ...
 )
