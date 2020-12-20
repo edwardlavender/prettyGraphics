@@ -274,10 +274,15 @@ define_lim_init <-
     # Check that both limits are not identical.
     # If so, adjust them: you cannot have a graph with identical lower/upper limits.
     if(length(unique(lim)) == 1){
-      message("Lower and upper limits for one of the inputted variables are the same. This is usually because all values of this variable are identical. Limits are being adjusted (+/- 25 %), but manually inputted limits may be necessary...\n")
+      message("Lower and upper limits for an inputted variable are identical. This is usually because all values of this variable are identical. Adjusted limits (+/- 25 % or +/- 0.25) implemented.\n")
       # Adjust limits
-      lim[1] <- lim[1] - (0.25*lim[1])
-      lim[2] <- lim[2] + (0.25*lim[2])
+      if(lim[1] != 0){
+        lim[1] <- lim[1] - (0.25*lim[1])
+        lim[2] <- lim[2] + (0.25*lim[2])
+      } else{
+        lim[1] <- lim[1] - 0.25
+        lim[2] <- lim[2] + 0.25
+      }
     }
     # Check that limits are sensible
     if(lim[1] >= lim[2]) {
