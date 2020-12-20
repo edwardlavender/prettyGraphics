@@ -28,6 +28,7 @@ pretty_ts(
   add_shading_type = NULL,
   add_shading_dtb_args = list(),
   add_shading_args = list(),
+  add_grid_args = list(),
   add_moons_args = list(),
   return_list = TRUE
 )
@@ -78,6 +79,8 @@ pretty_ts(
 \item{add_shading_dtb_args}{A named list of arguments that are passed to \code{\link[prettyGraphics]{define_time_blocks}} to compute diel/seasonal shading. These include a named list of arguments passed to \code{type_args} and colours.}
 
 \item{add_shading_args}{A named list of arguments passed to a\code{\link[prettyGraphics]{add_shading_bar}} to add shading to a plot. 'x1', 'x2', and 'lim' are computed automatically if \code{add_shading_type} is specified, but other graphical parameters passed to \code{\link[graphics]{rect}} (e.g. \code{border = "red"}) can be included here.}
+
+\item{add_grid_args}{A named list of parameters, passed to \code{\link[prettyGraphics]{add_grid_rect_xy}}, to add a grid to the plot. Grid line coordinates (x and y) are taken to match axis tick mark positions, based on \code{x} and\code{y1}, if not provided.}
 
 \item{add_moons_args}{A named list of arguments passed to \code{\link[prettyGraphics]{add_moons}} to add moons to a plot.}
 

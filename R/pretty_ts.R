@@ -24,6 +24,7 @@
 #' @param add_shading_type A character input specifying the type of shading to be added. \code{"diel"} and \code{"season"} are supported. Custom shading can be added via supplying arguments to \code{add_shading_args} (see below).
 #' @param add_shading_dtb_args A named list of arguments that are passed to \code{\link[prettyGraphics]{define_time_blocks}} to compute diel/seasonal shading. These include a named list of arguments passed to \code{type_args} and colours.
 #' @param add_shading_args A named list of arguments passed to a\code{\link[prettyGraphics]{add_shading_bar}} to add shading to a plot. 'x1', 'x2', and 'lim' are computed automatically if \code{add_shading_type} is specified, but other graphical parameters passed to \code{\link[graphics]{rect}} (e.g. \code{border = "red"}) can be included here.
+#' @param add_grid_args A named list of parameters, passed to \code{\link[prettyGraphics]{add_grid_rect_xy}}, to add a grid to the plot. Grid line coordinates (x and y) are taken to match axis tick mark positions, based on \code{x} and\code{y1}, if not provided.
 #' @param add_moons_args A named list of arguments passed to \code{\link[prettyGraphics]{add_moons}} to add moons to a plot.
 #' @param return_list A logical input which defines whether or not to return the list of axis parameters computed by \code{\link[prettyGraphics]{pretty_axis}}. This can be useful for the addition of elements to a plot created by \code{\link[prettyGraphics]{pretty_ts}}.
 #'
@@ -372,6 +373,7 @@ pretty_ts <-
     add_shading_type = NULL,
     add_shading_dtb_args = list(),
     add_shading_args = list(),
+    add_grid_args = list(),
     # moons
     add_moons_args = list(),
     return_list = TRUE
@@ -494,6 +496,12 @@ pretty_ts <-
     do.call("add_shading_bar", add_shading_args)
   }
 
+  #### Add grid
+  if(length(add_grid_args) > 0){
+    if(is.null(add_grid_args$x)) add_grid_args$x <- axis_ls[[1]]$axis$at
+    if(is.null(add_grid_args$y)) add_grid_args$y <- axis_ls[[2]]$axis$at
+    do.call("add_grid_rect_xy", add_grid_args)
+  }
 
   ################################################
   ################################################
@@ -525,7 +533,7 @@ pretty_ts <-
   }
 
   if(length(add_lines_args) > 0){
-    #### Add a line for the repsonse
+    #### Add a line for the response
     dal <- list(x = dat$x,
                 y1 = dat$y1,
                 y2 = dat$y2,

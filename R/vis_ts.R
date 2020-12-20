@@ -47,11 +47,16 @@ vis_ts <- function(data){
 ################################################
 #### Preprocessing
 
+# Checks
+check_input_class(input = data,
+                  to_class = "data.frame",
+                  type = "stop")
+
 # Define colnames
 colnames_data <- colnames(data)
 
 # Timestamp column
-# Truy to get the timestamp using POSIXct
+# Try to get the timestamp using POSIXct
 col_ts <- colnames(data)[
   which(sapply(data, class) %>% unlist() %>% as.vector()
         %in% c("POSIXct", "Date"))[1]]
@@ -209,6 +214,26 @@ ui <-
                   width = NULL,
                   h2("Define axes properties"),
 
+                  #### Define a background gird
+                  checkboxInput(inputId = "add_grid",
+                                label = strong("Include a background grid."),
+                                value = TRUE),
+                  conditionalPanel(condition = "input.add_grid",
+                                   textInput(inputId = "grid_col",
+                                             label = strong("Define the colour of the grid lines."),
+                                             value = "lightgrey"
+                                             ),
+                                   radioButtons(inputId = "grid_lty",
+                                                label = strong("Define the grid line type."),
+                                                choices = 1:6,
+                                                selected = 3,
+                                                inline = TRUE
+                                                ),
+                                   numericInput(inputId = "grid_lwd",
+                                                label = strong("Define the width of the grid lines."),
+                                                value = 1)
+                                   ),
+
                   #### Define axis sides
                   radioButtons(inputId = "define_x_side",
                                label = strong("Define a side for the x axis."),
@@ -216,13 +241,13 @@ ui <-
                                selected = 1,
                                inline = TRUE),
 
-                  #### Define the time ranage
+                  #### Define the time range
                   checkboxInput(inputId = "adjust_time_range",
                                 label = strong("Adjust the time range."),
                                 value = FALSE),
 
                   # Define date range
-                  # ( If NULL, then they are chosen automatrically using the range of the data )
+                  # ( If NULL, then they are chosen automatically using the range of the data )
                   conditionalPanel(condition = "input.adjust_time_range == true",
                                    uiOutput("date_range"),
                                    uiOutput("time_range"),
@@ -660,6 +685,17 @@ server <- function(input, output) {
       return(paa)
     })
 
+
+  #### Define add_grid_args
+  add_grid_args <- reactive({
+    if(input$add_grid) {
+      add_grid_args <- list(col = input$grid_col, lwd = input$grid_lwd, lty = as.integer(input$grid_lty))
+      } else {
+        add_grid_args <- list()
+      }
+    return(add_grid_args)
+  })
+
   #### Define the approximate range for the 2nd response variable ("variable2")
   output$var2_range <-
     renderUI(
@@ -869,7 +905,8 @@ server <- function(input, output) {
                 add_lines_args_summaries = list(lwd = lwd, col = "red"),
                 add_shading_type = add_shading_type(),
                 add_shading_dtb_args = add_shading_dtb_args(),
-                add_shading_args = add_shading_args()
+                add_shading_args = add_shading_args(),
+                add_grid_args = add_grid_args()
                 )
 
 
