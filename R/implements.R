@@ -20,7 +20,7 @@ implement_pretty_axis_args <-
     ## Add x to pretty_axis_args if not supplied
     if(length(pretty_axis_args$x) == 0) pretty_axis_args$x <- x
     ## Add limits, if supplied
-    if(is.null(pretty_axis_args$lim)) pretty_axis_args$lim <- list()
+    if(is.null(pretty_axis_args$lim)) pretty_axis_args$lim <- list(x = NULL, y = NULL)
     if(!is.null(xlim)){
       if(!is.null(pretty_axis_args$lim[1][[1]])) warning("pretty_axis_args$lim[[1]] replaced by input to 'xlim'.")
       pretty_axis_args$lim[[1]] <- xlim
@@ -47,6 +47,11 @@ implement_pretty_axis_args <-
       # ... and default to side = 1:2
       if("side" %in% names(pretty_axis_args) | "axis_ls" %in% names(pretty_axis_args)){
         paa$side <- NULL
+        if("side" %in% names(pretty_axis_args)){
+          if(length(pretty_axis_args$side) == 1) pretty_axis_args$lim <- pretty_axis_args$lim[pretty_axis_args$side]
+        } else{
+          if(length(names(axis_ls) == 1)) pretty_axis_args$lim <- pretty_axis_args$lim[names(axis_ls)]
+        }
       } else{
         message("Argument 'side' not supplied to pretty_axis_args (nor 'axis_ls'); defaulting to side = 1:2.")
       }
