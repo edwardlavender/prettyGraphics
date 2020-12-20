@@ -7,6 +7,7 @@
 #' @param ypretty A named list of parameters, passed to \code{\link[base]{pretty}}, to create the y axis (see Description).
 #' @param xaxis A named list of elements passed to \code{\link[graphics]{axis}} to adjust/create the x axis.
 #' @param yaxis A named list of elements passed to \code{\link[graphics]{axis}} to adjust/create the y axis.
+#' @param control_axis,control_sci_notation,control_digits Additional axis control arguments (see \code{\link[prettyGraphics]{pretty_axis}}).
 #' @param xlim A vector of two numbers which define the lower and upper x limits of the histogram.
 #' @param ylim A vector of two numbers which define the lower and upper y limits of the histogram.
 #' @param xlab The x axis label. This can be added via \code{mtext_args} for more control.
@@ -41,6 +42,7 @@
 #' pp <- par(mfrow = c(1, 2))
 #' pretty_hist(x, xlab = "xvar", ylab = "F", mtext_args = list())
 #' pretty_hist(x,
+#'             xlab = "", ylab = "",
 #'             mtext_args = list(
 #'                list(side = 1, "x var", line = 2),
 #'                list(side = 2, "F", line = 2)))
@@ -103,12 +105,13 @@ pretty_hist <-
            xn = 1,
            ypretty = list(n = 5),
            xaxis = list(),
-           yaxis = list(las = TRUE),
+           yaxis = list(),
            xlim = NULL,
            ylim = NULL,
            xlab = deparse(substitute(x)),
            ylab = ifelse(freq, "Frequency", "Density"),
            main = "",
+           control_axis = list(las = TRUE), control_sci_notation = list(), control_digits = NULL,
            mtext_args = list(),
            ...
   ){
@@ -156,7 +159,10 @@ pretty_hist <-
       xaxis$at <- h$breaks
       if(!is.null(xlim)) xaxis$at <- seq_extend(xaxis$at, lim = xlim)
       xaxis$at <- xaxis$at[seq(1, length(xaxis$at), by = xn)]
-      xaxis$labels <- pretty_labels(xaxis$at, xaxis$at, n = NULL)
+      xaxis$labels <- pretty_labels(xaxis$at,
+                                    xaxis$at,
+                                    n = control_digits,
+                                    sci_notation_args = control_sci_notation)
     }
     if(is.null(xlim)) xlim <- range(h$breaks)
     if(is.null(ylim)) ylim <- c(0, NA)
@@ -164,10 +170,15 @@ pretty_hist <-
     ylim <- yls$lim
     if(is.null(yaxis$at)) {
       yaxis$at <- yls$at
-      yaxis$labels <- pretty_labels(yaxis$at, yaxis$at, n = NULL)
+      yaxis$labels <- pretty_labels(yaxis$at,
+                                    yaxis$at,
+                                    n = control_digits,
+                                    sci_notation_args = control_sci_notation)
     }
     if(is.null(xaxis$pos)) xaxis$pos <- ylim[1]
     if(is.null(yaxis$pos)) yaxis$pos <- xlim[1]
+    xaxis <- list_merge(xaxis, control_axis)
+    yaxis <- list_merge(yaxis, control_axis)
 
     #### Plot histogram
     graphics::hist(x,

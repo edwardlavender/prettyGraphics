@@ -253,16 +253,15 @@ pretty_residuals <-
           }
         }
       }
-      if(!is.null(pretty_axis_args$control_axis)){
-        xaxis <- list_merge(xaxis, pretty_axis_args$control_axis)
-        yaxis <- list_merge(yaxis, pretty_axis_args$control_axis)
-      }
       # Make histogram
       pretty_hist(choose_dat(1)$residuals,
                   xn = 2,
                   ypretty = list(n = ypretty),
                   xaxis = xaxis,
                   yaxis = yaxis,
+                  control_axis = pretty_axis_args$control_axis,
+                  control_sci_notation = pretty_axis_args$control_sci_notation,
+                  control_digits = pretty_axis_args$control_digits,
                   xlab = "", ylab = "",
                   mtext_args = mtext_args[["1"]])
     }

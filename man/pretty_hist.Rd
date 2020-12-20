@@ -10,12 +10,15 @@ pretty_hist(
   xn = 1,
   ypretty = list(n = 5),
   xaxis = list(),
-  yaxis = list(las = TRUE),
+  yaxis = list(),
   xlim = NULL,
   ylim = NULL,
   xlab = deparse(substitute(x)),
   ylab = ifelse(freq, "Frequency", "Density"),
   main = "",
+  control_axis = list(las = TRUE),
+  control_sci_notation = list(),
+  control_digits = NULL,
   mtext_args = list(),
   ...
 )
@@ -42,6 +45,8 @@ pretty_hist(
 \item{ylab}{The y axis label. This can be added via \code{mtext_args} for more control.}
 
 \item{main}{The plot title. This can be added via \code{mtext_args} for more control.}
+
+\item{control_axis, control_sci_notation, control_digits}{Additional axis control arguments (see \code{\link[prettyGraphics]{pretty_axis}}).}
 
 \item{mtext_args}{A named list of arguments passed to \code{\link[graphics]{mtext}} to add labels. A nested list is used to control each axis separately.}
 
@@ -77,6 +82,7 @@ par(pp)
 pp <- par(mfrow = c(1, 2))
 pretty_hist(x, xlab = "xvar", ylab = "F", mtext_args = list())
 pretty_hist(x,
+            xlab = "", ylab = "",
             mtext_args = list(
                list(side = 1, "x var", line = 2),
                list(side = 2, "F", line = 2)))
