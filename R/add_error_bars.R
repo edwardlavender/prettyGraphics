@@ -10,7 +10,7 @@
 #' @param add_fitted (optional) A named list of graphical parameters, passed to \code{\link[graphics]{points}} which, if provided, will add fitted values as points on top of error bars. An empty list (\code{add_fitted = list()}) will add fitted values to the plot using default graphical parameters.
 #' @param ... Other arguments passed to \code{\link[graphics]{arrows}}, which is used to draw error bars, for customisation. Arguments \code{x0}, \code{x1}, \code{y0} and \code{y1} are obtained from \code{x}, \code{fit}, and \code{se} and \code{scale}, or \code{lwr} and \code{upr}, and should not be provided. Likewise, \code{angle} is forced to be 90 degrees (i.e., error bars are forced to have horizontal tips (or no tips, if \code{length = 0})) and should not be provided.
 #'
-#' @seealso \code{\link[prettyGraphics]{add_error_envelope}} is used for continuous explanatory variables to add regression lines and an error envelopes to plots.
+#' @seealso This function is designed for discrete explanatory variables. \code{\link[prettyGraphics]{add_error_envelope}} is used for continuous explanatory variables to add regression lines and associated error envelopes to plots.
 #'
 #' @examples
 #' #### Example dataframe

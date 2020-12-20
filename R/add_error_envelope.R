@@ -1,5 +1,5 @@
-#' @title Add model predictions (including fitted values and confidence intervals) to a plot
-#' @description This function adds model predictions to a plot. This function is designed to streamline plotting codes. Model confidence intervals can be added as a polygon or as lines (with or without the fitted line added ontop). For large datasets, adding confidence intervals with lines is much faster.
+#' @title Add a regression line and an error envelope to a plot
+#' @description This function adds regression lines and associated error envelopes (e.g., confidence intervals) to plots. This function is designed to streamline plotting codes. Confidence intervals can be added as a polygon or as lines (with or without the fitted line added ontop). For large datasets, adding confidence intervals with lines is much faster.
 #'
 #' @param x A numeric vector defining the x values at which fitted values/CIs will be plotted.
 #' @param CI A named list with fitted values (optional) and lower and upper CIs (i.e. \code{CI$fit}, \code{CI$lowerCI}, \code{CI$upperCI}). This can be created by \code{\link[prettyGraphics]{list_CIs}}.
@@ -9,7 +9,7 @@
 #' @param fitted_gp A named list of graphical parameters for the fitted line (passed to \code{\link[graphics]{lines}}).
 #'
 #' @return The function adds model predictions to a plot.
-#' @details The function is designed for continuous explanatory variables (i.e., adding regression lines and CIs to a plot). See \code{\link[prettyGraphics]{add_error_bars}} for discrete explanatory variables.
+#' @details The function is designed for continuous explanatory variables. \code{\link[prettyGraphics]{add_error_bars}} is used for discrete explanatory variables to add fitted values and associated errors to plots.
 #'
 #' @examples
 #' # Define some data for a model

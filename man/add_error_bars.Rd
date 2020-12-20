@@ -123,7 +123,7 @@ add_error_bars(x = 1:3, fit = fit, se = se)
 
 }
 \seealso{
-\code{\link[prettyGraphics]{add_error_envelope}} is used for continuous explanatory variables to add regression lines and an error envelope to a plot.
+This function is designed for discrete explanatory variables. \code{\link[prettyGraphics]{add_error_envelope}} is used for continuous explanatory variables to add regression lines and associated error envelopes to plots.
 }
 \author{
 Edward Lavender

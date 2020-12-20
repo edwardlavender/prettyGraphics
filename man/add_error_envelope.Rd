@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_error_envelope.R
 \name{add_error_envelope}
 \alias{add_error_envelope}
-\title{Add model predictions (including fitted values and confidence intervals) to a plot}
+\title{Add a regression line and an error envelope to a plot}
 \usage{
 add_error_envelope(
   x,
@@ -30,10 +30,10 @@ add_error_envelope(
 The function adds model predictions to a plot.
 }
 \description{
-This function adds model predictions to a plot. This function is designed to streamline plotting codes. Model confidence intervals can be added as a polygon or as lines (with or without the fitted line added ontop). For large datasets, adding confidence intervals with lines is much faster.
+This function adds regression lines and associated error envelopes (e.g., confidence intervals) to plots. This function is designed to streamline plotting codes. Confidence intervals can be added as a polygon or as lines (with or without the fitted line added ontop). For large datasets, adding confidence intervals with lines is much faster.
 }
 \details{
-The function is designed for continuous explanatory variables (i.e., adding regression lines and CIs to a plot). See \code{\link[prettyGraphics]{add_error_bars}} for discrete explanatory variables.
+The function is designed for continuous explanatory variables. \code{\link[prettyGraphics]{add_error_bars}} is used for discrete explanatory variables to add fitted values and associated errors to plots.
 }
 \examples{
 # Define some data for a model
