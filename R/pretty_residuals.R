@@ -137,7 +137,7 @@ pretty_residuals <-
                               cex = 0.5
                               ),
            lines_args = list(col = scales::alpha("black", 0.9)),
-           pretty_axis_args = list(side = 1:2, pretty = list(n = 5), axis = list(las = TRUE, cex.axis = 1.5)),
+           pretty_axis_args = list(side = 1:2, pretty = list(n = 5), control_axis = list(las = TRUE, cex.axis = 1.5)),
            mtext_args =
              list("1" = list(list(side = 1, text = "Residuals", line = 2.5),
                              list(side = 2, text = "Frequency", line = 2.5)
@@ -253,12 +253,17 @@ pretty_residuals <-
           }
         }
       }
+      if(!is.null(pretty_axis_args$control_axis)){
+        xaxis <- list_merge(xaxis, pretty_axis_args$control_axis)
+        yaxis <- list_merge(yaxis, pretty_axis_args$control_axis)
+      }
       # Make histogram
       pretty_hist(choose_dat(1)$residuals,
                   xn = 2,
                   ypretty = list(n = ypretty),
                   xaxis = xaxis,
                   yaxis = yaxis,
+                  xlab = "", ylab = "",
                   mtext_args = mtext_args[["1"]])
     }
 
@@ -275,6 +280,7 @@ pretty_residuals <-
                                 f = stats::qqnorm,
                                 points_args = points_args,
                                 pretty_axis_args = pretty_axis_args,
+                                xlab = "", ylab = "",
                                 mtext_args = mtext_args[["2"]],
                                 return_list = TRUE,
                                 type = "n")
@@ -300,6 +306,7 @@ pretty_residuals <-
                   f = graphics::plot,
                   points_args = points_args,
                   pretty_axis_args = pretty_axis_args,
+                  xlab = "", ylab = "",
                   mtext_args = mtext_args[["3"]],
                   type = "n")
     }
@@ -316,6 +323,7 @@ pretty_residuals <-
                   f = graphics::plot,
                   points_args = points_args,
                   pretty_axis_args = pretty_axis_args,
+                  xlab = "", ylab = "",
                   mtext_args = mtext_args[["4"]],
                   type = "n")
     }
@@ -337,6 +345,7 @@ pretty_residuals <-
                         f = graphics::plot,
                         points_args = points_args,
                         pretty_axis_args = pretty_axis_args,
+                        xlab = "", ylab = "",
                         mtext_args = mtext_args[["5"]][[j]],
                         type = "n")
           })
@@ -393,6 +402,7 @@ pretty_residuals <-
                   points_args = points_args,
                   lines_args = lines_args,
                   pretty_axis_args = pretty_axis_args,
+                  xlab = "", ylab = "",
                   mtext_args = mtext_args[["6"]],
                   type = "n")
     }
@@ -409,6 +419,7 @@ pretty_residuals <-
                                    plot_xy = "xy",
                                    f = graphics::plot,
                                    pretty_axis_args = pretty_axis_args,
+                                   xlab = "", ylab = "",
                                    mtext_args = mtext_args[["7"]],
                                    return_list = TRUE,
                                    type = "n"

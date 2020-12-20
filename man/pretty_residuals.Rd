@@ -19,8 +19,8 @@ pretty_residuals(
   points_args = list(pch = 21, col = scales::alpha("black", 0.3), bg =
     scales::alpha("black", 0.3), cex = 0.5),
   lines_args = list(col = scales::alpha("black", 0.9)),
-  pretty_axis_args = list(side = 1:2, pretty = list(n = 5), axis = list(las = TRUE,
-    cex.axis = 1.5)),
+  pretty_axis_args = list(side = 1:2, pretty = list(n = 5), control_axis = list(las =
+    TRUE, cex.axis = 1.5)),
   mtext_args = list(`1` = list(list(side = 1, text = "Residuals", line = 2.5),
     list(side = 2, text = "Frequency", line = 2.5)), `2` = list(list(side = 1, text =
     "Theoretical Quantiles", line = 2.5), list(side = 2, text = "Sample Quantiles", line
