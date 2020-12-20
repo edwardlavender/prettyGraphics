@@ -47,6 +47,7 @@
 #' # ... or via mtext_args for more control
 #' pretty_boxplot(d$x, d$y, xlab = "Sex", ylab = "Response")
 #' pretty_boxplot(d$x, d$y,
+#'                xlab = "", ylab = "",
 #'                mtext_args = list(list(side = 1, text = "Sex", font = 2, line = 2),
 #'                                  list(side = 2, text = "Response", font = 2, line = 2)))
 #'
@@ -99,20 +100,23 @@ pretty_boxplot <-
   function(x, y,
            pretty_axis_args = list(side = 1:2),
            adj = 0.5,
-           xlab = deparse(substitute(x)), ylab = deparse(substitute(y)),
+           xlab, ylab,
            mtext_args = list(),...){
 
     #### Checks
     # Use check... function to check additionally supplied arguments are allowed
     # (axis limits are not allowed because these are controlled via pretty_axis_args)
     check...(not_allowed = c("xlim", "ylim", "frame.plot", "axes"),...)
-    # Check that x is a factor
+
+    #### Axis labels
+    if(missing(xlab)) xlab <- deparse(substitute(x))
+    if(missing(ylab)) ylab <- deparse(substitute(y))
+
+    #### Implement pretty_axis_args
     if(!inherits(x, "factor")){
       warning("x co-erced to a factor.")
       x <- factor(x)
     }
-
-    #### Implement pretty_axis_args
     axis_ls <- implement_pretty_axis_args(list(x, y), pretty_axis_args)
 
     #### Create boxplot, with appropriate limits

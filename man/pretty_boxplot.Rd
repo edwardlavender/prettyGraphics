@@ -9,8 +9,8 @@ pretty_boxplot(
   y,
   pretty_axis_args = list(side = 1:2),
   adj = 0.5,
-  xlab = deparse(substitute(x)),
-  ylab = deparse(substitute(y)),
+  xlab,
+  ylab,
   mtext_args = list(),
   ...
 )
@@ -74,6 +74,7 @@ pretty_boxplot(d$x, d$y, data = d, varwidth = TRUE)
 # ... or via mtext_args for more control
 pretty_boxplot(d$x, d$y, xlab = "Sex", ylab = "Response")
 pretty_boxplot(d$x, d$y,
+               xlab = "", ylab = "",
                mtext_args = list(list(side = 1, text = "Sex", font = 2, line = 2),
                                  list(side = 2, text = "Response", font = 2, line = 2)))
 
