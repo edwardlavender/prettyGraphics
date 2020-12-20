@@ -2,31 +2,97 @@
 % Please edit documentation in R/add_error_bars.R
 \name{add_error_bars}
 \alias{add_error_bars}
-\title{Add symmetrical error bars to a plot}
+\title{Add error bars to a plot}
 \usage{
-add_error_bars(x, y, se, scale = 1, length = 0.05, add_fitted = NULL, ...)
+add_error_bars(
+  x,
+  fit,
+  se = stats::sd(fit),
+  scale = 1,
+  lwr = fit - scale * se,
+  upr = fit + scale * se,
+  length = 0.05,
+  horiz = FALSE,
+  add_fitted = NULL,
+  ...
+)
 }
 \arguments{
-\item{x}{The x values at which the error bars will be placed (e.g. factor levels).}
+\item{x}{The values of an explanatory variable at which the error bars will be placed (e.g. factor levels).}
 
-\item{y}{The y values around which error bars will be drawn (i.e., fitted values).}
+\item{fit}{The fitted values from a model, around which error bars will be drawn.}
 
-\item{se}{A numeric value which defines the size of the error bar above and below fitted values. This can be adjusted with \code{scale}.}
+\item{se, scale}{A number or vector of numbers that define(s) the standard error(s) (\code{se}) and a scaling parameter (\code{scale}) that, together, define the size of the error bars above and below fitted values. Standard errors are multiplied by the scaling parameter (e.g. to convert standard errors into 95 percent confidence intervals). This results in symmetric error bars. Alternatively, the lower and upper limits of the error bars can be defined directly via \code{lwr} and \code{upr}.}
 
-\item{scale}{A numeric value by which to multiply the \code{se} (e.g. to convert standard errors into 95 percent confidence intervals).}
+\item{lwr, upr}{A vector of numbers, of the same length as \code{x}, that defines the lower (\code{lwr}) and upper (\code{upr}) limits of the error bars. By default, these are defined using the \code{se} and \code{scale} arguments, but they can be defined by the user instead (e.g., if a model returns 95 percent confidence intervals, rather than standard errors, or if error bars are asymmetrical).}
 
 \item{length}{A numeric value which defines the length of the horizontal tips of the error bars. \code{length = 0} will suppress the horizontal tips of error bars.}
 
+\item{horiz}{A logical value that defines whether or not error bars will be drawn vertically (\code{FALSE}) or horizontally (\code{TRUE}). For vertical error bars, \code{x} and \code{fit} are taken as the x positions at/around which error bars are drawn; this is reversed for horizontal error bars.}
+
 \item{add_fitted}{(optional) A named list of graphical parameters, passed to \code{\link[graphics]{points}} which, if provided, will add fitted values as points on top of error bars. An empty list (\code{add_fitted = list()}) will add fitted values to the plot using default graphical parameters.}
 
-\item{...}{Other arguments passed to \code{\link[graphics]{arrows}}, which is used to draw error bars, for customisation. Arguments \code{x0}, \code{x1}, \code{y0} and \code{y1} are obtained from \code{x}, \code{y}, \code{se} and \code{scale} and should not be provided. Likewise, \code{angle} is forced to be 90 degrees (i.e., error bars are forced to have horizontal tips (or no tips, if \code{length = 0})) and should not be provided.}
+\item{...}{Other arguments passed to \code{\link[graphics]{arrows}}, which is used to draw error bars, for customisation. Arguments \code{x0}, \code{x1}, \code{y0} and \code{y1} are obtained from \code{x}, \code{fit}, and \code{se} and \code{scale}, or \code{lwr} and \code{upr}, and should not be provided. Likewise, \code{angle} is forced to be 90 degrees (i.e., error bars are forced to have horizontal tips (or no tips, if \code{length = 0})) and should not be provided.}
 }
 \description{
-This function is used to add symmetrical error bars (and fitted values) to a plot. Error bars are drawn above and below fitted values.
+This function is used to add error bars (and fitted values) to a plot. Fitted values are marked as points (if requested) around which error bars are drawn (horizontally or vertically as appropriate). Error bars can be specified via the values of the explanatory variable (\code{x}), the fitted values (\code{fit}) and (a) their standard errors (which are multiplied by a user-defined \code{scale} parameter to define the limits of each error bar) or (b) the lower and upper values of each error bar (\code{lwr} and \code{upr}) directly.
 }
 \examples{
-#### Simulate data
-## Simulation scenario
+#### Example dataframe
+# Define a hypothetical dataframe with predictor values and fitted values
+sim <- data.frame(type = factor(LETTERS[1:3]),
+                  fit = c(20, 30, 40))
+
+#### Example (1): Vertical error bars
+
+## Vertical error bars based on SE
+# Visualise vertical error bars based on (hypothetical) SE
+pretty_plot(sim$type, sim$fit, type = "n", ylim = c(0, 50))
+add_error_bars(sim$type, sim$fit, se = 5, lwd = 3)
+# Adjust SE before implementing the function to show CIs
+pretty_plot(sim$type, sim$fit, type = "n", ylim = c(0, 50))
+add_error_bars(sim$type, sim$fit, se = 5*1.96)
+# Or simply adjust the arument to 'scale'
+pretty_plot(sim$type, sim$fit, type = "n", ylim = c(0, 50))
+add_error_bars(sim$type, sim$fit, se = 5*1.96)
+
+## Vertical error bars based on lwr and upper estimates
+sim$lwr <- c(10, 5, 35)
+sim$upr <- c(30, 40, 45)
+pretty_plot(sim$type, sim$fit, type = "n", ylim = c(0, 50))
+add_error_bars(sim$type, sim$fit, lwr = sim$lwr, upr = sim$upr)
+
+#### Example (2): Horizontal error bars
+
+## Horizontal error bars (via horiz = TRUE) based on SEs
+pretty_plot(sim$fit, sim$type, type = "n", xlim = c(0, 50))
+add_error_bars(sim$type, sim$fit, se = 5, horiz = TRUE)
+
+## Horizontal error bars (via horiz = TRUE) based on lwr and upr estimates
+pretty_plot(sim$fit, sim$type, type = "n", xlim = c(0, 50))
+add_error_bars(sim$type, sim$fit, lwr = sim$lwr, upr = sim$upr, horiz = TRUE)
+
+#### Example (3) Customise error bars by supplying additional arguments via ...
+# ... that are passed to graphics::arrows()
+pretty_plot(sim$type, sim$fit)
+add_error_bars(x = sim$type, fit = sim$fit, se = 5,
+               length = 0.25, col = "red", lwd = 2)
+
+#### Example (4): Add the fitted points on by passing a list to the add_fitted argument:
+pp <- par(mfrow = c(1, 2))
+# Example with customised points:
+pretty_plot(sim$type, sim$fit)
+add_error_bars(x = sim$type, fit = sim$fit, se = 5, lwd = 2,
+               add_fitted = list(pch = 21, bg = "black"))
+# Simply specify an empty list to use the default options:
+pretty_plot(sim$type, sim$fit)
+add_error_bars(x = sim$type, fit = sim$fit, se = 5, lwd = 2,
+               add_fitted = list())
+par(pp)
+
+#### Example (5): More realistic example using model derived estimates
+
+## Simulate data
 # Imagine a scenario where we have n observations for j factor levels
 # Successive factor levels have expected values that differ by 10 units
 # The observed response is normally distributed around expected values with some sd
@@ -41,45 +107,23 @@ mu <- stats::model.matrix(~fct - 1) \%*\% mean_vec
 # Define simulated observations
 sd <- 5
 y <- stats::rnorm(length(mu), mu, sd)
-## Use a model to extract fitted values/coeffients
+
+## Use a model to extract fitted values/coefficients
 # Model data, using a means parameterisation for convenience
 fit <- stats::lm(y ~ fct - 1)
 # Extract fitted values and coefficients
 coef <- summary(fit)$coefficients
 fit <- coef[, 1]; fit
 se <- coef[, 2]; se
-# Define colour of points on subsequent plots
+
+## Add error bars using the default options:
 pch_col <- scales::alpha("royalblue", 0.4)
+pretty_plot(fct, y, pch = 21, col = pch_col, bg = pch_col)
+add_error_bars(x = 1:3, fit = fit, se = se)
 
-#### Example (1): Add error bars using the default options:
-pretty_plot(fct, y, pch = 21, col = pch_col, bg = pch_col)
-add_error_bars(x = 1:3, y = fit, se = se)
-
-#### Example (2): Adjust error bars (e.g. to create 95 \% CIs)
-# ... either by pre-processing the se argument (e.g. *1.96) or via the scale argument,
-# ... which implements the necessary multiplication internally:
-pp <- par(mfrow = c(1, 2))
-pretty_plot(fct, y, pch = 21, col = pch_col, bg = pch_col)
-add_error_bars(x = 1:3, y = fit, se = se*1.96)
-pretty_plot(fct, y, pch = 21, col = pch_col, bg = pch_col)
-add_error_bars(x = 1:3, y = fit, se = se, scale = 1.96)
-par(pp)
-
-#### Example (3): Customise error bars by supplying additional arguments via ...
-# ... that are passed to graphics::arrows()
-pretty_plot(fct, y, pch = 21, col = pch_col, bg = pch_col)
-add_error_bars(x = 1:3, y = fit, se = se, length = 0.25, col = "red", lwd = 2)
-
-#### Example (4): Add the fitted points on by passing a list to the add_fitted argument:
-pp <- par(mfrow = c(1, 2))
-# Example with customised points:
-pretty_plot(fct, y, pch = 21, col = pch_col, bg = pch_col)
-add_error_bars(x = 1:3, y = fit, se = se, lwd = 2, add_fitted = list(pch = 21, bg = "black"))
-# Simply specify an empty list to use the default options:
-pretty_plot(fct, y, pch = 21, col = pch_col, bg = pch_col)
-add_error_bars(x = 1:3, y = fit, se = se, lwd = 2, add_fitted = list())
-par(pp)
-
+}
+\seealso{
+\code{\link[prettyGraphics]{add_error_envelope}} is used for continuous explanatory variables to add regression lines and an error envelope to a plot.
 }
 \author{
 Edward Lavender
