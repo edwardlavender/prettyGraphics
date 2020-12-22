@@ -61,7 +61,7 @@ The function returns a plot and, if requested, a list of arguments that are used
 \code{\link[prettyGraphics]{pretty_plot}} is a general function which creates plots with pretty axes for multiple plotting functions. The default option functions like \code{\link[graphics]{plot}} but implements pretty axes using \code{\link[prettyGraphics]{pretty_axis}}. Arguments can be passed to \code{\link[graphics]{plot}}, but additional arguments (e.g., \code{points_args}, \code{lines_args} and \code{mtext_args}, which can be used to add points, lines and control axis labels respectively) provide additional flexibility if required. Some other plotting functions can be implemented by adjusting the plotting function, \code{f}, and by specifying whether that plot depends on \code{x}, \code{y} or \code{x} and \code{y}. The function can return the list from \code{\link[prettyGraphics]{pretty_axis}} which can be useful for later adjustments to plots (e.g. setting the clipping region with \code{\link[graphics]{clip}}).
 }
 \details{
-\code{x} and \code{y} coordinates usually need to be provided. Some other object classes may be provided to \code{x}, from which x and y coordinates can be extracted to create axes. In this case, the user needs to indicate whether the plotting function, \code{f}, requires \code{x} and/or \code{y} and acts on extracted coordinates (\code{plot_coordinates = TRUE}) or the original object (\code{plot_coordinates = FALSE}). Objects of class density and RasterLayer are currently supported. If \code{plot_xy = "xy"} and only \code{x} is provided, \code{x} is treated as the response variable and plotted against an index (like \code{\link[graphics]{plot}}).
+\code{x} and \code{y} coordinates usually need to be provided. Some other object classes may be provided to \code{x}, from which x and y coordinates can be extracted to create axes. In this case, the user needs to indicate whether the plotting function, \code{f}, requires \code{x} and/or \code{y} and acts on extracted coordinates (\code{plot_coordinates = TRUE}) or the original object (\code{plot_coordinates = FALSE}). Objects of class density and some Spatial* objects (RasterLayer, Line, Lines, Polygon, Polygons, SpatialPolygonsDataFrame) are currently supported. If \code{plot_xy = "xy"} and only \code{x} is provided, \code{x} is treated as the response variable and plotted against an index (like \code{\link[graphics]{plot}}).
 }
 \examples{
 #### Example (1): An example with graphics::plot()
@@ -107,6 +107,17 @@ r <- raster::setValues(r, 1:raster::ncell(r))
 # ... because raster::plot() doesn't act on xlim or ylim arguments defined by pretty_axis().
 pretty_plot(x = r, y = NULL,
             f = raster::image, plot_xy = "x", plot_coordinates = FALSE)
+## SpatialPolygonsDataFrame example
+# Outline
+pretty_plot(x = dat_coast_around_oban, y = NULL,
+            f = raster::plot, plot_xy = "x", plot_coordinates = FALSE)
+# Customised plot
+pretty_plot(x = dat_coast_around_oban, y = NULL,
+            pretty_axis_args = list(side = 1:4),
+            xlim = raster::extent(dat_coast_around_oban)[1:2],
+            ylim = raster::extent(dat_coast_around_oban)[3:4],
+            f = raster::plot, plot_xy = "x", plot_coordinates = FALSE,
+            col = "darkgreen")
 
 #### Example (5): An example with stats::qqnorm()
 # Define x and y values for qqnorm plot

@@ -27,8 +27,8 @@ pull_xy <-
       xlab <- "x"
       ylab <- "Density"
 
-    #### RasterLayer
-    } else if(inherits(x, "RasterLayer")){
+    #### Spatial* objects supported by raster::extent()
+    } else if(inherits(x, c("RasterLayer", "Line", "Lines", "Polygon", "Polygons", "SpatialPolygonsDataFrame"))){
       warn(x, y)
       e <- raster::extent(x)
       xc <- e[1:2]
