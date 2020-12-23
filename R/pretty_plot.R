@@ -17,7 +17,7 @@
 #' @param return_list A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.
 #' @param ... Other parameters passed to \code{f}.
 #'
-#' @details \code{x} and \code{y} coordinates usually need to be provided. Some other object classes may be provided to \code{x}, from which x and y coordinates can be extracted to create axes. In this case, the user needs to indicate whether the plotting function, \code{f}, requires \code{x} and/or \code{y} and acts on extracted coordinates (\code{plot_coordinates = TRUE}) or the original object (\code{plot_coordinates = FALSE}). Objects of class density and some Spatial* objects (RasterLayer, Line, Lines, Polygon, Polygons, SpatialPolygonsDataFrame) are currently supported. If \code{plot_xy = "xy"} and only \code{x} is provided, \code{x} is treated as the response variable and plotted against an index (like \code{\link[graphics]{plot}}).
+#' @details \code{x} and \code{y} coordinates usually need to be provided. Some other object classes may be provided to \code{x}, from which x and y coordinates can be extracted to create axes. In this case, the user needs to indicate whether the plotting function, \code{f}, requires \code{x} and/or \code{y} and acts on extracted coordinates (\code{plot_coordinates = TRUE}) or the original object (\code{plot_coordinates = FALSE}). Objects of class density and some Spatial* objects (RasterLayer, SpatialPoints, Line, Lines, Polygon, Polygons, SpatialPolygonsDataFrame) are currently supported. If \code{plot_xy = "xy"} and only \code{x} is provided, \code{x} is treated as the response variable and plotted against an index (like \code{\link[graphics]{plot}}).
 #'
 #' @return The function returns a plot and, if requested, a list of arguments that are used to create pretty axes via \code{\link[prettyGraphics]{pretty_axis}}.
 #'
@@ -117,7 +117,7 @@ pretty_plot <-
     #### Initial checks
     if(is.null(x)) stop("'x' is NULL.")
     if(!any(class(x) %in% c("numeric", "integer", "factor", "character", "Date", "POSIXct",
-                            "density", "RasterLayer", "Line", "Lines", "Polygon", "Polygons", "SpatialPolygonsDataFrame"))){
+                            "density", "RasterLayer", "SpatialPoints", "Line", "Lines", "Polygon", "Polygons", "SpatialPolygonsDataFrame"))){
       message("class(x) may not be supported.")
     }
     check_input_value(arg = "plot_xy", input = plot_xy, supp = c("x", "y", "xy"), default = "xy")
