@@ -472,9 +472,9 @@ empty_list_to_list_null <-
 #' @author Edward Lavender
 #' @keywords internal
 
-list_adjust <- function(l, f = plotrix::listDepth, side){
+list_adjust <- function(l, f = list_depth, side){
   if(f(l) == 1){
-    if(plotrix::listDepth(l) == 1){
+    if(list_depth(l) == 1){
       l <- lapply(side, function(a){ l })
     }
   }

@@ -4,7 +4,7 @@
 \alias{list_adjust}
 \title{Adjust lists to ensure correct mapply loops}
 \usage{
-list_adjust(l, f = plotrix::listDepth, side)
+list_adjust(l, f = list_depth, side)
 }
 \arguments{
 \item{l}{A list.}

@@ -227,7 +227,7 @@ pretty_residuals <-
     if(1 %in% plot){
 
       # Define ypretty
-      if(plotrix::listDepth(pretty_axis_args$pretty) == 2){
+      if(list_depth(pretty_axis_args$pretty) == 2){
         ypretty <- pretty_axis_args$pretty[[2]]$n
       } else{
         ypretty <- pretty_axis_args$pretty$n

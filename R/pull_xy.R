@@ -28,7 +28,10 @@ pull_xy <-
       ylab <- "Density"
 
     #### Spatial* objects supported by raster::extent()
-    } else if(inherits(x, c("RasterLayer", "SpatialPoints", "Line", "Lines", "Polygon", "Polygons", "SpatialPolygonsDataFrame"))){
+    } else if(inherits(x, c("RasterLayer",
+                            "SpatialPoints", "SpatialPointsDataFrame",
+                            "Line", "Lines", "SpatialLines", "SpatialLinesDataFrame",
+                            "Polygon", "Polygons", "SpatialPolygons", "SpatialPolygonsDataFrame"))){
       warn(x, y)
       e <- raster::extent(x)
       xc <- e[1:2]

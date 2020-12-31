@@ -593,7 +593,7 @@ pretty_ts <-
                  output = "list")
     summarise_in_bins_args <- rlist::list.merge(dsin, summarise_in_bins_args)
     summary_ls <- do.call("summarise_in_bins", summarise_in_bins_args)
-    if(plotrix::listDepth(add_lines_args_summaries) == 1){
+    if(list_depth(add_lines_args_summaries) == 1){
       add_lines_summaries_args_ls <- lapply(1:length(summary_ls), function(a){ add_lines_args_summaries })
     } else{
       add_lines_summaries_args_ls <- add_lines_args_summaries

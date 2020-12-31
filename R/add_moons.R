@@ -10,7 +10,7 @@
 #'
 #' @return Small subplots of the lunar phase (new moon, first quarter, full moon, third quarter, full moon) are added to an existing plot.
 #'
-#' @details This function requires the 'lunar' package. Please install this before running this function, using: \code{install.packages("lunar").}
+#' @details This function requires the 'lunar' and 'plotrix' packages. Please install these before running this function, using: \code{install.packages(c("lunar", "plotrix").}
 #'
 #' @examples
 #'
@@ -39,10 +39,6 @@
 #' @export
 #'
 
-###########################################
-###########################################
-#### add_moons()
-
 add_moons <-
   function(
     side = 3,
@@ -51,99 +47,90 @@ add_moons <-
     nv = 100,
     radius1 = 0.1,
     units = "radians"
-    ){
+  ){
 
-
-
-  ################################################
-  #### Check whether the user has packages installed
-
+    #### Checks
     if(!requireNamespace("lunar", quietly = TRUE)){
       stop("Package \"lunar\" is needed for this function to work. Please install it.",
            call. = FALSE)
     }
+    if(!requireNamespace("plotrix", quietly = TRUE)){
+      stop("Package \"plotrix\" is needed for this function to work. Please install it.",
+           call. = FALSE)
+    }
 
+    #### Make moons
 
+    # Adjust graphical options
+    if(outer){
+      # Save old user options (to restore at the end of the function)
+      ouser <- options(stringsAsFactors = FALSE)
+      # set par(xpd = NA)
+      graphics::par(xpd = NA)
+    }
 
-  ################################################
-  #### Main Body
+    # Define the positions at which moons are to be plotted:
+    moon_pos <- c(0, pi/2, pi, 3*pi/2, 2*pi)
 
-  # Adjust graphical options
-  if(outer){
-    # Save old user options (to restore at the end of the function)
-    ouser <- options(stringsAsFactors = FALSE)
-    # set par(xpd = NA)
-    graphics::par(xpd = NA)
+    # Adjust positions, if the plot is in degrees
+    if(units == "degrees"){
+      moon_pos <- moon_pos * (180/pi)
+    }
+
+    # Define positions for moons:
+    if(side == 1 || side == 3){
+      # If the user has selected side 1 or 3, then x_position becomes the moon positions
+      # ... and we'll repeate the position inputted to become the y_position
+      x_position <- moon_pos
+      y_position <- rep(position, length(moon_pos))
+    } else if(side == 2 || side == 4){
+      # If the user has selected 2 or 4, the x_position is the inputted position
+      # ... and the y_position becomes the inputted position
+      x_position <- rep(position, length(moon_pos))
+      y_position <- moon_pos
+    }
+
+    # New moon
+    plotrix::floating.pie(xpos = x_position[1], ypos = y_position[1],
+                          edges = nv,
+                          x = c(0, 2*pi),
+                          radius = radius1,
+                          startpos = 0,
+                          border = c("black"),
+                          col = "black")
+
+    # first quarter
+    plotrix::floating.pie(xpos = x_position[2], ypos = y_position[2],
+                          edges = nv,
+                          x = c(pi, pi),
+                          radius = radius1,
+                          startpos = pi/2,
+                          border = c("black"),
+                          col = c("black", "white"))
+
+    # full moon
+    plotrix::draw.circle(x = x_position[3], y = y_position[3], radius = radius1, nv = nv)
+
+    # 3rd quarter
+    plotrix::floating.pie(xpos = x_position[4], ypos = y_position[4],
+                          edges = nv,
+                          x = c(pi, pi),
+                          radius = radius1,
+                          startpos = pi/2,
+                          border = "black",
+                          col = c("white", "black"))
+
+    # new moon
+    plotrix::floating.pie(xpos = x_position[5], ypos = y_position[5],
+                          edges = nv,
+                          x = c(0, 2*pi),
+                          radius = radius1,
+                          startpos = 0,
+                          border = c("black"),
+                          col = "black")
+
+    # restore graphics properties if these have been modified
+    if(outer){
+      on.exit(options(ouser), add = TRUE)
+    }
   }
-
-  # Define the positions at which moons are to be plotted:
-  moon_pos <- c(0, pi/2, pi, 3*pi/2, 2*pi)
-
-  # Adjust positions, if the plot is in degrees
-  if(units == "degrees"){
-    moon_pos <- moon_pos * (180/pi)
-  }
-
-  # Define positions for moons:
-  if(side == 1 || side == 3){
-    # If the user has selected side 1 or 3, then x_position becomes the moon positions
-    # ... and we'll repeate the position inputted to become the y_position
-    x_position <- moon_pos
-    y_position <- rep(position, length(moon_pos))
-  } else if(side == 2 || side == 4){
-    # If the user has selected 2 or 4, the x_position is the inputted position
-    # ... and the y_position becomes the inputted position
-    x_position <- rep(position, length(moon_pos))
-    y_position <- moon_pos
-  }
-
-  # New moon
-  plotrix::floating.pie(xpos = x_position[1], ypos = y_position[1],
-               edges = nv,
-               x = c(0, 2*pi),
-               radius = radius1,
-               startpos = 0,
-               border = c("black"),
-               col = "black")
-
-  # first quarter
-  plotrix::floating.pie(xpos = x_position[2], ypos = y_position[2],
-               edges = nv,
-               x = c(pi, pi),
-               radius = radius1,
-               startpos = pi/2,
-               border = c("black"),
-               col = c("black", "white"))
-
-  # full moon
-  plotrix::draw.circle(x = x_position[3], y = y_position[3], radius = radius1, nv = nv)
-
-  # 3rd quarter
-  plotrix::floating.pie(xpos = x_position[4], ypos = y_position[4],
-               edges = nv,
-               x = c(pi, pi),
-               radius = radius1,
-               startpos = pi/2,
-               border = "black",
-               col = c("white", "black"))
-
-  # new moon
-  plotrix::floating.pie(xpos = x_position[5], ypos = y_position[5],
-               edges = nv,
-               x = c(0, 2*pi),
-               radius = radius1,
-               startpos = 0,
-               border = c("black"),
-               col = "black")
-
-  # restore graphics properties if these have been modified
-  if(outer){
-    on.exit(options(ouser), add = TRUE)
-  }
-
-  # close function
-  }
-
-#### End of code.
-################################################
-################################################

@@ -460,9 +460,9 @@ pretty_axis <-
 
       #### Adjust lists if necessary, to ensure mapply() loops over lists correctly.
       lim    <- list_adjust(l = lim, f = length, side = side)
-      pretty <- list_adjust(l = pretty, f = plotrix::listDepth, side = side)
+      pretty <- list_adjust(l = pretty, f = list_depth, side = side)
       units  <- list_adjust(l = units, f = length, side = side)
-      axis   <- list_adjust(l = axis, f = plotrix::listDepth, side = side)
+      axis   <- list_adjust(l = axis, f = list_depth, side = side)
 
 
       ##############################################

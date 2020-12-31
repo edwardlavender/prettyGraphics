@@ -33,7 +33,7 @@ Small subplots of the lunar phase (new moon, first quarter, full moon, third qua
 This function adds images of the lunar phase to lunar phase plots (for example, a lunar phase time-series or a model-inferred smooth of a response ~ s(lunar phase)).
 }
 \details{
-This function requires the 'lunar' package. Please install this before running this function, using: \code{install.packages("lunar").}
+This function requires the 'lunar' and 'plotrix' packages. Please install these before running this function, using: \code{install.packages(c("lunar", "plotrix").}
 }
 \examples{
 

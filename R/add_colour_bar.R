@@ -170,7 +170,7 @@ add_colour_bar <-
     if(length(mark_args) > 0){
       stopifnot(!is.null(data_raw))
       data_raw_lim <- range(data_raw, na.rm = TRUE)
-      if(plotrix::listDepth(mark_args) == 1){
+      if(list_depth(mark_args) == 1){
         mark_args <- list(mark_args, mark_args)
       }
       mapply(data_raw_lim, mark_args, FUN = function(ilim, mark_args1){

@@ -107,7 +107,7 @@ pretty_line <-
         if(length(inherit) != 1){ stop("'inherit' argument should be a single number.")}
         axis_ls <- axis_ls[inherit]
       } else{
-        if(plotrix::listDepth(pretty_axis_args$axis_ls) > 1){
+        if(list_depth(pretty_axis_args$axis_ls) > 1){
           warning("pretty_axis_args$axis_ls contains multiple lists, but 'inherit' is not supplied; defaulting to axis_ls[1], but this may not position the timeline correctly.")
           axis_ls <- axis_ls[1]
         }

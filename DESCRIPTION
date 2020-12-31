@@ -6,18 +6,17 @@ Author: Edward Lavender
 Maintainer: Edward Lavender <el72@st-andrews.ac.uk>
 Description: Making publication-quality plotting and data exploration easier. 
 Imports: 
-    magrittr, dplyr, plyr, lubridate, 
-    fields, plotrix, scales, TeachingDemos,
+    magrittr, dplyr, plyr, lubridate, purrr,
+    fields, scales, TeachingDemos,
     plotly, shiny, shinydashboard, shinyWidgets,
     rlist, stringi, stringr, 
     maptools, rgeos, sp, raster, rgdal
 Suggests:
-    pbapply,
-    viridis,
-    lunar,
+    pbapply, pryr, devtools,
+    Orcs,
+    viridis, plotrix, lunar,
     mgcv, 
-    knitr, rmarkdown, 
-    pryr, devtools
+    knitr, rmarkdown
 Depends: R (>= 3.5)
 License: GPL-3
 URL: https://github.com/edwardlavender/prettyGraphics/ 

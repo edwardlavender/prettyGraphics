@@ -80,7 +80,7 @@ add_error_envelope <-
     #### Add CIs as lines if requested
     if(fCI == "lines"){
       # Define a list of parameters for both the upper and lower lines, if not specified separately
-      if(plotrix::listDepth(CI_gp) == 1){
+      if(list_depth(CI_gp) == 1){
         CI_gp <- list(CI_gp, CI_gp)
       }
       # Add lines by looping over each list element
@@ -172,7 +172,7 @@ add_model_predictions <-
     #### Add CIs as lines if requested
     if(fCI == "lines"){
       # Define a list of parameters for both the upper and lower lines, if not specified separately
-      if(plotrix::listDepth(CI_gp) == 1){
+      if(list_depth(CI_gp) == 1){
         CI_gp <- list(CI_gp, CI_gp)
       }
       # Add lines by looping over each list element
