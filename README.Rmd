@@ -100,6 +100,13 @@ par(pp)
 
 ## Spatial data 
 
+* `pretty_map()` produces pretty maps, with the support of some helper functions for adding spatial layers to a plot: 
+    - `add_sp_raster()` adds rasters to a background map; 
+    - `add_sp_poly()` adds polygons to a background map; 
+    - `add_sp_line()` adds lines to a background map;
+    - `add_sp_path()` adds paths to a background map;
+    - `add_sp_points()` adds locations to a background map;
+    
 * `pretty_scape_3d()` and `vis_scape_3d()` produce interactive, 3-dimensional visualisations of landscapes/seascapes and/or environmental conditions; for large rasters, `crop_aggr_utm()` helps reduce raster dimensions for these functions;
 
 ## Plot layout
@@ -111,9 +118,10 @@ par(pp)
 
 Possible future functionality includes: 
 
+* `pretty_axis()` updates to support for axes in terms of $\pi$;
 * `pretty_barplot()` for prettier barplots;
-* `pretty_raster()` and `pretty_poly()` for spatial data;
 * `add_hydrodynamic_ts()` to add hydrodynamic model predictions to (depth) time-series;
+* Additional routines for visualising spatial data;
 
 ## Disclaimer
 

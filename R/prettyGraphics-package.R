@@ -48,9 +48,17 @@
 #' }
 #'
 #' @section Spatial data: \describe{
-#'  \item{\link{pretty_scape_3d}}{This function creates interactive, 3-dimensional visualisations of landscapes/seascapes and/or environmental conditions.}
-#'  \item{\link{vis_scape_3d}}{An R Shiny wrapper for \link{pretty_scape_3d}.}
-#' }
+#'   \item{\link{pretty_map}}{ This function creates pretty maps of spatial data. This is supported by helper functions for adding spatial layers to a background map (see below).}
+#'     \itemize{
+#'         \item{\link{add_sp_raster}}{ This function adds rasters to a background map.}
+#'         \item{\link{add_sp_poly}}{ This function adds polygons to a background map.}
+#'         \item{\link{add_sp_line}}{ This function adds lines to a background map.}
+#'         \item{\link{add_sp_path}}{ This function adds paths to a background map.}
+#'         \item{\link{add_sp_points}}{ This function adds points to a background map.}
+#'    }
+#'  \item{\link{pretty_scape_3d}}{ This function creates interactive, 3-dimensional visualisations of landscapes/seascapes and/or environmental conditions.}
+#'  \item{\link{vis_scape_3d}}{ An R Shiny wrapper for \link{pretty_scape_3d}.}
+#'   }
 #'
 #' @section Plot layout: \describe{
 #'  \item{\link{par_mf}}{This function defines a suitable plotting window for a given number of plots.}
