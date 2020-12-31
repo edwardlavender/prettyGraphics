@@ -65,7 +65,11 @@ sci_notation <- function(x,
     #... the same whole strings and the same powers) then digits = 0
     coef_char <- as.character(coef)
     whole_strings <- substr(coef_char, 1, 1)
-    if(!any(duplicated(whole_strings) & duplicated(pwr))){
+    if(any(whole_strings == "-")){
+      pos_neg <- which(whole_strings == "-")
+      whole_strings[pos_neg] <- paste0(whole_strings[pos_neg], substr(coef_char[pos_neg], 2, 2))
+    }
+    if(!any(duplicated(paste0(whole_strings, "_", pwr)))){
       digits <- 0
     # Otherwise, determine the minimum number of digits to separate all numbers
     } else{
