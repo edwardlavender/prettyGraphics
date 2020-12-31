@@ -328,7 +328,13 @@ pretty_map <- function(x = NULL,
   # These will be used as xlim and ylim if x and ylim have not been supplied
   cat_to_console("... Getting axis parameters...")
   if(is.null(ext)){
-    layers_xy <- lapply(layers, function(layer) pull_xy(layer$x, layer$y))
+    layers_xy <- lapply(layers, function(layer) {
+      if(inherits(layer$x, "matrix")) {
+        layer$y <- layer$x[, 2]
+        layer$x <- layer$x[, 1]
+      }
+      return(pull_xy(layer$x, layer$y))
+    })
     layers_x  <- lapply(layers_xy, function(layer_xy) layer_xy$x)
     layers_x  <- unlist(layers_x)
     layers_y  <- lapply(layers_xy, function(layer_xy) layer_xy$y)
@@ -404,7 +410,7 @@ pretty_map <- function(x = NULL,
     ## Paths(s)
     if(!is.null(add_paths)) {
       if(list_depth(add_paths) == 1) add_paths <- list(add_paths)
-      lapply(add_sp_path, function(param){
+      lapply(add_paths, function(param){
         param$ext <- ext
         param$crop_spatial <- crop_spatial
         do.call(add_sp_path, param)
