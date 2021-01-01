@@ -9,7 +9,7 @@
 #' @param y (optional) A numeric vector of y coordinates. This is only required if \code{x} is a numeric vector of x coordinates.
 #' @param ext (optional) An \code{\link[raster]{extent}} object that defines the extent of an area. If \code{crop_spatial = TRUE}, then the object is cropped to lie within this area via \code{\link[raster]{crop}} (see below).
 #' @param crop_spatial (optional) A logical variable that defines whether or not to crop the spatial layer to lie within the domain defined by \code{ext}. This is only implemented if \code{ext} is provided.
-#' @param ... Additional arguments passed to the plotting functions, which are \code{\link[fields]{image.plot}} for rasters, \code{\link[graphics]{points}} for points and \code{\link[raster]{plot}} for all other objects.
+#' @param ... Additional arguments passed to the plotting functions, which are \code{\link[fields]{image.plot}} for rasters, \code{\link[graphics]{arrows}} for paths, \code{\link[graphics]{points}} for points and \code{\link[raster]{plot}} for all other objects.
 #'
 #' @details These functions are designed to work with \code{\link[prettyGraphics]{pretty_map}}, which produces a background plot and then adds layers to this plot. However, they can also be called directly after the definition of a background plot.
 #' @return The function adds a spatial layers to an existing plot.

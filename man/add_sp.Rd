@@ -26,7 +26,7 @@ add_sp_points(x, y = NULL, ext = NULL, crop_spatial = FALSE, ...)
 
 \item{crop_spatial}{(optional) A logical variable that defines whether or not to crop the spatial layer to lie within the domain defined by \code{ext}. This is only implemented if \code{ext} is provided.}
 
-\item{...}{Additional arguments passed to the plotting functions, which are \code{\link[fields]{image.plot}} for rasters, \code{\link[graphics]{points}} for points and \code{\link[raster]{plot}} for all other objects.}
+\item{...}{Additional arguments passed to the plotting functions, which are \code{\link[fields]{image.plot}} for rasters, \code{\link[graphics]{arrows}} for paths, \code{\link[graphics]{points}} for points and \code{\link[raster]{plot}} for all other objects.}
 
 \item{y}{(optional) A numeric vector of y coordinates. This is only required if \code{x} is a numeric vector of x coordinates.}
 }
