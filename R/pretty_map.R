@@ -281,18 +281,16 @@ pretty_map <- function(x = NULL,
 
   #### Define area a list that contains spatial information (required below)
   ext <- x
-  layers <- list(add_rasters, add_polys, add_lines, add_paths, add_points)
-  if(list_depth(layers) > 2) layers <- purrr::flatten(layers)
-  layers <- plyr::compact(layers)
-  layers <- lapply(layers, function(layer) {
-    if(inherits(layer, "list")) {
-      out <- layer
-    } else {
-      out <- list(x = layer)
+  layers <- list(list(x = x), add_rasters, add_polys, add_lines, add_paths, add_points)
+  layers <- lapply(layers, function(layer_list){
+    if(inherits(layer_list, "list")){
+      out <- layer_list[names(layer_list) %in% c("x", "y")]
+    } else{
+      out <- layer_list
     }
     return(out)
-    })
-  names(layers) <- NULL
+  })
+ layers <- rlist::list.clean(layers, fun = function(x) length(x) == 0L, recursive = TRUE)
 
   #### Get CRS
   cat_to_console("... Getting CRS...")
