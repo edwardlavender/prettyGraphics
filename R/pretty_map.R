@@ -80,40 +80,16 @@
 NULL
 
 
-#### add_sp_raster()
+#### add_sp_points()
 #' @rdname add_sp
 #' @export
 
-add_sp_raster <- function(x, ext = NULL, crop_spatial = FALSE,...){
-  # Crop raster
+add_sp_points <- function(x, y = NULL, ext = NULL, crop_spatial = FALSE,...){
+  if(!is.null(y)) x <- cbind(x, y)
+  if(inherits(x, "matrix")) x <- sp::SpatialPoints(x)
   if(!is.null(ext) & crop_spatial) x <- raster::crop(x, ext)
-  # Gather parameters
-  param <- list(x = x,...)
-  # Define zlim across range of data
-  if(is.null(param$zlim)) {
-    rng <- c(raster::minValue(x), raster::maxValue(x))
-    zlim <- rng
-    # zlim <- range(pretty_seq(rng, pretty_args = list(n = 2)))
-    param$zlim <- zlim
-  }
-  # Use default colouration implemented by raster::plot() rather than fields::image.plot()
-  if(is.null(param$col)) param$col <- rev(grDevices::terrain.colors(255))
-  # Add spatial surface
-  param$add <- TRUE
-  do.call(fields::image.plot, param)
-  return(invisible())
-}
-
-
-#### add_sp_poly()
-#' @rdname add_sp
-#' @export
-
-add_sp_poly <- function(x, ext = NULL, crop_spatial = FALSE,...){
-  if(!is.null(ext) & crop_spatial) x <- raster::crop(x, ext)
-  param <- list(x = x,...)
-  param$add <- TRUE
-  do.call(raster::plot, param)
+  param <- list(x,...)
+  do.call(graphics::points, param)
   return(invisible())
 }
 
@@ -153,16 +129,41 @@ add_sp_path <- function(x, y = NULL, ext = NULL, crop_spatial = FALSE,...){
   return(invisible())
 }
 
-#### add_sp_points()
+
+#### add_sp_poly()
 #' @rdname add_sp
 #' @export
 
-add_sp_points <- function(x, y = NULL, ext = NULL, crop_spatial = FALSE,...){
-  if(!is.null(y)) x <- cbind(x, y)
-  if(inherits(x, "matrix")) x <- sp::SpatialPoints(x)
+add_sp_poly <- function(x, ext = NULL, crop_spatial = FALSE,...){
   if(!is.null(ext) & crop_spatial) x <- raster::crop(x, ext)
-  param <- list(x,...)
-  do.call(graphics::points, param)
+  param <- list(x = x,...)
+  param$add <- TRUE
+  do.call(raster::plot, param)
+  return(invisible())
+}
+
+
+#### add_sp_raster()
+#' @rdname add_sp
+#' @export
+
+add_sp_raster <- function(x, ext = NULL, crop_spatial = FALSE,...){
+  # Crop raster
+  if(!is.null(ext) & crop_spatial) x <- raster::crop(x, ext)
+  # Gather parameters
+  param <- list(x = x,...)
+  # Define zlim across range of data
+  if(is.null(param$zlim)) {
+    rng <- c(raster::minValue(x), raster::maxValue(x))
+    zlim <- rng
+    # zlim <- range(pretty_seq(rng, pretty_args = list(n = 2)))
+    param$zlim <- zlim
+  }
+  # Use default colouration implemented by raster::plot() rather than fields::image.plot()
+  if(is.null(param$col)) param$col <- rev(grDevices::terrain.colors(255))
+  # Add spatial surface
+  param$add <- TRUE
+  do.call(fields::image.plot, param)
   return(invisible())
 }
 

@@ -2,33 +2,33 @@
 % Please edit documentation in R/pretty_map.R
 \name{add_sp}
 \alias{add_sp}
-\alias{add_sp_raster}
-\alias{add_sp_poly}
+\alias{add_sp_points}
 \alias{add_sp_line}
 \alias{add_sp_path}
-\alias{add_sp_points}
+\alias{add_sp_poly}
+\alias{add_sp_raster}
 \title{Add spatial layers to a background map}
 \usage{
-add_sp_raster(x, ext = NULL, crop_spatial = FALSE, ...)
-
-add_sp_poly(x, ext = NULL, crop_spatial = FALSE, ...)
+add_sp_points(x, y = NULL, ext = NULL, crop_spatial = FALSE, ...)
 
 add_sp_line(x, y = NULL, ext = NULL, crop_spatial = FALSE, ...)
 
 add_sp_path(x, y = NULL, ext = NULL, crop_spatial = FALSE, ...)
 
-add_sp_points(x, y = NULL, ext = NULL, crop_spatial = FALSE, ...)
+add_sp_poly(x, ext = NULL, crop_spatial = FALSE, ...)
+
+add_sp_raster(x, ext = NULL, crop_spatial = FALSE, ...)
 }
 \arguments{
 \item{x}{A Raster* or Spatial* object, a two-column matrix of x and y coordinates or a numeric vector of x coordinates. Coordinate specifications are only supported for points, lines and paths; otherwise a Raster* or Spatial* object should be supplied. A numeric vector for \code{x} is assumed if \code{y} is provided (see below).}
+
+\item{y}{(optional) A numeric vector of y coordinates. This is only required if \code{x} is a numeric vector of x coordinates.}
 
 \item{ext}{(optional) An \code{\link[raster]{extent}} object that defines the extent of an area. If \code{crop_spatial = TRUE}, then the object is cropped to lie within this area via \code{\link[raster]{crop}} (see below).}
 
 \item{crop_spatial}{(optional) A logical variable that defines whether or not to crop the spatial layer to lie within the domain defined by \code{ext}. This is only implemented if \code{ext} is provided.}
 
 \item{...}{Additional arguments passed to the plotting functions, which are \code{\link[fields]{image.plot}} for rasters, \code{\link[graphics]{arrows}} for paths, \code{\link[graphics]{points}} for points and \code{\link[raster]{plot}} for all other objects.}
-
-\item{y}{(optional) A numeric vector of y coordinates. This is only required if \code{x} is a numeric vector of x coordinates.}
 }
 \value{
 The function adds a spatial layers to an existing plot.
