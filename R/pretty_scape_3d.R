@@ -20,7 +20,7 @@
 #' @param xtitle (optional) A character string which defines the label for the x axis.
 #' @param ytitle (optional) A character string which defines the label for the y axis.
 #' @param ztitle (optional) A character string which defines the label for the z axis.
-#' @param stretch (optional) A number which is used to vertically stretch the height of a landscape. This can be useful if \code{aspectmode = "data"} but the magnitude of change horizontally versus vertically is very different.
+#' @param stretch (optional) A number which is used to vertically stretch the height of a landscape. This can be useful if \code{aspectmode = "data"} but the magnitude of change horizontally versus vertically is very different. If supplied, \code{stretch} also affects the z values of the markers and paths (if \code{add_markers} and/or \code{add_paths} is/are specified).
 #' @param aspectmode A character which defines the shape of the plot: \code{"cube"} produces a cube; \code{"data"} provides a plot whether the size of the x, y and z axes is scaled according to the data.
 #' @param eye (optional) A named list of arguments that control the camera perspective (see \code{\link[plotly]{layout}}).
 #' @param verbose A logical input which defines whether or not to display messages regarding function progress. This can be useful if \code{aggregate} or \code{buffer} are provided: for large rasters and/or many points, these steps may be slow.
@@ -164,7 +164,7 @@ pretty_scape_3d <-
 
     #### Define bathymetry matrix, adjusted by the stretch factor
     if(verbose) cat("Defining plot properties...\n")
-    r <- r*stretch
+    r <- r * stretch
     z <- raster::as.matrix(r)
     # define x and y coordinates for matrix:
     xy <- raster::coordinates(r)
@@ -229,6 +229,7 @@ pretty_scape_3d <-
           add_markers$x <- xyz_markers$x
           add_markers$y <- xyz_markers$y
           add_markers$z <- xyz_markers$z
+          add_markers$z <- add_markers$z * stretch
         }
       }
       if(add_markers_pass){
@@ -241,6 +242,7 @@ pretty_scape_3d <-
     #### Add paths
     if(!is.null(add_paths)){
       add_paths$p <- p
+      add_paths$z <- add_paths$z * stretch
       p <- do.call(plotly::add_paths, add_paths) %>% plotly::layout(showlegend = FALSE)
     }
 

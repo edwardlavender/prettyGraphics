@@ -66,7 +66,7 @@ pretty_scape_3d(
 
 \item{ztitle}{(optional) A character string which defines the label for the z axis.}
 
-\item{stretch}{(optional) A number which is used to vertically stretch the height of a landscape. This can be useful if \code{aspectmode = "data"} but the magnitude of change horizontally versus vertically is very different.}
+\item{stretch}{(optional) A number which is used to vertically stretch the height of a landscape. This can be useful if \code{aspectmode = "data"} but the magnitude of change horizontally versus vertically is very different. If supplied, \code{stretch} also affects the z values of the markers and paths (if \code{add_markers} and/or \code{add_paths} is/are specified).}
 
 \item{aspectmode}{A character which defines the shape of the plot: \code{"cube"} produces a cube; \code{"data"} provides a plot whether the size of the x, y and z axes is scaled according to the data.}
 
