@@ -94,7 +94,7 @@ library(prettyGraphics)
   - `pretty_mat()` creates pretty matrices;
   - `pretty_residuals()` creates prettier diagnostic residual plots
     (including standard diagnostic plots alongside residuals against
-    covariates, timestamps and the autocorrelation function, if
+    covariates, time stamps and the autocorrelation function, if
     applicable);
 
 Here are some simple examples in which the default `graphics` and

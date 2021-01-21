@@ -12,7 +12,7 @@
 #' @examples
 #' # Define plotting window
 #' pp <- par(mfrow = c(2, 3))
-#' # Define a series of timestamps, with observations every 0.5 mins
+#' # Define a series of time stamps, with observations every 0.5 mins
 #' delta <- 0.5
 #' t <- seq(0, 30, by = delta)
 #' # Simulate a response, with a period of 5 (i.e., 5 mins between every cycle)

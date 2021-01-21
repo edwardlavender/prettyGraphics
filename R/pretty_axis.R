@@ -1,10 +1,10 @@
 #' @title Define pretty limits and axes for publication-quality plots
-#' @description This function is used to define pretty limits and axes on plots. The function can handle numeric, timestamp (i.e. \code{\link[base]{Dates}} or \code{\link[base]{DateTimeClasses}}) or factor data. Usually, arguments are passed from a plotting function (e.g., \code{link[prettyGraphics]{pretty_plot}}) to this function via \code{pretty_axis_args}, although it can be called directly too. In the latter case, generally, the best approach is to implement the function prior to creating a plot. Based on the data to be plotted, the function defines axes limits and corresponding 'pretty' axis tick marks and labels, returning a list of outputs. Then, a plot can be created using limits defined by the function, after which point axes can be added to the plot by passing the list back to the function. Axis limits, placement, the number of ticks, labels and other axes properties can be determined automatically (in which case the function tries hard to create 'pretty' axes), adjusted (e.g. via adjustments to the number of 'pretty' breaks) or user-defined (e.g. by specifying axis breaks). Each axis can be controlled independently (e.g., one axis can be user-defined while another axis can be determined automatically and the function defines appropriate limits and axis placement). The function is very flexible (see Examples).
+#' @description This function is used to define pretty limits and axes on plots. The function can handle numeric, time stamp (i.e. \code{\link[base]{Dates}} or \code{\link[base]{DateTimeClasses}}) or factor data. Usually, arguments are passed from a plotting function (e.g., \code{link[prettyGraphics]{pretty_plot}}) to this function via \code{pretty_axis_args}, although it can be called directly too. In the latter case, generally, the best approach is to implement the function prior to creating a plot. Based on the data to be plotted, the function defines axes limits and corresponding 'pretty' axis tick marks and labels, returning a list of outputs. Then, a plot can be created using limits defined by the function, after which point axes can be added to the plot by passing the list back to the function. Axis limits, placement, the number of ticks, labels and other axes properties can be determined automatically (in which case the function tries hard to create 'pretty' axes), adjusted (e.g. via adjustments to the number of 'pretty' breaks) or user-defined (e.g. by specifying axis breaks). Each axis can be controlled independently (e.g., one axis can be user-defined while another axis can be determined automatically and the function defines appropriate limits and axis placement). The function is very flexible (see Examples).
 #'
 #' @param side A numeric input specifying the side(s) of a plot for which pretty axes should be defined.
-#' @param x A list, with one element for each side, defining the values to be plotted on that side of the plot. Numeric, timestamp (i.e. \code{\link[base]{Dates}} or \code{\link[base]{DateTimeClasses}}) or factor data are supported. Character vectors will be converted to factors for plotting.
+#' @param x A list, with one element for each side, defining the values to be plotted on that side of the plot. Numeric, time stamp (i.e. \code{\link[base]{Dates}} or \code{\link[base]{DateTimeClasses}}) or factor data are supported. Character vectors will be converted to factors for plotting.
 #' @param lim (optional) A list, with one element for each side, containing a vector of (one or both) axes limits for that axis. If provided, then axis tick marks (pretty or regular) are forced to lie within provided limits. Otherwise, suitable limits can be suggested by the function based on the data provided in \code{x}. It is possible to fix only the lower or upper limit by specifying \code{c(user_specified_limit, NA)} to fix the first limit (or simply or \code{user_specified_limit} in which case the first limit is taken as the one that should be fixed), or \code{c(NA, user_specified_limit)} to fix the upper limit; the other limit is then chosen automatically depending on the inputs to other function arguments. For factors, user-supplied limits are ignored. For factors with one level, limits are set to 0.75 and 1.25; for factors with multiple levels, limits are set to 1 and the number of factor levels. However, factor limits can be adjusted by \code{control_factor_lim} (see below).
-#' @param pretty A named list arguments that are used to create pretty axis tick marks. This list is passed to \code{\link[base]{pretty}} (for numeric data), \code{\link[lubridate]{pretty_dates}} (for timestamp data) or to an internal function (for factors) to create pretty axes. If \code{pretty = list()}, pretty sequences for an axis/axes are not created and a user-defined sequence is implemented instead (see below). If each axis should be controlled by the same pretty parameters, these can be specified in the pretty argument in a single list. If each axis should be controlled by different parameters, a nested list is required, with a list of arguments for each axis provided within the overall list (see Examples). The default option is to create pretty axes with approximately \code{n = 5} breaks. For factors, the only implemented argument is \code{n}, which defines the number of pretty breaks; any other supplied arguments are silently ignored.
+#' @param pretty A named list arguments that are used to create pretty axis tick marks. This list is passed to \code{\link[base]{pretty}} (for numeric data), \code{\link[lubridate]{pretty_dates}} (for time stamp data) or to an internal function (for factors) to create pretty axes. If \code{pretty = list()}, pretty sequences for an axis/axes are not created and a user-defined sequence is implemented instead (see below). If each axis should be controlled by the same pretty parameters, these can be specified in the pretty argument in a single list. If each axis should be controlled by different parameters, a nested list is required, with a list of arguments for each axis provided within the overall list (see Examples). The default option is to create pretty axes with approximately \code{n = 5} breaks. For factors, the only implemented argument is \code{n}, which defines the number of pretty breaks; any other supplied arguments are silently ignored.
 #' @param units (optional) A list of units for each side. If \code{pretty = list()}, then a regular sequence of values between axes limits will be defined. This can be controlled by supplying the distance between sequential values to this argument (otherwise, a default value is used). For numeric axes, this is a number; for POSIXct axes, this is a character which specifies the duration between sequential ticks (e.g. "secs").
 #' @param axis (optional) A list of arguments that are supplied to \code{\link[graphics]{axis}}, \code{\link[graphics]{axis.POSIXct}} or \code{\link[graphics]{axis.Date}} that control axes (e.g. \code{cex.axis}, \code{pos}, \code{col}, etc.). As for the \code{pretty} argument, a single list of arguments will affect all axes; otherwise, a nested list can be provided so that each axis can be controlled independently (see Examples).
 #' @param control_axis (optional) A named list of arguments that affect all axes. This is only useful if a nested list is provided to \code{axis} (see above). In this case, any arguments that should affect all axes can be provided via \code{control_axis} so that these do not need to be provided to each list in \code{axis}. (This is simply for convenience.)
@@ -208,14 +208,14 @@
 #' axis_ls <- pretty_axis(side = 1, x = list(seq(0, 1, by = 0.1)), control_digits = 3)
 #' axis_ls[[1]]$axis$labels
 #'
-#' #### Generate timestamp data
-#' # Generate some x and y values, where x values are timestamps
+#' #### Generate time stamp data
+#' # Generate some x and y values, where x values are time stamps
 #' # ... in POSIXct format. Note the incorporation of tz.
 #' x <- seq.POSIXt(as.POSIXct("2016-01-01", tz = "UTC"),
 #'                 as.POSIXct("2016-01-02", tz = "UTC"), by = "2 mins")
 #' y <- rnorm(length(x), as.numeric(x)*1e-6 + 100, 50)
 #'
-#' #### We can use this function with timestamps in POSIXct format too.
+#' #### We can use this function with time stamps in POSIXct format too.
 #' # Apply pretty_axis() function prior to plot to obtain suitable limits:
 #' axis_args <-
 #'   pretty_axis(side = 1:4,
@@ -239,7 +239,7 @@
 #' # Add pretty axes by passing the list of axis_args back to the function
 #' pretty_axis(axis_ls = axis_args, add = TRUE)
 #'
-#' #### Axis parameters for timestamps are passed to axis.POSIXct() or axis.Date()
+#' #### Axis parameters for time stamps are passed to axis.POSIXct() or axis.Date()
 #' # ... which can incorporate other options
 #' axis_args <-
 #'   pretty_axis(side = 1:4,
@@ -424,15 +424,15 @@ pretty_axis <-
         elm <- check_input_class(arg = arg, input = elm,
                                  if_class = "character", to_class = "factor",
                                  type = "warning", coerce_input = factor)
-        # If a timestamp if supplied, ensure a tz is included:
+        # If a time stamp if supplied, ensure a tz is included:
         elm <- check_tz(arg, elm)
         return(elm)
       }, SIMPLIFY = FALSE)
-      # Repeat for limits; we only need to check timestamps here because factor limits are ignored.
+      # Repeat for limits; we only need to check time stamps here because factor limits are ignored.
       lim <- mapply(lim, 1:length(lim), FUN = function(elm, i){
         # Define argument name
         arg <- paste0("lim[[", i, "]]")
-        # If a timestamp if supplied, ensure a tz is included:
+        # If a time stamp if supplied, ensure a tz is included:
         elm <- check_tz(arg, elm)
         return(elm)
       }, SIMPLIFY = FALSE)

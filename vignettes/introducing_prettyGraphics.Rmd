@@ -150,7 +150,7 @@ active_binding_example
 
 ## Example dataset
 
-To illustrate some of the functionality of `prettyGraphics`, I will mainly use an example ecological dataset comprising a sample of a depth and temperature observations at defined timestamps collected from two flapper skate, _Dipturus intermedius_, off the West Coast of Scotland by Scottish Natural Heritage and Marine Scotland Science. We'll load these data and focus on one individual for simplicity. For visualisation purposes, we'll also define a new column that contains depth expressed as a negative number:
+To illustrate some of the functionality of `prettyGraphics`, I will mainly use an example ecological dataset comprising a sample of a depth and temperature observations at defined time stamps collected from two flapper skate, _Dipturus intermedius_, off the West Coast of Scotland by Scottish Natural Heritage and Marine Scotland Science. We'll load these data and focus on one individual for simplicity. For visualisation purposes, we'll also define a new column that contains depth expressed as a negative number:
 ```{r}
 df <- dat_flapper[which(dat_flapper$id == "A"), ]
 df$dn <- df$depth*-1
@@ -401,7 +401,7 @@ add_pretty_axis
 
 ## Model residuals: `pretty_residuals()`
 
-To examine the extent to which model assumptions are met, residual diagnostic plots are instructive. These include standard diagnostic plots (i.e., residuals versus fitted values, residuals versus the linear predictor, a histogram of residuals and a quantile-quantile plot of residuals) as well as plots of residuals against covariates (`vars`, below) and, for time series, timestamps and autocorrelation functions (ACF) of residuals. This functionality is provided by `pretty_residuals()`, which plots standard diagnostic plots with pretty axes as well as residuals against one or more variables, timestamps and the ACF (if applicable). 
+To examine the extent to which model assumptions are met, residual diagnostic plots are instructive. These include standard diagnostic plots (i.e., residuals versus fitted values, residuals versus the linear predictor, a histogram of residuals and a quantile-quantile plot of residuals) as well as plots of residuals against covariates (`vars`, below) and, for time series, time stamps and autocorrelation functions (ACF) of residuals. This functionality is provided by `pretty_residuals()`, which plots standard diagnostic plots with pretty axes as well as residuals against one or more variables, time stamps and the ACF (if applicable). 
 
 ```{r, fig.width = 7, fig.height = 10}
 pp <- par(mfrow = c(4, 2), oma = c(2, 2, 1, 1), mar = c(3, 3, 3, 3))
@@ -432,7 +432,7 @@ pretty_residuals(residuals = m1$std.rsd,
 par(pp)
 ```
 
-More details are given in `?pretty_residuals`. For the example depth time series, these plots demonstrate that out model needs to be interpreted with caution: residuals versus fitted values, temperature and timestamp look reasonable, but the model has not perfectly captured the autocorrelation among residuals and the assumption of normality is clearly violated. 
+More details are given in `?pretty_residuals`. For the example depth time series, these plots demonstrate that out model needs to be interpreted with caution: residuals versus fitted values, temperature and time stamp look reasonable, but the model has not perfectly captured the autocorrelation among residuals and the assumption of normality is clearly violated. 
 
 # Common plotting functions 
 

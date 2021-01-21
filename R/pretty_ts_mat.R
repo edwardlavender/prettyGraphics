@@ -1,6 +1,6 @@
 #' @title Visualise the within and between day variation in a time series
 #' @description This function produces a 2-dimensional time plot of a response variable. The surface of the plot shows the response variable in relation to time of day on one axis (usually the x axis) and time of year (specifically, the date) on another axis (usually the y axis). The function was motivated by the need to visualise how the depth of aquatic animals changes over the course of the day and how these patterns change over the course of the year (e.g., as in Teo et al., 2013).
-#' @param x A vector of timestamps in POSIXct (\code{\link[base]{DateTimeClasses}}) format.
+#' @param x A vector of time stamps in POSIXct (\code{\link[base]{DateTimeClasses}}) format.
 #' @param y A numeric vector of values of the response variable.
 #' @param res A number which defines the (minimum) resolution (in minutes) between sequential observations. The function works best with regularly spaced observations in time (see Examples).
 #' @param t1_units A function which defines the units of the axis of within-day variation. Since \code{res} is in minutes, \code{function(x) x} results in units of minutes, while the default \code{function(x) x/60} results in units of hours.

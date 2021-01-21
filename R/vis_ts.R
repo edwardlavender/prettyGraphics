@@ -6,7 +6,7 @@
 #'
 #' @description Interactive visualisation and exploration of one dimensional time series, based on \code{\link[prettyGraphics]{pretty_ts}}.
 #'
-#' @param data A dataframe containing a response variable, timestamps (and, optionally) explanatory variables. Timestamps can be integer/numeric, \code{\link[base]{DateTimeClasses}} or a \code{\link[base]{Date}} objects.
+#' @param data A dataframe containing a response variable, time stamps (and, optionally) explanatory variables. Time stamps can be integer/numeric, \code{\link[base]{DateTimeClasses}} or a \code{\link[base]{Date}} objects.
 #'
 #' @return An interactive R Shiny application for visualising time series.
 #'
@@ -56,11 +56,11 @@ check_input_class(input = data,
 colnames_data <- colnames(data)
 
 # Timestamp column
-# Try to get the timestamp using POSIXct
+# Try to get the time stamp using POSIXct
 col_ts <- colnames(data)[
   which(sapply(data, class) %>% unlist() %>% as.vector()
         %in% c("POSIXct", "Date"))[1]]
-# But the timestamp could be a numeric value, so we'll allow for this possibility.
+# But the time stamp could be a numeric value, so we'll allow for this possibility.
 if(is.null(col_ts)){
   col_ts <- colnames(data)[1]
 }
@@ -166,9 +166,9 @@ ui <-
                                    # close condition = "input.variable2_yn == true"
                   ),
 
-                  #### Define timestamp column
+                  #### Define time stamp column
                   selectInput(inputId = "timestamp_column",
-                              label = strong("Define the column containing timestamps."),
+                              label = strong("Define the column containing time stamps."),
                               choices = colnames_data,
                               selected = col_ts),
 
@@ -443,7 +443,7 @@ ui <-
           box(width = 12,
               h2("Background"),
 
-              p("Observations of events occurring through time (i.e. time series) are ubiquitous across academic disciplines. For instance, in the field of animal ecology, high resolution time series of movement attributes (e.g. depth) are now commonly collected by electronic tags, providing insights into the drivers of animal movement across a hierarchy of temporal scales. The open source R statistical programming environment is an increasingly used platform to visualise and analyse these kinds of data. Yet the rapid and thorough visualisation and exploration of time series remains cumbersome in R, especially for time series collected over extended periods of time and/or at high resolution. This constrains the ease with which trends in time series occurring at particular scales can be identified and qualitatively compared across individuals, as well as the generation and/or exploration of hypotheses for putative trends and their drivers. To this end, visTS is an interactive application for the rapid visualisation and exploration of data collected through time based on R Shiny. The only requirement is a dataframe with observations and associated timestamps. visTS provides functionality to visualise rapidly time series data (for multiple sample units, such as individuals); to summarise time series statistically over different scales; and to explore potential drivers in variables of interest by adding shading that delineates different time periods (e.g. day, night), by overlaying time series of potential covariates or by colouring the original time series by the values of a covariate. The user can zoom in and out of the time series rapidly to explore these patterns at different scales. To ensure publication quality figures are produced, there are several customisation options and plots can be saved as high resolution .png files. While users will always find that the greatest flexibility comes with programming custom routines, visTS provides a useful tool for the rapid and thorough visualisation and exploration of time series, to facilitate the identification of trends, putative drivers and their consistency across multiple sample units.",
+              p("Observations of events occurring through time (i.e. time series) are ubiquitous across academic disciplines. For instance, in the field of animal ecology, high resolution time series of movement attributes (e.g. depth) are now commonly collected by electronic tags, providing insights into the drivers of animal movement across a hierarchy of temporal scales. The open source R statistical programming environment is an increasingly used platform to visualise and analyse these kinds of data. Yet the rapid and thorough visualisation and exploration of time series remains cumbersome in R, especially for time series collected over extended periods of time and/or at high resolution. This constrains the ease with which trends in time series occurring at particular scales can be identified and qualitatively compared across individuals, as well as the generation and/or exploration of hypotheses for putative trends and their drivers. To this end, visTS is an interactive application for the rapid visualisation and exploration of data collected through time based on R Shiny. The only requirement is a dataframe with observations and associated time stamps. visTS provides functionality to visualise rapidly time series data (for multiple sample units, such as individuals); to summarise time series statistically over different scales; and to explore potential drivers in variables of interest by adding shading that delineates different time periods (e.g. day, night), by overlaying time series of potential covariates or by colouring the original time series by the values of a covariate. The user can zoom in and out of the time series rapidly to explore these patterns at different scales. To ensure publication quality figures are produced, there are several customisation options and plots can be saved as high resolution .png files. While users will always find that the greatest flexibility comes with programming custom routines, visTS provides a useful tool for the rapid and thorough visualisation and exploration of time series, to facilitate the identification of trends, putative drivers and their consistency across multiple sample units.",
 
                 style = "font-size: 25px; font-family: Times New Roman; text-align: justify;"
               ) # close paragraph
@@ -506,7 +506,7 @@ server <- function(input, output) {
     }
   })
 
-  #### Define column choices for timestamp column
+  #### Define column choices for time stamp column
   # Not currently implemented.
   # output$timestamp_column_choices <-
   #  renderUI(
@@ -600,7 +600,7 @@ server <- function(input, output) {
   ################################################
   #### Axes properties
 
-  #### Define class of timestamp column
+  #### Define class of time stamp column
   col_ts_class <- reactive(class(data[, input$timestamp_column])[1] %in% c("POSIXct", "POSIXlt", "Date", "date-time"))
 
   #### Define appropriate date range:
@@ -762,7 +762,7 @@ server <- function(input, output) {
   ################################################
   #### Inferential aids
 
-  #### Reactive UI depending on whether numeric or timestamps
+  #### Reactive UI depending on whether numeric or time stamps
   output$interval <-
     renderUI({
       if(col_ts_class()){

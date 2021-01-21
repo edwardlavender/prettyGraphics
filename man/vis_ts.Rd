@@ -7,7 +7,7 @@
 vis_ts(data)
 }
 \arguments{
-\item{data}{A dataframe containing a response variable, timestamps (and, optionally) explanatory variables. Timestamps can be integer/numeric, \code{\link[base]{DateTimeClasses}} or a \code{\link[base]{Date}} objects.}
+\item{data}{A dataframe containing a response variable, time stamps (and, optionally) explanatory variables. Time stamps can be integer/numeric, \code{\link[base]{DateTimeClasses}} or a \code{\link[base]{Date}} objects.}
 }
 \value{
 An interactive R Shiny application for visualising time series.

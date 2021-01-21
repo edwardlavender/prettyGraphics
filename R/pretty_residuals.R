@@ -6,8 +6,8 @@
 #' @param fv A numeric vector of fitted values from a model.
 #' @param lp A numeric vector which defines the values of the linear predictor from a model.
 #' @param vars A character vector which defines the names of variables in a dataframe (see \code{dat}, below) against which residuals will be plotted if \code{plot} includes option 5 (see below).
-#' @param timestamp A character which defines the name of a variable in  \code{dat} which refers to timestamps. This is useful for models of data collected through time. If \code{NULL} and this plot is selected, \code{residuals} are plotted against an index for the selected data.
-#' @param timestamp_fct (optional) A character which defines the name of a variable in \code{dat} which distinguishes independent time series. If \code{timestamp} is provided, it is desirable to plot the residuals ~ timestamp for only one of these levels (see \code{timestamp_fct_level}).
+#' @param timestamp A character which defines the name of a variable in  \code{dat} which refers to time stamps. This is useful for models of data collected through time. If \code{NULL} and this plot is selected, \code{residuals} are plotted against an index for the selected data.
+#' @param timestamp_fct (optional) A character which defines the name of a variable in \code{dat} which distinguishes independent time series. If \code{timestamp} is provided, it is desirable to plot the residuals ~ time stamp for only one of these levels (see \code{timestamp_fct_level}).
 #' @param timestamp_fct_level An identifier of the independent time series in \code{timestamp_fct} to be plotted. If not provided, the function selects the longest time series.
 #' @param dat A dataframe containing columns named as specified in \code{vars}. This should be the same dataframe that was used to fit the model from which residuals are extracted, although it can include extra variables not included in the model.
 #' @param plot A numeric vector (1:7) which defines the plots to produce (see Details, below).
@@ -18,7 +18,7 @@
 #' @param pretty_axis_args A named list of arguments that is passed to \code{\link[prettyGraphics]{pretty_axis}} which is used to create pretty axes. For simplicity, this is implemented for most plots.
 #' @param mtext_args A named list of arguments that is passed to \code{\link[graphics]{mtext}} to add labels to each plot. List names correspond to plot numbers (see Details). The default is a nested list which tries to add suitable labels in suitable locations to all plots, but this can be edited.
 #'
-#' @details Seven types of diagnostic plots can be produced: 1, a histogram of residuals; 2, a quantile-quantile plot; 3, residuals versus fitted values; 4, residuals versus linear predictor; 5, residuals against one or more user-defined variables; 6, residuals against a timestamp/index; 7, an autocorrelation function of residuals. \code{\link[prettyGraphics]{pretty_axis}} is used to control axes. This can be customised but changes affect all plots. Axis labels are implemented with \code{\link[graphics]{mtext}} via \code{mtext_args} to enable maximum user control over axes. The graphical characteristics of points and lines are specified in \code{points_args} and \code{lines_args}, respectively, and changes to these arguments affect all relevant plots. This implementation reflects a balance between user flexibility and simplicity.
+#' @details Seven types of diagnostic plots can be produced: 1, a histogram of residuals; 2, a quantile-quantile plot; 3, residuals versus fitted values; 4, residuals versus linear predictor; 5, residuals against one or more user-defined variables; 6, residuals against a time stamp/index; 7, an autocorrelation function of residuals. \code{\link[prettyGraphics]{pretty_axis}} is used to control axes. This can be customised but changes affect all plots. Axis labels are implemented with \code{\link[graphics]{mtext}} via \code{mtext_args} to enable maximum user control over axes. The graphical characteristics of points and lines are specified in \code{points_args} and \code{lines_args}, respectively, and changes to these arguments affect all relevant plots. This implementation reflects a balance between user flexibility and simplicity.
 #'
 #' @return Diagnostic plots of residuals.
 #'
@@ -72,7 +72,7 @@
 #' )
 #' graphics::par(pp)
 #'
-#' #### There are several customisation options for plotting observations against timestamps
+#' #### There are several customisation options for plotting observations against time stamps
 #' # 'timestamp', 'timestamp_fct' and 'timestamp_fct_level' enable a specific time series to be
 #' # ... plotted:
 #' pretty_residuals(residuals = stats::resid(m1),
@@ -365,14 +365,14 @@ pretty_residuals <-
       #### Select data for specific individual
       ## a) timestamp_fct is NULL so assuming one individual
       if(is.null(timestamp_fct)){
-        message("plot (6) residuals ~ timestamp: 'timestamp_fct' is NULL; assuming 'dat' only contains one independent time series.")
+        message("plot (6) residuals ~ time stamp: 'timestamp_fct' is NULL; assuming 'dat' only contains one independent time series.")
         if(!is.null(timestamp_fct_level)) warning("'timestamp_fct' is NULL so 'timestamp_fct_level' is ignored.")
 
         ## b) select data for specific individaul
       } else{
         # i) Define timestamp_fct_level using the individual with the longest time series, if not provided
         if(is.null(timestamp_fct_level)){
-          message("plot (6) residuals ~ timestamp: selecting the 'timestamp_fct' with the longest time series.")
+          message("plot (6) residuals ~ time stamp: selecting the 'timestamp_fct' with the longest time series.")
           d6_ls <- split(d6, f = d6[, timestamp_fct])
           d6_longest <- which.max(sapply(d6_ls, nrow))
           timestamp_fct_level <- d6_ls[[d6_longest]][1, timestamp_fct]
@@ -381,16 +381,16 @@ pretty_residuals <-
         d6 <- d6[d6[, timestamp_fct] == timestamp_fct_level, ]
       }
 
-      #### Define timestamps if necessary
+      #### Define time stamps if necessary
       if(is.null(timestamp)){
-        message("plot (6) residuals ~ timestamp: timestamp is NULL so using an index for selected data.")
+        message("plot (6) residuals ~ time stamp: 'timestamp' is NULL so using an index for selected data.")
         d6$index <- 1:nrow(d6)
         timestamp <- "index"
       }
 
-      #### Check that data are sorted by timestamp
+      #### Check that data are sorted by time stamp
       if(is.unsorted(d6[, timestamp])){
-        warning("plot (6) residuals ~ timestamp: selected data are not sorted by timestamp. 'dat' needs to be ordered by fct_timestamp (if applicable) then timestamp.")
+        warning("plot (6) residuals ~ time stamp: selected data are not sorted by 'timestamp'. 'dat' needs to be ordered by fct_timestamp (if applicable) then timestamp.")
       }
 
       #### Plot

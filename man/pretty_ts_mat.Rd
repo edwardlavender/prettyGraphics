@@ -21,7 +21,7 @@ pretty_ts_mat(
 )
 }
 \arguments{
-\item{x}{A vector of timestamps in POSIXct (\code{\link[base]{DateTimeClasses}}) format.}
+\item{x}{A vector of time stamps in POSIXct (\code{\link[base]{DateTimeClasses}}) format.}
 
 \item{y}{A numeric vector of values of the response variable.}
 
