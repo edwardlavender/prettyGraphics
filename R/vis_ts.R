@@ -1,18 +1,18 @@
-#' @title Visualise one dimensional time-series via R Shiny
+#' @title Visualise one dimensional time series via R Shiny
 #'
 #' @import shiny
 #' @import shinydashboard
 #' @import shinyWidgets
 #'
-#' @description Interactive visualisation and exploration of one dimensional time-series, based on \code{\link[prettyGraphics]{pretty_ts}}.
+#' @description Interactive visualisation and exploration of one dimensional time series, based on \code{\link[prettyGraphics]{pretty_ts}}.
 #'
 #' @param data A dataframe containing a response variable, timestamps (and, optionally) explanatory variables. Timestamps can be integer/numeric, \code{\link[base]{DateTimeClasses}} or a \code{\link[base]{Date}} objects.
 #'
-#' @return An interactive R Shiny application for visualising time-series.
+#' @return An interactive R Shiny application for visualising time series.
 #'
 #' @examples
 #' \dontrun{
-#' #### Example (1) Visualising POSIXct time-series
+#' #### Example (1) Visualising POSIXct time series
 #' # Here we have a simple dataframe... other columns (i.e. covariates) can be included
 #' # ... alongside factor columns.
 #' x <- seq.POSIXt(as.POSIXct("2016-01-01", tz = "UTC"),
@@ -25,7 +25,7 @@
 #'}
 #'
 #'\dontrun{
-#'#### Example (2) Visualising numeric time-series
+#'#### Example (2) Visualising numeric time series
 #' x <- 1:1000
 #' y <- rnorm(length(x), x*0.1- 500, 1000)
 #' y2 <- rnorm(length(x), x*0.5, 500)
@@ -86,7 +86,7 @@ ui <-
 
     # Define dashboard Header:
     dashboardHeader(
-      title = "Visualise Time-series",
+      title = "Visualise Time Series",
       titleWidth = 250
       ),
 
@@ -123,14 +123,14 @@ ui <-
         tabItem(
           tabName = "plot_timeseries",
           # Define a title for the page:
-          h1("visTS: An Interactive Application to Visualise One-Dimensional Time-series"),
+          h1("visTS: An Interactive Application to Visualise One-Dimensional Time Series"),
 
           #### Open a fluidPage...
           # In the first part ("row") of the page,
           # ... we'll have three boxes along the top (i.e. different columns),
           # ... defining plot options; then, immediately below that, we'll have the plot.
           fluidPage(
-            title = "Visualise Time-series",
+            title = "Visualise Time Series",
 
             #### Open a fluid for defining some boxes with input options for the plot...
             fluidRow(
@@ -154,7 +154,7 @@ ui <-
 
                   #### Define whether or not to plot data for a factor level
                   checkboxInput(inputId = "fct_yn",
-                                label = strong("Visualise the time-series for a specific factor level."),
+                                label = strong("Visualise the time series for a specific factor level."),
                                 value = FALSE),
                   conditionalPanel(condition = "input.fct_yn == true",
                                    #Define column containing individuals
@@ -186,16 +186,16 @@ ui <-
                    # Choose whether or not to add a second variable
                    # Define second variable
                    # Define how you would like to add the second variable (as a new axis or by colour):
-                   # Select whether you would like to add a second variable to the time-series
+                   # Select whether you would like to add a second variable to the time series
                    checkboxInput(inputId = "variable2_yn",
-                                 label = strong("Add a second variable to the time-series."),
+                                 label = strong("Add a second variable to the time series."),
                                  value = FALSE),
                   conditionalPanel(condition = "input.variable2_yn == true",
                                    uiOutput("variable2_choices"),
                                    radioButtons(inputId = "variable2_method",
                                                 label = strong("How would you like to input the second variable?"),
-                                                choiceNames = c("Colour the time-series line by the inputted variable.",
-                                                                "Add a second y axis and overlay the time-series of the second variable."),
+                                                choiceNames = c("Colour the time series line by the inputted variable.",
+                                                                "Add a second y axis and overlay the time series of the second variable."),
                                                 choiceValues = c("by_colour", "by_new_axis"),
                                                 inline = T)
                                    # close condition = "input.variable2_yn == true"
@@ -315,11 +315,11 @@ ui <-
                   #### Add statistical summaries
                   # Choose whether or not to add statistical summaries to the plot:
                   checkboxInput(inputId = "add_summary",
-                                label = strong("Add statistical summaries to the time-series."),
+                                label = strong("Add statistical summaries to the time series."),
                                 value = FALSE),
                   # If statistical summaries are to be added...
                   conditionalPanel(condition = "input.add_summary == true",
-                                  # Define all the functions that can be used to summarise the time-series:
+                                  # Define all the functions that can be used to summarise the time series:
                                   pickerInput(inputId = "funs",
                                               label = strong("Define the statistical summaries you would like to add to the plot."),
                                               choices = c("mean", "median", "min", "max", "custom"),
@@ -439,11 +439,11 @@ ui <-
         tabItem(
           tabName = "introduction",
           # Define a title for the page
-          h1("visTS: An Interactive Application to Visualise One-Dimensional Time-series"),
+          h1("visTS: An Interactive Application to Visualise One-Dimensional Time Series"),
           box(width = 12,
               h2("Background"),
 
-              p("Observations of events occurring through time (i.e. time-series) are ubiquitous across academic disciplines. For instance, in the field of animal ecology, high resolution time-series of movement attributes (e.g. depth) are now commonly collected by electronic tags, providing insights into the drivers of animal movement across a hierarchy of temporal scales. The open source R statistical programming environment is an increasingly used platform to visualise and analyse these kinds of data. Yet the rapid and thorough visualisation and exploration of time-series remains cumbersome in R, especially for time-series collected over extended periods of time and/or at high resolution. This constrains the ease with which trends in time-series occurring at particular scales can be identified and qualitatively compared across individuals, as well as the generation and/or exploration of hypotheses for putative trends and their drivers. To this end, visTS is an interactive application for the rapid visualisation and exploration of data collected through time based on R Shiny. The only requirement is a dataframe with observations and associated timestamps. visTS provides functionality to visualise rapidly time-series data (for multiple sample units, such as individuals); to summarise time-series statistically over different scales; and to explore potential drivers in variables of interest by adding shading that delineates different time periods (e.g. day, night), by overlaying time-series of potential covariates or by colouring the original time-series by the values of a covariate. The user can zoom in and out of the time-series rapidly to explore these patterns at different scales. To ensure publication quality figures are produced, there are several customisation options and plots can be saved as high resolution .png files. While users will always find that the greatest flexibility comes with programming custom routines, visTS provides a useful tool for the rapid and thorough visualisation and exploration of time-series, to facilitate the identification of trends, putative drivers and their consistency across multiple sample units.",
+              p("Observations of events occurring through time (i.e. time series) are ubiquitous across academic disciplines. For instance, in the field of animal ecology, high resolution time series of movement attributes (e.g. depth) are now commonly collected by electronic tags, providing insights into the drivers of animal movement across a hierarchy of temporal scales. The open source R statistical programming environment is an increasingly used platform to visualise and analyse these kinds of data. Yet the rapid and thorough visualisation and exploration of time series remains cumbersome in R, especially for time series collected over extended periods of time and/or at high resolution. This constrains the ease with which trends in time series occurring at particular scales can be identified and qualitatively compared across individuals, as well as the generation and/or exploration of hypotheses for putative trends and their drivers. To this end, visTS is an interactive application for the rapid visualisation and exploration of data collected through time based on R Shiny. The only requirement is a dataframe with observations and associated timestamps. visTS provides functionality to visualise rapidly time series data (for multiple sample units, such as individuals); to summarise time series statistically over different scales; and to explore potential drivers in variables of interest by adding shading that delineates different time periods (e.g. day, night), by overlaying time series of potential covariates or by colouring the original time series by the values of a covariate. The user can zoom in and out of the time series rapidly to explore these patterns at different scales. To ensure publication quality figures are produced, there are several customisation options and plots can be saved as high resolution .png files. While users will always find that the greatest flexibility comes with programming custom routines, visTS provides a useful tool for the rapid and thorough visualisation and exploration of time series, to facilitate the identification of trends, putative drivers and their consistency across multiple sample units.",
 
                 style = "font-size: 25px; font-family: Times New Roman; text-align: justify;"
               ) # close paragraph
@@ -874,7 +874,7 @@ server <- function(input, output) {
     })
 
   ################################################
-  #### Plot time-series
+  #### Plot time series
 
   plot_input <-
     reactive({

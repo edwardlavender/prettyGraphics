@@ -127,13 +127,13 @@ par(pp)
   - `define_time_blocks()` defines time blocks (i.e., diel periods or
     seasons) for each day in a time window (designed to work with
     `add_shading_bar()`);
-  - `pretty_ts()` creates pretty time-series plots;
+  - `pretty_ts()` creates pretty time series plots;
   - `pretty_ts_mat()` creates 2-dimensional plots of the within and
-    between day variation in a time-series;
+    between day variation in a time series;
   - `pretty_pgram()` creates processed periodogram plots (power
     spectra);
   - `vis_ts()` is an R Shiny-Dashboard user interface for the
-    interactive exploration of (ecological) time-series and creation of
+    interactive exploration of (ecological) time series and creation of
     publication quality plots;
   - `add_moons()` adds moons to a plot of lunar phase;
 
@@ -165,7 +165,7 @@ Possible future functionality includes:
   - `pretty_axis()` updates to support for axes in terms of \(\pi\);
   - `pretty_barplot()` for prettier barplots;
   - `add_hydrodynamic_ts()` to add hydrodynamic model predictions to
-    (depth) time-series;
+    (depth) time series;
   - Additional routines for visualising spatial data;
 
 ## Disclaimer

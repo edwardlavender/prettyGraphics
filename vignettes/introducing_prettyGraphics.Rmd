@@ -34,7 +34,7 @@ body{
 `prettyGraphics` is an `R` package designed to make the production of plots and data exploration easier, more flexible and prettier using similar functions to familiar favourites in base `R`. The package is based on a number of functions which act as 'building blocks'; these help to define the initial arguments of a plot and then add elements to a plot sequentially. A number of integrative functions link these functions together to facilitate the production of prettier versions of common plot types (e.g. a more flexible implementation of `graphics::plot()` with pretty axes) as well as more specialised plot types. Notable functionality of `prettyGraphics` includes the following: 
 
 * **The definition of pretty axes**. The definition of 'pretty' axes (i.e., axes with intelligible tick mark labels that are positioned in appropriate, adjoining positions, rather than as an approximate box around a plot) underlies publication-quality plots but these are not implemented automatically by base R. `pretty_axis()` is a very flexible function which makes this possible. A few other functions, such as `sci_notation()`, which can be used to add labels with scientific notation to a plot (i.e. $a \times 10^b$ rather than $ae^b$), and `add_lagging_point_zero()`, which brings all numbers up to the same number of decimal places, complement this function. `add_grid_rect_xy()` can be used to add a rectangular grid at user-defined positions (e.g. coinciding with axis labels), to aid interpretation. 
-* **Data exploration**. Some functions facilitate exploration of the relationships among variables. For example, in base `R`, it's easy to add lines to a plot to illustrate a relationship. However, it is a more long-winded process to add a line that is coloured by the values of a third variable, followed by a highly customisable colour bar legend, to illustrate the relationship between the response and more than one explanatory variable. This essential part of data exploration is implemented by `add_lines()` and `add_colour_bar()`. Adding shading to a plot is another way to illustrate possible relationships, especially between a response/explanatory variable and a factor. For example, in plots of depth time-series, it is often useful to add shading delineating day/night periods. Adding shading to a plot is made easy with `add_shading_bar()`. 
+* **Data exploration**. Some functions facilitate exploration of the relationships among variables. For example, in base `R`, it's easy to add lines to a plot to illustrate a relationship. However, it is a more long-winded process to add a line that is coloured by the values of a third variable, followed by a highly customisable colour bar legend, to illustrate the relationship between the response and more than one explanatory variable. This essential part of data exploration is implemented by `add_lines()` and `add_colour_bar()`. Adding shading to a plot is another way to illustrate possible relationships, especially between a response/explanatory variable and a factor. For example, in plots of depth time series, it is often useful to add shading delineating day/night periods. Adding shading to a plot is made easy with `add_shading_bar()`. 
 * **Statistical inference**. The definition and addition of statistical summarises or model predictions to a plot can help to reveal signal from noise or in the interpretation and evaluation of models. For example, for continuous data, it may be helpful to calculate the mean value, the minimum, the maximum, the 89 % quantiles or another statistic in a sequence of bins $n$ units in width (e.g. $10 cm$, $0.5 ms^{-2}$, $12 hours$, etc.). This is facilitated by `summmarise_in_bins()` and `add_lines()`. Alternatively, the addition of model predictions (e.g. fitted values ± confidence intervals) to observed data is facilitated by `list_CIs()` and `add_error_envelope()`. For discrete explanatory variables, error bars can be added using `add_error_bars()`. 
 * **Integrative functions**. Some functions use the power of building block functions to create prettier versions of standard plots, such as histograms or density plots, and more specialised plot types, such as plots of model residuals or spatial data. For example, `pretty_plot()` functions like `graphics::plot()` but uses `pretty_axis()` to define pretty axes and is more flexible.
 
@@ -215,7 +215,7 @@ See `?add_grid_rect_xy()` for further options.
 
 ## Add lines: `add_lines()`
 
-Now that we have visualised the raw time-series, we might start to explore relationships among variables. In this case, we have a couple of continuous explanatory variables and it might be helpful to consider not only how depth changes through time, but whether this change is related to temperature. To do this, one option is to colour the depth time-series by temperature: 
+Now that we have visualised the raw time series, we might start to explore relationships among variables. In this case, we have a couple of continuous explanatory variables and it might be helpful to consider not only how depth changes through time, but whether this change is related to temperature. To do this, one option is to colour the depth time series by temperature: 
 
 ```{r fig.width = 7, fig.height = 5}
 #### Define plotting window 
@@ -268,7 +268,7 @@ plot2
 
 #### Use add_lines() to add a line coloured by temperature. 
 # This time, we'll adjust the number of breaks desired on the colour bar axis
-# ... and the function used to colour the time-series:
+# ... and the function used to colour the time series:
 dat4colbar <- 
   add_lines(x = df$timestamp, 
             y1 = df$dn, 
@@ -320,7 +320,7 @@ add_shading_bar(dat_block$x1,
             col = dat_block$col, 
             border = FALSE) %>% invisible()
 
-#### Add back depth time-series 
+#### Add back depth time series 
 add_lines(x = df$timestamp, y1 = df$dn)
 
 #### Add pretty axes
@@ -360,14 +360,14 @@ mapply(summaries, cols, FUN = function(foo, col){
 add_pretty_axis
 ```
 
-Further information is provided in the help file (see `?summarise_in_bins()`). Here, these simple summaries help to demonstrate that there is no clear, overall trend in the mean depth or the variation in depth through time for this individual over a two week period. Small movements seem to occur frequently within 12 hour windows, but their overall extent is relatively stable (except in the middle of the time-series, when the individual rapidly ascended to the surface; at this point the individual was re-caught and released).
+Further information is provided in the help file (see `?summarise_in_bins()`). Here, these simple summaries help to demonstrate that there is no clear, overall trend in the mean depth or the variation in depth through time for this individual over a two week period. Small movements seem to occur frequently within 12 hour windows, but their overall extent is relatively stable (except in the middle of the time series, when the individual rapidly ascended to the surface; at this point the individual was re-caught and released).
 
 ## Add model predictions: `list_CIs()` and `add_error_envelope()`
 
-During or following data exploration, models are useful tools to elucidate trends and relationships. To evaluate the performance of models, it is often useful to plot model predictions ontop of observed data. With these continuous data, two functions make this easy with `prettyGraphics`: `list_CIs()` and `add_error_envelope()`. To illustrate this, below I consider a model of depth as a smooth function of time, using a thinned subset of the data, and then add predictions to a plot of the depth time-series. Note that this model is purely for demonstration purposes.
+During or following data exploration, models are useful tools to elucidate trends and relationships. To evaluate the performance of models, it is often useful to plot model predictions ontop of observed data. With these continuous data, two functions make this easy with `prettyGraphics`: `list_CIs()` and `add_error_envelope()`. To illustrate this, below I consider a model of depth as a smooth function of time, using a thinned subset of the data, and then add predictions to a plot of the depth time series. Note that this model is purely for demonstration purposes.
 
 ```{r, fig.width = 7, fig.height = 5}
-#### Flag and thin time-series to reduce serial autocorrelation 
+#### Flag and thin time series to reduce serial autocorrelation 
 dat_flapper_thin <- df[seq(1, nrow(df), by = 10), ]
 
 #### Implement a preliminary model of depth ~ s(time) using mgcv::bam() and the thinned dataset 
@@ -401,7 +401,7 @@ add_pretty_axis
 
 ## Model residuals: `pretty_residuals()`
 
-To examine the extent to which model assumptions are met, residual diagnostic plots are instructive. These include standard diagnostic plots (i.e., residuals versus fitted values, residuals versus the linear predictor, a histogram of residuals and a quantile-quantile plot of residuals) as well as plots of residuals against covariates (`vars`, below) and, for time-series, timestamps and autocorrelation functions (ACF) of residuals. This functionality is provided by `pretty_residuals()`, which plots standard diagnostic plots with pretty axes as well as residuals against one or more variables, timestamps and the ACF (if applicable). 
+To examine the extent to which model assumptions are met, residual diagnostic plots are instructive. These include standard diagnostic plots (i.e., residuals versus fitted values, residuals versus the linear predictor, a histogram of residuals and a quantile-quantile plot of residuals) as well as plots of residuals against covariates (`vars`, below) and, for time series, timestamps and autocorrelation functions (ACF) of residuals. This functionality is provided by `pretty_residuals()`, which plots standard diagnostic plots with pretty axes as well as residuals against one or more variables, timestamps and the ACF (if applicable). 
 
 ```{r, fig.width = 7, fig.height = 10}
 pp <- par(mfrow = c(4, 2), oma = c(2, 2, 1, 1), mar = c(3, 3, 3, 3))
@@ -432,7 +432,7 @@ pretty_residuals(residuals = m1$std.rsd,
 par(pp)
 ```
 
-More details are given in `?pretty_residuals`. For the example depth time-series, these plots demonstrate that out model needs to be interpreted with caution: residuals versus fitted values, temperature and timestamp look reasonable, but the model has not perfectly captured the autocorrelation among residuals and the assumption of normality is clearly violated. 
+More details are given in `?pretty_residuals`. For the example depth time series, these plots demonstrate that out model needs to be interpreted with caution: residuals versus fitted values, temperature and timestamp look reasonable, but the model has not perfectly captured the autocorrelation among residuals and the assumption of normality is clearly violated. 
 
 # Common plotting functions 
 
@@ -447,7 +447,7 @@ More details are given in `?pretty_residuals`. For the example depth time-series
 * **Plot functions**. Several plotting functions can be used via the specification of a function, `f` and `plot_xy`, which describes whether the function takes in the `x` or `y` coordinates or both (for example `stats::qqnorm()` uses `y` alone, see below). 
 * **Graphics**. Points and lines can be added to a plot by supplying the usual arguments (e.g. `pch`), or via named lists of arguments (`points_args` or `lines_args`) passed to `graphics::points()` or `graphics::lines()`. 
 
-For example, we can re-create a pretty version of our depth time-series plots, with most of the work (e.g. definition of suitable axes based on user inputs) implemented internally, via:
+For example, we can re-create a pretty version of our depth time series plots, with most of the work (e.g. definition of suitable axes based on user inputs) implemented internally, via:
 ```{r, fig.width = 7, fig.height = 5}
 pretty_plot(x = df$timestamp, 
             y = df$depth, 
@@ -516,7 +516,7 @@ Alongside some standard plotting functions, `prettyGraphics` includes some funct
 
 ## Number lines and timelines: `pretty_line()`
 
-In some cases, one dimensional visualisation of observations, especially those collected through time, can be useful. For example, we could view a timeline of the depth time-series observations as follows:
+In some cases, one dimensional visualisation of observations, especially those collected through time, can be useful. For example, we could view a timeline of the depth time series observations as follows:
 
 ```{r, fig.width = 7, fig.height = 2}
 pretty_line(df$timestamp, pch = 21, col = "red", bg = "red", cex = 0.1)
@@ -524,13 +524,13 @@ pretty_line(df$timestamp, pch = 21, col = "red", bg = "red", cex = 0.1)
 
 This kind of approach is particularly useful for presence or presence/absence observations collected through time. `?pretty_line()` provides further information and examples, including exemplifying the addition of one dimensional number lines or timelines to existing plots. 
 
-## Time-series plot: `pretty_ts()`
+## Time series plot: `pretty_ts()`
 
-For time-series data, `pretty_ts()` links most of the building blocks described above to streamline the creation of complex plots. See `?pretty_ts()` for examples. `vis_ts()` is an extension of `pretty_ts()` into an interactive environment which facilitates rapid data exploration and the production of publication-quality plots for time-series data via an R Shiny-Dashboard interface. 
+For time series data, `pretty_ts()` links most of the building blocks described above to streamline the creation of complex plots. See `?pretty_ts()` for examples. `vis_ts()` is an extension of `pretty_ts()` into an interactive environment which facilitates rapid data exploration and the production of publication-quality plots for time series data via an R Shiny-Dashboard interface. 
 
 # Spatial data
 
-For spatial data, functionality is currently limited but may be expanded in the future. At present, `pretty_scape_3d()` and `vis_scape_3d()` can be used to visualise landscapes in 3d. For example, we could visualise the bathymetric landscape in the area from which flapper skate depth time-series were sampled using the following example bathymetry data, included as a raster in `prettyGraphics`, sourced from [GEBCO](https://www.gebco.net):
+For spatial data, functionality is currently limited but may be expanded in the future. At present, `pretty_scape_3d()` and `vis_scape_3d()` can be used to visualise landscapes in 3d. For example, we could visualise the bathymetric landscape in the area from which flapper skate depth time series were sampled using the following example bathymetry data, included as a raster in `prettyGraphics`, sourced from [GEBCO](https://www.gebco.net):
 
 ```{r, fig.width = 7, fig.height = 5, eval = FALSE}
 # Extract raster

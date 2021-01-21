@@ -69,7 +69,7 @@
 #' par(pp)
 #'
 #' #### Example (6) Some examples with dates and times
-#' ## Define some time-series data
+#' ## Define some time series data
 #' x <- seq.Date(as.Date("2016-01-01"), as.Date("2017-01-01"), 1)
 #' x <- sample(x, size = 1000, replace = TRUE)
 #' ## Set plotting region
@@ -79,7 +79,7 @@
 #' # ... but freq = FALSE is needed for pretty_hist
 #' hist(x, breaks = "months")
 #' pretty_hist(x, breaks = "months", freq = FALSE)
-#' ## Usually for time-series, you need to be explicit about breaks
+#' ## Usually for time series, you need to be explicit about breaks
 #' # ... for pretty plots:
 #' hist(x,
 #'      breaks = seq(min(x), max(x), by = "months"),

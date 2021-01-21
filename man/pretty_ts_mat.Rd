@@ -2,7 +2,7 @@
 % Please edit documentation in R/pretty_ts_mat.R
 \name{pretty_ts_mat}
 \alias{pretty_ts_mat}
-\title{Visualise the within and between day variation in a time-series}
+\title{Visualise the within and between day variation in a time series}
 \usage{
 pretty_ts_mat(
   x,

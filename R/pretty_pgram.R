@@ -1,6 +1,6 @@
 #' @title Pretty periodogram plots
 #' @description This function produces a plot of a power spectrum. Power spectra can be estimated via \code{\link[stats]{spectrum}} or internally within this function. \code{\link[stats]{spectrum}} can also produce a plot of the power spectrum, but this function is designed to implement automatically some adjustments to this plot to facilitate interpretation. Specifically, under the default settings, this function (a) automatically scales the spectral density (by doubling) so that the area under the periodogram values equals the variance; (b) re-expresses frequencies in terms of the number of cycles per unit time (rather than the number of cycles per time interval), by dividing \code{\link[stats]{spectrum}}'s frequencies by the sampling interval (\code{sampling_interval}); (c) can plot frequency (\code{"f"}) or period (\code{"T"}) on the x-axis; (d) provided the flexibility to re-adjust the x axis units (via \code{x_units}). The plot is produced by \code{\link[prettyGraphics]{pretty_plot}} which can be customised via a named list of arguments that is passed to this function (\code{plot_args}).
-#' @param x An object of class "spec" (see \code{\link[stats]{spectrum}}) or a univariate time-series to be passed to \code{\link[stats]{spectrum}}.
+#' @param x An object of class "spec" (see \code{\link[stats]{spectrum}}) or a univariate time series to be passed to \code{\link[stats]{spectrum}}.
 #' @param sampling_interval A number that defines the sampling interval between sequential observations. If provided, this is used to re-express the frequencies that are returned by \code{\link[stats]{spectrum}} (where they are defined as the number of time cycles per time interval) into the number of cycles per unit time.
 #' @param scale A logical input that defines whether or not to scale the spectral densities returned by \code{\link[stats]{spectrum}} (by doubling) so that the area under the periodogram values equals the variance.
 #' @param log A logical input that defines whether or not to log (scaled) spectral densities. This is \code{FALSE} by default.
@@ -8,7 +8,7 @@
 #' @param x_type A character input that specifies whether to plot frequencies (\code{"f"}) or periods (\code{"T"} = 1/f) on the x-axis.
 #' @param plot_args A named list of arguments that is passed to \code{\link[prettyGraphics]{pretty_plot}} to customise the plot that is produced.
 #' @param verbose A logical input that defines whether or not to print messages to the console defining the actions implemented.
-#' @param ... Additional arguments to estimate the spectral density that are passed to \code{\link[stats]{spectrum}}, if \code{x} is a univariate time-series.
+#' @param ... Additional arguments to estimate the spectral density that are passed to \code{\link[stats]{spectrum}}, if \code{x} is a univariate time series.
 #' @examples
 #' # Define plotting window
 #' pp <- par(mfrow = c(2, 3))

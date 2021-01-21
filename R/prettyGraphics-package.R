@@ -40,10 +40,10 @@
 #' @section Temporal data: \describe{
 #'  \item{\link{pretty_line}}{This function creates pretty number lines and timelines.}
 #'  \item{\link{define_time_blocks}}{This function defines 'blocks' (i.e., diel periods or seasons) for each day in a time window.}
-#'  \item{\link{pretty_ts}}{This function creates pretty time-series plots.}
-#'  \item{\link{pretty_ts_mat}}{This function creates 2-dimensional plots of the within and between day variation in a time-series.}
+#'  \item{\link{pretty_ts}}{This function creates pretty time series plots.}
+#'  \item{\link{pretty_ts_mat}}{This function creates 2-dimensional plots of the within and between day variation in a time series.}
 #'  \item{\link{pretty_pgram}}{This function creates processed periodogram plots (power spectra).}
-#'  \item{\link{vis_ts}}{An interactive Shiny-Dashboard application for the exploration of time-series data.}
+#'  \item{\link{vis_ts}}{An interactive Shiny-Dashboard application for the exploration of time series data.}
 #'  \item{\link{add_moons}}{This function add moons to a plot of lunar phase.}
 #' }
 #'
