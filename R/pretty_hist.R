@@ -157,7 +157,11 @@ pretty_hist <-
     #### Define graph axis and limits
     if(is.null(xaxis$at)) {
       xaxis$at <- h$breaks
-      if(!is.null(xlim)) xaxis$at <- seq_extend(xaxis$at, lim = xlim)
+      if(!is.null(xlim)) {
+        xaxis$at <- c(xaxis$at, xlim)
+        xaxis$at <- xaxis$at[!duplicated(xaxis$at)]
+        xaxis$at <- sort(xaxis$at, decreasing = FALSE)
+      }
       xaxis$at <- xaxis$at[seq(1, length(xaxis$at), by = xn)]
       xaxis$labels <- pretty_labels(xaxis$at,
                                     xaxis$at,
