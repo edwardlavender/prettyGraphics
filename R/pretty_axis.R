@@ -116,7 +116,7 @@
 #' # Instead of creating 'pretty' axes, we can choose to create a regular sequence
 #' # ... and specify the total number of units between the start and end points
 #' # ... (if we don't specify this, the default is 5 units or
-#' # ... an automatically determined number of timesteps, see below).
+#' # ... an automatically determined number of time steps, see below).
 #' # Note that because units only takes one argument for each axes,
 #' # ... we do not specify a nested list like we do for the pretty argument
 #' # ... (or, as we'll see below) for the axis argument,
