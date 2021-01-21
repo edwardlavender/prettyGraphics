@@ -61,9 +61,10 @@
 
 add_lagging_point_zero <-
   function(x, n = NULL, ignore = FALSE){
-    dp <- stringr::str_split_fixed(as.character(x), "[.]", 2)[, 2]
+    xc <- format(x, scientific = FALSE, trim = TRUE)
+    dp <- stringr::str_split_fixed(xc, "[.]", 2)[, 2]
     if(all(nchar(dp) == 0) & ignore) return(x)
-    x <- as.character(x)
+    x <- xc
     if(is.null(n)) n <- max(nchar(dp))
     diff <- n - nchar(dp)
     if(any(diff < 0)) stop("n is too small; some numbers have more decimal places than n.")
