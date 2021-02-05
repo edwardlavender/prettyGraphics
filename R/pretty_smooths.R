@@ -116,6 +116,7 @@ pretty_smooth_1d <- function(fit = list(),
     if(is.null(pretty_axis_args$side)) pretty_axis_args$side <- 1:2
     axis_ls <- pretty_plot(ifit$x, ifit$fit,
                            pretty_axis_args = pretty_axis_args,
+                           xlab = "", ylab = "",
                            type = "n",
                            return_list = TRUE
                            )
