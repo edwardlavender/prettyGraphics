@@ -7,8 +7,9 @@
 pretty_boxplot(
   x,
   y,
+  xadj = 0.5,
+  ylim = NULL,
   pretty_axis_args = list(side = 1:2),
-  adj = 0.5,
   xlab,
   ylab,
   mtext_args = list(),
@@ -20,9 +21,9 @@ pretty_boxplot(
 
 \item{y}{A numeric vector.}
 
-\item{pretty_axis_args}{A named list of arguments passed to \code{\link[prettyGraphics]{pretty_axis}} to control axes.}
+\item{xadj, ylim}{Axis limit control short-cuts. \code{xadj} controls the x axis limits via the 'control_factor_lim' argument in \code{\link[prettyGraphics]{pretty_axis}}. These are taken as \code{c(1 - xadj}, number of factor levels \code{+ xadj)}. (\code{xlim} should not be supplied.) \code{ylim} is a vector of two limits for the y axis, implemented via \code{\link[prettyGraphics]{pretty_axis}}. Both arguments are short-cuts to specifying axis limits via \code{pretty_axis_args} (see below).}
 
-\item{adj}{A number which defines the distance from the first and last box-and-whiskers to the edges of the x axis.}
+\item{pretty_axis_args}{A named list of arguments passed to \code{\link[prettyGraphics]{pretty_axis}} to control axes.}
 
 \item{xlab}{The x axis label. This can be added via \code{mtext_args} for more control.}
 
@@ -30,7 +31,7 @@ pretty_boxplot(
 
 \item{mtext_args}{A named list of arguments passed to \code{\link[graphics]{mtext}} to add axis labels. A nested list is used to control each axis separately.}
 
-\item{...}{Additional arguments passed to \code{\link[graphics]{boxplot}} These should not include \code{xlim} or \code{ylim}, which are implemented via \code{pretty_axis_args}, nor \code{frame.plot} or \code{axes} which are suppressed so that \code{pretty_axis_args} can control axes.}
+\item{...}{Additional arguments passed to \code{\link[graphics]{boxplot}} These should not include \code{xlim}, \code{frame.plot} or \code{axes} which are suppressed so that \code{pretty_axis_args} can control axes.}
 }
 \value{
 The function returns a pretty boxplot.
@@ -65,7 +66,7 @@ pp <- graphics::par(mfrow = c(2, 2))
 graphics::boxplot(d$y ~ d$x, width = c(5, 1))
 pretty_boxplot(d$x, d$y, data = d, width = c(5, 1))
 pretty_boxplot(d$x, d$y, data = d, varwidth = TRUE)
-# However,xlim, ylim arguments are set via pretty_axis_args and should not be supplied.
+# However,xlim us is set via pretty_axis_args and should not be supplied.
 \dontrun{
   pretty_boxplot(d$x, d$y, xlim = c(1, 2))
 }
