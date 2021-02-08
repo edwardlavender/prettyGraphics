@@ -391,6 +391,7 @@ pretty_seq <-
 #' @param x An object, such as a numeric vector.
 #' @param at A numeric vector of axis positions.
 #' @param n (optional) An integer which defines the number of decimal places for numeric axes. This is passed to \code{\link[prettyGraphics]{add_lagging_point_zero}}. If \code{NULL}, \code{n} is defined internally.
+#' @param pi_notation_args A named list of arguments passed to \code{\link[prettyGraphics]{pi_notation}} (excluding \code{x}).
 #' @param sci_notation_args A named list of arguments passed to \code{\link[prettyGraphics]{sci_notation}} (excluding \code{x}).
 #' @details For factors, factor levels at positions specified by \code{at} are taken as labels. For numbers, \code{\link[prettyGraphics]{add_lagging_point_zero}} and \code{\link[prettyGraphics]{sci_notation}} are implemented as necessary to define pretty labels.
 #' @return A vector of labels, of the same length as axis tick marks (\code{at}).
@@ -398,16 +399,25 @@ pretty_seq <-
 #' @keywords internal
 
 pretty_labels <-
-  function(x, at, n = NULL, sci_notation_args = list()){
+  function(x, at, n = NULL, pi_notation_args = NULL, sci_notation_args = list()){
+    labels <- NULL
     if(is.factor(x)){
       lat <- length(at)
       llabels <- length(levels(x))
       labels <- rep(NA, lat)
       labels <- levels(x)[at]
     } else if(is_number(x)){
-      sci_notation_args$x <- at
-      labels <- do.call(sci_notation, sci_notation_args)
-      if(is_number(labels)) labels <- add_lagging_point_zero(x = labels, n = n, ignore = TRUE)
+      if(!is.null(pi_notation_args)){
+        pi_notation_args$x <- at
+        labels <- do.call(pi_notation, pi_notation_args)
+      }
+      if(is_number(labels) & !is.null(sci_notation_args)){
+        sci_notation_args$x <- at
+        labels <- do.call(sci_notation, sci_notation_args)
+      }
+      if(is_number(labels)) {
+        labels <- add_lagging_point_zero(x = labels, n = n, ignore = TRUE)
+      }
     } else{
       labels <- NULL
     }

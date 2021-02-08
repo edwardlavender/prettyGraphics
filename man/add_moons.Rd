@@ -5,11 +5,11 @@
 \title{Add subplots of the lunar phase to a plot}
 \usage{
 add_moons(
-  side = 3,
-  position = 5,
+  side = 1L,
+  position = 0,
   outer = TRUE,
   nv = 100,
-  radius1 = 0.1,
+  radius = 0.25,
   units = "radians"
 )
 }
@@ -22,7 +22,7 @@ add_moons(
 
 \item{nv}{A numeric input that defines the number of vertices that are used to define moon shapes.}
 
-\item{radius1}{A numeric input that defines the radii of the moons added in user units. The default is 0.1.}
+\item{radius}{A numeric input that defines the radii of the moons added in user units. The default is 0.25.}
 
 \item{units}{A character which defines the units of lunar phase on the existing plot. The default is \code{"radians"}. \code{"degrees"} is the other option.}
 }
@@ -30,33 +30,32 @@ add_moons(
 Small subplots of the lunar phase (new moon, first quarter, full moon, third quarter, full moon) are added to an existing plot.
 }
 \description{
-This function adds images of the lunar phase to lunar phase plots (for example, a lunar phase time series or a model-inferred smooth of a response ~ s(lunar phase)).
+This function adds images of the lunar phase to lunar phase plots.
 }
 \details{
 This function requires the 'lunar' and 'plotrix' packages. Please install these before running this function, using: \code{install.packages(c("lunar", "plotrix").}
 }
 \examples{
-
 #### Example (1): Add plots of lunar phase to simulated smooth function:
 x <- seq(0, 2*pi, length.out = 100)
 y <- (x - 10^2) + 10
-plot(x, y)
+axis_ls <- pretty_plot(x, y, return_list = TRUE)
 add_moons(side = 3,
-          position = 120,
+          position = axis_ls[[2]]$lim[2],
           outer = FALSE,
           nv = 100,
-          radius1 = 0.1,
+          radius = 0.1,
           units = "radians")
 
 #### Example (2): Add plots to a lunar phase time series
 x <- seq.POSIXt(as.POSIXct("2016-01-01"), as.POSIXct("2016-05-01"), "days")
 y <- lunar::lunar.phase(x)
-plot(x, y, type = "l")
+axis_ls <- pretty_plot(x, y, type = "l", return_list = TRUE)
 add_moons(side = 2,
-          position = min(x)-1.25e5,
+          position = axis_ls[[1]]$lim[1],
           outer = TRUE,
           nv = 100,
-          radius1 = 1e5,
+          radius = 1e5,
           units = "radians")
 
 }

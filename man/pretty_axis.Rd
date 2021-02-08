@@ -11,6 +11,7 @@ pretty_axis(
   pretty = list(n = 5),
   units = list(),
   axis = list(),
+  pi_notation = NULL,
   control_axis = list(las = TRUE),
   control_sci_notation = list(),
   control_digits = NULL,
@@ -31,7 +32,9 @@ pretty_axis(
 
 \item{units}{(optional) A list of units for each side. If \code{pretty = list()}, then a regular sequence of values between axes limits will be defined. This can be controlled by supplying the distance between sequential values to this argument (otherwise, a default value is used). For numeric axes, this is a number; for POSIXct axes, this is a character which specifies the duration between sequential ticks (e.g. "secs").}
 
-\item{axis}{(optional) A list of arguments that are supplied to \code{\link[graphics]{axis}}, \code{\link[graphics]{axis.POSIXct}} or \code{\link[graphics]{axis.Date}} that control axes (e.g. \code{cex.axis}, \code{pos}, \code{col}, etc.). As for the \code{pretty} argument, a single list of arguments will affect all axes; otherwise, a nested list can be provided so that each axis can be controlled independently (see Examples).}
+\item{axis}{(optional) A named list of arguments that are supplied to \code{\link[graphics]{axis}}, \code{\link[graphics]{axis.POSIXct}} or \code{\link[graphics]{axis.Date}} that control axes (e.g. \code{cex.axis}, \code{pos}, \code{col}, etc.). As for the \code{pretty} argument, a single list of arguments will affect all axes; otherwise, a nested list can be provided so that each axis can be controlled independently (see Examples).}
+
+\item{pi_notation}{(optional) A named list of arguments, passed to \code{\link[prettyGraphics]{pi_notation}}, to implement \eqn{\pi} notation for axis labels. The default option (\code{NULL}) suppresses this argument; a single list (\code{list()}) implements \eqn{\pi} notation for all axes using default arguments; and a nested list (e.g., \code{list(list(), NULL)}) implements \eqn{\pi} notation for specific axes.}
 
 \item{control_axis}{(optional) A named list of arguments that affect all axes. This is only useful if a nested list is provided to \code{axis} (see above). In this case, any arguments that should affect all axes can be provided via \code{control_axis} so that these do not need to be provided to each list in \code{axis}. (This is simply for convenience.)}
 
@@ -51,7 +54,7 @@ pretty_axis(
 The function returns a list of parameters with an element for each \code{side}. Each element is a list which contains two elements: 'lim', a vector of the lower and upper axis limits for that \code{side} and 'axis', a list of parameters that define the axis for that \code{side}.
 }
 \description{
-This function is used to define pretty limits and axes on plots. The function can handle numeric, time stamp (i.e. \code{\link[base]{Dates}} or \code{\link[base]{DateTimeClasses}}) or factor data. Usually, arguments are passed from a plotting function (e.g., \code{link[prettyGraphics]{pretty_plot}}) to this function via \code{pretty_axis_args}, although it can be called directly too. In the latter case, generally, the best approach is to implement the function prior to creating a plot. Based on the data to be plotted, the function defines axes limits and corresponding 'pretty' axis tick marks and labels, returning a list of outputs. Then, a plot can be created using limits defined by the function, after which point axes can be added to the plot by passing the list back to the function. Axis limits, placement, the number of ticks, labels and other axes properties can be determined automatically (in which case the function tries hard to create 'pretty' axes), adjusted (e.g. via adjustments to the number of 'pretty' breaks) or user-defined (e.g. by specifying axis breaks). Each axis can be controlled independently (e.g., one axis can be user-defined while another axis can be determined automatically and the function defines appropriate limits and axis placement). The function is very flexible (see Examples).
+This function is used to define pretty limits and axes on plots. The function can handle numeric, time stamp (i.e. \code{\link[base]{Dates}} or \code{\link[base]{DateTimeClasses}}) or factor data. Usually, arguments are passed from a plotting function (e.g., \code{\link[prettyGraphics]{pretty_plot}}) to this function via \code{pretty_axis_args}, although it can be called directly too. In the latter case, generally, the best approach is to implement the function prior to creating a plot. Based on the data to be plotted, the function defines axes limits and corresponding 'pretty' axis tick marks and labels, returning a list of outputs. Then, a plot can be created using limits defined by the function, after which point axes can be added to the plot by passing the list back to the function. Axis limits, placement, the number of ticks, labels and other axes properties can be determined automatically (in which case the function tries hard to create 'pretty' axes), adjusted (e.g. via adjustments to the number of 'pretty' breaks) or user-defined (e.g. by specifying axis breaks). Each axis can be controlled independently (e.g., one axis can be user-defined while another axis can be determined automatically and the function defines appropriate limits and axis placement). The function is very flexible (see Examples).
 }
 \examples{
 #### Generate some data for numeric examples
@@ -374,10 +377,46 @@ axis_ls <-
   )
 axis_ls[[1]]
 
-#### For all data types, NAs are removed with a warning:
-\dontrun{
+#### Examples with pi notation
+## Define an example lunar phase time series
+x <- seq.Date(as.Date("2016-01-01"), as.Date("2016-02-01"), by = 1)
+y <- lunar::lunar.phase(x)
+## Under the default options, pi notation is suppressed
+x <- 1:10
+y <- 1:10
+axis_ls <- pretty_axis(side = 1:2,
+                       x = list(x, y),
+                       pretty = list(n = 5),
+                       return_list = TRUE
+                       )
+lapply(axis_ls, function(x) x$axis[c("at", "labels")])
+## To use pi notation for all axes with default args, specify list()
+axis_ls <- pretty_axis(side = 1:2,
+                       x = list(x, y),
+                       pretty = list(n = 5),
+                       pi_notation = list(),
+                       return_list = TRUE
+                       )
+lapply(axis_ls, function(x) x$axis[c("at", "labels")])
+## To use pi notation for specific axes, specify a nested list():
+axis_ls <- pretty_axis(side = 1:2,
+                       x = list(x, y),
+                       pretty = list(n = 5),
+                       pi_notation = list(NULL, list()),
+                       return_list = TRUE
+                       )
+lapply(axis_ls, function(x) x$axis[c("at", "labels")])
+## Pass arguments to pi_notation() to customise the result
+axis_ls <- pretty_axis(side = 1:2,
+                       x = list(x, y),
+                       pretty = list(n = 5),
+                       pi_notation = list(NULL, list(as_fraction = FALSE))
+                       )
+lapply(axis_ls, function(x) x$axis[c("at", "labels")])
+
+#### The influence of NAs
+# For all data types, NAs are removed with a message:
 pretty_axis(x = list(factor(c(1, 2, NA)), 1:3))
-}
 
 }
 \author{
