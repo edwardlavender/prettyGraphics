@@ -4,10 +4,9 @@
 #' @description  \link{prettyGraphics} is an R package designed to make the production of prettier plots easier in R. This includes functions which implement prettier versions of many standard plots, such as scatterplots, boxplots and histograms, namely through the creation of prettier axes. Other functions facilitate data exploration (such as the addition of lines coloured by a covariate to a plot), visualisation of statistical models (such as via the addition of model predictions to plots) and plot layout.
 #'
 #' @section Pretty axes: \describe{
-#' Several functions facilitate the creation of pretty axes. Of these, the main function is \link{pretty_axis}, which implements \link{sci_notation} and \link{add_lagging_point_zero} internally. These functions can be called by the user but, more commonly, they are implemented under-the-hood in one of \link{prettyGraphics}' implementations of common plotting functions (e.g., \link{pretty_plot}, see below).
 #' \item{\link{pretty_seq}}{This function defines pretty sequences, given data, limits and pretty parameters.}
 #' \item{\link{pretty_axis}}{This function defines and adds pretty axes to plots.}
-#' \item}{\link{pi_notation}}{This function translates numeric vectors into \eqn{pi} notation.}
+#' \item{\link{pi_notation}}{This function translates numeric vectors into \eqn{\pi} notation.}
 #' \item{\link{sci_notation}}{This function translates the 'e' notation used by base R into scientific notation.}
 #' \item{\link{add_lagging_point_zero}}{This function brings all numbers up the the same number of decimal places.}
 #' \item{\link{add_grid_rect_xy}}{This function adds a rectangular grid to a plot at user-defined positions.}
