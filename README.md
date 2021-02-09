@@ -83,7 +83,9 @@ library(prettyGraphics)
     fitted values and standard errors (or similar);
 -   `add_error_envelope()` adds model predictions (e.g. fitted lines,
     confidence intervals) to plots;
--   `pretty_smooth_1d()` plots pretty one dimensional smooths estimated
+-   `pretty_smooth_1d()` plots pretty one-dimensional smooths estimated
+    by `mgcv::gam()`;
+-   `pretty_smooth_2d()` plots pretty two-dimensional smooths estimated
     by `mgcv::gam()`;
 
 ## Standard plotting functions

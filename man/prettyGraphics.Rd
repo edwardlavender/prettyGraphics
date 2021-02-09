@@ -34,7 +34,8 @@
 \item{\link{add_error_bars}}{This function adds error bars to a plot.}
 \item{\link{list_CIs}}{This function  lists model predictions/confidence intervals from fitted values and standard errors (or similar).}
 \item{\link{add_error_envelope}}{This function adds model predictions (e.g. fitted lines, confidence intervals) to plots.}
-\item{\link{pretty_smooth_1d}}{This function adds plots pretty one-dimensional smooths.}
+\item{\link{pretty_smooth_1d}}{This function plots pretty one-dimensional smooths.}
+\item{\link{pretty_smooth_2d}}{This function plots pretty two-dimensional smooths.}
 }
 }
 
