@@ -165,11 +165,12 @@ par(pp)
 
 Possible future functionality includes:
 
--   `pretty_axis()` updates to support for axes in terms of *π*;
--   `pretty_barplot()` for prettier barplots;
--   `add_hydrodynamic_ts()` to add hydrodynamic model predictions to
-    (depth) time series;
+-   Additional standard routines, such as `pretty_barplot()` for
+    prettier barplots;
 -   Additional routines for visualising spatial data;
+-   Introduction of `ggplot2` support;
+-   Additional specialised functions, such as `add_hydrodynamic_ts()` to
+    add hydrodynamic model predictions to (depth) time series;
 
 ## Disclaimer
 
