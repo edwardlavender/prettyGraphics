@@ -5,22 +5,19 @@
 \title{Plot pretty one dimensional smooths}
 \usage{
 pretty_smooth_1d(
-  fit = list(),
+  fit,
   shift = 0,
   select = 1,
-  fit_args = list(),
-  add_se = TRUE,
-  se_type = "poly",
-  se_args = list(col = scales::alpha("lightgrey", 0.8), border = FALSE),
-  add_resid = FALSE,
-  resid_args = list(),
-  add_rug = TRUE,
-  rug_args = list(),
+  add_fit = list(),
+  add_se_type = "poly",
+  add_se = list(col = scales::alpha("lightgrey", 0.8), border = FALSE),
+  add_resid = NULL,
+  add_rug = NULL,
   pretty_axis_args = list(),
-  xlab_args = list(line = 2),
-  ylab_args = list(line = 2),
+  add_xlab = list(line = 2),
+  add_ylab = list(line = 2),
   assign_main = TRUE,
-  main_args = list(adj = 0),
+  add_main = list(adj = 0),
   one_page = TRUE,
   ...
 )
@@ -32,31 +29,23 @@ pretty_smooth_1d(
 
 \item{select}{An integer that specifies the smooth term(s) (i.e., the elements in \code{fit}) to be plotted.}
 
-\item{fit_args}{A named list of arguments to customise the appearance of the fitted line. This is passed to \code{\link[graphics]{lines}} or the \code{CI_gp} argument of \code{\link[prettyGraphics]{add_error_envelope}}.}
+\item{add_fit}{(optional) A named list of arguments to customise the appearance of the fitted line. This is passed to \code{\link[graphics]{lines}} or the \code{CI_gp} argument of \code{\link[prettyGraphics]{add_error_envelope}}.}
 
-\item{add_se}{A logical input that defines whether or not to add confidence intervals to the plot. These are defined by the 'fit' ± the 'se' elements in \code{fit}.}
+\item{add_se_type}{(optional) A character that defines the method by which CIs are added to the plot: as lines (\code{"lines"}) or as a shaded polygon (\code{"poly"}). This is passed to the \code{fCI} argument of \code{\link[prettyGraphics]{add_error_envelope}}.}
 
-\item{se_type}{A character that defines the method by which CIs are added to the plot: as lines (\code{"lines"}) or as a shaded polygon (\code{"poly"}). This is passed to the \code{fCI} argument of \code{\link[prettyGraphics]{add_error_envelope}}.}
+\item{add_se}{(optional) A named list of arguments to customise the appearance of the confidence intervals. This is passed to the \code{CI_gp} argument of \code{\link[prettyGraphics]{add_error_envelope}}.}
 
-\item{se_args}{A named list of arguments to customise the appearance of the confidence intervals. This is passed to the \code{CI_gp} argument of \code{\link[prettyGraphics]{add_error_envelope}}.}
+\item{add_resid}{(optional) A named list of arguments to customise the appearance of partial residuals via \code{\link[graphics]{points}}. These are taken from the 'p.resid' elements in \code{fit}.}
 
-\item{add_resid}{A logical input that defines whether or not to add partial residuals to the plot. These are taken from the 'p.resid' elements in \code{fit}.}
-
-\item{resid_args}{A named list of arguments to customise the appearance of partial residuals via \code{\link[graphics]{points}}.}
-
-\item{add_rug}{A logical input that defines whether or not to add a rug of observed values to the plot. Observed values are taken from the 'raw' elements in \code{fit}.}
-
-\item{rug_args}{A named list of arguments to customise the appearance of the rug. This is passed to \code{\link[graphics]{rug}}.}
+\item{add_rug}{(optional) A named list of arguments to add a rug of observed values to the plot. Observed values are taken from the 'raw' elements in \code{fit}. This is passed to \code{\link[graphics]{rug}}.}
 
 \item{pretty_axis_args}{A named list of arguments, passed to \code{\link[prettyGraphics]{pretty_axis}} to customise axes.}
 
-\item{xlab_args}{A named list of arguments to customise the x axis labels. Labels are taken from the 'xlab' elements in \code{fit}. This is passed to \code{\link[graphics]{mtext}}.}
+\item{add_xlab, add_ylab}{(optional) Named list of arguments to customise the x and y axis labels. Labels are taken from the 'xlab' and 'ylab' elements in \code{fit} respectively. Lists are passed to \code{\link[graphics]{mtext}}.}
 
-\item{ylab_args}{A named list of arguments to customise the y axis labels. Labels are taken from the 'ylab' elements in \code{fit}. This is passed to \code{\link[graphics]{mtext}}.}
+\item{assign_main}{(optional) A logical input that defines whether or not to assign a title to the plot. If \code{TRUE}, each plot (i)'s title is given by \code{LETTERS[1:length(select)][i]}.}
 
-\item{assign_main}{A logical input that defines whether or not to assign a title to the plot. If \code{TRUE}, each plot (i)'s title is given by \code{LETTERS[1:length(select)][i]}.}
-
-\item{main_args}{A named list of arguments to customise plot titles. Labels are assigned (see \code{assign_main}) or taken from the 'main' elements in \code{fit}. This is passed to \code{\link[graphics]{mtext}}.}
+\item{add_main}{(optional) A named list of arguments to customise plot titles. Labels are assigned (see \code{assign_main}) or taken from the 'main' elements in \code{fit}. This is passed to \code{\link[graphics]{mtext}}.}
 
 \item{one_page}{A logical input that defines whether or not to plot all smooths on one page.}
 
@@ -67,6 +56,9 @@ The function returns a pretty plot of one dimensional smooths(s).
 }
 \description{
 This function is designed to plot prettier versions of one dimensional smooths created by \code{\link[mgcv]{plot.gam}}. For each smooth, the necessary information for plotting is taken from a user-supplied list generated by \code{\link[mgcv]{plot.gam}}. Plots are created using \code{\link[prettyGraphics]{pretty_plot}}. Confidence intervals can be added via an internal call to \code{\link[prettyGraphics]{add_error_envelope}}. Partial residuals and a rug for the observed values can also be added and customised.
+}
+\details{
+For all \code{add_*} arguments, \code{add_* = NULL} suppresses the argument, \code{add_* = list()} implements the argument with default values and a named list customises the output.
 }
 \examples{
 #### Simulate some example data and fit an example model
@@ -83,26 +75,26 @@ pretty_smooth_1d(fit)
 # The number of smooth terms is controlled via select
 # ... and can be plotted on one page via one_page
 pretty_smooth_1d(fit, select = 1:2, one_page = TRUE)
-# The fitted line can be controlled via fit_args
-pretty_smooth_1d(fit, fit_args = list(col = "red"))
-# Confidence intervals can be surpressed via add_se = FALSE or
-# ... controlled via se_type and se_args
-pretty_smooth_1d(fit, fit_args = list(col = "red"), add_se = FALSE)
+# The fitted line can be controlled via add_fit
+pretty_smooth_1d(fit, add_fit = list(col = "red"))
+# Confidence intervals can be suppressed via add_se_type = NULL or
+# ... controlled via add_se and
+pretty_smooth_1d(fit, add_fit = list(col = "red"), add_se = NULL)
 pretty_smooth_1d(fit,
-                 fit_args = list(col = "red"),
-                 se_type = "lines",
-                 se_args = list(col = "blue"))
-# Partial residuals can be added via add_resid and controlled via resid_args
-pretty_smooth_1d(fit, add_resid = TRUE, resid_args = list(cex = 0.25))
-# A rug can be added/surpressed via add_rug and controlled via rug_args
-pretty_smooth_1d(fit, add_rug = FALSE)
-pretty_smooth_1d(fit, rug_args = list(ticksize = 0.01))
-# Axis titles can be controlled via xlab_args, ylab_args and main_args
-pretty_smooth_1d(fit, main_args = list(cex = 2))
+                 add_fit = list(col = "red"),
+                 add_se_type = "lines",
+                 add_se = list(col = "blue"))
+# Partial residuals can be added via add_resid
+pretty_smooth_1d(fit, add_resid = list(cex = 0.25))
+# A rug can be added/surpressed via add_rug
+pretty_smooth_1d(fit, add_rug = NULL)
+pretty_smooth_1d(fit, add_rug = list(ticksize = 0.01))
+# Axis titles can be controlled via add_xlab, add_ylab and add_main
+pretty_smooth_1d(fit, add_main = list(cex = 2))
 # Axis titles are taken from the fitted object, so can be changed
 # ... by changing the appropriate element in 'fit'
 fit[[1]]$xlab <- "Updated x name"
-pretty_smooth_1d(fit, main_args = list(cex = 2))
+pretty_smooth_1d(fit, add_main = list(cex = 2))
 
 }
 \author{

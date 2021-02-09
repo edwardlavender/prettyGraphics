@@ -7,21 +7,19 @@
 #' @param fit A list returned by \code{\link[mgcv]{plot.gam}}. Each element is a list which contains all the necessary information to recreate a plot for a specific model term.
 #' @param shift A number which defines a value by which to shift model predictions/partial residuals vertically.
 #' @param select An integer that specifies the smooth term(s) (i.e., the elements in \code{fit}) to be plotted.
-#' @param fit_args A named list of arguments to customise the appearance of the fitted line. This is passed to \code{\link[graphics]{lines}} or the \code{CI_gp} argument of \code{\link[prettyGraphics]{add_error_envelope}}.
-#' @param add_se A logical input that defines whether or not to add confidence intervals to the plot. These are defined by the 'fit' ± the 'se' elements in \code{fit}.
-#' @param se_type A character that defines the method by which CIs are added to the plot: as lines (\code{"lines"}) or as a shaded polygon (\code{"poly"}). This is passed to the \code{fCI} argument of \code{\link[prettyGraphics]{add_error_envelope}}.
-#' @param se_args A named list of arguments to customise the appearance of the confidence intervals. This is passed to the \code{CI_gp} argument of \code{\link[prettyGraphics]{add_error_envelope}}.
-#' @param add_resid A logical input that defines whether or not to add partial residuals to the plot. These are taken from the 'p.resid' elements in \code{fit}.
-#' @param resid_args A named list of arguments to customise the appearance of partial residuals via \code{\link[graphics]{points}}.
-#' @param add_rug A logical input that defines whether or not to add a rug of observed values to the plot. Observed values are taken from the 'raw' elements in \code{fit}.
-#' @param rug_args A named list of arguments to customise the appearance of the rug. This is passed to \code{\link[graphics]{rug}}.
+#' @param add_fit (optional) A named list of arguments to customise the appearance of the fitted line. This is passed to \code{\link[graphics]{lines}} or the \code{CI_gp} argument of \code{\link[prettyGraphics]{add_error_envelope}}.
+#' @param add_se_type (optional) A character that defines the method by which CIs are added to the plot: as lines (\code{"lines"}) or as a shaded polygon (\code{"poly"}). This is passed to the \code{fCI} argument of \code{\link[prettyGraphics]{add_error_envelope}}.
+#' @param add_se (optional) A named list of arguments to customise the appearance of the confidence intervals. This is passed to the \code{CI_gp} argument of \code{\link[prettyGraphics]{add_error_envelope}}.
+#' @param add_resid (optional) A named list of arguments to customise the appearance of partial residuals via \code{\link[graphics]{points}}. These are taken from the 'p.resid' elements in \code{fit}.
+#' @param add_rug (optional) A named list of arguments to add a rug of observed values to the plot. Observed values are taken from the 'raw' elements in \code{fit}. This is passed to \code{\link[graphics]{rug}}.
 #' @param pretty_axis_args A named list of arguments, passed to \code{\link[prettyGraphics]{pretty_axis}} to customise axes.
-#' @param xlab_args A named list of arguments to customise the x axis labels. Labels are taken from the 'xlab' elements in \code{fit}. This is passed to \code{\link[graphics]{mtext}}.
-#' @param ylab_args A named list of arguments to customise the y axis labels. Labels are taken from the 'ylab' elements in \code{fit}. This is passed to \code{\link[graphics]{mtext}}.
-#' @param assign_main A logical input that defines whether or not to assign a title to the plot. If \code{TRUE}, each plot (i)'s title is given by \code{LETTERS[1:length(select)][i]}.
-#' @param main_args A named list of arguments to customise plot titles. Labels are assigned (see \code{assign_main}) or taken from the 'main' elements in \code{fit}. This is passed to \code{\link[graphics]{mtext}}.
+#' @param add_xlab,add_ylab (optional) Named list of arguments to customise the x and y axis labels. Labels are taken from the 'xlab' and 'ylab' elements in \code{fit} respectively. Lists are passed to \code{\link[graphics]{mtext}}.
+#' @param assign_main (optional) A logical input that defines whether or not to assign a title to the plot. If \code{TRUE}, each plot (i)'s title is given by \code{LETTERS[1:length(select)][i]}.
+#' @param add_main (optional) A named list of arguments to customise plot titles. Labels are assigned (see \code{assign_main}) or taken from the 'main' elements in \code{fit}. This is passed to \code{\link[graphics]{mtext}}.
 #' @param one_page A logical input that defines whether or not to plot all smooths on one page.
 #' @param ... Additional arguments (none implemented).
+#'
+#' @details For all \code{add_*} arguments, \code{add_* = NULL} suppresses the argument, \code{add_* = list()} implements the argument with default values and a named list customises the output.
 #'
 #' @return The function returns a pretty plot of one dimensional smooths(s).
 #' @examples
@@ -39,47 +37,43 @@
 #' # The number of smooth terms is controlled via select
 #' # ... and can be plotted on one page via one_page
 #' pretty_smooth_1d(fit, select = 1:2, one_page = TRUE)
-#' # The fitted line can be controlled via fit_args
-#' pretty_smooth_1d(fit, fit_args = list(col = "red"))
-#' # Confidence intervals can be surpressed via add_se = FALSE or
-#' # ... controlled via se_type and se_args
-#' pretty_smooth_1d(fit, fit_args = list(col = "red"), add_se = FALSE)
+#' # The fitted line can be controlled via add_fit
+#' pretty_smooth_1d(fit, add_fit = list(col = "red"))
+#' # Confidence intervals can be suppressed via add_se_type = NULL or
+#' # ... controlled via add_se and
+#' pretty_smooth_1d(fit, add_fit = list(col = "red"), add_se = NULL)
 #' pretty_smooth_1d(fit,
-#'                  fit_args = list(col = "red"),
-#'                  se_type = "lines",
-#'                  se_args = list(col = "blue"))
-#' # Partial residuals can be added via add_resid and controlled via resid_args
-#' pretty_smooth_1d(fit, add_resid = TRUE, resid_args = list(cex = 0.25))
-#' # A rug can be added/surpressed via add_rug and controlled via rug_args
-#' pretty_smooth_1d(fit, add_rug = FALSE)
-#' pretty_smooth_1d(fit, rug_args = list(ticksize = 0.01))
-#' # Axis titles can be controlled via xlab_args, ylab_args and main_args
-#' pretty_smooth_1d(fit, main_args = list(cex = 2))
+#'                  add_fit = list(col = "red"),
+#'                  add_se_type = "lines",
+#'                  add_se = list(col = "blue"))
+#' # Partial residuals can be added via add_resid
+#' pretty_smooth_1d(fit, add_resid = list(cex = 0.25))
+#' # A rug can be added/surpressed via add_rug
+#' pretty_smooth_1d(fit, add_rug = NULL)
+#' pretty_smooth_1d(fit, add_rug = list(ticksize = 0.01))
+#' # Axis titles can be controlled via add_xlab, add_ylab and add_main
+#' pretty_smooth_1d(fit, add_main = list(cex = 2))
 #' # Axis titles are taken from the fitted object, so can be changed
 #' # ... by changing the appropriate element in 'fit'
 #' fit[[1]]$xlab <- "Updated x name"
-#' pretty_smooth_1d(fit, main_args = list(cex = 2))
+#' pretty_smooth_1d(fit, add_main = list(cex = 2))
 #'
 #' @author Edward Lavender
 #' @export
 #'
 
-pretty_smooth_1d <- function(fit = list(),
+pretty_smooth_1d <- function(fit,
                              shift = 0,
                              select = 1,
-                             fit_args = list(),
-                             add_se = TRUE,
-                             se_type = "poly",
-                             se_args = list(col = scales::alpha("lightgrey", 0.8), border = FALSE),
-                             add_resid = FALSE,
-                             resid_args = list(),
-                             add_rug = TRUE,
-                             rug_args = list(),
+                             add_fit = list(),
+                             add_se_type = "poly",
+                             add_se = list(col = scales::alpha("lightgrey", 0.8), border = FALSE),
+                             add_resid = NULL,
+                             add_rug = NULL,
                              pretty_axis_args = list(),
-                             xlab_args = list(line = 2),
-                             ylab_args = list(line = 2),
-                             assign_main = TRUE,
-                             main_args = list(adj = 0),
+                             add_xlab = list(line = 2),
+                             add_ylab = list(line = 2),
+                             assign_main = TRUE, add_main = list(adj = 0),
                              one_page = TRUE,
                              ...){
 
@@ -99,23 +93,23 @@ pretty_smooth_1d <- function(fit = list(),
     ifit <- fit[[sel]]
 
     #### Checks
-    if(add_resid){
+    if(!is.null(add_resid)){
       if(is.null(ifit$p.resid)){
         message(paste0("add_resid = TRUE ignored: fit[[", sel, "]]$p.resid not provided."))
-        add_resid <- FALSE
+        add_resid <- NULL
       }
     }
 
     #### Define x and y limits
     if(shift != 0){
       ifit$fit <- ifit$fit + shift
-      if(add_resid) ifit$p.resid <- ifit$p.resid + shift
+      if(!is.null(add_resid)) ifit$p.resid <- ifit$p.resid + shift
     }
     x_rng <- range(ifit$x)
     cis <- list(fit = ifit$fit, lowerCI = ifit$fit - ifit$se, upperCI = ifit$fit + ifit$se)
     y_rng <- range(ifit$fit)
-    if(add_se) y_rng <- range(c(y_rng, cis$lowerCI, cis$upperCI))
-    if(add_resid) y_rng <- range(c(y_rng, ifit$p.resid))
+    if(!is.null(add_se_type)) y_rng <- range(c(y_rng, cis$lowerCI, cis$upperCI))
+    if(!is.null(add_resid)) y_rng <- range(c(y_rng, ifit$p.resid))
 
     #### Make blank plot
     pretty_axis_args$x <- list(x =  x_rng, y = y_rng)
@@ -128,52 +122,64 @@ pretty_smooth_1d <- function(fit = list(),
                            )
 
     #### Add CIs and fitted line
-    if(!add_se){
-      fit_args$x <- ifit$x
-      fit_args$y <- ifit$fit
-      do.call(graphics::lines, fit_args)
+    if(!is.null(add_se_type) & !is.null(add_se)){
+      if(!is.null(add_fit)) {
+        add_fit$x <- ifit$x
+        add_fit$y <- ifit$fit
+        do.call(graphics::lines, add_fit)
+      }
     } else{
       add_error_envelope_args <- list()
       add_error_envelope_args$x <- ifit$x
       add_error_envelope_args$CI <- cis
-      add_error_envelope_args$fCI <- se_type
-      add_error_envelope_args$CI_gp <- se_args
-      add_error_envelope_args$add_fitted <- TRUE
-      if(length(fit_args) == 0) fit_args$col <- "black"
-      add_error_envelope_args$fitted_gp <- fit_args
-      do.call(add_error_envelope, add_error_envelope_args)
+      add_error_envelope_args$fCI <- add_se_type
+      add_error_envelope_args$CI_gp <- add_se
+      if(!is.null(add_fit)) {
+        add_error_envelope_args$add_fitted <- TRUE
+        if(length(add_fit) == 0) add_fit$col <- "black"
+        add_error_envelope_args$fitted_gp <- add_fit
+      } else {
+        add_error_envelope_args$add_fitted <- FALSE
       }
+      do.call(add_error_envelope, add_error_envelope_args)
+    }
 
     #### Add residuals
-    if(add_resid){
-      resid_args$x <- ifit$raw
-      resid_args$y <- ifit$p.resid
-      do.call(graphics::points, resid_args)
+    if(!is.null(add_resid)){
+      add_resid$x <- ifit$raw
+      add_resid$y <- ifit$p.resid
+      do.call(graphics::points, add_resid)
     }
 
     #### Add rug
-    if(add_rug){
-      if(is.null(rug_args$x)) rug_args$x <- ifit$raw
-      if(is.null(rug_args$side)) rug_args$side <- 1
-      if(is.null(rug_args$pos))  rug_args$pos  <- min(axis_ls[[2]]$lim)
-      do.call(graphics::rug, rug_args)
+    if(!is.null(add_rug)){
+      if(is.null(add_rug$x)) add_rug$x <- ifit$raw
+      if(is.null(add_rug$side)) add_rug$side <- 1
+      if(is.null(add_rug$pos))  add_rug$pos  <- min(axis_ls[[2]]$lim)
+      do.call(graphics::rug, add_rug)
     }
 
     #### Define/add labels
     ## x axis
-    xlab_args$side <- 1
-    xlab_args$text <- ifit$xlab
-    do.call(graphics::mtext, xlab_args)
+    if(!is.null(add_xlab)) {
+      add_xlab$side <- 1
+      add_xlab$text <- ifit$xlab
+      do.call(graphics::mtext, add_xlab)
+    }
     ## y axis
-    ylab_args$side <- 2
-    ylab_args$text <- ifit$ylab
-    do.call(graphics::mtext, ylab_args)
+    if(is.null(add_ylab)) {
+      add_ylab$side <- 2
+      add_ylab$text <- ifit$ylab
+      do.call(graphics::mtext, add_ylab)
+    }
     ## main
-    if(assign_main) ifit$main <- LETTERS[i]
-    if(!is.null(ifit$main)){
-      if(is.null(main_args$side)) main_args$side <- 3
-      main_args$text <- ifit$main
-      do.call(graphics::mtext, main_args)
+    if(!is.null(add_main)) {
+      if(assign_main) ifit$main <- LETTERS[i]
+      if(!is.null(ifit$main)){
+        if(is.null(add_main$side)) add_main$side <- 3
+        add_main$text <- ifit$main
+        do.call(graphics::mtext, add_main)
+      }
     }
 
   })
