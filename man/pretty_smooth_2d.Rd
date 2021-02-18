@@ -14,6 +14,7 @@ pretty_smooth_2d(
   add_xy = NULL,
   add_rug_x = NULL,
   add_rug_y = NULL,
+  return_list = FALSE,
   ...
 )
 }
@@ -27,6 +28,8 @@ pretty_smooth_2d(
 \item{add_xy}{A named list of arguments, passed to \code{\link[graphics]{points}}, to add observations to the plot. \code{add_xy = NULL} suppresses this option, \code{add_xy = list()} implements default arguments and a named list customises these.}
 
 \item{add_rug_x, add_rug_y}{Named list of arguments, passed to \code{\link[graphics]{rug}}, to add observed values of the variables defined in \code{view} to the plot. \code{add_rug_* = NULL} suppresses this option, \code{add_rug_*} implements default arguments and a named list customises these.}
+
+\item{return_list}{A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.}
 
 \item{...}{Additional arguments passed to \code{\link[mgcv]{vis.gam}}, excluding \code{"plot.type"} (since only contour plots are supported by this function) and \code{"axes"}.}
 }

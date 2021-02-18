@@ -13,12 +13,15 @@ pretty_smooth_1d(
   add_se = list(col = scales::alpha("lightgrey", 0.8), border = FALSE),
   add_resid = NULL,
   add_rug = NULL,
+  xlim = NULL,
+  ylim = NULL,
   pretty_axis_args = list(),
   add_xlab = list(line = 2),
   add_ylab = list(line = 2),
   assign_main = TRUE,
   add_main = list(adj = 0),
   one_page = TRUE,
+  return_list = FALSE,
   ...
 )
 }
@@ -39,6 +42,8 @@ pretty_smooth_1d(
 
 \item{add_rug}{(optional) A named list of arguments to add a rug of observed values to the plot. Observed values are taken from the 'raw' elements in \code{fit}. This is passed to \code{\link[graphics]{rug}}.}
 
+\item{xlim, ylim}{Axis limits for all plots. If \code{NULL}, axis limits are chosen according to the inputs to \code{pretty_axis_args}.}
+
 \item{pretty_axis_args}{A named list of arguments, passed to \code{\link[prettyGraphics]{pretty_axis}} to customise axes.}
 
 \item{add_xlab, add_ylab}{(optional) Named list of arguments to customise the x and y axis labels. Labels are taken from the 'xlab' and 'ylab' elements in \code{fit} respectively. Lists are passed to \code{\link[graphics]{mtext}}.}
@@ -48,6 +53,8 @@ pretty_smooth_1d(
 \item{add_main}{(optional) A named list of arguments to customise plot titles. Labels are assigned (see \code{assign_main}) or taken from the 'main' elements in \code{fit}. This is passed to \code{\link[graphics]{mtext}}.}
 
 \item{one_page}{A logical input that defines whether or not to plot all smooths on one page.}
+
+\item{return_list}{A logical input which defines whether or not to return a list, with one element for each \code{select} value, each containing the named list of axis arguments from \code{\link[prettyGraphics]{pretty_axis}}.}
 
 \item{...}{Additional arguments (none implemented).}
 }

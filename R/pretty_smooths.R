@@ -12,11 +12,13 @@
 #' @param add_se (optional) A named list of arguments to customise the appearance of the confidence intervals. This is passed to the \code{CI_gp} argument of \code{\link[prettyGraphics]{add_error_envelope}}.
 #' @param add_resid (optional) A named list of arguments to customise the appearance of partial residuals via \code{\link[graphics]{points}}. These are taken from the 'p.resid' elements in \code{fit}.
 #' @param add_rug (optional) A named list of arguments to add a rug of observed values to the plot. Observed values are taken from the 'raw' elements in \code{fit}. This is passed to \code{\link[graphics]{rug}}.
+#' @param xlim,ylim Axis limits for all plots. If \code{NULL}, axis limits are chosen according to the inputs to \code{pretty_axis_args}.
 #' @param pretty_axis_args A named list of arguments, passed to \code{\link[prettyGraphics]{pretty_axis}} to customise axes.
 #' @param add_xlab,add_ylab (optional) Named list of arguments to customise the x and y axis labels. Labels are taken from the 'xlab' and 'ylab' elements in \code{fit} respectively. Lists are passed to \code{\link[graphics]{mtext}}.
 #' @param assign_main (optional) A logical input that defines whether or not to assign a title to the plot. If \code{TRUE}, each plot (i)'s title is given by \code{LETTERS[1:length(select)][i]}.
 #' @param add_main (optional) A named list of arguments to customise plot titles. Labels are assigned (see \code{assign_main}) or taken from the 'main' elements in \code{fit}. This is passed to \code{\link[graphics]{mtext}}.
 #' @param one_page A logical input that defines whether or not to plot all smooths on one page.
+#' @param return_list A logical input which defines whether or not to return a list, with one element for each \code{select} value, each containing the named list of axis arguments from \code{\link[prettyGraphics]{pretty_axis}}.
 #' @param ... Additional arguments (none implemented).
 #'
 #' @details For all \code{add_*} arguments, \code{add_* = NULL} suppresses the argument, \code{add_* = list()} implements the argument with default values and a named list customises the output.
@@ -70,11 +72,13 @@ pretty_smooth_1d <- function(fit,
                              add_se = list(col = scales::alpha("lightgrey", 0.8), border = FALSE),
                              add_resid = NULL,
                              add_rug = NULL,
+                             xlim = NULL, ylim = NULL,
                              pretty_axis_args = list(),
                              add_xlab = list(line = 2),
                              add_ylab = list(line = 2),
                              assign_main = TRUE, add_main = list(adj = 0),
                              one_page = TRUE,
+                             return_list = FALSE,
                              ...){
 
   #### Set up
@@ -86,7 +90,7 @@ pretty_smooth_1d <- function(fit,
   } else{
     loop <- function(X, FUN,...) lapply(X, FUN, ...)
   }
-  int <- loop(1:length(select), function(i){
+  axis_ls_by_term <- loop(1:length(select), function(i){
 
     #### Extract element of interest
     sel <- select[i]
@@ -115,6 +119,7 @@ pretty_smooth_1d <- function(fit,
     pretty_axis_args$x <- list(x =  x_rng, y = y_rng)
     if(is.null(pretty_axis_args$side)) pretty_axis_args$side <- 1:2
     axis_ls <- pretty_plot(ifit$x, ifit$fit,
+                           xlim = xlim, ylim = ylim,
                            pretty_axis_args = pretty_axis_args,
                            xlab = "", ylab = "",
                            type = "n",
@@ -122,7 +127,7 @@ pretty_smooth_1d <- function(fit,
                            )
 
     #### Add CIs and fitted line
-    if(!is.null(add_se_type) & !is.null(add_se)){
+    if(is.null(add_se_type) & is.null(add_se)){
       if(!is.null(add_fit)) {
         add_fit$x <- ifit$x
         add_fit$y <- ifit$fit
@@ -167,7 +172,7 @@ pretty_smooth_1d <- function(fit,
       do.call(graphics::mtext, add_xlab)
     }
     ## y axis
-    if(is.null(add_ylab)) {
+    if(!is.null(add_ylab)) {
       add_ylab$side <- 2
       add_ylab$text <- ifit$ylab
       do.call(graphics::mtext, add_ylab)
@@ -187,6 +192,9 @@ pretty_smooth_1d <- function(fit,
   #### Reset graphics
   if(one_page) graphics::par(pp)
 
+  #### Return outputs
+  if(return_list) return(axis_ls_by_term) else(return(invisible()))
+
 }
 
 
@@ -201,6 +209,7 @@ pretty_smooth_1d <- function(fit,
 #' @param xlim,ylim,pretty_axis_args Axis control arguments. \code{xlim} and \code{ylim} control x and y axis limits via \code{\link[prettyGraphics]{pretty_axis}}. If not supplied, \code{xlim} and \code{ylim} are defined as the range across each corresponding variable. To use default 'pretty' limits instead, specify \code{xlim = NULL} and \code{ylim = NULL}. Additional axis customisation is implemented by passing a named list of arguments to \code{\link[prettyGraphics]{pretty_axis}} via \code{pretty_axis_args}.
 #' @param add_xy A named list of arguments, passed to \code{\link[graphics]{points}}, to add observations to the plot. \code{add_xy = NULL} suppresses this option, \code{add_xy = list()} implements default arguments and a named list customises these.
 #' @param add_rug_x,add_rug_y Named list of arguments, passed to \code{\link[graphics]{rug}}, to add observed values of the variables defined in \code{view} to the plot. \code{add_rug_* = NULL} suppresses this option, \code{add_rug_*} implements default arguments and a named list customises these.
+#' @param return_list A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.
 #' @param ... Additional arguments passed to \code{\link[mgcv]{vis.gam}}, excluding \code{"plot.type"} (since only contour plots are supported by this function) and \code{"axes"}.
 #'
 #' @details At present, the function is simply a wrapper for \code{\link[mgcv]{vis.gam}} with the additional flexibility provided by the \code{\link[prettyGraphics]{pretty_axis}} function and the \code{add_xy}, \code{add_rug_x} and \code{add_rug_y} arguments.
@@ -269,6 +278,7 @@ pretty_smooth_2d <- function(x,
                              add_xy = NULL,
                              add_rug_x = NULL,
                              add_rug_y = NULL,
+                             return_list = FALSE,
                              ...) {
 
   #### Define data and fix limits across range of data
@@ -340,5 +350,5 @@ pretty_smooth_2d <- function(x,
   pretty_axis(axis_ls = axis_ls, add = TRUE)
 
   #### Return blank
-  return(invisible(x))
+  if(return_list) return(axis_ls) else return(invisible(x))
 }
