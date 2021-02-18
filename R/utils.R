@@ -242,6 +242,26 @@ list_merge <- function(...){
 
 
 ######################################
+#### check_for_depreciated()
+
+#' @title Check for depreciated arguments passed via \code{...}
+#' @description This function checks for depreciated arguments passed via \code{...} to a parent function and returns a warning if any depreciated arguments have been used.
+#' @param depreciated A character vector that defines the names of depreciated arguments to a parent function.
+#' @param ... Additional arguments passed to a parent function.
+#' @author Edward Lavender
+#' @keywords internal
+
+check_depreciated <- function(depreciated,...){
+  dots <- list(...)
+  if(any(names(dots) %in% depreciated)) {
+    deprec <- names(dots)[names(dots) %in% depreciated]
+    warn <- paste0("The following argument(s) are depreciated: ", paste0("'", deprec, collapse = "', "),"'.")
+    warning(warn, call. = FALSE, immediate. = TRUE)
+  } else return(invisible())
+}
+
+
+######################################
 ######################################
 #### list_depth()
 

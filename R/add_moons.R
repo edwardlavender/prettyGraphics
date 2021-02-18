@@ -2,11 +2,12 @@
 #' @description This function adds images of the lunar phase to lunar phase plots.
 #'
 #' @param side A numeric input that defines the side on to which you would like to add the moons. \code{side = 1}, \code{side = 2}, \code{side = 3}, \code{side = 4} add moons to the bottom, left, top and right axes respectively. The default is to add moons to the top of the plot. This is appropriate if the plot in question is a smooth of lunar phase. If the plot is a lunar phase time series, \code{side = 2} is more appropriate (see Examples).
-#' @param position A numeric input that defines the position at which moons will be added to the plot. If \code{side = 1} or \code{side = 3}, this refers to the height at which moons will be added. If \code{side = 2} or \code{side = 4}, this refers to the x value at which moons will be added (see Examples). This should be a single number; i.e. moons are all plotted at the same height (in the case of a smooth plot) or distance along the x axis (in the case of a time series plot).
+#' @param pos A numeric input that defines the position at which moons will be added to the plot. If \code{side = 1} or \code{side = 3}, this refers to the height at which moons will be added. If \code{side = 2} or \code{side = 4}, this refers to the x value at which moons will be added (see Examples). This should be a single number; i.e. moons are all plotted at the same height (in the case of a smooth plot) or distance along the x axis (in the case of a time series plot).
 #' @param outer A logical input that defines whether or not the moons will be drawn beyond the range of the x or y axis. If this is the case, \code{outer = TRUE}; otherwise, set \code{outer = FALSE}.
 #' @param nv A numeric input that defines the number of vertices that are used to define moon shapes.
 #' @param radius A numeric input that defines the radii of the moons added in user units. The default is 0.25.
 #' @param units A character which defines the units of lunar phase on the existing plot. The default is \code{"radians"}. \code{"degrees"} is the other option.
+#' @param ... Additional arguments: none are currently implemented but depreciated argument names ('radius1' and 'position') can be passed via \code{...}.
 #'
 #' @return Small subplots of the lunar phase (new moon, first quarter, full moon, third quarter, full moon) are added to an existing plot.
 #'
@@ -18,7 +19,7 @@
 #' y <- (x - 10^2) + 10
 #' axis_ls <- pretty_plot(x, y, return_list = TRUE)
 #' add_moons(side = 3,
-#'           position = axis_ls[[2]]$lim[2],
+#'           pos = axis_ls[[2]]$lim[2],
 #'           outer = FALSE,
 #'           nv = 100,
 #'           radius = 0.1,
@@ -29,7 +30,7 @@
 #' y <- lunar::lunar.phase(x)
 #' axis_ls <- pretty_plot(x, y, type = "l", return_list = TRUE)
 #' add_moons(side = 2,
-#'           position = axis_ls[[1]]$lim[1],
+#'           pos = axis_ls[[1]]$lim[1],
 #'           outer = TRUE,
 #'           nv = 100,
 #'           radius = 1e5,
@@ -41,14 +42,15 @@
 add_moons <-
   function(
     side = 1L,
-    position = 0,
+    pos = 0,
     outer = TRUE,
     nv = 100,
     radius = 0.25,
-    units = "radians"
+    units = "radians",...
   ){
 
     #### Checks
+    ## Check for requisite packages
     if(!requireNamespace("lunar", quietly = TRUE)){
       stop("Package \"lunar\" is needed for this function to work. Please install it.",
            call. = FALSE)
@@ -57,6 +59,11 @@ add_moons <-
       stop("Package \"plotrix\" is needed for this function to work. Please install it.",
            call. = FALSE)
     }
+    ## Check for depreciated arguments
+    dots <- list(...)
+    if("radius1" %in% names(dots)) radius <- dots$radius1
+    if("position" %in% names(dots)) pos <- dots$position
+    check_depreciated(c("radius1", "position"),...)
 
     #### Make moons
 
@@ -79,11 +86,11 @@ add_moons <-
       # If the user has selected side 1 or 3, then x_position becomes the moon positions
       # ... and we'll repeate the position inputted to become the y_position
       x_position <- moon_pos
-      y_position <- rep(position, length(moon_pos))
+      y_position <- rep(pos, length(moon_pos))
     } else if(side == 2 | side == 4){
       # If the user has selected 2 or 4, the x_position is the inputted position
       # ... and the y_position becomes the inputted position
-      x_position <- rep(position, length(moon_pos))
+      x_position <- rep(pos, length(moon_pos))
       y_position <- moon_pos
     }
 
@@ -127,7 +134,6 @@ add_moons <-
                           col = "black")
 
     # restore graphics properties if these have been modified
-    if(outer){
-      on.exit(options(ouser), add = TRUE)
-    }
+    if(outer) on.exit(options(ouser), add = TRUE)
+    return(invisible())
   }

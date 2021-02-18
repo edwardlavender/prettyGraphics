@@ -6,17 +6,18 @@
 \usage{
 add_moons(
   side = 1L,
-  position = 0,
+  pos = 0,
   outer = TRUE,
   nv = 100,
   radius = 0.25,
-  units = "radians"
+  units = "radians",
+  ...
 )
 }
 \arguments{
 \item{side}{A numeric input that defines the side on to which you would like to add the moons. \code{side = 1}, \code{side = 2}, \code{side = 3}, \code{side = 4} add moons to the bottom, left, top and right axes respectively. The default is to add moons to the top of the plot. This is appropriate if the plot in question is a smooth of lunar phase. If the plot is a lunar phase time series, \code{side = 2} is more appropriate (see Examples).}
 
-\item{position}{A numeric input that defines the position at which moons will be added to the plot. If \code{side = 1} or \code{side = 3}, this refers to the height at which moons will be added. If \code{side = 2} or \code{side = 4}, this refers to the x value at which moons will be added (see Examples). This should be a single number; i.e. moons are all plotted at the same height (in the case of a smooth plot) or distance along the x axis (in the case of a time series plot).}
+\item{pos}{A numeric input that defines the position at which moons will be added to the plot. If \code{side = 1} or \code{side = 3}, this refers to the height at which moons will be added. If \code{side = 2} or \code{side = 4}, this refers to the x value at which moons will be added (see Examples). This should be a single number; i.e. moons are all plotted at the same height (in the case of a smooth plot) or distance along the x axis (in the case of a time series plot).}
 
 \item{outer}{A logical input that defines whether or not the moons will be drawn beyond the range of the x or y axis. If this is the case, \code{outer = TRUE}; otherwise, set \code{outer = FALSE}.}
 
@@ -25,6 +26,8 @@ add_moons(
 \item{radius}{A numeric input that defines the radii of the moons added in user units. The default is 0.25.}
 
 \item{units}{A character which defines the units of lunar phase on the existing plot. The default is \code{"radians"}. \code{"degrees"} is the other option.}
+
+\item{...}{Additional arguments: none are currently implemented but depreciated argument names ('radius1' and 'position') can be passed via \code{...}.}
 }
 \value{
 Small subplots of the lunar phase (new moon, first quarter, full moon, third quarter, full moon) are added to an existing plot.
@@ -41,7 +44,7 @@ x <- seq(0, 2*pi, length.out = 100)
 y <- (x - 10^2) + 10
 axis_ls <- pretty_plot(x, y, return_list = TRUE)
 add_moons(side = 3,
-          position = axis_ls[[2]]$lim[2],
+          pos = axis_ls[[2]]$lim[2],
           outer = FALSE,
           nv = 100,
           radius = 0.1,
@@ -52,7 +55,7 @@ x <- seq.POSIXt(as.POSIXct("2016-01-01"), as.POSIXct("2016-05-01"), "days")
 y <- lunar::lunar.phase(x)
 axis_ls <- pretty_plot(x, y, type = "l", return_list = TRUE)
 add_moons(side = 2,
-          position = axis_ls[[1]]$lim[1],
+          pos = axis_ls[[1]]$lim[1],
           outer = TRUE,
           nv = 100,
           radius = 1e5,

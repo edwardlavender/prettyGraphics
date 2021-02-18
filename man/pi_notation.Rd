@@ -57,26 +57,26 @@ dat$lunar <- lunar::lunar.phase(dat$date)
 pretty_plot(dat$date, dat$lunar,
             pretty_axis_args = list(pi_notation = list(NULL, list()))
             )
-add_moons(side = 2, position = min(dat$date), radius = 0.5)
+add_moons(side = 2, pos = min(dat$date), radius = 0.5)
 
 ## Customise pi_notation
 # Use as_bar = FALSE
 pretty_plot(dat$date, dat$lunar,
             pretty_axis_args = list(pi_notation = list(NULL, list(as_bar = FALSE)))
             )
-add_moons(side = 2, position = min(dat$date), radius = 0.5)
+add_moons(side = 2, pos = min(dat$date), radius = 0.5)
 # Use decimals
 pretty_plot(dat$date, dat$lunar,
             pretty_axis_args = list(pi_notation = list(NULL, list(as_fraction = FALSE)))
             )
-add_moons(side = 2, position = min(dat$date), radius = 0.5)
+add_moons(side = 2, pos = min(dat$date), radius = 0.5)
 
 ## Use pi_notation within specified axis limits
 pretty_plot(dat$date, dat$lunar,
             ylim = c(0, 2*pi),
             pretty_axis_args = list(pi_notation = list(NULL, list()))
             )
-add_moons(side = 2, position = min(dat$date), radius = 0.5)
+add_moons(side = 2, pos = min(dat$date), radius = 0.5)
 
 }
 \seealso{
