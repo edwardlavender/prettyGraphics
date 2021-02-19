@@ -6,7 +6,7 @@
 #' @param lim A numeric vector of two numbers defining the height or width of each block, depending on whether x or y coordinates have been supplied to \code{x1} and \code{x2}.
 #' @param horiz A numeric input that defines whether or not shading blocks are horizontal (i.e.  \code{x1} and \code{x2} represent y coordinates and \code{lim} represents \code{xlim}) or vertical (i.e.  \code{x1} and \code{x2} represent x coordinates and \code{lim} represents \code{ylim}).
 #' @param lim A numeric input that defines the horizontal or vertical limits of each block.
-#' @param col The colour of each block.
+#' @param col,border The colour of each block and its border.
 #' @param ... Other graphical parameters passed to \code{\link[graphics]{rect}}.
 #'
 #' @return The function adds blocks of shading to a plot.
@@ -66,7 +66,7 @@
 #' #### Add back depth time series using add_lines()
 #' add_lines(d$t, d$depth, lwd = 2)
 #'
-#' @details The function is vectorised over \code{x1}, \code{x2} and \code{col}.
+#' @details The function is vectorised over \code{x1}, \code{x2}, \code{col} and \code{border}.
 #'
 #' @author Edward Lavender
 #' @export
@@ -77,7 +77,7 @@
 #### add_shading_bar()
 
 # Define a function to add shading between values:
-add_shading_bar <- function(x1, x2, horiz = FALSE, lim, col, ...){
+add_shading_bar <- function(x1, x2, horiz = FALSE, lim, col, border = FALSE,...){
 
   if(!horiz){
     #### vertical blocks (as for depth time series)
@@ -85,19 +85,21 @@ add_shading_bar <- function(x1, x2, horiz = FALSE, lim, col, ...){
                         ybottom = lim[1],
                         xright = x2,
                         ytop = lim[2],
-                        col = col,...)
+                        col = col,
+                        border = border,...)
   } else{
     #### horizontal blocks
     r <- graphics::rect(xleft = lim[1],
                         ybottom = x1,
                         xright = lim[2],
                         ytop = x2,
-                        col = col,...)
+                        col = col,
+                        border = border,...)
   }
 }
 
 # Vectorise function:
-add_shading_bar <- Vectorize(add_shading_bar, vectorize.args = c("x1", "x2", "col"))
+add_shading_bar <- Vectorize(add_shading_bar, vectorize.args = c("x1", "x2", "col", "border"))
 
 
 #### End of function.

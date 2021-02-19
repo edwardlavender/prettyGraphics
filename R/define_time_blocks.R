@@ -6,7 +6,7 @@
 #' @param type A character input specifying the type of block to define. \code{"diel"} or \code{"season"} are currently supported. \code{"diel"} defines a dataframe with \code{date}, \code{time} and \code{level} (1, time of sunrise; 2, time of sunset). \code{"season"} defines a dataframe with \code{date}, \code{time} and \code{level} representing seasons.
 #' @param type_args A named list of arguments needed to implement \code{type}. This is required for \code{type = "diel"}. A list containing "lon" and "lat" is needed; these arguments are passed to \code{\link[maptools]{sunriset}}.
 #' @param to_plot A logical input defining whether or not the returned dataframe is to be used as an input for plotting (see \code{\link[prettyGraphics]{add_shading_bar}}. If so, the function conducts some processing so that the times are defined exactly along the limits provided by \code{t1} and \code{t2}. This also adjusts the dataframe returned (see Value).
-#' @param col A vector of colours, one for each factor that are added to the dataframe if \code{to_plot = TRUE}. If \code{col} is \code{NULL}, colours are chosen by default.
+#' @param col A vector of colours, one for each factor that are added to the dataframe if \code{to_plot = TRUE}. For \code{type = "diel"}, \code{col} should specify the colour of day and night and for \code{type = "season"}, \code{col} should specify the colour of winter, spring, summer and autumn (in that order). If \code{col} is \code{NULL}, colours are chosen by default.
 #'
 #' @return The function returns a dataframe. If \code{to_plot = FALSE}, the dataframe contains 3 columns: \code{date}, \code{time} and \code{level}. If \code{type == "diel"}, levels correspond to day/night; if\code{ type == "season"}, levels correspond to the four seasons. If \code{to_plot = TRUE}, \code{x1}, \code{x2} and \code{col} are returned.
 #'
@@ -96,10 +96,24 @@ define_time_blocks <-
 
       # Define dataframe
       dat_block <- data.frame(date = as.Date(dates_block, tz = tz))
-      dat_block$time <-  as.POSIXct(dat_block$date, tz = tz)
+      dat_block$time   <-  as.POSIXct(paste(dat_block$date, "00:00:00"), tz = tz)
       dat_block$season <- lunar::terrestrial.season(dat_block$date)
-      dat_block$level <- factor(dat_block$season, labels = 1:length(unique(dat_block$season)))
-
+      dat_block$level  <- as.integer(dat_block$season)
+      dat_block$switch <- dat_block$season != dplyr::lead(dat_block$season)
+      dat_block$keep   <- dat_block$switch
+      if(min(which(dat_block$switch)) != 1) {
+        dat_block$keep[1] <- TRUE
+        if(dat_block$season[1] == dat_block$season[min(which(dat_block$switch))]) {
+          dat_block$keep[min(which(dat_block$switch))] <- FALSE
+        }
+      }
+      if(max(which(dat_block$switch)) != nrow(dat_block)) {
+        dat_block$keep[nrow(dat_block)] <- TRUE
+        if(dat_block$season[nrow(dat_block)] == dat_block$season[max(which(dat_block$switch))]) {
+          dat_block$keep[max(which(dat_block$switch))] <- FALSE
+        }
+      }
+      dat_block <- dat_block[which(dat_block$keep), ]
     }
 
     #### Adjustments for plotting

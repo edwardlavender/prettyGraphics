@@ -24,7 +24,7 @@ define_time_blocks(
 
 \item{to_plot}{A logical input defining whether or not the returned dataframe is to be used as an input for plotting (see \code{\link[prettyGraphics]{add_shading_bar}}. If so, the function conducts some processing so that the times are defined exactly along the limits provided by \code{t1} and \code{t2}. This also adjusts the dataframe returned (see Value).}
 
-\item{col}{A vector of colours, one for each factor that are added to the dataframe if \code{to_plot = TRUE}. If \code{col} is \code{NULL}, colours are chosen by default.}
+\item{col}{A vector of colours, one for each factor that are added to the dataframe if \code{to_plot = TRUE}. For \code{type = "diel"}, \code{col} should specify the colour of day and night and for \code{type = "season"}, \code{col} should specify the colour of winter, spring, summer and autumn (in that order). If \code{col} is \code{NULL}, colours are chosen by default.}
 }
 \value{
 The function returns a dataframe. If \code{to_plot = FALSE}, the dataframe contains 3 columns: \code{date}, \code{time} and \code{level}. If \code{type == "diel"}, levels correspond to day/night; if\code{ type == "season"}, levels correspond to the four seasons. If \code{to_plot = TRUE}, \code{x1}, \code{x2} and \code{col} are returned.

@@ -491,6 +491,9 @@ pretty_ts <-
                   )
       add_shading_args <- list_merge(das, add_shading_args)
     }
+    if(!("border" %in% names(add_shading_args)) & add_shading_type == "season") {
+      add_shading_args$border <- add_shading_args$col
+    }
 
     #### add shading
     do.call("add_shading_bar", add_shading_args)

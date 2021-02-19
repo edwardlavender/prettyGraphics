@@ -4,7 +4,7 @@
 \alias{add_shading_bar}
 \title{Add shading to a plot}
 \usage{
-add_shading_bar(x1, x2, horiz = FALSE, lim, col, ...)
+add_shading_bar(x1, x2, horiz = FALSE, lim, col, border = FALSE, ...)
 }
 \arguments{
 \item{x1}{A sequence of starting values (x or y coordinates) for each block.}
@@ -15,7 +15,7 @@ add_shading_bar(x1, x2, horiz = FALSE, lim, col, ...)
 
 \item{lim}{A numeric input that defines the horizontal or vertical limits of each block.}
 
-\item{col}{The colour of each block.}
+\item{col, border}{The colour of each block and its border.}
 
 \item{...}{Other graphical parameters passed to \code{\link[graphics]{rect}}.}
 }
@@ -26,7 +26,7 @@ The function adds blocks of shading to a plot.
 This function is used to add blocks of shading to a plot. Blocks can be added vertically or horizontally. This can help elucidate associations between a continuous variable and a factor. For example, in plots of depth ~ time, it can be helpful to delineate diel periods (i.e., day or night) with shading.
 }
 \details{
-The function is vectorised over \code{x1}, \code{x2} and \code{col}.
+The function is vectorised over \code{x1}, \code{x2}, \code{col} and \code{border}.
 }
 \examples{
 
