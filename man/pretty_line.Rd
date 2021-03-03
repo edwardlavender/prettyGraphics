@@ -10,7 +10,7 @@ pretty_line(
   inherit = NULL,
   replace_axis = NULL,
   add = FALSE,
-  return_list = FALSE,
+  return_list = NULL,
   ...
 )
 }
@@ -25,12 +25,12 @@ pretty_line(
 
 \item{add}{A logical input which defines whether not the line should be added to an existing plot (\code{TRUE}) or not (\code{FALSE}).}
 
-\item{return_list}{A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.}
+\item{return_list}{(depreciated) A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.}
 
 \item{...}{Additional arguments passed to \code{\link[graphics]{points}}, which is used to add observed data (\code{x}) to the line.}
 }
 \value{
-The function produces a number line or a timeline. If \code{return_list = TRUE}, the function also returns the list of axis parameters defined by \code{\link[prettyGraphics]{pretty_axis}}.
+The function produces a number line or a timeline. The function also invisibly returns the list of axis parameters defined by \code{\link[prettyGraphics]{pretty_axis}}.
 }
 \description{
 This function produces a one dimensional (pretty) number line or timeline onto which observed data are added. The line is drawn by \code{\link[prettyGraphics]{pretty_axis}}. The function can produce a line as an independent plot, or add the line/points to an existing plot. In the latter case, rather than re-defining a new axis, a list of axis parameters for the existing plot (i.e. returned by \code{\link[prettyGraphics]{pretty_axis}}) can be inherited and, if necessary, modified, before its addition to an existing plot.
@@ -53,7 +53,7 @@ pretty_line(x, pretty_axis_args = list(side = 2, axis = list(las = TRUE)),
 
 #### Example (3): Add a number line to an existing plot:
 # Create plot
-axis_ls <- pretty_plot(x, y, return_list = TRUE)
+axis_ls <- pretty_plot(x, y)
 # Method 1: manually specify pretty_axis_args as desired and specify add = TRUE:
 pretty_line(x, pretty_axis_args = list(side = 3,
                                           axis = list(pos = axis_ls[[2]]$lim[2])),
@@ -62,7 +62,7 @@ pretty_line(x, pretty_axis_args = list(side = 3,
 # Method 2: specify axis_ls argument to pretty_axis_args and, if applicable, inherit.
 # In this situation, necessary arguments (e.g. side) can be replaced via replace_axis
 # ... while the properties of the axis (i.e., labels, colour etc.) are maintained:
-axis_ls <- pretty_plot(x, y, return_list = TRUE)
+axis_ls <- pretty_plot(x, y)
 pretty_line(x, pretty_axis_args = list(axis_ls = axis_ls),
                # select the  first element of axis_ls i.e. axis_ls[[1]]
                inherit = 1,

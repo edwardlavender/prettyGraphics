@@ -281,7 +281,6 @@ pretty_residuals <-
                                 pretty_axis_args = pretty_axis_args,
                                 xlab = "", ylab = "",
                                 mtext_args = mtext_args[["2"]],
-                                return_list = TRUE,
                                 type = "n")
       usr <- graphics::par("usr")
       graphics::clip(qq_axis_ls[[1]]$lim[1], qq_axis_ls[[1]]$lim[2], qq_axis_ls[[2]]$lim[1], qq_axis_ls[[2]]$lim[2])
@@ -420,7 +419,6 @@ pretty_residuals <-
                                    pretty_axis_args = pretty_axis_args,
                                    xlab = "", ylab = "",
                                    mtext_args = mtext_args[["7"]],
-                                   return_list = TRUE,
                                    type = "n"
       )
 

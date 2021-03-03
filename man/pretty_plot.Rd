@@ -19,7 +19,7 @@ pretty_plot(
   ylab,
   main,
   mtext_args = list(),
-  return_list = FALSE,
+  return_list = NULL,
   ...
 )
 }
@@ -50,12 +50,12 @@ pretty_plot(
 
 \item{mtext_args}{A named list of arguments passed to \code{\link[graphics]{mtext}} to control axes' labels. These can also be supplied via \code{xlab}, \code{ylab} and \code{main} but \code{mtext_args} can provide additional flexibility where required.}
 
-\item{return_list}{A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.}
+\item{return_list}{(depreciated) A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.}
 
 \item{...}{Other parameters passed to \code{f}.}
 }
 \value{
-The function returns a plot and, if requested, a list of arguments that are used to create pretty axes via \code{\link[prettyGraphics]{pretty_axis}}.
+The function returns a plot and, invisibly, a list of arguments that are used to create pretty axes via \code{\link[prettyGraphics]{pretty_axis}}.
 }
 \description{
 \code{\link[prettyGraphics]{pretty_plot}} is a general function which creates plots with pretty axes for multiple plotting functions. The default option functions like \code{\link[graphics]{plot}} but implements pretty axes using \code{\link[prettyGraphics]{pretty_axis}}. Arguments can be passed to \code{\link[graphics]{plot}}, but additional arguments (e.g., \code{points_args}, \code{lines_args} and \code{mtext_args}, which can be used to add points, lines and control axis labels respectively) provide additional flexibility if required. Some other plotting functions can be implemented by adjusting the plotting function, \code{f}, and by specifying whether that plot depends on \code{x}, \code{y} or \code{x} and \code{y}. The function can return the list from \code{\link[prettyGraphics]{pretty_axis}} which can be useful for later adjustments to plots (e.g. setting the clipping region with \code{\link[graphics]{clip}}).
@@ -126,7 +126,7 @@ qq <- qqplot(stats::rnorm(100, 0, 1), stats::rnorm(100, 0, 1), plot.it = FALSE)
 # Define plot, saving list of axis parameters in axis_ls
 # Supply x and y (qq$x and qq$y) respectively to create pretty axis limits;
 # ... but use qqnorm to create plot which only required y (dd$y) (see ?stats::qqnorm)
-axis_ls <- pretty_plot(qq$x, qq$y, f = stats::qqnorm, plot_xy = "y", return_list = TRUE)
+axis_ls <- pretty_plot(qq$x, qq$y, f = stats::qqnorm, plot_xy = "y")
 # Set clipping region with axis limits
 usr <- par("usr")
 clip(axis_ls[[1]]$lim[1], axis_ls[[1]]$lim[2], axis_ls[[2]]$lim[1], axis_ls[[2]]$lim[2])

@@ -10,7 +10,7 @@ add_shading_quantiles(
   cols = scales::alpha("dimgrey", ifelse(probs > 0.5, 1 - probs, probs) + 0.05),
   horiz = TRUE,
   lim,
-  return_list = TRUE,
+  return_list = NULL,
   ...
 )
 }
@@ -25,12 +25,12 @@ add_shading_quantiles(
 
 \item{lim}{A numeric input that defines the horizontal or vertical limits. This is passed to passed to \code{\link[prettyGraphics]{add_shading_bar}}.}
 
-\item{return_list}{A logical input that defines whether or not to return a list of outputs (see Value).}
+\item{return_list}{(depreciated) A logical input that defines whether or not to return a list of outputs (see Value).}
 
 \item{...}{Additional arguments passed to \code{\link[prettyGraphics]{add_shading_bar}}.}
 }
 \value{
-This function adds shading to a plot to show the sample quantiles corresponding to inputted probabilities. A named list of outputs is also returned if \code{return_list = TRUE}. This contains: (1) 'dat', a dataframe with probabilities ('prob'), colours ('col') and quantiles ('quantile'); (2) 'data_legend', a dataframe that contains only probabilities ('x') and colours ('col'); and (3) 'pretty_axis_args', a list of suggested arguments for pretty axes. 'data_legend' and 'pretty_axis_args' can be passed directly to \code{\link[prettyGraphics]{add_colour_bar}} to add a colour bar to the plot.
+This function adds shading to a plot to show the sample quantiles corresponding to inputted probabilities. A named list of outputs is also returned invisibly. This contains: (1) 'dat', a dataframe with probabilities ('prob'), colours ('col') and quantiles ('quantile'); (2) 'data_legend', a dataframe that contains only probabilities ('x') and colours ('col'); and (3) 'pretty_axis_args', a list of suggested arguments for pretty axes. 'data_legend' and 'pretty_axis_args' can be passed directly to \code{\link[prettyGraphics]{add_colour_bar}} to add a colour bar to the plot.
 }
 \description{
 This function adds shading to a plot to mark the quantiles of observed variation. Under the default settings, quantiles near the middle of a distribution are shaded more darkly than quantiles towards the edge of the distribution.
@@ -42,15 +42,14 @@ x <- stats::rnorm(100, -200, 200)
 pp <- par(oma = c(2, 2, 2, 4))
 
 # Create a blank plot with appropriate axis limits
-axis_ls <- pretty_plot(x, type = "n", return_list = TRUE)
+axis_ls <- pretty_plot(x, type = "n")
 
 # Add shading for the quantiles of observations, saving the
 # ... list returned by the function so we can add a colour bar later.
 asq_ls <- add_shading_quantiles(x,
                                 horiz = TRUE,
                                 lim = axis_ls[[1]]$lim,
-                                border = NA,
-                                return_list = TRUE)
+                                border = NA)
 
 # Add observed points onto the plot
 points(1:n, x)

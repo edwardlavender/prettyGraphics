@@ -26,7 +26,9 @@
 #' @param add_shading_args A named list of arguments passed to a\code{\link[prettyGraphics]{add_shading_bar}} to add shading to a plot. 'x1', 'x2', and 'lim' are computed automatically if \code{add_shading_type} is specified, but other graphical parameters passed to \code{\link[graphics]{rect}} (e.g. \code{border = "red"}) can be included here.
 #' @param add_grid_args A named list of parameters, passed to \code{\link[prettyGraphics]{add_grid_rect_xy}}, to add a grid to the plot. Grid line coordinates (x and y) are taken to match axis tick mark positions, based on \code{x} and\code{y1}, if not provided.
 #' @param add_moons_args A named list of arguments passed to \code{\link[prettyGraphics]{add_moons}} to add moons to a plot.
-#' @param return_list A logical input which defines whether or not to return the list of axis parameters computed by \code{\link[prettyGraphics]{pretty_axis}}. This can be useful for the addition of elements to a plot created by \code{\link[prettyGraphics]{pretty_ts}}.
+#' @param return_list (depreciated) A logical input which defines whether or not to return the list of axis parameters computed by \code{\link[prettyGraphics]{pretty_axis}}. This can be useful for the addition of elements to a plot created by \code{\link[prettyGraphics]{pretty_ts}}.
+#'
+#' @return The function returns a plot and, invisibly, the list of axis parameters computed by \code{\link[prettyGraphics]{pretty_axis}}.
 #'
 #' @examples
 #' #### Simulate some example date
@@ -376,144 +378,115 @@ pretty_ts <-
     add_grid_args = list(),
     # moons
     add_moons_args = list(),
-    return_list = TRUE
+    return_list = NULL
   ){
 
 
 
-  ################################################
-  ################################################
-  #### Define dataframe if not supplied
+    ################################################
+    ################################################
+    #### Define dataframe if not supplied
 
-  #### Define dat
-  if(is.null(dat)){
-    dat <- data.frame(x = x, y1 = y1)
-    if(!is.null(y2)){
-      dat$y2 <- y2
-    }
-    if(!is.null(fct)){
-      stopifnot(length(fct) == length(x))
-      dat$fct <- fct
-    }
-  }
-
-  if(!is.null(dat$fct) & !is.null(fct_level)){
-     dat <- dat[which(dat$fct == fct_level), ]
+    #### Define dat
+    if(is.null(dat)){
+      dat <- data.frame(x = x, y1 = y1)
+      if(!is.null(y2)){
+        dat$y2 <- y2
+      }
+      if(!is.null(fct)){
+        stopifnot(length(fct) == length(x))
+        dat$fct <- fct
+      }
     }
 
-  # utils::head(dat)
-
-
-  ################################################
-  ################################################
-  #### Use pretty_axis to define axes
-
-  axis_ls <- implement_pretty_axis_args(list(dat$x, dat$y1), pretty_axis_args)
-
-  '
-  #### Define pretty axis args
-  # pretty_axis_args = list(side = 1:2, pretty = list(n = 5))
-  # merging with list(NULL) can cause issues, so we"ll first exlcude those arguments and, then, after merging,
-  # ... if they"re absent we"ll add them back.
-  dpa <-   list(side = 1:4,
-                x = list(dat$x, dat$y1),
-                # lim = list(NULL),
-                pretty = list(n = 5),
-                # units = list(NULL),
-                # axis = list(NULL),
-                axis_ls = NULL,
-                add = FALSE,
-                return_list = TRUE
-                )
-  pretty_axis_args <- rlist::list.merge(dpa, pretty_axis_args)
-  list_add_list_NULL <- function(l, elm){
-    for(i in elm){
-      if(is.null(l[[i]])){
-        l[[i]] <- list(NULL)
-        }
+    if(!is.null(dat$fct) & !is.null(fct_level)){
+      dat <- dat[which(dat$fct == fct_level), ]
     }
-    return(l)
-    }
-  pretty_axis_args <- list_add_list_NULL(pretty_axis_args, c("lim", "units", "axis"))
-  axis_ls <- do.call("pretty_axis", pretty_axis_args)
-  '
-
-  #### Extract x limits, which may pertain to side 1 or 3
-  which_xlim <- which(c(!is.null(axis_ls$"1"$lim), !is.null(axis_ls$"3"$lim)))
-  which_xlim <- which_xlim[1]
-  which_xlim <- c("1", "3")[which_xlim]
-  xlim <- axis_ls[[which_xlim]]$lim
-
-  #### Extract y limits, which may pertain to side 2 or 4
-  which_ylim <- which(c(!is.null(axis_ls$"2"$lim), !is.null(axis_ls$"4"$lim)))
-  which_ylim <- which_ylim[1]
-  which_ylim <- c("2", "4")[which_ylim]
-  ylim <- axis_ls[[which_ylim]]$lim
 
 
-  ################################################
-  ################################################
-  #### Plot a basic plot
+    ################################################
+    ################################################
+    #### Use pretty_axis to define axes
 
-  #### Plot, using limits from pretty_axis()
-  graphics::plot(dat$x, dat$y1,
-                 axes = FALSE,
-                 xlab = "", ylab = "",
-                 xlim = xlim, ylim = ylim,
-                 type = "n")
+    #### Implement pretty_axis()
+    axis_ls <- implement_pretty_axis_args(list(dat$x, dat$y1), pretty_axis_args)
 
-  #### Clip (closed later)
-  usr <- graphics::par("usr")
-  graphics::clip(xlim[1], xlim[2], ylim[1], ylim[2])
+    #### Extract x limits, which may pertain to side 1 or 3
+    which_xlim <- which(c(!is.null(axis_ls$"1"$lim), !is.null(axis_ls$"3"$lim)))
+    which_xlim <- which_xlim[1]
+    which_xlim <- c("1", "3")[which_xlim]
+    xlim <- axis_ls[[which_xlim]]$lim
+
+    #### Extract y limits, which may pertain to side 2 or 4
+    which_ylim <- which(c(!is.null(axis_ls$"2"$lim), !is.null(axis_ls$"4"$lim)))
+    which_ylim <- which_ylim[1]
+    which_ylim <- c("2", "4")[which_ylim]
+    ylim <- axis_ls[[which_ylim]]$lim
 
 
-  ################################################
-  ################################################
-  #### Add shading
+    ################################################
+    ################################################
+    #### Plot a basic plot
 
-  if(!is.null(add_shading_type) | length(add_shading_args > 0)){
+    #### Plot, using limits from pretty_axis()
+    graphics::plot(dat$x, dat$y1,
+                   axes = FALSE,
+                   xlab = "", ylab = "",
+                   xlim = xlim, ylim = ylim,
+                   type = "n")
 
-    #### Compute data for adding shading
-    if(add_shading_type %in% c("diel", "season")){
-      add_shading_dat <-
-        define_time_blocks(t1 = xlim[1],
-                           t2 = xlim[2],
-                           type = add_shading_type,
-                           type_args = add_shading_dtb_args$type,
-                           to_plot = TRUE,
-                           col = add_shading_dtb_args$col
+    #### Clip (closed later)
+    usr <- graphics::par("usr")
+    graphics::clip(xlim[1], xlim[2], ylim[1], ylim[2])
+
+
+    ################################################
+    ################################################
+    #### Add shading
+
+    if(!is.null(add_shading_type) | length(add_shading_args > 0)){
+
+      #### Compute data for adding shading
+      if(add_shading_type %in% c("diel", "season")){
+        add_shading_dat <-
+          define_time_blocks(t1 = xlim[1],
+                             t2 = xlim[2],
+                             type = add_shading_type,
+                             type_args = add_shading_dtb_args$type,
+                             to_plot = TRUE,
+                             col = add_shading_dtb_args$col
+          )
+        das <- list(x1 = add_shading_dat$x1,
+                    x2 = add_shading_dat$x2,
+                    col = add_shading_dat$col,
+                    horiz = FALSE,
+                    lim = ylim
         )
-      das <- list(x1 = add_shading_dat$x1,
-                  x2 = add_shading_dat$x2,
-                  col = add_shading_dat$col,
-                  horiz = FALSE,
-                  lim = ylim
-                  )
-      add_shading_args <- list_merge(das, add_shading_args)
-    }
-    if(!("border" %in% names(add_shading_args)) & add_shading_type == "season") {
-      add_shading_args$border <- add_shading_args$col
+        add_shading_args <- list_merge(das, add_shading_args)
+      }
+      if(!("border" %in% names(add_shading_args)) & add_shading_type == "season") {
+        add_shading_args$border <- add_shading_args$col
+      }
+
+      #### add shading
+      do.call("add_shading_bar", add_shading_args)
     }
 
-    #### add shading
-    do.call("add_shading_bar", add_shading_args)
-  }
+    #### Add grid
+    if(length(add_grid_args) > 0){
+      if(is.null(add_grid_args$x)) add_grid_args$x <- axis_ls[[1]]$axis$at
+      if(is.null(add_grid_args$y)) add_grid_args$y <- axis_ls[[2]]$axis$at
+      do.call("add_grid_rect_xy", add_grid_args)
+    }
 
-  #### Add grid
-  if(length(add_grid_args) > 0){
-    if(is.null(add_grid_args$x)) add_grid_args$x <- axis_ls[[1]]$axis$at
-    if(is.null(add_grid_args$y)) add_grid_args$y <- axis_ls[[2]]$axis$at
-    do.call("add_grid_rect_xy", add_grid_args)
-  }
+    ################################################
+    ################################################
+    #### Add axes
 
-  ################################################
-  ################################################
-  #### Add axes
+    pretty_axis(axis_ls = axis_ls, add = TRUE)
+    implement_mtext_args(mtext_args)
 
-  pretty_axis(axis_ls = axis_ls, add = TRUE)
-  implement_mtext_args(mtext_args)
-
-  '
+    '
   #### Add titles
   # mtext_args <- list(list(side = 1, "x", line = 3), list(side = 2, "y1", line = 3))
   if(length(mtext_args) > 0){
@@ -524,239 +497,238 @@ pretty_ts <-
   '
 
 
-  ################################################
-  ################################################
-  #### Add response as points/line
+    ################################################
+    ################################################
+    #### Add response as points/line
 
-  #### Add points if specified
-  if(length(add_points_args) > 0){
-    dap <- list(x = dat$x, y = dat$y1)
-    add_points_args <- list_merge(dap, add_points_args)
-    do.call("points", add_points_args)
-  }
-
-  if(length(add_lines_args) > 0){
-    #### Add a line for the response
-    dal <- list(x = dat$x,
-                y1 = dat$y1,
-                y2 = dat$y2,
-                dat = NULL,
-                pretty_axis_args = list(pretty = list(n = 5)),
-                n = 100,
-                f = grDevices::colorRampPalette(c("red", "blue")),
-                output = 3)
-    # If y2 is provided but the user has specified by_new_axis, we'll set this to NULL:
-    if(y2_method == "by_new_axis"){
-      dal$y2 <- NULL
-    }
-    add_lines_args <- rlist::list.merge(dal, add_lines_args)
-    colour_line_ls <- do.call("add_lines", add_lines_args)
-  }
-
-
-  ################################################
-  ################################################
-  #### Add colour bar if necessary
-
-  if(insert_colour_bar & !is.null(dat$y2) & y2_method == "by_colour"){
-    dacb <- list(data_legend = colour_line_ls$data_legend,
-                 pretty_axis_args = colour_line_ls$axis_legend,
-                 mtext_args = list(),
-                 data_raw = NULL,
-                 mark_args = list()
-                 )
-    add_colour_bar_args <- list_merge(dacb, add_colour_bar_args)
-    dsp <- list(x = xlim[2], y = ylim[1], size = c(0.25, 2), vadj = 0, hadj = 0)
-    subplot_args <- list_merge(dsp, subplot_args)
-    TeachingDemos::subplot(x = subplot_args$x,
-                           y = subplot_args$y,
-                           size = subplot_args$size,
-                           vadj = subplot_args$vadj,
-                           hadj = subplot_args$hadj,
-                           fun = do.call("add_colour_bar", add_colour_bar_args)
-                           )
-
+    #### Add points if specified
+    if(length(add_points_args) > 0){
+      dap <- list(x = dat$x, y = dat$y1)
+      add_points_args <- list_merge(dap, add_points_args)
+      do.call("points", add_points_args)
     }
 
-
-  ################################################
-  ################################################
-  #### Add lines for summary statistics
-
-  # summarise_in_bins_args <- list(bin = "hours")
-  # add_lines_args_summaries <- list(col = "red")
-  if(length(summarise_in_bins_args) > 0){
-    dsin <- list(x = dat$x,
-                 y = dat$y1,
-                 bin = 10,
-                 breaks = NULL,
-                 funs = list(),
-                 shift = TRUE,
-                 to_plot = TRUE,
-                 output = "list")
-    summarise_in_bins_args <- rlist::list.merge(dsin, summarise_in_bins_args)
-    summary_ls <- do.call("summarise_in_bins", summarise_in_bins_args)
-    if(list_depth(add_lines_args_summaries) == 1){
-      add_lines_summaries_args_ls <- lapply(1:length(summary_ls), function(a){ add_lines_args_summaries })
-    } else{
-      add_lines_summaries_args_ls <- add_lines_args_summaries
-    }
-    mapply(summary_ls,
-           add_lines_summaries_args_ls,
-           FUN = function(summary_df,
-                          add_lines_summaries_args_foo){
-      # add_lines_summaries_args_foo <- add_lines_summaries_args_ls[[1]]
-      add_lines_summaries_args_foo <- list_merge(list(x = summary_df$bin, y1 = summary_df$stat), add_lines_summaries_args_foo)
-      do.call("add_lines", add_lines_summaries_args_foo)
-    })
-  }
-
-
-  ################################################
-  ################################################
-  #### Add model predictions
-
-  if(length(list_CIs_args) > 0){
-    #### Define CIs
-    dlCIs <- list(inv_link = I,
-                  fadj = I,
-                  centre = FALSE,
-                  plot_suggestions = FALSE,
-                  pretty_param = list()
-    )
-    list_CIs_args <- rlist::list.merge(dlCIs, list_CIs_args)
-    CIs <- do.call("list_CIs", list_CIs_args)
-
-    #### Add model predictions
-    damp <- list(x = dat$x,
-                 CI = CIs,
-                 fCI = "poly",
-                 CI_gp = list(col = "lightgrey", border = FALSE),
-                 add_fitted = TRUE,
-                 fitted_gp = list(col = "black", lwd = 1, lty = 1)
-    )
-    add_error_envelope_args <- list_merge(damp, add_error_envelope_args)
-    # Delete the default border = FALSE option if fCI = "lines" because
-    # ... this is not an argument to lines:
-    if(add_error_envelope_args$fCI == "lines"){
-      add_error_envelope_args$CI_gp$border <- NULL
-    }
-  }
-
-  # Implement do.call("add_error_envelope", add_error_envelope_args) outside
-  # ... of if(length(list_CIs_args) > 0) because the user may supply a suitable list
-  # ... e.g. created by simulate_posterior_obs() without going via list_CIs()
-  if(length(list_CIs_args) > 0 | length(add_error_envelope_args) > 0){
-    damp <- list(fCI = "poly",
-                 CI_gp = list(col = "lightgrey", border = FALSE),
-                 add_fitted = TRUE,
-                 fitted_gp = list(col = "black", lwd = 1, lty = 1))
-    add_error_envelope_args <- rlist::list.merge(damp, add_error_envelope_args)
-    do.call("add_error_envelope", add_error_envelope_args)
-  }
-
-
-
-  ################################################
-  ################################################
-  #### Add moons
-
-  if(length(add_moons_args) > 0){
-    dam <- list(outer = TRUE, nv = 100, radius1 = 0.1, units = "radians")
-    if(add_moons_args$side == 1){
-      dam$position <- ylim[1]
-    } else if(add_moons_args$side == 2){
-      dam$position <- xlim[1]
-    } else if(add_moons_args$side == 3){
-      dam$position <- ylim[2]
-    } else if(add_moons_args$side == 4){
-      dam$position <- xlim[2]
-    } else{
-      warning("add_moons_args$side unsupported and add_moons() not implemented.")
-    }
-    add_moons_args <- rlist::list.merge(dam, add_moons_args)
-    do.call(add_moons, add_moons_args)
-  }
-
-  ################################################
-  ################################################
-  #### Add line for y2
-
-  #### close clip
-  do.call("clip", as.list(usr))
-
-  #### If y2 is provided and the user wants to add this as a separate line...
-  if(y2_method == "by_new_axis"){
-
-    #### Define axis parameters
-    dpa_y2 <- list(side = 4,
-                   x = list(dat$y2),
-                   # lim = list(NULL),
-                   pretty = list(n = 5),
-                   # units = list(NULL),
-                   # axis = list(NULL),
-                   # axis_ls = NULL,
-                   add = FALSE,
-                   return_list = TRUE
-    )
-    pretty_axis_args_y2 <- rlist::list.merge(dpa_y2, pretty_axis_args_y2)
-    list_add_list_NULL <- function(l, elm){
-      for(i in elm){
-        if(is.null(l[[i]])){
-          l[[i]] <- list(NULL)
-        }
+    if(length(add_lines_args) > 0){
+      #### Add a line for the response
+      dal <- list(x = dat$x,
+                  y1 = dat$y1,
+                  y2 = dat$y2,
+                  dat = NULL,
+                  pretty_axis_args = list(pretty = list(n = 5)),
+                  n = 100,
+                  f = grDevices::colorRampPalette(c("red", "blue")),
+                  output = 3)
+      # If y2 is provided but the user has specified by_new_axis, we'll set this to NULL:
+      if(y2_method == "by_new_axis"){
+        dal$y2 <- NULL
       }
-      return(l)
-    }
-    pretty_axis_args_y2 <- list_add_list_NULL(pretty_axis_args_y2, c("lim", "units", "axis"))
-    axis_ls_y2 <- do.call("pretty_axis", pretty_axis_args_y2)
-    if(axis_ls_y2[[1]]$axis$side == 1){
-      axis_ls_y2[[1]]$axis$pos <- ylim[1]
-    } else if(axis_ls_y2[[1]]$axis$side == 2){
-      axis_ls_y2[[1]]$axis$pos <- xlim[1]
-    } else if(axis_ls_y2[[1]]$axis$side == 3){
-      axis_ls_y2[[1]]$axis$pos <- ylim[1]
-    } else if(axis_ls_y2[[1]]$axis$side == 4){
-      axis_ls_y2[[1]]$axis$pos <- xlim[2]
+      add_lines_args <- rlist::list.merge(dal, add_lines_args)
+      colour_line_ls <- do.call("add_lines", add_lines_args)
     }
 
-    #### Obtain y limits
-    y2lim <- axis_ls_y2[[1]]$lim
 
-    #### New blank plot
-    pp <- graphics::par(new = T)
-    graphics::plot(dat$x, dat$y2,
-                   xlim = xlim,
-                   ylim = y2lim,
-                   axes = F,
-                   xlab = "", ylab = "",
-                   type = "n")
+    ################################################
+    ################################################
+    #### Add colour bar if necessary
 
-    #### Add new axis to existing plot
-    pretty_axis(axis_ls = axis_ls_y2, add = TRUE)
+    if(insert_colour_bar & !is.null(dat$y2) & y2_method == "by_colour"){
+      dacb <- list(data_legend = colour_line_ls$data_legend,
+                   pretty_axis_args = colour_line_ls$axis_legend,
+                   mtext_args = list(),
+                   data_raw = NULL,
+                   mark_args = list()
+      )
+      add_colour_bar_args <- list_merge(dacb, add_colour_bar_args)
+      dsp <- list(x = xlim[2], y = ylim[1], size = c(0.25, 2), vadj = 0, hadj = 0)
+      subplot_args <- list_merge(dsp, subplot_args)
+      TeachingDemos::subplot(x = subplot_args$x,
+                             y = subplot_args$y,
+                             size = subplot_args$size,
+                             vadj = subplot_args$vadj,
+                             hadj = subplot_args$hadj,
+                             fun = do.call("add_colour_bar", add_colour_bar_args)
+      )
 
-    #### Clip
-    usr <- graphics::par("usr")
-    graphics::clip(xlim[1], xlim[2], y2lim[1], y2lim[2])
+    }
 
-    #### Add as a line
-    daly2 <- list(x = dat$x, y1 = dat$y2)
-    add_lines_args_y2 <- list_merge(daly2, add_lines_args_y2)
-    do.call("add_lines", add_lines_args_y2)
 
-    #### Restore clip
+    ################################################
+    ################################################
+    #### Add lines for summary statistics
+
+    # summarise_in_bins_args <- list(bin = "hours")
+    # add_lines_args_summaries <- list(col = "red")
+    if(length(summarise_in_bins_args) > 0){
+      dsin <- list(x = dat$x,
+                   y = dat$y1,
+                   bin = 10,
+                   breaks = NULL,
+                   funs = list(),
+                   shift = TRUE,
+                   to_plot = TRUE,
+                   output = "list")
+      summarise_in_bins_args <- rlist::list.merge(dsin, summarise_in_bins_args)
+      summary_ls <- do.call("summarise_in_bins", summarise_in_bins_args)
+      if(list_depth(add_lines_args_summaries) == 1){
+        add_lines_summaries_args_ls <- lapply(1:length(summary_ls), function(a){ add_lines_args_summaries })
+      } else{
+        add_lines_summaries_args_ls <- add_lines_args_summaries
+      }
+      mapply(summary_ls,
+             add_lines_summaries_args_ls,
+             FUN = function(summary_df,
+                            add_lines_summaries_args_foo){
+               # add_lines_summaries_args_foo <- add_lines_summaries_args_ls[[1]]
+               add_lines_summaries_args_foo <- list_merge(list(x = summary_df$bin, y1 = summary_df$stat), add_lines_summaries_args_foo)
+               do.call("add_lines", add_lines_summaries_args_foo)
+             })
+    }
+
+
+    ################################################
+    ################################################
+    #### Add model predictions
+
+    if(length(list_CIs_args) > 0){
+      #### Define CIs
+      dlCIs <- list(inv_link = I,
+                    fadj = I,
+                    centre = FALSE,
+                    plot_suggestions = FALSE,
+                    pretty_param = list()
+      )
+      list_CIs_args <- rlist::list.merge(dlCIs, list_CIs_args)
+      CIs <- do.call("list_CIs", list_CIs_args)
+
+      #### Add model predictions
+      damp <- list(x = dat$x,
+                   CI = CIs,
+                   fCI = "poly",
+                   CI_gp = list(col = "lightgrey", border = FALSE),
+                   add_fitted = TRUE,
+                   fitted_gp = list(col = "black", lwd = 1, lty = 1)
+      )
+      add_error_envelope_args <- list_merge(damp, add_error_envelope_args)
+      # Delete the default border = FALSE option if fCI = "lines" because
+      # ... this is not an argument to lines:
+      if(add_error_envelope_args$fCI == "lines"){
+        add_error_envelope_args$CI_gp$border <- NULL
+      }
+    }
+
+    # Implement do.call("add_error_envelope", add_error_envelope_args) outside
+    # ... of if(length(list_CIs_args) > 0) because the user may supply a suitable list
+    # ... e.g. created by simulate_posterior_obs() without going via list_CIs()
+    if(length(list_CIs_args) > 0 | length(add_error_envelope_args) > 0){
+      damp <- list(fCI = "poly",
+                   CI_gp = list(col = "lightgrey", border = FALSE),
+                   add_fitted = TRUE,
+                   fitted_gp = list(col = "black", lwd = 1, lty = 1))
+      add_error_envelope_args <- rlist::list.merge(damp, add_error_envelope_args)
+      do.call("add_error_envelope", add_error_envelope_args)
+    }
+
+
+
+    ################################################
+    ################################################
+    #### Add moons
+
+    if(length(add_moons_args) > 0){
+      dam <- list(outer = TRUE, nv = 100, radius1 = 0.1, units = "radians")
+      if(add_moons_args$side == 1){
+        dam$position <- ylim[1]
+      } else if(add_moons_args$side == 2){
+        dam$position <- xlim[1]
+      } else if(add_moons_args$side == 3){
+        dam$position <- ylim[2]
+      } else if(add_moons_args$side == 4){
+        dam$position <- xlim[2]
+      } else{
+        warning("add_moons_args$side unsupported and add_moons() not implemented.")
+      }
+      add_moons_args <- rlist::list.merge(dam, add_moons_args)
+      do.call(add_moons, add_moons_args)
+    }
+
+    ################################################
+    ################################################
+    #### Add line for y2
+
+    #### close clip
     do.call("clip", as.list(usr))
 
-    #### Restore par
-    graphics::par(pp)
-  }
+    #### If y2 is provided and the user wants to add this as a separate line...
+    if(y2_method == "by_new_axis"){
 
-  #### Return list of outputs
-  if(return_list){
-    return(axis_ls)
-  }
+      #### Define axis parameters
+      dpa_y2 <- list(side = 4,
+                     x = list(dat$y2),
+                     # lim = list(NULL),
+                     pretty = list(n = 5),
+                     # units = list(NULL),
+                     # axis = list(NULL),
+                     # axis_ls = NULL,
+                     add = FALSE,
+                     return_list = NULL
+      )
+      pretty_axis_args_y2 <- rlist::list.merge(dpa_y2, pretty_axis_args_y2)
+      list_add_list_NULL <- function(l, elm){
+        for(i in elm){
+          if(is.null(l[[i]])){
+            l[[i]] <- list(NULL)
+          }
+        }
+        return(l)
+      }
+      pretty_axis_args_y2 <- list_add_list_NULL(pretty_axis_args_y2, c("lim", "units", "axis"))
+      axis_ls_y2 <- do.call("pretty_axis", pretty_axis_args_y2)
+      if(axis_ls_y2[[1]]$axis$side == 1){
+        axis_ls_y2[[1]]$axis$pos <- ylim[1]
+      } else if(axis_ls_y2[[1]]$axis$side == 2){
+        axis_ls_y2[[1]]$axis$pos <- xlim[1]
+      } else if(axis_ls_y2[[1]]$axis$side == 3){
+        axis_ls_y2[[1]]$axis$pos <- ylim[1]
+      } else if(axis_ls_y2[[1]]$axis$side == 4){
+        axis_ls_y2[[1]]$axis$pos <- xlim[2]
+      }
 
-  #### close function
+      #### Obtain y limits
+      y2lim <- axis_ls_y2[[1]]$lim
+
+      #### New blank plot
+      pp <- graphics::par(new = T)
+      graphics::plot(dat$x, dat$y2,
+                     xlim = xlim,
+                     ylim = y2lim,
+                     axes = F,
+                     xlab = "", ylab = "",
+                     type = "n")
+
+      #### Add new axis to existing plot
+      pretty_axis(axis_ls = axis_ls_y2, add = TRUE)
+
+      #### Clip
+      usr <- graphics::par("usr")
+      graphics::clip(xlim[1], xlim[2], y2lim[1], y2lim[2])
+
+      #### Add as a line
+      daly2 <- list(x = dat$x, y1 = dat$y2)
+      add_lines_args_y2 <- list_merge(daly2, add_lines_args_y2)
+      do.call("add_lines", add_lines_args_y2)
+
+      #### Restore clip
+      do.call("clip", as.list(usr))
+
+      #### Restore par
+      graphics::par(pp)
+    }
+
+    #### Return list of outputs
+    if(!is.null(return_list)) warning("The 'return_list' argument is depreciated.")
+    return(invisible(axis_ls))
+
+    #### close function
   }
 
 

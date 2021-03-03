@@ -10,10 +10,10 @@
 #' @param xlab,ylab The x and y axis labels. These can also be added via the \code{mtext_args} argument of \code{\link[prettyGraphics]{pretty_plot}} via \code{...}.
 #' @param type A character that specifies the plot type (see \code{\link[graphics]{plot.default}}).
 #' @param add_rug A named list of parameters, passed to \code{\link[graphics]{rug}} to add observed values to the plot. To add a rug using default parameters, simply specify \code{add_rug = list()}. If \code{x} values are not supplied in this list, they are taken from \code{x}. If \code{pos} is not supplied, the rug is positioned exactly along the x axis.
-#' @param return_list A logical input which defines whether or not to return the list of axis parameters produced by \code{\link[prettyGraphics]{pretty_axis}}.
+#' @param return_list (depreciated) A logical input which defines whether or not to return the list of axis parameters produced by \code{\link[prettyGraphics]{pretty_axis}}.
 #' @param ... Other parameters that are passed to \code{\link[prettyGraphics]{pretty_plot}}, such as \code{pretty_axis_args} to adjust axes.
 #'
-#' @return The function evaluates a function and returns a plot.
+#' @return The function evaluates a function and returns a plot. The list of axis parameters produced by \code{\link[prettyGraphics]{pretty_axis}} is also returned invisibly.
 #'
 #' @examples
 #' #### Generate some example x values
@@ -58,7 +58,7 @@ pretty_curve <-
            ylab = paste0("f(", paste0(c("x", names(param)), collapse = ", "), ")"),
            type = "l",
            add_rug = NULL,
-           return_list = FALSE,
+           return_list = NULL,
            ...){
 
     #### Checks
@@ -71,7 +71,7 @@ pretty_curve <-
     param$x <- NULL
 
     #### Plot graph
-    axis_ls <- pretty_plot(x, y, xlab = xlab, ylab = ylab, type = type, return_list = TRUE,...)
+    axis_ls <- pretty_plot(x, y, xlab = xlab, ylab = ylab, type = type,...)
 
     #### Add rug
     if(is.list(add_rug)){
@@ -82,7 +82,8 @@ pretty_curve <-
     }
 
     #### Return list of axis parameters
-    if(return_list) return(axis_ls)
+    if(!is.null(return_list)) warning("The 'return_list' argument is depreciated.")
+    return(invisible(axis_ls))
 
   }
 

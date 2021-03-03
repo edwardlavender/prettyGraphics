@@ -14,12 +14,12 @@
 #' @param ylab A character input which defines the label for the y axis. By default, this is "" so that labels can be added via \code{mtext_args} which is more flexible (see below). However, the label can be specified via \code{ylab} for speed.
 #' @param main A character input which defines the label for the plot axis. By default, this is "" so that labels can be added via \code{mtext_args} which is more flexible (see below). However, the label can be specified via \code{main} for speed.
 #' @param mtext_args A named list of arguments passed to \code{\link[graphics]{mtext}} to control axes' labels. These can also be supplied via \code{xlab}, \code{ylab} and \code{main} but \code{mtext_args} can provide additional flexibility where required.
-#' @param return_list A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.
+#' @param return_list (depreciated) A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.
 #' @param ... Other parameters passed to \code{f}.
 #'
 #' @details \code{x} and \code{y} coordinates usually need to be provided. Some other object classes may be provided to \code{x}, from which x and y coordinates can be extracted to create axes. In this case, the user needs to indicate whether the plotting function, \code{f}, requires \code{x} and/or \code{y} and acts on extracted coordinates (\code{plot_coordinates = TRUE}) or the original object (\code{plot_coordinates = FALSE}). Objects of class density and some Spatial* objects (RasterLayer, SpatialPoints, Line, Lines, Polygon, Polygons, SpatialPolygonsDataFrame) are currently supported. If \code{plot_xy = "xy"} and only \code{x} is provided, \code{x} is treated as the response variable and plotted against an index (like \code{\link[graphics]{plot}}).
 #'
-#' @return The function returns a plot and, if requested, a list of arguments that are used to create pretty axes via \code{\link[prettyGraphics]{pretty_axis}}.
+#' @return The function returns a plot and, invisibly, a list of arguments that are used to create pretty axes via \code{\link[prettyGraphics]{pretty_axis}}.
 #'
 #' @examples
 #' #### Example (1): An example with graphics::plot()
@@ -84,7 +84,7 @@
 #' # Define plot, saving list of axis parameters in axis_ls
 #' # Supply x and y (qq$x and qq$y) respectively to create pretty axis limits;
 #' # ... but use qqnorm to create plot which only required y (dd$y) (see ?stats::qqnorm)
-#' axis_ls <- pretty_plot(qq$x, qq$y, f = stats::qqnorm, plot_xy = "y", return_list = TRUE)
+#' axis_ls <- pretty_plot(qq$x, qq$y, f = stats::qqnorm, plot_xy = "y")
 #' # Set clipping region with axis limits
 #' usr <- par("usr")
 #' clip(axis_ls[[1]]$lim[1], axis_ls[[1]]$lim[2], axis_ls[[2]]$lim[1], axis_ls[[2]]$lim[2])
@@ -112,7 +112,7 @@ pretty_plot <-
            lines_args = list(),
            xlab, ylab, main,
            mtext_args = list(),
-           return_list = FALSE,...){
+           return_list = NULL,...){
 
     #### Initial checks
     if(is.null(x)) stop("'x' is NULL.")
@@ -215,13 +215,14 @@ pretty_plot <-
     }
 
     #### Add pretty axis
-    pretty_axis(axis_ls = axis_ls, add = TRUE, return_list = FALSE)
+    pretty_axis(axis_ls = axis_ls, add = TRUE)
 
     #### Add axes labelling
     implement_mtext_args(mtext_args)
 
     #### Return list
-    if(return_list) return(axis_ls)
+    if(!is.null(return_list)) warning("The 'return_list' argument is depreciated.")
+    return(invisible(axis_ls))
 
   }
 

@@ -14,7 +14,7 @@ pretty_smooth_2d(
   add_xy = NULL,
   add_rug_x = NULL,
   add_rug_y = NULL,
-  return_list = FALSE,
+  return_list = NULL,
   ...
 )
 }
@@ -29,12 +29,12 @@ pretty_smooth_2d(
 
 \item{add_rug_x, add_rug_y}{Named list of arguments, passed to \code{\link[graphics]{rug}}, to add observed values of the variables defined in \code{view} to the plot. \code{add_rug_* = NULL} suppresses this option, \code{add_rug_*} implements default arguments and a named list customises these.}
 
-\item{return_list}{A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.}
+\item{return_list}{(depreciated) A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.}
 
 \item{...}{Additional arguments passed to \code{\link[mgcv]{vis.gam}}, excluding \code{"plot.type"} (since only contour plots are supported by this function) and \code{"axes"}.}
 }
 \value{
-The function returns a contour plot of the predictions of a generalised addition model for the two variables defined in \code{view}.
+The function returns a contour plot of the predictions of a generalised addition model for the two variables defined in \code{view} and, invisibly, the list of pretty axis parameters produced by \code{\link[prettyGraphics]{pretty_axis}}.
 }
 \description{
 This is function plots pretty two-dimensional smooths as a contour plot.

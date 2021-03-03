@@ -71,7 +71,7 @@ add_lines <-
                   axis = list(pos = 1),
                   axis_ls = NULL,
                   add = FALSE,
-                  return_list = TRUE)
+                  return_list = NULL)
       pretty_axis_args <- rlist::list.merge(list(add = FALSE), pretty_axis_args, dpa)
       colour_bar_axis <- do.call("pretty_axis", pretty_axis_args)
       lim <- colour_bar_axis$`4`$lim
@@ -105,7 +105,7 @@ add_lines <-
       }
 
       #### Return a list if requested
-      # These can be called by associated functions e.g. colour.bar()
+      # These can be called by associated functions e.g. add_colour_bar()
       # ... which plots a legend for the coloured line.
       if(output %in% c(1, 3)){
         # data_line <- dat

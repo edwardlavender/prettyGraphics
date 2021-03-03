@@ -16,7 +16,7 @@ pretty_curve(
   ylab = paste0("f(", paste0(c("x", names(param)), collapse = ", "), ")"),
   type = "l",
   add_rug = NULL,
-  return_list = FALSE,
+  return_list = NULL,
   ...
 )
 }
@@ -37,12 +37,12 @@ pretty_curve(
 
 \item{add_rug}{A named list of parameters, passed to \code{\link[graphics]{rug}} to add observed values to the plot. To add a rug using default parameters, simply specify \code{add_rug = list()}. If \code{x} values are not supplied in this list, they are taken from \code{x}. If \code{pos} is not supplied, the rug is positioned exactly along the x axis.}
 
-\item{return_list}{A logical input which defines whether or not to return the list of axis parameters produced by \code{\link[prettyGraphics]{pretty_axis}}.}
+\item{return_list}{(depreciated) A logical input which defines whether or not to return the list of axis parameters produced by \code{\link[prettyGraphics]{pretty_axis}}.}
 
 \item{...}{Other parameters that are passed to \code{\link[prettyGraphics]{pretty_plot}}, such as \code{pretty_axis_args} to adjust axes.}
 }
 \value{
-The function evaluates a function and returns a plot.
+The function evaluates a function and returns a plot. The list of axis parameters produced by \code{\link[prettyGraphics]{pretty_axis}} is also returned invisibly.
 }
 \description{
 The function evaluates a user-supplied function at user-supplied \code{x} values (or an interpolated sequence of values across \code{x} and for defined values for other named parameters), and produces a pretty plot of the evaluated function using \code{\link[prettyGraphics]{pretty_plot}}. The function was particularly motivated by the need to visualise probability density functions (e.g. \code{\link[stats]{GammaDist}}).

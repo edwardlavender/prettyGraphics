@@ -42,7 +42,7 @@ This function requires the 'lunar' and 'plotrix' packages. Please install these 
 #### Example (1): Add plots of lunar phase to simulated smooth function:
 x <- seq(0, 2*pi, length.out = 100)
 y <- (x - 10^2) + 10
-axis_ls <- pretty_plot(x, y, return_list = TRUE)
+axis_ls <- pretty_plot(x, y)
 add_moons(side = 3,
           pos = axis_ls[[2]]$lim[2],
           outer = FALSE,
@@ -53,7 +53,7 @@ add_moons(side = 3,
 #### Example (2): Add plots to a lunar phase time series
 x <- seq.POSIXt(as.POSIXct("2016-01-01"), as.POSIXct("2016-05-01"), "days")
 y <- lunar::lunar.phase(x)
-axis_ls <- pretty_plot(x, y, type = "l", return_list = TRUE)
+axis_ls <- pretty_plot(x, y, type = "l")
 add_moons(side = 2,
           pos = axis_ls[[1]]$lim[1],
           outer = TRUE,

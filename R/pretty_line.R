@@ -6,10 +6,10 @@
 #' @param inherit (optional) If the \code{axis_ls} argument is supplied to \code{pretty_axis_args}, \code{inherit} can be supplied. This is a single integer which specifies which element of the \code{axis_ls} list should be used. This is useful because the \code{axis_ls} argument returned by \code{\link[prettyGraphics]{pretty_axis}} will usually have multiple elements (one for each axis on an existing plot); but for one dimensional number lines or timelines, only one of these element is relevant.
 #' @param replace_axis (optional) If the \code{axis_ls} argument is supplied to \code{pretty_axis_args}, \code{replace_axis} can be  supplied. This is a named list of arguments that is used to replace corresponding arguments (of the same name) in an inherited list of axis argument (i.e., the inherited 'axis' of \code{axis_ls}, if supplied). This allows some components of an inherited list (e.g. tick marks) to be retained, while others (e.g. axis position) are easily adjusted.
 #' @param add A logical input which defines whether not the line should be added to an existing plot (\code{TRUE}) or not (\code{FALSE}).
-#' @param return_list A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.
+#' @param return_list (depreciated) A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.
 #' @param ... Additional arguments passed to \code{\link[graphics]{points}}, which is used to add observed data (\code{x}) to the line.
 #'
-#' @return The function produces a number line or a timeline. If \code{return_list = TRUE}, the function also returns the list of axis parameters defined by \code{\link[prettyGraphics]{pretty_axis}}.
+#' @return The function produces a number line or a timeline. The function also invisibly returns the list of axis parameters defined by \code{\link[prettyGraphics]{pretty_axis}}.
 #'
 #' @examples
 #' #### Generate some example (numeric) data for example number lines
@@ -29,7 +29,7 @@
 #'
 #' #### Example (3): Add a number line to an existing plot:
 #' # Create plot
-#' axis_ls <- pretty_plot(x, y, return_list = TRUE)
+#' axis_ls <- pretty_plot(x, y)
 #' # Method 1: manually specify pretty_axis_args as desired and specify add = TRUE:
 #' pretty_line(x, pretty_axis_args = list(side = 3,
 #'                                           axis = list(pos = axis_ls[[2]]$lim[2])),
@@ -38,7 +38,7 @@
 #' # Method 2: specify axis_ls argument to pretty_axis_args and, if applicable, inherit.
 #' # In this situation, necessary arguments (e.g. side) can be replaced via replace_axis
 #' # ... while the properties of the axis (i.e., labels, colour etc.) are maintained:
-#' axis_ls <- pretty_plot(x, y, return_list = TRUE)
+#' axis_ls <- pretty_plot(x, y)
 #' pretty_line(x, pretty_axis_args = list(axis_ls = axis_ls),
 #'                # select the  first element of axis_ls i.e. axis_ls[[1]]
 #'                inherit = 1,
@@ -70,7 +70,7 @@ pretty_line <-
            inherit = NULL,
            replace_axis = NULL,
            add = FALSE,
-           return_list = FALSE,
+           return_list = NULL,
            ...){
 
     #### Option (1): pretty_axis_args does not contain axis_ls
@@ -146,7 +146,8 @@ pretty_line <-
 
 
     #### Return list
-    if(return_list) return(axis_ls)
+    if(!is.null(return_list)) warning("The 'return_list' argument is depeciated.")
+    return(invisible(axis_ls))
 
   }
 

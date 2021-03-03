@@ -123,13 +123,13 @@ p1; p2; identical(p1, p2)
 x <- runif(10, 0, 10)
 y <- runif(10, 0, 10)
 plot(x, y, xlim = c(0, 10), ylim = c(0, 10), axes = FALSE)
-pretty_axis(side = 1:2, x = list(x, y), pretty = list(n = 5), add = TRUE, return_list = FALSE)
+pretty_axis(side = 1:2, x = list(x, y), pretty = list(n = 5), add = TRUE)
 ```
 
 Under-the-hood, `pretty_axis()` loops over any nested lists, which means each axis can be controlled independently via a nested list. For example, to specify the x and y axes with different numbers of pretty breaks, the following code could be used:
 ```{r, fig.height = 3, fig.width = 3, fig.align = "center"}
 plot(x, y, xlim = c(0, 10), ylim = c(0, 10), axes = FALSE)
-pretty_axis(side = 1:2, x = list(x, y), pretty = list(list(n = 5), list(n = 10)), add = TRUE, return_list = FALSE)
+pretty_axis(side = 1:2, x = list(x, y), pretty = list(list(n = 5), list(n = 10)), add = TRUE)
 ```
 
 There are many more examples of the power and flexibility of `pretty_axis()` in the help file (use `?pretty_axis`).
@@ -190,7 +190,7 @@ plot1 %<a-% plot(df$timestamp, df$dn,
                  ); plot1
 # The list of outputs can be passed back to pretty_axis() to add pretty_axes()
 # Note the automatic pretty labels and adjoined placing:
-add_pretty_axis %<a-% pretty_axis(axis_ls = axis_ls, add = TRUE, return_list = FALSE)
+add_pretty_axis %<a-% pretty_axis(axis_ls = axis_ls, add = TRUE)
 add_pretty_axis
 par(pp)
 

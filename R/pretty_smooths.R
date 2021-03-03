@@ -18,12 +18,13 @@
 #' @param assign_main (optional) A logical input that defines whether or not to assign a title to the plot. If \code{TRUE}, each plot (i)'s title is given by \code{LETTERS[1:length(select)][i]}.
 #' @param add_main (optional) A named list of arguments to customise plot titles. Labels are assigned (see \code{assign_main}) or taken from the 'main' elements in \code{fit}. This is passed to \code{\link[graphics]{mtext}}.
 #' @param one_page A logical input that defines whether or not to plot all smooths on one page.
-#' @param return_list A logical input which defines whether or not to return a list, with one element for each \code{select} value, each containing the named list of axis arguments from \code{\link[prettyGraphics]{pretty_axis}}.
+#' @param return_list (depreciated) A logical input which defines whether or not to return a list, with one element for each \code{select} value, each containing the named list of axis arguments from \code{\link[prettyGraphics]{pretty_axis}}.
 #' @param ... Additional arguments (none implemented).
 #'
 #' @details For all \code{add_*} arguments, \code{add_* = NULL} suppresses the argument, \code{add_* = list()} implements the argument with default values and a named list customises the output.
 #'
-#' @return The function returns a pretty plot of one dimensional smooths(s).
+#' @return The function returns a pretty plot of one dimensional smooths(s) and, invisibly, the list of pretty axis parameters produced by \code{\link[prettyGraphics]{pretty_axis}}.
+#'
 #' @examples
 #' #### Simulate some example data and fit an example model
 #' n <- 100
@@ -78,7 +79,7 @@ pretty_smooth_1d <- function(fit,
                              add_ylab = list(line = 2),
                              assign_main = TRUE, add_main = list(adj = 0),
                              one_page = TRUE,
-                             return_list = FALSE,
+                             return_list = NULL,
                              ...){
 
   #### Set up
@@ -122,8 +123,7 @@ pretty_smooth_1d <- function(fit,
                            xlim = xlim, ylim = ylim,
                            pretty_axis_args = pretty_axis_args,
                            xlab = "", ylab = "",
-                           type = "n",
-                           return_list = TRUE
+                           type = "n"
                            )
 
     #### Add CIs and fitted line
@@ -193,7 +193,8 @@ pretty_smooth_1d <- function(fit,
   if(one_page) graphics::par(pp)
 
   #### Return outputs
-  if(return_list) return(axis_ls_by_term) else(return(invisible()))
+  if(!is.null(return_list)) warning("The 'return_list' argument is depreciated.")
+  return(invisible(axis_ls_by_term))
 
 }
 
@@ -209,12 +210,12 @@ pretty_smooth_1d <- function(fit,
 #' @param xlim,ylim,pretty_axis_args Axis control arguments. \code{xlim} and \code{ylim} control x and y axis limits via \code{\link[prettyGraphics]{pretty_axis}}. If not supplied, \code{xlim} and \code{ylim} are defined as the range across each corresponding variable. To use default 'pretty' limits instead, specify \code{xlim = NULL} and \code{ylim = NULL}. Additional axis customisation is implemented by passing a named list of arguments to \code{\link[prettyGraphics]{pretty_axis}} via \code{pretty_axis_args}.
 #' @param add_xy A named list of arguments, passed to \code{\link[graphics]{points}}, to add observations to the plot. \code{add_xy = NULL} suppresses this option, \code{add_xy = list()} implements default arguments and a named list customises these.
 #' @param add_rug_x,add_rug_y Named list of arguments, passed to \code{\link[graphics]{rug}}, to add observed values of the variables defined in \code{view} to the plot. \code{add_rug_* = NULL} suppresses this option, \code{add_rug_*} implements default arguments and a named list customises these.
-#' @param return_list A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.
+#' @param return_list (depreciated) A logical input which defines whether or not to return the list produced by \code{\link[prettyGraphics]{pretty_axis}}.
 #' @param ... Additional arguments passed to \code{\link[mgcv]{vis.gam}}, excluding \code{"plot.type"} (since only contour plots are supported by this function) and \code{"axes"}.
 #'
 #' @details At present, the function is simply a wrapper for \code{\link[mgcv]{vis.gam}} with the additional flexibility provided by the \code{\link[prettyGraphics]{pretty_axis}} function and the \code{add_xy}, \code{add_rug_x} and \code{add_rug_y} arguments.
 #'
-#' @return The function returns a contour plot of the predictions of a generalised addition model for the two variables defined in \code{view}.
+#' @return The function returns a contour plot of the predictions of a generalised addition model for the two variables defined in \code{view} and, invisibly, the list of pretty axis parameters produced by \code{\link[prettyGraphics]{pretty_axis}}.
 #'
 #' @examples
 #' #### Simulate example data and fit model (following ?mgcv::vis.gam examples)
@@ -278,7 +279,7 @@ pretty_smooth_2d <- function(x,
                              add_xy = NULL,
                              add_rug_x = NULL,
                              add_rug_y = NULL,
-                             return_list = FALSE,
+                             return_list = NULL,
                              ...) {
 
   #### Define data and fix limits across range of data
@@ -350,5 +351,6 @@ pretty_smooth_2d <- function(x,
   pretty_axis(axis_ls = axis_ls, add = TRUE)
 
   #### Return blank
-  if(return_list) return(axis_ls) else return(invisible(x))
+  if(!is.null(return_list)) warning("The 'return_list' argument is depreciated.")
+  return(invisible(axis_ls))
 }

@@ -39,7 +39,7 @@ implement_pretty_axis_args <-
         pretty = list(n = 5),
         axis_ls = NULL,
         add = FALSE,
-        return_list = TRUE
+        return_list = NULL
         )
 
       #### Check: has 'side' been supplied?
