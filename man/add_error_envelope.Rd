@@ -6,31 +6,31 @@
 \usage{
 add_error_envelope(
   x,
-  CI = list(),
-  fCI = "poly",
-  CI_gp = list(col = scales::alpha("lightgrey", 0.8), border = FALSE),
-  add_fitted = TRUE,
-  fitted_gp = list(col = "black", lwd = 1, lty = 1)
+  ci = list(),
+  type = "poly",
+  add_ci = list(col = scales::alpha("lightgrey", 0.8), border = FALSE),
+  add_fit = list(col = "black", lwd = 1, lty = 1),
+  ...
 )
 }
 \arguments{
 \item{x}{A numeric vector defining the x values at which fitted values/CIs will be plotted.}
 
-\item{CI}{A named list with fitted values (optional) and lower and upper CIs (i.e. \code{CI$fit}, \code{CI$lowerCI}, \code{CI$upperCI}). This can be created by \code{\link[prettyGraphics]{list_CIs}}.}
+\item{ci}{A named list with fitted values (optional) and lower and upper CIs (i.e. \code{ci$fit}, \code{ci$lowerCI}, \code{ci$upperCI}). This can be created by \code{\link[prettyGraphics]{list_CIs}}.}
 
-\item{fCI}{A character defining the method by which CIs will be added to a plot: as lines (\code{"lines"}) or as a shaded polygon (\code{"poly"}). For large datasets, \code{fCI = "lines"} is much faster.}
+\item{type}{A character defining the method by which CIs will be added to a plot: as lines (\code{type = "l"} or \code{type = "lines"}) or as a shaded polygon (\code{"poly"}). For large datasets, \code{type = "lines"} is much faster.}
 
-\item{CI_gp}{A named list of graphical parameters for CIs. If \code{fCI = "lines"}, then two nested lists can be included to specify the lower and upper CI lines differently, if desired (see Examples).}
+\item{add_ci}{(optional) A named list of arguments to customise the appearance of the confidence envelope, passed to \code{\link[graphics]{lines}} or \code{\link[graphics]{polygon}} depending on \code{type}. \code{add_ci = NULL} suppresses this option; \code{add_ci = list()} implements default arguments. If \code{type = "lines"}, then two nested lists can be included to specify the lower and upper CI lines differently, if desired.}
 
-\item{add_fitted}{A logical input defining whether or not add the fitted line.}
+\item{add_fit}{(optional) A named list of arguments to customise the appearence of the fitted line. \code{add_fit = NULL} suppresses this option; \code{add_fit = list()} implements default arguments.}
 
-\item{fitted_gp}{A named list of graphical parameters for the fitted line (passed to \code{\link[graphics]{lines}}).}
+\item{...}{Additional arguments: none are currently implemented but depreciated arguments (\code{CI}, \code{fCI}, \code{CI_gp} and \code{fitted_gp}) are accepted (with a warning) via \code{...}.}
 }
 \value{
 The function adds model predictions to a plot.
 }
 \description{
-This function adds regression lines and associated error envelopes (e.g., confidence intervals) to plots. This function is designed to streamline plotting codes. Confidence intervals can be added as a polygon or as lines (with or without the fitted line added ontop). For large datasets, adding confidence intervals with lines is much faster.
+This function adds regression lines and associated error envelopes (e.g., confidence intervals, CIs) to plots. This function is designed to streamline plotting codes. Confidence intervals can be added as a polygon or as lines (with or without the fitted line added ontop). For large datasets, adding confidence intervals with lines is much faster.
 }
 \details{
 The function is designed for continuous explanatory variables. \code{\link[prettyGraphics]{add_error_bars}} is used for discrete explanatory variables to add fitted values and associated errors to plots.
@@ -52,37 +52,37 @@ plot(x, y)
 
 #### Example (1):
 # Add predicted CIs as a polygon and add fitted line ontop using default graphical parameters
-# Note that fCI = "poly", and add_fitted = TRUE do not need to be supplied
+# Note that type = "poly", and add_fitted = TRUE do not need to be supplied
 # ... since these are the default options
-add_error_envelope(x = xp, CI = CIs)
+add_error_envelope(x = xp, ci = CIs)
 
 #### Example (2):
 # Add predicted CIs as a polygon and add fitted lines with user-specified parameters
 plot(x, y)
 add_error_envelope(x = xp,
-                      CI = CIs,
-                      CI_gp = list(col = scales::alpha("skyblue", 0.8), border = FALSE),
-                      fitted_gp = list(col = "blue", lwd = 3, lty = 1)
-                      )
+                   ci = CIs,
+                   add_ci = list(col = scales::alpha("skyblue", 0.8), border = FALSE),
+                   add_fit = list(col = "blue", lwd = 3, lty = 1)
+                   )
 
 #### Example (3):
 # Add predicted CIs as lines, where both upper and lower CIs have identical graphical parameters
 plot(x, y)
 add_error_envelope(x = xp,
-                      CI = CIs,
-                      fCI = "lines",
-                      CI_gp = list(col = "red")
-                      )
+                   ci = CIs,
+                   type = "lines",
+                   add_ci = list(col = "red")
+                   )
 
 #### Example (4):
 # Control lower and upper CI lines independently in a nested list
 # The first element is the lower CI; the second element is the upper CI
 plot(x, y)
 add_error_envelope(x = xp,
-                      CI = CIs,
-                      fCI = "lines",
-                      CI_gp = list(list(col = "red"), list(col = "blue"))
-                      )
+                   ci = CIs,
+                   type = "lines",
+                   add_ci = list(list(col = "red"), list(col = "blue"))
+                   )
 
 }
 \author{
