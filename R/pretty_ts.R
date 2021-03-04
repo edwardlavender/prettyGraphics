@@ -602,16 +602,15 @@ pretty_ts <-
 
       #### Add model predictions
       damp <- list(x = dat$x,
-                   CI = CIs,
-                   fCI = "poly",
-                   CI_gp = list(col = "lightgrey", border = FALSE),
-                   add_fitted = TRUE,
-                   fitted_gp = list(col = "black", lwd = 1, lty = 1)
-      )
+                   ci = CIs,
+                   type = "poly",
+                   add_ci = list(col = "lightgrey", border = FALSE),
+                   add_fitted = list(col = "black", lwd = 1, lty = 1)
+                   )
       add_error_envelope_args <- list_merge(damp, add_error_envelope_args)
-      # Delete the default border = FALSE option if fCI = "lines" because
+      # Delete the default border = FALSE option if type = "lines" because
       # ... this is not an argument to lines:
-      if(add_error_envelope_args$fCI == "lines"){
+      if(add_error_envelope_args$type == "lines"){
         add_error_envelope_args$CI_gp$border <- NULL
       }
     }
@@ -620,10 +619,9 @@ pretty_ts <-
     # ... of if(length(list_CIs_args) > 0) because the user may supply a suitable list
     # ... e.g. created by simulate_posterior_obs() without going via list_CIs()
     if(length(list_CIs_args) > 0 | length(add_error_envelope_args) > 0){
-      damp <- list(fCI = "poly",
-                   CI_gp = list(col = "lightgrey", border = FALSE),
-                   add_fitted = TRUE,
-                   fitted_gp = list(col = "black", lwd = 1, lty = 1))
+      damp <- list(type = "poly",
+                   add_ci = list(col = "lightgrey", border = FALSE),
+                   add_fitted = list(col = "black", lwd = 1, lty = 1))
       add_error_envelope_args <- rlist::list.merge(damp, add_error_envelope_args)
       do.call("add_error_envelope", add_error_envelope_args)
     }

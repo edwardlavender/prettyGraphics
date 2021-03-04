@@ -32,11 +32,11 @@ pretty_smooth_1d(
 
 \item{select}{An integer that specifies the smooth term(s) (i.e., the elements in \code{fit}) to be plotted.}
 
-\item{add_fit}{(optional) A named list of arguments to customise the appearance of the fitted line. This is passed to \code{\link[graphics]{lines}} or the \code{CI_gp} argument of \code{\link[prettyGraphics]{add_error_envelope}}.}
+\item{add_fit}{(optional) A named list of arguments to customise the appearance of the fitted line. This is passed to \code{\link[graphics]{lines}} or the \code{add_fit} argument of \code{\link[prettyGraphics]{add_error_envelope}}.}
 
-\item{add_se_type}{(optional) A character that defines the method by which CIs are added to the plot: as lines (\code{"lines"}) or as a shaded polygon (\code{"poly"}). This is passed to the \code{fCI} argument of \code{\link[prettyGraphics]{add_error_envelope}}.}
+\item{add_se_type}{(optional) A character that defines the method by which CIs are added to the plot: as lines (\code{"lines"}) or as a shaded polygon (\code{"poly"}). This is passed to the \code{type} argument of \code{\link[prettyGraphics]{add_error_envelope}}.}
 
-\item{add_se}{(optional) A named list of arguments to customise the appearance of the confidence intervals. This is passed to the \code{CI_gp} argument of \code{\link[prettyGraphics]{add_error_envelope}}.}
+\item{add_se}{(optional) A named list of arguments to customise the appearance of the confidence intervals. This is passed to the \code{add_ci} argument of \code{\link[prettyGraphics]{add_error_envelope}}.}
 
 \item{add_resid}{(optional) A named list of arguments to customise the appearance of partial residuals via \code{\link[graphics]{points}}. These are taken from the 'p.resid' elements in \code{fit}.}
 

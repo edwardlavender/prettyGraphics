@@ -7,9 +7,9 @@
 #' @param fit A list returned by \code{\link[mgcv]{plot.gam}}. Each element is a list which contains all the necessary information to recreate a plot for a specific model term.
 #' @param shift A number which defines a value by which to shift model predictions/partial residuals vertically.
 #' @param select An integer that specifies the smooth term(s) (i.e., the elements in \code{fit}) to be plotted.
-#' @param add_fit (optional) A named list of arguments to customise the appearance of the fitted line. This is passed to \code{\link[graphics]{lines}} or the \code{CI_gp} argument of \code{\link[prettyGraphics]{add_error_envelope}}.
-#' @param add_se_type (optional) A character that defines the method by which CIs are added to the plot: as lines (\code{"lines"}) or as a shaded polygon (\code{"poly"}). This is passed to the \code{fCI} argument of \code{\link[prettyGraphics]{add_error_envelope}}.
-#' @param add_se (optional) A named list of arguments to customise the appearance of the confidence intervals. This is passed to the \code{CI_gp} argument of \code{\link[prettyGraphics]{add_error_envelope}}.
+#' @param add_fit (optional) A named list of arguments to customise the appearance of the fitted line. This is passed to \code{\link[graphics]{lines}} or the \code{add_fit} argument of \code{\link[prettyGraphics]{add_error_envelope}}.
+#' @param add_se_type (optional) A character that defines the method by which CIs are added to the plot: as lines (\code{"lines"}) or as a shaded polygon (\code{"poly"}). This is passed to the \code{type} argument of \code{\link[prettyGraphics]{add_error_envelope}}.
+#' @param add_se (optional) A named list of arguments to customise the appearance of the confidence intervals. This is passed to the \code{add_ci} argument of \code{\link[prettyGraphics]{add_error_envelope}}.
 #' @param add_resid (optional) A named list of arguments to customise the appearance of partial residuals via \code{\link[graphics]{points}}. These are taken from the 'p.resid' elements in \code{fit}.
 #' @param add_rug (optional) A named list of arguments to add a rug of observed values to the plot. Observed values are taken from the 'raw' elements in \code{fit}. This is passed to \code{\link[graphics]{rug}}.
 #' @param xlim,ylim Axis limits for all plots. If \code{NULL}, axis limits are chosen according to the inputs to \code{pretty_axis_args}.
@@ -136,15 +136,15 @@ pretty_smooth_1d <- function(fit,
     } else{
       add_error_envelope_args <- list()
       add_error_envelope_args$x <- ifit$x
-      add_error_envelope_args$CI <- cis
-      add_error_envelope_args$fCI <- add_se_type
-      add_error_envelope_args$CI_gp <- add_se
+      add_error_envelope_args$ci <- cis
+      add_error_envelope_args$type <- add_se_type
+      add_error_envelope_args$add_ci <- add_se
       if(!is.null(add_fit)) {
-        add_error_envelope_args$add_fitted <- TRUE
+        add_error_envelope_args$add_fit <- add_fit
         if(length(add_fit) == 0) add_fit$col <- "black"
         add_error_envelope_args$fitted_gp <- add_fit
       } else {
-        add_error_envelope_args$add_fitted <- FALSE
+        add_error_envelope_args$add_fit <- NULL
       }
       do.call(add_error_envelope, add_error_envelope_args)
     }
