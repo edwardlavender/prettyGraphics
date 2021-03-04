@@ -7,7 +7,8 @@
 #' @param lwr,upr A vector of numbers, of the same length as \code{x}, that defines the lower (\code{lwr}) and upper (\code{upr}) limits of the error bars. By default, these are defined using the \code{se} and \code{scale} arguments, but they can be defined by the user instead (e.g., if a model returns 95 percent confidence intervals, rather than standard errors, or if error bars are asymmetrical).
 #' @param horiz A logical value that defines whether or not error bars will be drawn vertically (\code{FALSE}) or horizontally (\code{TRUE}). For vertical error bars, \code{x} and \code{fit} are taken as the x positions at/around which error bars are drawn; this is reversed for horizontal error bars.
 #' @param length A numeric value which defines the length of the horizontal tips of the error bars. \code{length = 0} will suppress the horizontal tips of error bars.
-#' @param add_fitted (optional) A named list of graphical parameters, passed to \code{\link[graphics]{points}} which, if provided, will add fitted values as points on top of error bars. An empty list (\code{add_fitted = list()}) will add fitted values to the plot using default graphical parameters.
+#' @param add_fit A named list of graphical parameters, passed to \code{\link[graphics]{points}} which, if provided, will add fitted values as points on top of error bars. An empty list (\code{add_fit = list()}) will add fitted values to the plot using default graphical parameters.
+#' @param add_fitted (depreciated) See \code{add_fit} argument.
 #' @param ... Other arguments passed to \code{\link[graphics]{arrows}}, which is used to draw error bars, for customisation. Arguments \code{x0}, \code{x1}, \code{y0} and \code{y1} are obtained from \code{x}, \code{fit}, and \code{se} and \code{scale}, or \code{lwr} and \code{upr}, and should not be provided. Likewise, \code{angle} is forced to be 90 degrees (i.e., error bars are forced to have horizontal tips (or no tips, if \code{length = 0})) and should not be provided.
 #'
 #' @seealso This function is designed for discrete explanatory variables. \code{\link[prettyGraphics]{add_error_envelope}} is used for continuous explanatory variables to add regression lines and associated error envelopes to plots.
@@ -53,16 +54,16 @@
 #' add_error_bars(x = sim$type, fit = sim$fit, se = 5,
 #'                length = 0.25, col = "red", lwd = 2)
 #'
-#' #### Example (4): Add the fitted points on by passing a list to the add_fitted argument:
+#' #### Example (4): Add the fitted points on by passing a list to the add_fit argument:
 #' pp <- par(mfrow = c(1, 2))
 #' # Example with customised points:
 #' pretty_plot(sim$type, sim$fit)
 #' add_error_bars(x = sim$type, fit = sim$fit, se = 5, lwd = 2,
-#'                add_fitted = list(pch = 21, bg = "black"))
+#'                add_fit = list(pch = 21, bg = "black"))
 #' # Simply specify an empty list to use the default options:
 #' pretty_plot(sim$type, sim$fit)
 #' add_error_bars(x = sim$type, fit = sim$fit, se = 5, lwd = 2,
-#'                add_fitted = list())
+#'                add_fit = list())
 #' par(pp)
 #'
 #' #### Example (5): More realistic example using model derived estimates
@@ -112,7 +113,7 @@ add_error_bars <-
     lwr = fit-scale*se, upr = fit+scale*se,
     length = 0.05,
     horiz = FALSE,
-    add_fitted = NULL,...
+    add_fit = NULL, add_fitted = NULL,...
     ){
 
     #### Initial checks:
@@ -146,11 +147,13 @@ add_error_bars <-
                      length = length,...)
 
     #### Add fitted points on top of error bars, if requested:
-    if(!is.null(add_fitted)){
-      if(!is.list(add_fitted)) stop("'add_fitted' argument must be a list.")
-      add_fitted$x <- x
-      add_fitted$y <- fit
-      do.call(graphics::points, add_fitted)
+    if(!is.null(add_fitted)) warning("The 'add_fitted' argument has been renamed 'add_fit' for consistency.")
+    add_fit <- add_fitted
+    if(!is.null(add_fit)){
+      if(!is.list(add_fit)) stop("'add_fit' argument must be a list.")
+      add_fit$x <- x
+      add_fit$y <- fit
+      do.call(graphics::points, add_fit)
     }
 
   }

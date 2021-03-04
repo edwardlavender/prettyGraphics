@@ -13,6 +13,7 @@ add_error_bars(
   upr = fit + scale * se,
   length = 0.05,
   horiz = FALSE,
+  add_fit = NULL,
   add_fitted = NULL,
   ...
 )
@@ -30,7 +31,9 @@ add_error_bars(
 
 \item{horiz}{A logical value that defines whether or not error bars will be drawn vertically (\code{FALSE}) or horizontally (\code{TRUE}). For vertical error bars, \code{x} and \code{fit} are taken as the x positions at/around which error bars are drawn; this is reversed for horizontal error bars.}
 
-\item{add_fitted}{(optional) A named list of graphical parameters, passed to \code{\link[graphics]{points}} which, if provided, will add fitted values as points on top of error bars. An empty list (\code{add_fitted = list()}) will add fitted values to the plot using default graphical parameters.}
+\item{add_fit}{A named list of graphical parameters, passed to \code{\link[graphics]{points}} which, if provided, will add fitted values as points on top of error bars. An empty list (\code{add_fit = list()}) will add fitted values to the plot using default graphical parameters.}
+
+\item{add_fitted}{(depreciated) See \code{add_fit} argument.}
 
 \item{...}{Other arguments passed to \code{\link[graphics]{arrows}}, which is used to draw error bars, for customisation. Arguments \code{x0}, \code{x1}, \code{y0} and \code{y1} are obtained from \code{x}, \code{fit}, and \code{se} and \code{scale}, or \code{lwr} and \code{upr}, and should not be provided. Likewise, \code{angle} is forced to be 90 degrees (i.e., error bars are forced to have horizontal tips (or no tips, if \code{length = 0})) and should not be provided.}
 }
@@ -78,16 +81,16 @@ pretty_plot(sim$type, sim$fit)
 add_error_bars(x = sim$type, fit = sim$fit, se = 5,
                length = 0.25, col = "red", lwd = 2)
 
-#### Example (4): Add the fitted points on by passing a list to the add_fitted argument:
+#### Example (4): Add the fitted points on by passing a list to the add_fit argument:
 pp <- par(mfrow = c(1, 2))
 # Example with customised points:
 pretty_plot(sim$type, sim$fit)
 add_error_bars(x = sim$type, fit = sim$fit, se = 5, lwd = 2,
-               add_fitted = list(pch = 21, bg = "black"))
+               add_fit = list(pch = 21, bg = "black"))
 # Simply specify an empty list to use the default options:
 pretty_plot(sim$type, sim$fit)
 add_error_bars(x = sim$type, fit = sim$fit, se = 5, lwd = 2,
-               add_fitted = list())
+               add_fit = list())
 par(pp)
 
 #### Example (5): More realistic example using model derived estimates
