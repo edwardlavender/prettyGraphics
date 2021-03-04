@@ -605,7 +605,7 @@ pretty_ts <-
                    ci = CIs,
                    type = "poly",
                    add_ci = list(col = "lightgrey", border = FALSE),
-                   add_fitted = list(col = "black", lwd = 1, lty = 1)
+                   add_fit = list(col = "black", lwd = 1, lty = 1)
                    )
       add_error_envelope_args <- list_merge(damp, add_error_envelope_args)
       # Delete the default border = FALSE option if type = "lines" because
@@ -621,7 +621,7 @@ pretty_ts <-
     if(length(list_CIs_args) > 0 | length(add_error_envelope_args) > 0){
       damp <- list(type = "poly",
                    add_ci = list(col = "lightgrey", border = FALSE),
-                   add_fitted = list(col = "black", lwd = 1, lty = 1))
+                   add_fit = list(col = "black", lwd = 1, lty = 1))
       add_error_envelope_args <- rlist::list.merge(damp, add_error_envelope_args)
       do.call("add_error_envelope", add_error_envelope_args)
     }
