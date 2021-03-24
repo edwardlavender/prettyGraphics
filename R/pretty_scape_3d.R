@@ -229,10 +229,10 @@ pretty_scape_3d <-
           add_markers$x <- xyz_markers$x
           add_markers$y <- xyz_markers$y
           add_markers$z <- xyz_markers$z
-          add_markers$z <- add_markers$z * stretch
         }
       }
       if(add_markers_pass){
+        add_markers$z <- add_markers$z * stretch
         add_markers$p <- p
         p <- do.call(plotly::add_markers, add_markers)
       }
