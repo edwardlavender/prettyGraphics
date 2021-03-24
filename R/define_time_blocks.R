@@ -62,6 +62,7 @@ define_time_blocks <-
     # ... of the graph if necessary
     if(to_plot){ start <- t1 - 60*60*24 } else{ start <- t1 }
     dates_block <- seq.POSIXt(start, t2, by = "days")
+    if(max(dates_block) < t2) dates_block <- c(dates_block, t2)
 
     #### diel blocks
     if(type == "diel"){
