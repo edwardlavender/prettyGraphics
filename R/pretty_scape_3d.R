@@ -149,7 +149,7 @@ pretty_scape_3d <-
       aggregate$x <- r
       r <- do.call(raster::aggregate, aggregate)
     }
-    # Print a warning if the dimensions of the raster are too big for plotly"
+    # Print a warning if the dimensions of the raster are too big for plotly
     d1 <- dim(r)[1]
     d2 <- dim(r)[2]
     dtot <- d1 * d2
@@ -159,13 +159,14 @@ pretty_scape_3d <-
           "The dimensions of the cropped bathymetry file to be plotted are: ",
           d1, " x ", d2, ". ",
           "This is greater than than the maximum recommended resolution (c. 1800 x 1800) and the function may crash. Try supplying a list of arguments to the aggregate argument to reduce raster resolution."
-        ))
+        ), call. = FALSE, immediate. = TRUE)
+      readline(prompt = "Press [Enter] if you would like to continue or [Esc] to exit...")
     }
 
     #### Define bathymetry matrix, adjusted by the stretch factor
     if(verbose) cat("Defining plot properties...\n")
-    r <- r * stretch
-    z <- raster::as.matrix(r)
+    zo <- raster::as.matrix(r)
+    z <- zo * stretch
     # define x and y coordinates for matrix:
     xy <- raster::coordinates(r)
     x <- as.numeric(levels(factor(xy[,1])))
@@ -173,20 +174,13 @@ pretty_scape_3d <-
     y <- rev(y)
 
     #### Define axes properties
-    # Extract limits, if not provided
-    if(is.null(xlim)){
-      xlim <- pretty_seq(x, lim = NULL, pretty_args = list(n = 5))
-    }
-    if(is.null(ylim)){
-      ylim <- pretty_seq(y, lim = NULL, pretty_args = list(n = 5))
-    }
-    if(is.null(zlim)){
-      zlim <- pretty_seq(as.vector(z), lim = NULL, pretty_args = list(n = 5))
-    }
+    xat <- pretty_seq(x, lim = xlim, pretty_args = list(n = 5))$at
+    yat <- pretty_seq(y, lim = ylim, pretty_args = list(n = 5))$at
+    zat <- pretty_seq(as.vector(zo), lim = zlim, pretty_args = list(n = 5))$at
     # Define axis tick marks
-    x_lab_ls <- list(title = xtitle, titlefont = font, range = xlim)
-    y_lab_ls <- list(title = ytitle, titlefont = font, range = ylim)
-    z_lab_ls <- list(title = ztitle, titlefont = font, range = zlim)
+    x_lab_ls <- list(title = xtitle, titlefont = font, tickmode = "array", tickvals = xat)
+    y_lab_ls <- list(title = ytitle, titlefont = font, tickmode = "array", tickvals = yat)
+    z_lab_ls <- list(title = ztitle, titlefont = font, tickmode = "array", tickvals = zat * stretch, ticktext = zat)
 
     #### Basic plot
     # Plot
