@@ -13,7 +13,7 @@ add_error_bars(
   upr = fit + scale * se,
   length = 0.05,
   horiz = FALSE,
-  add_fit = NULL,
+  add_fit = list(pch = 21, bg = "black"),
   add_fitted = NULL,
   ...
 )

@@ -113,7 +113,7 @@ add_error_bars <-
     lwr = fit-scale*se, upr = fit+scale*se,
     length = 0.05,
     horiz = FALSE,
-    add_fit = NULL, add_fitted = NULL,...
+    add_fit = list(pch = 21, bg = "black"), add_fitted = NULL,...
     ){
 
     #### Initial checks:
@@ -147,8 +147,10 @@ add_error_bars <-
                      length = length,...)
 
     #### Add fitted points on top of error bars, if requested:
-    if(!is.null(add_fitted)) warning("The 'add_fitted' argument has been renamed 'add_fit' for consistency.")
-    add_fit <- add_fitted
+    if(!is.null(add_fitted)) {
+      warning("The 'add_fitted' argument has been renamed 'add_fit' for consistency.")
+      add_fit <- add_fitted
+    }
     if(!is.null(add_fit)){
       if(!is.list(add_fit)) stop("'add_fit' argument must be a list.")
       add_fit$x <- x
