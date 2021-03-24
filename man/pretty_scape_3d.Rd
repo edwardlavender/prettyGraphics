@@ -19,6 +19,7 @@ pretty_scape_3d(
   xlim = NULL,
   ylim = NULL,
   zlim = NULL,
+  add_tick_text = TRUE,
   font = list(family = "sans", size = 18, color = "black"),
   xtitle = "",
   ytitle = "",
@@ -57,6 +58,8 @@ pretty_scape_3d(
 \item{ylim}{(optional) A numeric vector of length 2 which defines y axis limits. If not provided, these are calculated internally.}
 
 \item{zlim}{(optional) A numeric vector of length 2 which defines z axis limits. If not provided, these are calculated internally.}
+
+\item{add_tick_text}{A logical input that defines whether or not to add tick mark labels.}
 
 \item{font}{A named list of arguments that control plot font (see \code{\link[plotly]{layout}}).}
 

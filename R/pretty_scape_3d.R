@@ -16,6 +16,7 @@
 #' @param xlim (optional) A numeric vector of length 2 which defines x axis limits. If not provided, these are calculated internally.
 #' @param ylim (optional) A numeric vector of length 2 which defines y axis limits. If not provided, these are calculated internally.
 #' @param zlim (optional) A numeric vector of length 2 which defines z axis limits. If not provided, these are calculated internally.
+#' @param add_tick_text A logical input that defines whether or not to add tick mark labels.
 #' @param font A named list of arguments that control plot font (see \code{\link[plotly]{layout}}).
 #' @param xtitle (optional) A character string which defines the label for the x axis.
 #' @param ytitle (optional) A character string which defines the label for the y axis.
@@ -119,6 +120,7 @@ pretty_scape_3d <-
            plane = NULL,
            plane_surface = list(showscale = FALSE),
            xlim = NULL, ylim = NULL, zlim = NULL,
+           add_tick_text = TRUE,
            font = list(family = "sans", size = 18, color = "black"),
            xtitle = "", ytitle = "", ztitle = "",
            stretch = 1,
@@ -174,6 +176,7 @@ pretty_scape_3d <-
     y <- rev(y)
 
     #### Define axes properties
+    # axis tick marks
     xat <- pretty_seq(x, lim = xlim, pretty_args = list(n = 5))$at
     yat <- pretty_seq(y, lim = ylim, pretty_args = list(n = 5))$at
     zat <- pretty_seq(as.vector(zo), lim = zlim, pretty_args = list(n = 5))$at
@@ -181,6 +184,11 @@ pretty_scape_3d <-
     x_lab_ls <- list(title = xtitle, titlefont = font, tickmode = "array", tickvals = xat)
     y_lab_ls <- list(title = ytitle, titlefont = font, tickmode = "array", tickvals = yat)
     z_lab_ls <- list(title = ztitle, titlefont = font, tickmode = "array", tickvals = zat * stretch, ticktext = zat)
+    if(!add_tick_text){
+      x_lab_ls$ticktext <- rep("", length(xat))
+      y_lab_ls$ticktext <- rep("", length(yat))
+      z_lab_ls$ticktext <- rep("", length(zat))
+    }
 
     #### Basic plot
     # Plot
@@ -193,9 +201,12 @@ pretty_scape_3d <-
           zaxis = z_lab_ls,
           aspectmode = aspectmode,
           camera = list(eye = eye)
-        ))
+          )
+        )
     # Add surface
     add_surface$p <- p
+    if(is.null(add_surface$colorbar)) add_surface$colorbar <- list()
+    add_surface$colorbar <- list(tickmode = "array", tickvals = zat * stretch, ticktext = zat)
     p <- do.call(plotly::add_surface, add_surface)
 
     #### Add markers
