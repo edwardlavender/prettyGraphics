@@ -265,7 +265,7 @@ pretty_map <- function(x = NULL,
                                                             list(labels = FALSE)),
                                                 control_sci_notation = list(magnitude = 16L, digits = 0)
                                                 ),
-                       verbose = TRUE
+                       verbose = FALSE
                        ,...){
 
   #### Checks
@@ -395,7 +395,11 @@ pretty_map <- function(x = NULL,
     cat_to_console("... Adding spatial layer(s)...")
     ## Raster(s)
     if(!is.null(add_rasters)) {
-      if(list_depth(add_rasters) == 1) add_rasters <- list(add_rasters)
+      if(list_depth(add_rasters) == 1) {
+        add_rasters <- list(add_rasters)
+      } else {
+        if(all(sapply(add_rasters, function(elm) !("x" %in% names(elm))))) add_rasters <- list(add_rasters)
+      }
       lapply(add_rasters, function(param){
         param$ext <- ext
         param$crop_spatial <- crop_spatial

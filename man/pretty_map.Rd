@@ -17,7 +17,7 @@ pretty_map(
   ylim = NULL,
   pretty_axis_args = list(side = 1:4, axis = list(list(), list(), list(labels = FALSE),
     list(labels = FALSE)), control_sci_notation = list(magnitude = 16L, digits = 0)),
-  verbose = TRUE,
+  verbose = FALSE,
   ...
 )
 }
