@@ -45,7 +45,7 @@ pretty_map(
 \item{...}{Additional arguments, passed to \code{\link[raster]{plot}}, which creates the background plot, such as \code{xlab}, \code{ylab} and \code{main}.}
 }
 \value{
-The function produces a background plot of an area with spatial layers added (if applicable).
+The function produces a background plot of an area with spatial layers added (if applicable). The named list of axis parameters computed by \code{\link[prettyGraphics]{pretty_axis}} is also returned invisibly.
 }
 \description{
 This function is used to produce pretty maps. This function proceeds by plotting a background map with pretty axes and then adds specifies spatial layers (namely, rasters, polygons, lines, paths and points) to this plot. Appropriate axis limits can be derived across all inputted spatial objects (unless specified) and all spatial layers can be cropped to this area (if requested).

@@ -6,7 +6,7 @@ Author: Edward Lavender
 Maintainer: Edward Lavender <el72@st-andrews.ac.uk>
 Description: Making publication-quality plotting and data exploration easier. 
 Imports: 
-    magrittr, dplyr, plyr, lubridate, purrr,
+    magrittr, dplyr, lubridate, purrr,
     fields, scales, TeachingDemos,
     plotly, shiny, shinydashboard, shinyWidgets,
     rlist, stringi, stringr, 
@@ -14,7 +14,7 @@ Imports:
 Suggests:
     pbapply, pryr, devtools,
     Orcs,
-    viridis, plotrix, lunar,
+    viridis, RColorBrewer, plotrix, lunar,
     mgcv, 
     knitr, rmarkdown
 Depends: R (>= 3.5)

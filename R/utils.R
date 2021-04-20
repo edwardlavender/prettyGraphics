@@ -3,6 +3,7 @@
 #### utils
 
 ######################################
+######################################
 #### pipe
 
 #' Pipe operator
@@ -17,6 +18,66 @@
 #' @usage lhs \%>\% rhs
 NULL
 
+
+######################################
+######################################
+#### list_depth()
+
+#' @title Find the maximum depth of a list
+#' @description Descend a list and find the maximum number of levels in a list.
+#' @details A possibly nested list of lists is descended to determine the maximum number of levels.
+#' @return The maximum number of levels in the list.
+#' @source This function and the documentation are derived from \code{\link[plotrix]{listDepth}}. The function is defined separately in \code{\link[prettyGraphics]{prettyGraphics}} to reduce reliance on non-default packages.
+#' @keywords internal
+#'
+
+list_depth <- function(x) {
+  if(is.list(x)) {
+    maxdepth<-1
+    for(lindex in seq_along(x)) {
+      newdepth<-list_depth(x[[lindex]])+1
+      if(newdepth > maxdepth) maxdepth<-newdepth
+    }
+  }
+  else maxdepth<-0
+  return(maxdepth)
+}
+
+######################################
+######################################
+#### plyr helpers
+
+
+######################################
+#### round_any()
+
+#' @title Round to multiple of any number
+#' @description Round to multiple of any number.
+#' @param x numeric or date-time (POSIXct) vector to round
+#' @param accuracy number to round to; for POSIXct objects, a number of seconds
+#' @param f rounding function: floor, ceiling or round
+#' @source This function and the documentation are taken from the `plyr' package. The function is defined separately in \code{\link[prettyGraphics]{prettyGraphics}} to reduce reliance on non-default packages.
+#' @keywords internal
+#'
+
+round_any = function(x, accuracy, f=round){f(x/ accuracy) * accuracy}
+
+
+######################################
+#### compact()
+
+#' @title Compact a list
+#' @description Remove all \code{NULL} entries from a list.
+#' @param l A list.
+#' @source This function is derived from the \code{plyr::compact()} function. The function is defined separately in \code{\link[prettyGraphics]{prettyGraphics}} to reduce reliance on non-default packages.
+#' @keywords internal
+
+compact <- function(l) l[which(!sapply(l, is.null))]
+
+
+######################################
+######################################
+#### Checks
 
 ######################################
 #### check...()
@@ -259,32 +320,6 @@ check_depreciated <- function(depreciated,...){
     warning(warn, call. = FALSE, immediate. = TRUE)
   } else return(invisible())
 }
-
-
-######################################
-######################################
-#### list_depth()
-
-#' @title Find the maximum depth of a list
-#' @description Descend a list and find the maximum number of levels in a list.
-#' @details A possibly nested list of lists is descended to determine the maximum number of levels.
-#' @return The maximum number of levels in the list.
-#' @source This function and the documentation are derived from \code{\link[plotrix]{listDepth}}. The function is defined separately in \code{\link[prettyGraphics]{prettyGraphics}} to reduce reliance on non-default packages.
-#' @keywords internal
-#'
-
-list_depth <- function(x) {
-  if(is.list(x)) {
-    maxdepth<-1
-    for(lindex in seq_along(x)) {
-      newdepth<-list_depth(x[[lindex]])+1
-      if(newdepth > maxdepth) maxdepth<-newdepth
-    }
-  }
-  else maxdepth<-0
-  return(maxdepth)
-}
-
 
 
 #### End of code.

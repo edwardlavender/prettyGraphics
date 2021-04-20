@@ -1,17 +1,21 @@
 #' @title Add lines to a plot
-#' @description This function is used to add lines to a plot. If only two variables (\code{x} and \code{y1}) are provided, this function collapses to \code{\link[graphics]{lines}}. However, if a third variable is provided (\code{y2}), the line can be coloured by the values of that variable. This can aid inferences regarding associations between two variables and a third variable (or, indeed, help emphasise relationships between a response and a single explanatory variable with colour). In this case, the function works by defining a sequence of 'pretty' values across the range of \code{y2} using \code{\link[prettyGraphics]{pretty_axis}}. This range of values can become the labels of a colour bar legend in \code{\link[prettyGraphics]{add_colour_bar}}. Within this sequence of values, the function defines \code{n} regularly spaced values and, using a user-specified function, a colour is defined for each of these values. The line is plotted by matching each value of \code{y2} with the closest value in this sequence. The larger \code{n}, the smoother the colour scheme (at some computational cost). The approach ensures links between the line drawn and the colour legend added, ensuring both are always 'pretty' (see also \code{\link[prettyGraphics]{add_colour_bar}}).
+#' @description This function is used to add lines to a plot. If only two variables (\code{x} and \code{y1}) are provided, this function collapses to \code{\link[graphics]{lines}}. However, if a third variable is provided (\code{y2}), the line can be coloured by the values of that variable. Colour is incorporated by means of a user-supplied function (\code{f}), from which \code{n - 1} colours are drawn, or a user-supplied sequence of \code{breaks} and corresponding colours (\code{cols}) (e.g., from \code{\link[prettyGraphics]{pretty_cols_brewer}}).
 #'
-#' @param x A numeric input of x values representing the x coordinates of the line to be plotted.
-#' @param y1 A numeric input of y values representing the y coordinates of the line to be plotted.
-#' @param y2 (optional) A numeric input of values which will be used to colour the line plotted.
-#' @param dat (optional) A dataframe with columns 'x', 'y1' and (optionally) 'y2' can be provided instead of \code{x}, \code{y1} and \code{y2}.
-#' @param pretty_axis_args A list of arguments passed to \code{\link[prettyGraphics]{pretty_axis}}. This is used to define a sequence of pretty values, between the limits of which \code{n} colours are drawn. Modifying \code{pretty_axis_args} predominantly affects the colour bar legend that is added to plots (see Examples in \code{\link[prettyGraphics]{add_colour_bar}}).
-#' @param n (optional) The number of bins in \code{y2} for which a colour is assigned. Larger numbers produce smoother colour schemes but these can be slower to run.
-#' @param f (optional) A function used to define the colours that are used to colour the line according to \code{y2}.
-#' @param output A numeric input specifying the output format: \code{1}, list; \code{2}, plot; \code{3}, plot and list (see Value).
+#' @param x A numeric vector of x values representing the x coordinates of the line.
+#' @param y1 A numeric vector of y values representing the y coordinates of the line.
+#' @param y2 (optional) A numeric vector of values used to colour the line.
+#' @param dat (optional) A dataframe with columns `x', `y1' and (optionally) `y2' can be provided instead of \code{x}, \code{y1} and \code{y2}.
+#' @param pretty_axis_args A named list of arguments passed to \code{\link[prettyGraphics]{pretty_axis}}, used to define a sequence of pretty values for colour bar legends (see Examples in \code{\link[prettyGraphics]{add_colour_bar}}).
+#'
+#' @param n,f Colour scheme options (I). \code{n} is the number of bins in \code{y2} to which colours are assigned. Larger numbers produce smoother colour schemes but these can be slower to run. \code{f} is function from which \code{n - 1} colours are extracted.
+#' @param breaks,cols Colour scheme options (II). \code{breaks} is a sequence of breaks for the colour scheme and \code{cols} is a corresponding vector of colours. (Note that this means there should be one more break than colour.) If supplied, \code{breaks} and \code{cols} silently take priority over \code{n} and \code{f}.
+#' @param add A logical input that defines whether or not to add the line to the plot.
+#' @param output (depreciated) A numeric input specifying the output format: \code{1}, list; \code{2}, plot; \code{3}, plot and list (see Value).
 #' @param ... Additional arguments passed to \code{\link[graphics]{lines}}, if only \code{x} and \code{y1} are provided, or \code{\link[graphics]{arrows}} if \code{y2} is also provided.
 #'
-#' @returns A line and/or a list. The list contains two elements. (1) \code{data_legend} is a dataframe with two columns: 'x', a sequence of n values across limits (either defined by the user or automatically by \code{\link[prettyGraphics]{pretty_axis}}) values; and 'col', referring to corresponding colours. This can be passed to \code{\link[prettyGraphics]{add_colour_bar}} to plot a legend. (2) \code{axis_legend} is a list of arguments, generated by \code{\link[prettyGraphics]{pretty_axis}} that can be passed to \code{\link[prettyGraphics]{add_colour_bar}} to add an axis to the legend.
+#' @details For a line coloured by a third variable, the function works by defining a sequence of 'pretty' values across the range of \code{y2} using \code{\link[prettyGraphics]{pretty_axis}} (unless supplied via \code{breaks}). This series of values can become the labels of a colour bar legend in \code{\link[prettyGraphics]{add_colour_bar}}. Colours are then assigned to each \code{break}, either from a user-supplied function (\code{f}) or a vector of supplied colours (\code{cols}). This approach ensures links between the line drawn and the colour legend added, ensuring both are always 'pretty' (see also \code{\link[prettyGraphics]{add_colour_bar}}).
+#'
+#' @returns The function adds a line to a plot if \code{add = TRUE} and invisibly returns a list with colour bar parameters. The list contains two elements. (1) \code{data_legend} is a dataframe with two columns: `x', a sequence of n values between axis limits (either defined by the user or automatically by \code{\link[prettyGraphics]{pretty_axis}}); and `col', the corresponding colours. This can be passed to \code{\link[prettyGraphics]{add_colour_bar}} to plot a legend. (2) \code{axis_legend} is a list of arguments, generated by \code{\link[prettyGraphics]{pretty_axis}} that can be passed to \code{\link[prettyGraphics]{add_colour_bar}} to add an axis to the legend.
 #'
 #' @examples
 #' #### Generate some example data
@@ -29,33 +33,28 @@
 #' @export
 #'
 
-#########################################
-#########################################
-#### add_lines()
-
 add_lines <-
   function(x,
            y1,
            y2 = NULL,
            dat = NULL,
            pretty_axis_args = list(pretty = list(n = 5)),
-           n = 100,
-           f = grDevices::colorRampPalette(c("red", "blue")),
-           output = 3,...){
+           n = 100, f = grDevices::colorRampPalette(c("red", "blue")),
+           breaks = NULL, cols = NULL,
+           add = TRUE,
+           output = NULL,...){
 
     #### Define dataframe
     if(is.null(dat)){
       dat <- data.frame(x = x, y1 = y1)
-      if(!is.null(y2)){
-        dat$y2 <- y2
-      }
+      if(!is.null(y2)) dat$y2 <- y2
     }
 
     #### Plot normal line if y2 not specified
     if(is.null(dat$y2)){
       graphics::lines(dat$x, dat$y1,...)
 
-    #### Plot coloured line if y2 specified
+      #### Plot coloured line if y2 specified
     } else{
 
       #### Method
@@ -72,24 +71,29 @@ add_lines <-
                   axis_ls = NULL,
                   add = FALSE,
                   return_list = NULL)
+      if(!is.null(breaks)) dpa$lim <- list(range(breaks))
       pretty_axis_args <- rlist::list.merge(list(add = FALSE), pretty_axis_args, dpa)
       colour_bar_axis <- do.call("pretty_axis", pretty_axis_args)
       lim <- colour_bar_axis$`4`$lim
 
       #### Define data to plot a coloured line
       # Define regular sequence along pretty axis at which we'll define colours
-      y2_seq <- seq(lim[1], lim[2], length.out = n)
-      lcs <- length(y2_seq)
-      # Determine the position of each of the values of y2 in y2_seq
-      dat$order = findInterval(dat$y2, y2_seq)
+      if(is.null(breaks)) breaks <- seq(lim[1], lim[2], length.out = n)
+      lcs <- length(breaks) - 1
+      # Determine the position of each of the values of y2 in breaks
+      dat$order <- findInterval(dat$y2, breaks, all.inside = TRUE)
       # Define a sequence of colours using the function provided:
-      cols <- f(lcs)
+      if(is.null(cols)) cols <- f(lcs)
       # Associate each observation with a colour:
-      dat$row <- 1:nrow(dat)
-      dat$col <- cols[dat$order[dat$row]]
+      dat$col <- cols[dat$order]
 
       #### Plot a coloured line
-      if(output %in% c(2, 3)){
+      if(!is.null(output)) {
+        warning("The 'output' argument is depreciated. Please use the 'add' argument instead.",
+                immediate. = TRUE, call. = FALSE)
+        if(output == 1) add <- FALSE else add <- TRUE
+      }
+      if(add){
         # Define the start and end coordinates of each arrow segment
         # ... and the associated colour:
         nrw_dat <- nrow(dat)
@@ -107,21 +111,11 @@ add_lines <-
       #### Return a list if requested
       # These can be called by associated functions e.g. add_colour_bar()
       # ... which plots a legend for the coloured line.
-      if(output %in% c(1, 3)){
-        # data_line <- dat
-        data_legend <- data.frame(x = y2_seq, col = cols)
-        data_legend$col <- as.character(data_legend$col)
-        axis_legend <- colour_bar_axis
-        output <- list(data_legend = data_legend, axis_legend = axis_legend)
-        return(output)
+      data_legend <- data.frame(x = breaks[1:lcs], col = cols)
+      data_legend$col <- as.character(data_legend$col)
+      axis_legend <- colour_bar_axis
+      output <- list(data_legend = data_legend, axis_legend = axis_legend)
+      return(invisible(output))
+    }
 
-      } # close if(output %in% c("plot_and_values", "values_only")){
-
-    } # close else{}
-
-} # close function
-
-
-#### End of function.
-################################################
-################################################
+  }

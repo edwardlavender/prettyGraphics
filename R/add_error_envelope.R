@@ -116,7 +116,7 @@ add_error_envelope <-
         if(length(posNA) > 0){
           dls <- split(d, findInterval(1:nrow(d), posNA + 1))
           dls <- lapply(dls, function(df) return(df[stats::complete.cases(df), ]))
-          dls <- plyr::compact(dls)
+          dls <- compact(dls)
         } else{
           dls <- list(d)
         }
@@ -207,7 +207,7 @@ add_model_predictions <-
       if(length(posNA) > 0){
         dls <- split(d, findInterval(1:nrow(d), posNA + 1))
         dls <- lapply(dls, function(df) return(df[stats::complete.cases(df), ]))
-        dls <- plyr::compact(dls)
+        dls <- compact(dls)
       } else{
         dls <- list(d)
       }

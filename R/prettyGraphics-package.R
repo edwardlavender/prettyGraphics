@@ -57,9 +57,20 @@
 #'         \item{\link{add_sp_path}}{ This function adds paths to a background map.}
 #'         \item{\link{add_sp_points}}{ This function adds points to a background map.}
 #'    }
+#'
+#'   \item{\link{summarise_by_lat}}{This function summarises a \code{\link[raster]{raster}} across latitudinal bands.}
+#'   \item{\link{add_profile_lat}}{This function add latitudinal profiles to a plot of a \code{\link[raster]{raster}}.}
+#'
 #'  \item{\link{pretty_scape_3d}}{ This function creates interactive, 3-dimensional visualisations of landscapes/seascapes and/or environmental conditions.}
 #'  \item{\link{vis_scape_3d}}{ An R Shiny wrapper for \link{pretty_scape_3d}.}
 #'   }
+#'
+#'
+#'
+#' @section Colour schemes: \describe{
+#'  \item{\link{pretty_cols_brewer}}{This function facilitates the creation of pretty colour schemes.}
+#'  \item{\link{pretty_cols_split_heat}}{This function generates a `split-heat' colour scheme in which values either side of a break-point are coloured differently.}
+#'  }
 #'
 #' @section Plot layout: \describe{
 #'  \item{\link{par_mf}}{This function defines a suitable plotting window for a given number of plots.}

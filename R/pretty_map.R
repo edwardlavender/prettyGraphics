@@ -9,7 +9,9 @@
 #' @param y (optional) A numeric vector of y coordinates. This is only required if \code{x} is a numeric vector of x coordinates.
 #' @param ext (optional) An \code{\link[raster]{extent}} object that defines the extent of an area. If \code{crop_spatial = TRUE}, then the object is cropped to lie within this area via \code{\link[raster]{crop}} (see below).
 #' @param crop_spatial (optional) A logical variable that defines whether or not to crop the spatial layer to lie within the domain defined by \code{ext}. This is only implemented if \code{ext} is provided.
-#' @param ... Additional arguments passed to the plotting functions, which are \code{\link[fields]{image.plot}} for rasters, \code{\link[graphics]{arrows}} for paths, \code{\link[graphics]{points}} for points and \code{\link[raster]{plot}} for all other objects.
+#' @param plot_method A function that adds the layer to the plot. This is only implemented for \code{add_sp_raster} and the default is \code{\link[fields]{image.plot}}.
+#' @param pretty_axis_args (optional) A named list, passed to \code{\link[prettyGraphics]{pretty_axis}}, to control the tick mark positions and labels on the colour bar. This is only implemented \code{add_sp_raster}. For the default plotting method (\code{\link[fields]{image.plot}}), these can be controlled using the \code{axis.args} argument via \code{...}, but \code{pretty_axis_args} can help to make prettier labels (e.g., with scientific notation). If supplied, \code{plot_method} must accept an \code{axis.args} like \code{\link[fields]{image.plot}}. \code{\link[prettyGraphics]{pretty_axis}} is used to define a pretty sequence of tick mark positions and labels, and these passed to \code{plot_method} via \code{axis.args} as the \code{at} and \code{labels} elements.
+#' @param ... Additional arguments passed to the plotting functions, which are \code{plot_method} (usually \code{\link[fields]{image.plot}}) for rasters, \code{\link[graphics]{arrows}} for paths, \code{\link[graphics]{points}} for points and \code{\link[raster]{plot}} for all other objects.
 #'
 #' @details These functions are designed to work with \code{\link[prettyGraphics]{pretty_map}}, which produces a background plot and then adds layers to this plot. However, they can also be called directly after the definition of a background plot.
 #' @return The function adds a spatial layers to an existing plot.
@@ -147,23 +149,31 @@ add_sp_poly <- function(x, ext = NULL, crop_spatial = FALSE,...){
 #' @rdname add_sp
 #' @export
 
-add_sp_raster <- function(x, ext = NULL, crop_spatial = FALSE,...){
+add_sp_raster <- function(x, ext = NULL, crop_spatial = FALSE, plot_method = fields::image.plot, pretty_axis_args = NULL,...){
   # Crop raster
   if(!is.null(ext) & crop_spatial) x <- raster::crop(x, ext)
   # Gather parameters
   param <- list(x = x,...)
   # Define zlim across range of data
-  if(is.null(param$zlim)) {
-    rng <- c(raster::minValue(x), raster::maxValue(x))
-    zlim <- rng
-    # zlim <- range(pretty_seq(rng, pretty_args = list(n = 2)))
-    param$zlim <- zlim
-  }
+  if(is.null(param$zlim)) param$zlim <- c(raster::cellStats(x, "min"), raster::cellStats(x, "max"))
   # Use default colouration implemented by raster::plot() rather than fields::image.plot()
   if(is.null(param$col)) param$col <- rev(grDevices::terrain.colors(255))
+  # Define 'pretty' axis
+  if(!is.null(pretty_axis_args)){
+    if(is.null(param$axis.args)) param$axis.args <- list()
+    if(is.null(param$axis.args$at)){
+      pretty_axis_args$side <- 4
+      if(is.null(pretty_axis_args$lim)) pretty_axis_args$lim <- list(param$zlim)
+      axis_ls <- implement_pretty_axis_args(list(param$zlim), pretty_axis_args)
+      axis_param <- axis_ls[[1]]$axis
+      param$axis.args$at <- axis_param$at
+      if(is.null(param$axis.args$labels)) param$axis.args$labels <- axis_param$labels
+    } else warning("'pretty_axis_args' argument ignored in add_sp_raster(): axis.args$at supplied.",
+                   call. = FALSE, immediate. = TRUE)
+  }
   # Add spatial surface
   param$add <- TRUE
-  do.call(fields::image.plot, param)
+  suppressWarnings(do.call(plot_method, param))
   return(invisible())
 }
 
@@ -187,7 +197,7 @@ add_sp_raster <- function(x, ext = NULL, crop_spatial = FALSE,...){
 #' @param verbose A logical variable that defines whether or not to print messages to the console to relay function progress. This can be useful with very large spatial datasets.
 #' @param ... Additional arguments, passed to \code{\link[raster]{plot}}, which creates the background plot, such as \code{xlab}, \code{ylab} and \code{main}.
 #'
-#' @return The function produces a background plot of an area with spatial layers added (if applicable).
+#' @return The function produces a background plot of an area with spatial layers added (if applicable). The named list of axis parameters computed by \code{\link[prettyGraphics]{pretty_axis}} is also returned invisibly.
 #'
 #' @examples
 #' #### Example (1): Background only plots
@@ -284,7 +294,7 @@ pretty_map <- function(x = NULL,
   # We will remove any NULL elements e.g., list(NULL, NULL)
   # ... which can be generated by the internal implementation of pretty_map() within functions.
   check_add_list <- function(add_list){
-    add_list <- plyr::compact(add_list)
+    add_list <- compact(add_list)
     if(length(add_list) == 0L) add_list <- NULL
     return(add_list)
   }
@@ -323,7 +333,7 @@ pretty_map <- function(x = NULL,
       layer_crs <- tryCatch(raster::crs(layer$x), error = function(e) return(NULL))
       return(layer_crs)
     })
-    layers_crs <- plyr::compact(layers_crs)
+    layers_crs <- compact(layers_crs)
     # Generate a single CRS string
     if(length(layers_crs) == 0) {
       area_crs <- NA
@@ -456,6 +466,6 @@ pretty_map <- function(x = NULL,
   t_end <- Sys.time()
   duration <- difftime(t_end, t_onset, units = "mins")
   cat_to_console(paste0("... prettyGraphics::pretty_map() call completed (@ ", t_end, ") after ~", round(duration, digits = 2), " minutes."))
-  return(invisible())
+  return(invisible(axis_param))
 
 }

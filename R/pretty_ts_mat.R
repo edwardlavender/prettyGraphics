@@ -89,7 +89,7 @@ pretty_ts_mat <-
     dat$min  <- lubridate::hour(dat$timestamp)*60 + lubridate::minute(dat$timestamp)
     # Round to the nearest resolution e.g., if we have two minutes resolution, observations at 1 minute
     # ... will be rounded to two minutes. This avoids issues with matching, below.
-    dat$min  <- plyr::round_any(dat$min, accuracy = res, f = ceiling)
+    dat$min  <- round_any(dat$min, accuracy = res, f = ceiling)
     # The Julian day
     dat$date <- as.Date(dat$timestamp)
 

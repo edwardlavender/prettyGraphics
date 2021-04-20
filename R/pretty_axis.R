@@ -531,11 +531,11 @@ pretty_axis <-
           # the default is a blank list (list(NULL))
           # this is necessary for mapply, but causes problems down the line
           # so, having passed the arguments to mapply, we'll now remove NULLs:
-          ipretty <- plyr::compact(ipretty)
-          iunits  <- unlist(plyr::compact(iunits)) # unlist if necessary (if only one side supplied).
-          iaxis   <- plyr::compact(iaxis)
-          ipi     <- plyr::compact(ipi)
-          ipi     <- plyr::compact(ipi)
+          ipretty <- compact(ipretty)
+          iunits  <- unlist(compact(iunits)) # unlist if necessary (if only one side supplied).
+          iaxis   <- compact(iaxis)
+          ipi     <- compact(ipi)
+          ipi     <- compact(ipi)
           if(all(sapply(1:length(ipi), function(i) isTRUE(unlist(ipi)[i] == -1)))) ipi <- NULL
 
           #### Scale ix

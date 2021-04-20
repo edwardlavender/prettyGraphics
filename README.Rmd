@@ -89,7 +89,6 @@ pretty_boxplot(x, y, main = "pretty_boxplot(x, y)")
 par(pp)
 ```
 
-
 ## Temporal data 
 
 * `pretty_line()` creates pretty number lines and timelines;
@@ -108,8 +107,14 @@ par(pp)
     - `add_sp_line()` adds lines to a background map;
     - `add_sp_path()` adds paths to a background map;
     - `add_sp_points()` adds locations to a background map;
+    - `summarise_by_lat()` and `add_profile_lat()` calculate and add latitudinal profiles to a plot; 
     
 * `pretty_scape_3d()` and `vis_scape_3d()` produce interactive, 3-dimensional visualisations of landscapes/seascapes and/or environmental conditions; for large rasters, `crop_aggr_utm()` helps reduce raster dimensions for these functions;
+
+## Colour schemes
+
+* `pretty_cols_brewer()` facilitates the creation of pretty colour schemes;
+* `pretty_cols_split_heat()` generates a 'split-heat' colour scheme in which values either side of a break-point are coloured differently; 
 
 ## Plot layout
 

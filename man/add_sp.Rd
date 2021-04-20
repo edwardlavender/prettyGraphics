@@ -17,7 +17,14 @@ add_sp_path(x, y = NULL, ext = NULL, crop_spatial = FALSE, ...)
 
 add_sp_poly(x, ext = NULL, crop_spatial = FALSE, ...)
 
-add_sp_raster(x, ext = NULL, crop_spatial = FALSE, ...)
+add_sp_raster(
+  x,
+  ext = NULL,
+  crop_spatial = FALSE,
+  plot_method = fields::image.plot,
+  pretty_axis_args = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{A Raster* or Spatial* object, a two-column matrix of x and y coordinates or a numeric vector of x coordinates. Coordinate specifications are only supported for points, lines and paths; otherwise a Raster* or Spatial* object should be supplied. A numeric vector for \code{x} is assumed if \code{y} is provided (see below).}
@@ -28,7 +35,11 @@ add_sp_raster(x, ext = NULL, crop_spatial = FALSE, ...)
 
 \item{crop_spatial}{(optional) A logical variable that defines whether or not to crop the spatial layer to lie within the domain defined by \code{ext}. This is only implemented if \code{ext} is provided.}
 
-\item{...}{Additional arguments passed to the plotting functions, which are \code{\link[fields]{image.plot}} for rasters, \code{\link[graphics]{arrows}} for paths, \code{\link[graphics]{points}} for points and \code{\link[raster]{plot}} for all other objects.}
+\item{...}{Additional arguments passed to the plotting functions, which are \code{plot_method} (usually \code{\link[fields]{image.plot}}) for rasters, \code{\link[graphics]{arrows}} for paths, \code{\link[graphics]{points}} for points and \code{\link[raster]{plot}} for all other objects.}
+
+\item{plot_method}{A function that adds the layer to the plot. This is only implemented for \code{add_sp_raster} and the default is \code{\link[fields]{image.plot}}.}
+
+\item{pretty_axis_args}{(optional) A named list, passed to \code{\link[prettyGraphics]{pretty_axis}}, to control the tick mark positions and labels on the colour bar. This is only implemented \code{add_sp_raster}. For the default plotting method (\code{\link[fields]{image.plot}}), these can be controlled using the \code{axis.args} argument via \code{...}, but \code{pretty_axis_args} can help to make prettier labels (e.g., with scientific notation). If supplied, \code{plot_method} must accept an \code{axis.args} like \code{\link[fields]{image.plot}}. \code{\link[prettyGraphics]{pretty_axis}} is used to define a pretty sequence of tick mark positions and labels, and these passed to \code{plot_method} via \code{axis.args} as the \code{at} and \code{labels} elements.}
 }
 \value{
 The function adds a spatial layers to an existing plot.

@@ -16,16 +16,16 @@ a variety of equivalent plotting functions in base R
 (e.g. `graphics::plot()`, `graphics::hist()` and more) or more
 specialised routines. Key functionality includes:
 
--   The definition of pretty axes for plots.
--   Tools to aid data exploration, including colouring lines by
+  - The definition of pretty axes for plots.
+  - Tools to aid data exploration, including colouring lines by
     covariates and adding shading to elucidate relationships between
     several variables.
--   Tools to aid statistical inference, including adding statistical
+  - Tools to aid statistical inference, including adding statistical
     summaries to reveal patterns and adding model predictions to plots
     to compare observations with model predictions.
--   Integrative functions which create prettier versions of common plots
+  - Integrative functions which create prettier versions of common plots
     more easily and facilitate visualisation of spatiotemporal data.
--   The definition of pretty plot layouts.
+  - The definition of pretty plot layouts.
 
 ## Installation
 
@@ -46,56 +46,56 @@ library(prettyGraphics)
 
 ## The definition of pretty axes
 
--   `pretty_seq()` defines defines pretty sequences, given data, limits
+  - `pretty_seq()` defines defines pretty sequences, given data, limits
     and pretty parameters;
--   `pretty_axis()` is a very flexible function which is used to define
+  - `pretty_axis()` is a very flexible function which is used to define
     and add pretty axes to plots (i.e., axes with intelligible tick mark
     labels that are positioned in appropriate, adjoining positions,
     rather than as an approximate box around a plot);
--   `pi_notation()` translates numeric vectors into *π* notation;
--   `sci_notation()` translates the ‘e’ notation used by base R into
+  - `pi_notation()` translates numeric vectors into \(\pi\) notation;
+  - `sci_notation()` translates the ‘e’ notation used by base R into
     scientific notation;
--   `add_lagging_point_zero()` brings all numbers up to the same number
+  - `add_lagging_point_zero()` brings all numbers up to the same number
     of decimal places;
--   `add_grid_xy_rect()` adds a rectangular grid to a plot at
+  - `add_grid_xy_rect()` adds a rectangular grid to a plot at
     user-defined positions;
 
 ## Data exploration
 
--   `add_lines()` adds a line to a plot illustrating a relationship
+  - `add_lines()` adds a line to a plot illustrating a relationship
     between y and x that can be coloured by the values of a third
     variable;
--   `add_colour_bar()` adds a customisable colour bar legend to a plot;
--   `add_shading_bar()` adds blocks of shading to a plot to elucidate
+  - `add_colour_bar()` adds a customisable colour bar legend to a plot;
+  - `add_shading_bar()` adds blocks of shading to a plot to elucidate
     relationships between a response and explanatory variables, one of
     which is a factor;
--   `add_shading_quantiles()` adds shading for the quantiles of observed
+  - `add_shading_quantiles()` adds shading for the quantiles of observed
     variation to a plot;
--   `add_boundary_box()` adds a boundary box around observations at
+  - `add_boundary_box()` adds a boundary box around observations at
     specified coordinates;
 
 ## Statistical inference
 
--   `summarise_in_bins()` computes statistical summaries of continuous
+  - `summarise_in_bins()` computes statistical summaries of continuous
     data in bins, which can be added to plots using `add_lines()`;
--   `add_error_bars()` adds error bars to a plot;
--   `list_CIs()` lists model predictions/confidence intervals from
+  - `add_error_bars()` adds error bars to a plot;
+  - `list_CIs()` lists model predictions/confidence intervals from
     fitted values and standard errors (or similar);
--   `add_error_envelope()` adds model predictions (e.g. fitted lines,
+  - `add_error_envelope()` adds model predictions (e.g. fitted lines,
     confidence intervals) to plots;
--   `pretty_smooth_1d()` plots pretty one-dimensional smooths estimated
+  - `pretty_smooth_1d()` plots pretty one-dimensional smooths estimated
     by `mgcv::gam()`;
--   `pretty_smooth_2d()` plots pretty two-dimensional smooths estimated
+  - `pretty_smooth_2d()` plots pretty two-dimensional smooths estimated
     by `mgcv::gam()`;
 
 ## Standard plotting functions
 
--   `pretty_plot()` creates prettier plots for a variety of functions;
--   `pretty_hist()` creates prettier histograms;
--   `pretty_boxplot()` creates prettier boxplots;
--   `pretty_curve()` evaluates and plots functions;
--   `pretty_mat()` creates pretty matrices;
--   `pretty_residuals()` creates prettier diagnostic residual plots
+  - `pretty_plot()` creates prettier plots for a variety of functions;
+  - `pretty_hist()` creates prettier histograms;
+  - `pretty_boxplot()` creates prettier boxplots;
+  - `pretty_curve()` evaluates and plots functions;
+  - `pretty_mat()` creates pretty matrices;
+  - `pretty_residuals()` creates prettier diagnostic residual plots
     (including standard diagnostic plots alongside residuals against
     covariates, time stamps and the autocorrelation function, if
     applicable);
@@ -126,54 +126,63 @@ par(pp)
 
 ## Temporal data
 
--   `pretty_line()` creates pretty number lines and timelines;
--   `define_time_blocks()` defines time blocks (i.e., diel periods or
+  - `pretty_line()` creates pretty number lines and timelines;
+  - `define_time_blocks()` defines time blocks (i.e., diel periods or
     seasons) for each day in a time window (designed to work with
     `add_shading_bar()`);
--   `pretty_ts()` creates pretty time series plots;
--   `pretty_ts_mat()` creates 2-dimensional plots of the within and
+  - `pretty_ts()` creates pretty time series plots;
+  - `pretty_ts_mat()` creates 2-dimensional plots of the within and
     between day variation in a time series;
--   `pretty_pgram()` creates processed periodogram plots (power
+  - `pretty_pgram()` creates processed periodogram plots (power
     spectra);
--   `vis_ts()` is an R Shiny-Dashboard user interface for the
+  - `vis_ts()` is an R Shiny-Dashboard user interface for the
     interactive exploration of (ecological) time series and creation of
     publication quality plots;
--   `add_moons()` adds moons to a plot of lunar phase;
+  - `add_moons()` adds moons to a plot of lunar phase;
 
 ## Spatial data
 
--   `pretty_map()` produces pretty maps, with the support of some helper
+  - `pretty_map()` produces pretty maps, with the support of some helper
     functions for adding spatial layers to a plot:
-    -   `add_sp_raster()` adds rasters to a background map;
-    -   `add_sp_poly()` adds polygons to a background map;
-    -   `add_sp_line()` adds lines to a background map;
-    -   `add_sp_path()` adds paths to a background map;
-    -   `add_sp_points()` adds locations to a background map;
--   `pretty_scape_3d()` and `vis_scape_3d()` produce interactive,
+      - `add_sp_raster()` adds rasters to a background map;
+      - `add_sp_poly()` adds polygons to a background map;
+      - `add_sp_line()` adds lines to a background map;
+      - `add_sp_path()` adds paths to a background map;
+      - `add_sp_points()` adds locations to a background map;
+      - `summarise_by_lat()` and `add_profile_lat()` calculate and add
+        latitudinal profiles to a plot;
+  - `pretty_scape_3d()` and `vis_scape_3d()` produce interactive,
     3-dimensional visualisations of landscapes/seascapes and/or
     environmental conditions; for large rasters, `crop_aggr_utm()` helps
     reduce raster dimensions for these functions;
 
+## Colour schemes
+
+  - `pretty_cols_brewer()` facilitates the creation of pretty colour
+    schemes;
+  - `pretty_cols_split_heat()` generates a ‘split-heat’ colour scheme in
+    which values either side of a break-point are coloured differently;
+
 ## Plot layout
 
--   `par_mf()` defines a suitable plotting window for a given number of
+  - `par_mf()` defines a suitable plotting window for a given number of
     plots;
--   `par_tri()` defines the indices of plots along the lower or upper
+  - `par_tri()` defines the indices of plots along the lower or upper
     triangle of a square multi-panel matrix;
 
 ## Future functionality
 
 Possible future functionality includes:
 
--   Additional standard routines, such as `pretty_barplot()` for
+  - Additional standard routines, such as `pretty_barplot()` for
     prettier barplots;
--   Additional routines for visualising spatial data;
--   Introduction of `ggplot2` support;
--   Additional specialised functions, such as `add_hydrodynamic_ts()` to
+  - Additional routines for visualising spatial data;
+  - Introduction of `ggplot2` support;
+  - Additional specialised functions, such as `add_hydrodynamic_ts()` to
     add hydrodynamic model predictions to (depth) time series;
 
 ## Disclaimer
 
 `prettyGraphics` is a new package whose contents are an early stage of
 evolution and primarily driven by the author’s ecological research.
-Please report issues, comments and suggestions!
+Please report issues, comments and suggestions\!
