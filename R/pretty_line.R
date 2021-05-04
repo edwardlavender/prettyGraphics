@@ -93,7 +93,7 @@ pretty_line <-
       if(!("pos" %in% names(pretty_axis_args$axis))) pretty_axis_args$axis$pos <- 0
 
       #### Implement pretty_axis_args
-      axis_ls <- implement_pretty_axis_args(list(x), pretty_axis_args)
+      axis_ls <- implement_pretty_axis_args(list(x), pretty_axis_args,...)
 
     #### Option (2): axis_ls has been supplied, but may require adjustments via side or pos.
     } else{

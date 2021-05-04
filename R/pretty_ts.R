@@ -27,6 +27,7 @@
 #' @param add_grid_args A named list of parameters, passed to \code{\link[prettyGraphics]{add_grid_rect_xy}}, to add a grid to the plot. Grid line coordinates (x and y) are taken to match axis tick mark positions, based on \code{x} and\code{y1}, if not provided.
 #' @param add_moons_args A named list of arguments passed to \code{\link[prettyGraphics]{add_moons}} to add moons to a plot.
 #' @param return_list (depreciated) A logical input which defines whether or not to return the list of axis parameters computed by \code{\link[prettyGraphics]{pretty_axis}}. This can be useful for the addition of elements to a plot created by \code{\link[prettyGraphics]{pretty_ts}}.
+#' @param ... Other arguments passed to the \code{control_axis} argument of \code{\link[prettyGraphics]{pretty_axis}}.
 #'
 #' @return The function returns a plot and, invisibly, the list of axis parameters computed by \code{\link[prettyGraphics]{pretty_axis}}.
 #'
@@ -378,7 +379,7 @@ pretty_ts <-
     add_grid_args = list(),
     # moons
     add_moons_args = list(),
-    return_list = NULL
+    return_list = NULL,...
   ){
 
 
@@ -409,7 +410,7 @@ pretty_ts <-
     #### Use pretty_axis to define axes
 
     #### Implement pretty_axis()
-    axis_ls <- implement_pretty_axis_args(list(dat$x, dat$y1), pretty_axis_args)
+    axis_ls <- implement_pretty_axis_args(list(dat$x, dat$y1), pretty_axis_args,...)
 
     #### Extract x limits, which may pertain to side 1 or 3
     which_xlim <- which(c(!is.null(axis_ls$"1"$lim), !is.null(axis_ls$"3"$lim)))

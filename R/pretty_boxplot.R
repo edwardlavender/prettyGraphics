@@ -120,7 +120,7 @@ pretty_boxplot <-
     pretty_axis_args$control_factor_lim <- xadj
     axis_ls <- implement_pretty_axis_args(x = list(x, y),
                                           pretty_axis_args = pretty_axis_args,
-                                          xlim = NULL, ylim = ylim)
+                                          xlim = NULL, ylim = ylim,...)
 
     #### Create boxplot, with appropriate limits
     graphics::boxplot(y ~ x,

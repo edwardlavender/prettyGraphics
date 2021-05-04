@@ -17,7 +17,8 @@ add_profile_lat(
   x_at = NULL,
   y_at = ylim,
   add_fit = list(),
-  add_ci = list(col = scales::alpha("lightgrey", 0.8), border = FALSE)
+  add_ci = list(col = scales::alpha("lightgrey", 0.8), border = FALSE),
+  ...
 )
 }
 \arguments{
@@ -27,7 +28,7 @@ add_profile_lat(
 
 \item{calc_lwr, calc_upr}{(optional) Functions that calculate `lower' and `upper' summaries of the values of \code{x} across latitudinal bands.}
 
-\item{xlim, ylim, pretty_axis_args, axes}{Axis control arguments for the added profile. \code{xlim} and \code{ylim} control axis limits. If un-supplied, \code{ylim} is defined to be the latitudinal range of \code{x}. \code{pretty_axis_args} is a named list of arguments, passed to \code{\link[prettyGraphics]{pretty_axis}} for finer control. Under the default options,an x axis is added at the `top' of the plot while the y axis is not shown. \code{axes} is a logical input that defines whether or not to add axes at all (\code{axes = FALSE} suppresses these). However, note that may still be necessary to specify \code{ylim} (and \code{y_at}) such that that the profile is added correctly alongside the plotted \code{\link[raster]{raster}}.}
+\item{xlim, ylim, pretty_axis_args, ..., axes}{Axis control arguments for the added profile. \code{xlim} and \code{ylim} control axis limits. If un-supplied, \code{ylim} is defined to be the latitudinal range of \code{x}. \code{pretty_axis_args} is a named list of arguments, passed to \code{\link[prettyGraphics]{pretty_axis}} for finer control. Arguments to the \code{control_axis} argument of \code{\link[prettyGraphics]{pretty_axis}} can also be passed via \code{...}. Under the default options, an x axis is added at the `top' of the plot while the y axis is not shown. \code{axes} is a logical input that defines whether or not to add axes at all (\code{axes = FALSE} suppresses these). However, note that may still be necessary to specify \code{ylim} (and \code{y_at}) such that that the profile is added correctly alongside the plotted \code{\link[raster]{raster}}.}
 
 \item{x_at, y_at}{Numeric vectors of length two that specify the x and y positions, on the current plot, for the four corners of the added plot. If un-supplied, the two \code{x_at} coordinates are taken as the maximum x limit of \code{x} and the same value plus 25 percent of the difference between the maximum and minimum x limits. \code{y_at} is taken from \code{ylim} which, if un-supplied, is defined by the y limits of \code{x}.}
 

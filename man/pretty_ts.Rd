@@ -30,7 +30,8 @@ pretty_ts(
   add_shading_args = list(),
   add_grid_args = list(),
   add_moons_args = list(),
-  return_list = NULL
+  return_list = NULL,
+  ...
 )
 }
 \arguments{
@@ -85,6 +86,8 @@ pretty_ts(
 \item{add_moons_args}{A named list of arguments passed to \code{\link[prettyGraphics]{add_moons}} to add moons to a plot.}
 
 \item{return_list}{(depreciated) A logical input which defines whether or not to return the list of axis parameters computed by \code{\link[prettyGraphics]{pretty_axis}}. This can be useful for the addition of elements to a plot created by \code{\link[prettyGraphics]{pretty_ts}}.}
+
+\item{...}{Other arguments passed to the \code{control_axis} argument of \code{\link[prettyGraphics]{pretty_axis}}.}
 }
 \value{
 The function returns a plot and, invisibly, the list of axis parameters computed by \code{\link[prettyGraphics]{pretty_axis}}.

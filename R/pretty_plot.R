@@ -163,7 +163,7 @@ pretty_plot <-
     axis_ls <- implement_pretty_axis_args(x = list(xy$x, xy$y),
                                           pretty_axis_args = pretty_axis_args,
                                           xlim = xlim,
-                                          ylim = ylim)
+                                          ylim = ylim,...)
 
     #### Variable type updates
     # Convert factors/characters to numbers for plotting

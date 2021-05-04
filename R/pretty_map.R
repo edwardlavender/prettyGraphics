@@ -156,6 +156,11 @@ add_sp_raster <- function(x, ext = NULL, crop_spatial = FALSE, plot_method = fie
   param <- list(x = x,...)
   # Define zlim across range of data
   if(is.null(param$zlim)) param$zlim <- c(raster::cellStats(x, "min"), raster::cellStats(x, "max"))
+  if(length(unique(param$zlim)) == 1){
+    message("The minimum and maximum values on the raster are the same: z-limits adjusted by +/- 5 per cent.")
+    param$zlim[1] <- param$zlim[1] * 0.95
+    param$zlim[2] <- param$zlim[2] * 1.05
+  }
   # Use default colouration implemented by raster::plot() rather than fields::image.plot()
   if(is.null(param$col)) param$col <- rev(grDevices::terrain.colors(255))
   # Define 'pretty' axis
@@ -164,7 +169,7 @@ add_sp_raster <- function(x, ext = NULL, crop_spatial = FALSE, plot_method = fie
     if(is.null(param$axis.args$at)){
       pretty_axis_args$side <- 4
       if(is.null(pretty_axis_args$lim)) pretty_axis_args$lim <- list(param$zlim)
-      axis_ls <- implement_pretty_axis_args(list(param$zlim), pretty_axis_args)
+      axis_ls <- implement_pretty_axis_args(list(param$zlim), pretty_axis_args,...)
       axis_param <- axis_ls[[1]]$axis
       param$axis.args$at <- axis_param$at
       if(is.null(param$axis.args$labels)) param$axis.args$labels <- axis_param$labels
@@ -378,7 +383,7 @@ pretty_map <- function(x = NULL,
   axis_param <- prettyGraphics::implement_pretty_axis_args(x = list(x, y),
                                                            pretty_axis_args = pretty_axis_args,
                                                            xlim = xlim,
-                                                           ylim = ylim)
+                                                           ylim = ylim,...)
 
   #### Define area
   cat_to_console("... Defining area...")

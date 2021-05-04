@@ -14,7 +14,8 @@
 #' @param control_factor_lim (optional) A number which specifies an additive adjustment to limits for a factor axis. For factors, with one or more level, limits become (0.75 - \code{control_factor_lim}) and (1.25 + \code{control_factor_lim}) or (1 - \code{control_factor_lim}) and (the number of factor levels + \code{control_factor_lim}) respectively.
 #' @param axis_ls (optional) The output of a call to \code{\link[prettyGraphics]{pretty_axis}}. If this is provided, the function skips the definition of axis parameters and simply adds axes to a plot (see \code{add} below).
 #' @param add A logical input specifying whether or not to plot the axes. Usually, prettier plots result when \code{\link[prettyGraphics]{pretty_axis}} is called prior to plotting to define axis limits; then, the plot can be created with those limits; and then the list created by the first call to \code{\link[prettyGraphics]{pretty_axis}} can be supplied to the function again via the \code{axis_ls} argument, with \code{add = TRUE}, to add the axes (see Examples).
-#' @param return_list A logical input defining whether or not to return a list of axis parameters defined by the function.
+#' @param return_list (depreciated) A logical input defining whether or not to return a list of axis parameters defined by the function.
+#' @param ... Arguments (\code{cex.axis, cex.lab, col.axis, col.lab, font.axis, font.lab, las}) passed from other methods that are added to the \code{control_axis} argument and affect all axes.
 #'
 #' @return The function returns a list of parameters with an element for each \code{side}. Each element is a list which contains two elements: 'lim', a vector of the lower and upper axis limits for that \code{side} and 'axis', a list of parameters that define the axis for that \code{side}.
 #'
@@ -398,7 +399,7 @@ pretty_axis <-
            control_factor_lim = 0.5,
            axis_ls = NULL,
            add = FALSE,
-           return_list = TRUE
+           return_list = TRUE,...
   ){
 
 
@@ -500,6 +501,19 @@ pretty_axis <-
       units  <- list_adjust(l = units, f = length, side = side)
       axis   <- list_adjust(l = axis, f = list_depth, side = side)
       pi_notation <- list_adjust(l = pi_notation, f = list_depth, side = side)
+
+      #### Update control axis
+      dots <- list(...)
+      dnms <- names(dots)
+      if(!is.null(dnms)){
+        for(param in c("cex.axis", "cex.lab",
+                       "col.axis", "col.lab",
+                       "font.axis", "font.lab",
+                       "las")){
+          if(param %in% dnms) control_axis[[param]] <- dots[[param]]
+        }
+      }
+
 
       ##############################################
       #### Define axis ls

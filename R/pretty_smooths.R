@@ -264,6 +264,33 @@ pretty_smooth_1d <- function(fit,
 #'                  color = "gray",
 #'                  contour.col = "red")
 #'
+#' #### Example (5): Integrate with add_colour_bar()
+#' # Define plotting window with space for legend
+#' pp <- graphics::par(oma = c(2, 2, 2, 10))
+#' # Define z-limits for plot and legend and associated colours
+#' zlim  <- c(0, 1.5)
+#' n_col <- 100
+#' col_param <- pretty_cols_brewer(zlim = zlim,
+#'                                 pal = grDevices::heat.colors,
+#'                                 n_breaks = n_col + 1)
+#' # Make plot with colour scheme
+#' pretty_smooth_2d(g, view = c("x1", "x2"),
+#'                  zlim = col_param$zlim,
+#'                  col = "heat",
+#'                  nCol = n_col,
+#'                  nlevels = n_col)
+#' # Define legend param required for add_colour_bar()
+#' legend_at <-
+#'   data.frame(x = col_param$breaks[1:(length(col_param$breaks) - 1)],
+#'              col = col_param$col)
+#' legend_axis <- pretty_axis(side = 4, x = list(legend_at$x))
+#' # Add legend as subplot
+#' TeachingDemos::subplot(add_colour_bar(legend_at,
+#'                                       pretty_axis_args = legend_axis),
+#'                                       x = 1, y = 0.05,
+#'                                       vadj = 0, hadj = 0,
+#'                                       size = c(0.2, 2))
+#'
 #' @author Edward Lavender
 #' @export
 #'
@@ -277,8 +304,7 @@ pretty_smooth_2d <- function(x,
                                                                  list(labels = FALSE),
                                                                  list(labels = FALSE))),
                              add_xy = NULL,
-                             add_rug_x = NULL,
-                             add_rug_y = NULL,
+                             add_rug_x = NULL, add_rug_y = NULL,
                              return_list = NULL,
                              ...) {
 
@@ -298,7 +324,7 @@ pretty_smooth_2d <- function(x,
   axis_ls <- implement_pretty_axis_args(x = list(dat[, view[1]], dat[, view[2]]),
                                         pretty_axis_args = pretty_axis_args,
                                         xlim = xlim,
-                                        ylim = ylim)
+                                        ylim = ylim,...)
   xlim <- axis_ls[[1]]$lim
   ylim <- axis_ls[[2]]$lim
 

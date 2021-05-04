@@ -7,12 +7,13 @@
 #' @param x A list of of coordinates (see \code{\link[prettyGraphics]{pretty_axis}}).
 #' @param pretty_axis_args A named list of parameters that are passed to \code{\link[prettyGraphics]{pretty_axis}}.
 #' @param xlim,ylim A vector of x and y axis limits that are passed to \code{\link[prettyGraphics]{pretty_axis}}. These can also be supplied via \code{pretty_axis_args}, but supplying \code{xlim} and \code{ylim} can be more convenient.
+#' @param ... Arguments passed to or from other methods.
 #' @return A list, returned by \code{\link[prettyGraphics]{pretty_axis}}.
 #' @author Edward Lavender
 #' @export
 #'
 implement_pretty_axis_args <-
-  function(x, pretty_axis_args = NULL, xlim = NULL, ylim = NULL){
+  function(x, pretty_axis_args = NULL, xlim = NULL, ylim = NULL,...){
 
     #### Set up pretty_axis_args
     ## Define list
@@ -39,7 +40,7 @@ implement_pretty_axis_args <-
         pretty = list(n = 5),
         axis_ls = NULL,
         add = FALSE,
-        return_list = NULL
+        return_list = NULL,...
         )
 
       #### Check: has 'side' been supplied?
