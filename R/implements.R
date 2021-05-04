@@ -49,9 +49,9 @@ implement_pretty_axis_args <-
       if("side" %in% names(pretty_axis_args) | "axis_ls" %in% names(pretty_axis_args)){
         paa$side <- NULL
         if("side" %in% names(pretty_axis_args)){
-          if(length(pretty_axis_args$side) == 1) pretty_axis_args$lim <- pretty_axis_args$lim[pretty_axis_args$side]
+          if(length(pretty_axis_args$side) == 1) pretty_axis_args$lim <- pretty_axis_args$lim[1]
         } else{
-          if(length(names(pretty_axis_args$axis_ls) == 1)) pretty_axis_args$lim <- pretty_axis_args$lim[names(pretty_axis_args$axis_ls)]
+          if(length(names(pretty_axis_args$axis_ls) == 1)) pretty_axis_args$lim <- pretty_axis_args$lim[1]
         }
       } else{
         message("Argument 'side' not supplied to pretty_axis_args (nor 'axis_ls'); defaulting to side = 1:2.")
