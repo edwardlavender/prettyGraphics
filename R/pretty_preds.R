@@ -176,7 +176,8 @@ pretty_predictions_2d <- function(x, view = NULL,
   if(is.list(preds)) preds <- preds[[select]]
   nd$pred <- preds
   z <- matrix(NA, n_grid, n_grid)
-  for(i in 1:nrow(nd)) z[i] <- nd$pred[i]
+  s <- seq(0, nrow(nd), by = n_grid)
+  for(i in seq_along(s)[-length(s)]) z[, i] <- nd$pred[(s[i] + 1):s[i+1]]
 
   #### Define axis limits
   if(is.null(pretty_axis_args$lim)) pretty_axis_args$lim <- list(x = NULL, y = NULL)
@@ -283,21 +284,22 @@ pretty_predictions_2d <- function(x, view = NULL,
                            axis = list(pos = 1),
                            lim = list(range(add_legend$data_legend$x)))
     add_legend$pretty_axis_args <- list_merge(add_legend_paa, add_legend$pretty_axis_args)
-    print(add_legend_paa)
     # Implement pretty axis args
     add_legend$axis_ls <- implement_pretty_axis_args(x = list(add_legend$data_legend$x),
                                                      pretty_axis_args = add_legend$pretty_axis_args,...)
-    # Customise labels
+    # Customise label
     if(!is.null(legend_labels)) {
       add_legend$axis_ls[[1]]$axis$labels <-
         legend_labels(add_legend$axis_ls[[1]]$axis$at)
+      n_digits <- add_legend$pretty_axis_args$control_digits
+      pi_note  <- add_legend$pretty_axis_args$pi_notation
+      sci_note <- add_legend$pretty_axis_args$control_sci_notation
       add_legend$axis_ls[[1]]$axis$labels <-
         pretty_labels(x = add_legend$axis_ls[[1]]$axis$labels,
                       at = add_legend$axis_ls[[1]]$axis$labels,
-                      n = add_legend$pretty_axis_args$control_digits,
-                      pi_notation_args = add_legend$pretty_axis_args$pi_notation,
-                      sci_notation_args = add_legend$pretty_axis_args$control_sci_notation
-                      )
+                      n = n_digits,
+                      pi_notation_args = pi_note,
+                      sci_notation_args = sci_note)
     }
     ## Add legend
     TeachingDemos::subplot(add_colour_bar(add_legend$data_legend,

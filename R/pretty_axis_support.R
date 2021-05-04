@@ -400,13 +400,13 @@ pretty_seq <-
 
 pretty_labels <-
   function(x, at, n = NULL, pi_notation_args = NULL, sci_notation_args = list()){
-    labels <- NULL
     if(is.factor(x)){
       lat <- length(at)
       llabels <- length(levels(x))
       labels <- rep(NA, lat)
       labels <- levels(x)[at]
     } else if(is_number(x)){
+      labels <- at
       if(!is.null(pi_notation_args)){
         pi_notation_args$x <- at
         labels <- do.call(pi_notation, pi_notation_args)
