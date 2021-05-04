@@ -164,6 +164,18 @@ pretty_predictions_2d(g,
                       add_contour = list(labcex = 1.5),
                       zlim = c(-1, 2), add_legend = list())
 graphics::par(pp)
+# E.g., reverse the colour scheme and legend
+# ... This is useful if, for example, the surface represents the depth of an
+# ... animal, in which case it is natural to have shallower depths near the
+# ... top of the legend.
+pp <- graphics::par(oma = c(2, 2, 2, 10))
+pretty_predictions_2d(g, view = c("x1", "x2"),
+                      col_pal = function(n) rev(viridis::viridis(n)),
+                      add_contour = list(labcex = 1.5),
+                      add_legend = list(),
+                      legend_breaks = function(x) x *-1,
+                      legend_labels = abs)
+graphics::par(pp)
 }
 \author{
 Edward Lavender

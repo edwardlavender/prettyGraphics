@@ -115,6 +115,18 @@
 #'                       add_contour = list(labcex = 1.5),
 #'                       zlim = c(-1, 2), add_legend = list())
 #' graphics::par(pp)
+#' # E.g., reverse the colour scheme and legend
+#' # ... This is useful if, for example, the surface represents the depth of an
+#' # ... animal, in which case it is natural to have shallower depths near the
+#' # ... top of the legend.
+#' pp <- graphics::par(oma = c(2, 2, 2, 10))
+#' pretty_predictions_2d(g, view = c("x1", "x2"),
+#'                       col_pal = function(n) rev(viridis::viridis(n)),
+#'                       add_contour = list(labcex = 1.5),
+#'                       add_legend = list(),
+#'                       legend_breaks = function(x) x *-1,
+#'                       legend_labels = abs)
+#' graphics::par(pp)
 
 #' @author Edward Lavender
 #' @export
@@ -262,19 +274,34 @@ pretty_predictions_2d <- function(x, view = NULL,
       add_legend$data_legend <- data.frame(x = col_param$breaks[1:(length(col_param$breaks) - 1)],
                                            col = col_param$col)
     }
-    if(!is.null(legend_breaks)) add_legend$data_legend$x <- legend_breaks(add_legend$data_legend$x)
+    if(!is.null(legend_breaks)) {
+      add_legend$data_legend$x <- legend_breaks(add_legend$data_legend$x)
+    }
     # Legend axis param
     add_legend_paa <- list(side = 4,
                            x = list(add_legend$data_legend$x),
                            axis = list(pos = 1),
                            lim = list(range(add_legend$data_legend$x)))
     add_legend$pretty_axis_args <- list_merge(add_legend_paa, add_legend$pretty_axis_args)
-    if(!is.null(legend_labels)) add_legend$pretty_axis_args <- legend_labels(add_legend$pretty_axis_args[[1]]$axis$labels)
-    add_legend$pretty_axis_args <- implement_pretty_axis_args(x = list(add_legend$data_legend$x),
-                                                              pretty_axis_args = add_legend$pretty_axis_args,...)
+    print(add_legend_paa)
+    # Implement pretty axis args
+    add_legend$axis_ls <- implement_pretty_axis_args(x = list(add_legend$data_legend$x),
+                                                     pretty_axis_args = add_legend$pretty_axis_args,...)
+    # Customise labels
+    if(!is.null(legend_labels)) {
+      add_legend$axis_ls[[1]]$axis$labels <-
+        legend_labels(add_legend$axis_ls[[1]]$axis$at)
+      add_legend$axis_ls[[1]]$axis$labels <-
+        pretty_labels(x = add_legend$axis_ls[[1]]$axis$labels,
+                      at = add_legend$axis_ls[[1]]$axis$labels,
+                      n = add_legend$pretty_axis_args$control_digits,
+                      pi_notation_args = add_legend$pretty_axis_args$pi_notation,
+                      sci_notation_args = add_legend$pretty_axis_args$control_sci_notation
+                      )
+    }
     ## Add legend
     TeachingDemos::subplot(add_colour_bar(add_legend$data_legend,
-                                          pretty_axis_args = add_legend$pretty_axis_args),
+                                          pretty_axis_args = add_legend$axis_ls),
                            x = legend_x, y = legend_y)
 
   }
@@ -282,6 +309,7 @@ pretty_predictions_2d <- function(x, view = NULL,
   #### Return outputs
   out <- list(# predict_param = predict_param,
               z = z,
-              axis_ls = axis_ls)
+              axis_ls = axis_ls,
+              legend = add_legend)
   return(invisible(out))
 }
