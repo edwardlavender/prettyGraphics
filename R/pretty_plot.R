@@ -215,7 +215,8 @@ pretty_plot <-
     }
 
     #### Add pretty axis
-    pretty_axis(axis_ls = axis_ls, add = TRUE)
+    if(is.null(pretty_axis_args$add)) pretty_axis_args$add <- TRUE
+    if(pretty_axis_args$add) pretty_axis(axis_ls = axis_ls, add = TRUE)
 
     #### Add axes labelling
     implement_mtext_args(mtext_args)
