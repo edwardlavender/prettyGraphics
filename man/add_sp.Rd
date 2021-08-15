@@ -100,7 +100,7 @@ add_sp_poly(dat_coast_around_oban)
 
 #### Example (3) These functions are implemented pretty_map()
 ## Map of raster
-pretty_map(add_raster = list(x = dat_gebco))
+pretty_map(add_rasters = list(x = dat_gebco))
 ## Map with a raster and multiple polygons, supplied as nested list
 # Generate a random prism to include as a polygon
 sim_prism <- sp::spsample(dat_coast_around_oban, n = 3, type = "random")

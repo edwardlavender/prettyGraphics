@@ -58,9 +58,9 @@ pretty_map(raster::extent(-10, 10, -10, 10))
 
 #### Example (2): Single spatial layers
 # Plot a bathymetric map
-pretty_map(dat_gebco, add_raster = list(x = dat_gebco))
+pretty_map(dat_gebco, add_rasters = list(x = dat_gebco))
 # With a single spatial layer, this is an equivalent implementation
-pretty_map(add_raster = list(x = dat_gebco))
+pretty_map(add_rasters = list(x = dat_gebco))
 # With multiple layers, we can get the extent of the area automatically
 x <- runif(1000, -6, -4)
 y <- runif(1000, 55, 58)
@@ -92,7 +92,7 @@ pretty_map(add_rasters = list(x = dat_gebco),
 
 #### Example (4): Customise spatial layers via additional arguments to each list
 pretty_map(dat_gebco,
-           add_raster = list(x = dat_gebco, col = viridis::viridis(100)))
+           add_rasters = list(x = dat_gebco, col = viridis::viridis(100)))
 
 #### Example (4): Further customisation is possible via
 # ... add_additional(), pretty_axis_args and ...

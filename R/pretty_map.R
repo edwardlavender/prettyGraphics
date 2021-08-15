@@ -66,7 +66,7 @@
 #'
 #' #### Example (3) These functions are implemented pretty_map()
 #' ## Map of raster
-#' pretty_map(add_raster = list(x = dat_gebco))
+#' pretty_map(add_rasters = list(x = dat_gebco))
 #' ## Map with a raster and multiple polygons, supplied as nested list
 #' # Generate a random prism to include as a polygon
 #' sim_prism <- sp::spsample(dat_coast_around_oban, n = 3, type = "random")
@@ -212,9 +212,9 @@ add_sp_raster <- function(x, ext = NULL, crop_spatial = FALSE, plot_method = fie
 #'
 #' #### Example (2): Single spatial layers
 #' # Plot a bathymetric map
-#' pretty_map(dat_gebco, add_raster = list(x = dat_gebco))
+#' pretty_map(dat_gebco, add_rasters = list(x = dat_gebco))
 #' # With a single spatial layer, this is an equivalent implementation
-#' pretty_map(add_raster = list(x = dat_gebco))
+#' pretty_map(add_rasters = list(x = dat_gebco))
 #' # With multiple layers, we can get the extent of the area automatically
 #' x <- runif(1000, -6, -4)
 #' y <- runif(1000, 55, 58)
@@ -246,7 +246,7 @@ add_sp_raster <- function(x, ext = NULL, crop_spatial = FALSE, plot_method = fie
 #'
 #' #### Example (4): Customise spatial layers via additional arguments to each list
 #' pretty_map(dat_gebco,
-#'            add_raster = list(x = dat_gebco, col = viridis::viridis(100)))
+#'            add_rasters = list(x = dat_gebco, col = viridis::viridis(100)))
 #'
 #' #### Example (4): Further customisation is possible via
 #' # ... add_additional(), pretty_axis_args and ...
