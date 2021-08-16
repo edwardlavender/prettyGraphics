@@ -49,21 +49,19 @@
 #'
 #' #### Example (4): add_lagging_point_zero() is not designed to work with scientific notation
 #' # ... Use sci_notation() instead:
+#' add_lagging_point_zero(1e9, n = 2)
 #' sci_notation(1e9, digits = 2)
 #'
 #' @author Edward Lavender
 #' @export
 #'
 
-################################################
-################################################
-#### add_lagging_point_zero
-
 add_lagging_point_zero <-
   function(x, n = NULL, ignore = FALSE){
+    index_na <- which(is.na(x))
     xc <- format(x, scientific = FALSE, trim = TRUE)
     dp <- stringr::str_split_fixed(xc, "[.]", 2)[, 2]
-    if(all(nchar(dp) == 0) & ignore) return(x)
+    if(all(nchar(dp) == 0) & ignore | is.null(n)) return(x)
     x <- xc
     if(is.null(n)) n <- max(nchar(dp))
     diff <- n - nchar(dp)
@@ -78,9 +76,6 @@ add_lagging_point_zero <-
     pwd <- Vectorize(pwd, vectorize.args = c("x", "diff"))
     x <- pwd(x, diff, n)
     x <- as.character(x)
+    x[index_na] <- NA
     return(x)
-  }
-
-#### End of function.
-################################################
-################################################
+    }

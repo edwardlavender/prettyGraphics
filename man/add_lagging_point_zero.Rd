@@ -62,6 +62,7 @@ axis(side = 2, at, labels = labels2)
 
 #### Example (4): add_lagging_point_zero() is not designed to work with scientific notation
 # ... Use sci_notation() instead:
+add_lagging_point_zero(1e9, n = 2)
 sci_notation(1e9, digits = 2)
 
 }
