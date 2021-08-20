@@ -49,7 +49,7 @@
 #' }
 #'
 #' @section Spatial data: \describe{
-#'   \item{\link{pretty_map}}{ This function creates pretty maps of spatial data. This is supported by helper functions for adding spatial layers to a background map (see below).}
+#'   \item{\link{pretty_map} and \link{pretty_map_from_file_raster}}{These functions create pretty maps of spatial data (in the latter case directly from source files). They are supported by helper functions for adding spatial layers to a background map (see below).}
 #'     \itemize{
 #'         \item{\link{add_sp_raster}}{ This function adds rasters to a background map.}
 #'         \item{\link{add_sp_poly}}{ This function adds polygons to a background map.}

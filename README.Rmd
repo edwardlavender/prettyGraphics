@@ -101,7 +101,7 @@ par(pp)
 
 ## Spatial data 
 
-* `pretty_map()` produces pretty maps, with the support of some helper functions for adding spatial layers to a plot: 
+* `pretty_map()` produces pretty maps and `pretty_map_from_file_raster()` is a wrapper that creates maps directly from a list of source files. These functions are supported by a series of helper functions for adding spatial layers to a plot: 
     - `add_sp_raster()` adds rasters to a background map; 
     - `add_sp_poly()` adds polygons to a background map; 
     - `add_sp_line()` adds lines to a background map;

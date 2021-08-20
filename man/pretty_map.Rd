@@ -108,6 +108,9 @@ pretty_map(dat_gebco, xlab = "x (UTM)", ylab = "y (UTM)")
 pretty_map(dat_gebco, pretty_axis_args = list(side = 1:4))
 
 }
+\seealso{
+\code{\link[prettyGraphics]{add_sp}} functions add spatial layers to a plot. \code{\link[prettyGraphics]{pretty_map_from_file_raster}} is a wrapper for \code{\link[prettyGraphics]{pretty_map}} that loads, plots and saves maps given a list of source files.
+}
 \author{
 Edward Lavender
 }

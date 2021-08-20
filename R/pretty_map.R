@@ -261,6 +261,7 @@ add_sp_raster <- function(x, ext = NULL, crop_spatial = FALSE, plot_method = fie
 #' ## Fine-tune axes
 #' pretty_map(dat_gebco, pretty_axis_args = list(side = 1:4))
 #'
+#' @seealso  \code{\link[prettyGraphics]{add_sp}} functions add spatial layers to a plot. \code{\link[prettyGraphics]{pretty_map_from_file_raster}} is a wrapper for \code{\link[prettyGraphics]{pretty_map}} that loads, plots and saves maps given a list of source files.
 #' @author Edward Lavender
 #' @export
 
@@ -473,4 +474,103 @@ pretty_map <- function(x = NULL,
   cat_to_console(paste0("... prettyGraphics::pretty_map() call completed (@ ", t_end, ") after ~", round(duration, digits = 2), " minutes."))
   return(invisible(axis_param))
 
+}
+
+
+######################################
+######################################
+#### pretty_map_from_file_raster()
+
+#' @title Pretty raster maps from file
+#' @description This function creates pretty \code{\link[raster]{raster}} maps from a list of source files. For each file, the function reads the \code{\link[raster]{raster}} into R (via \code{read}), processes the \code{\link[raster]{raster}} (via \code{process}, if specified) and produces or saves a plot (via \code{\link[prettyGraphics]{pretty_map}} and associated arguments). The function can be implemented in parallel via \code{cl} and \code{varlist}.
+#' @param x A list of full file paths to \code{\link[raster]{raster}}s for plotting.
+#' @param read A function to read files. The default is \code{\link[raster]{raster}}.
+#' @param add_rasters A named list, passed to \code{\link[prettyGraphics]{pretty_map}}, to customise the appearance of each raster. This applied to each \code{\link[raster]{raster}}.
+#' @param process (optional) A function to process \code{\link[raster]{raster}}s, such as \code{function(x) raster::mask(x, layer)} where \code{layer} refers to a spatial mask. This applied to each \code{\link[raster]{raster}}.
+#' @param png_param (optional) A named list of arguments, passed to \code{\link[grDevices]{png}}, to save plots to file. The `filename' argument should be the directory in which plots are saved. Plots are then saved as "1.png", "2.png" and so on.
+#' @param cl,varlist Parallelisation arguments. \code{cl} is cluster object created by \code{\link[parallel]{makeCluster}} to read/plot/save files in parallel. If \code{cl} is supplied, \code{varlist} may also be required. This is a character vector of objects to export. \code{varlist} is passed to the \code{varlist} of \code{\link[parallel]{clusterExport}}. Exported objects must be located in the global environment.
+#' @param ... Additional arguments passed to \code{\link[prettyGraphics]{pretty_map}}.
+#'
+#' @return The function returns or saves a plot for each file.
+#'
+#' @examples
+#' #### Generate and save some example raster files
+#' r1 <- raster::raster(matrix(runif(100, 0, 1), ncol = 10, nrow = 10))
+#' r2 <- raster::raster(matrix(runif(100, 10, 20), ncol = 10, nrow = 10))
+#' root <- paste0(tempdir(), "/egs/")
+#' dir.create(root)
+#' raster::writeRaster(r1, paste0(root, "r1.tif"))
+#' raster::writeRaster(r1, paste0(root, "r2.tif"))
+#'
+#' #### List source files for plotting
+#' files <- list.files(root, full.names = TRUE)
+#'
+#' #### Example (1): Implement function with default options
+#' pp <- graphics::par(mfrow = c(1, 2))
+#' pretty_map_from_file_raster(files)
+#' par(pp)
+#'
+#' #### Example (2): Customise the rasters/plot via add_rasters and ...
+#' pp <- graphics::par(mfrow = c(1, 2))
+#' pretty_map_from_file_raster(files,
+#'                             add_rasters = list(col = grDevices::topo.colors(100)),
+#'                             xlab = "x", ylab = "y")
+#' graphics::par(pp)
+#'
+#' #### Example (3): Process rasters using the process argument
+#' # E.g. to mask areas of the rasters
+#' pp <- graphics::par(mfrow = c(1, 2))
+#' mk <- r1
+#' mk[1, ] <- NA
+#' pretty_map_from_file_raster(files, process = function(x) raster::mask(x, mask = mk))
+#' graphics::par(pp)
+#'
+#' #### Example (4): Save plots to file via png_param
+#' pp <- graphics::par(mfrow = c(1, 2))
+#' pretty_map_from_file_raster(files, png_param = list(filename = root))
+#' graphics::par(pp)
+#' list.files(root, "*.png")
+#'
+#' #### Example (5): Read, plot and save files in parallel via cl and varlist
+#' \dontrun{
+#' pretty_map_from_file_raster(files,
+#'                             png_param = list(filename = root),
+#'                             cl = parallel::makeCluster(2L),
+#'                             varlist = "files")
+#' }
+#'
+#' @seealso This is a wrapper for \code{\link[prettyGraphics]{pretty_map}}.
+#' @author Edward Lavender
+#' @export
+#'
+
+pretty_map_from_file_raster <- function(x,
+                                        read = raster::raster,
+                                        add_rasters = list(),
+                                        process = NULL,
+                                        png_param = NULL,
+                                        cl = NULL, varlist = NULL,...){
+  if(!is.null(cl)){
+    if(!is.null(varlist)) parallel::clusterExport(cl = cl, varlist = varlist)
+    if(is.null(png_param)) stop("Both 'cl' and 'png_param' are NULL.")
+  } else {
+    if(!is.null(varlist)) warning("'cl' is NULL so 'varlist' is ignored.", immediate. = TRUE, call. = FALSE)
+  }
+  if(!is.null(png_param)) check_names(input = png_param, req = "filename", type = all)
+  pbapply::pblapply(1:length(x), cl = cl, function(i){
+    if(!is.null(png_param)) {
+      png_param$filename <- paste0(png_param$filename, i, ".png")
+      do.call(grDevices::png, png_param)
+    }
+    f <- x[i]
+    r <- read(f)
+    if(!is.null(process)) r <- process(r)
+    if(!is.null(add_rasters)) add_rasters$x <- r
+    prettyGraphics::pretty_map(x = r,
+               add_rasters = add_rasters,...)
+    if(!is.null(png_param)) grDevices::dev.off()
+    return(NULL)
+  })
+  if(!is.null(cl)) parallel::stopCluster(cl)
+  return(invisible())
 }
