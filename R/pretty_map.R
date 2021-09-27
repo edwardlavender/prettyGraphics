@@ -89,8 +89,29 @@ NULL
 add_sp_points <- function(x, y = NULL, ext = NULL, crop_spatial = FALSE,...){
   if(!is.null(y)) x <- cbind(x, y)
   if(inherits(x, "matrix")) x <- sp::SpatialPoints(x)
+  x_raw <- x
   if(!is.null(ext) & crop_spatial) x <- raster::crop(x, ext)
-  param <- list(x,...)
+  param <- list(x = x,...)
+  if(!is.null(ext) & crop_spatial){
+    dots <- list(...)
+    if(length(dots) != 0L){
+      x_raw_xy           <- data.frame(sp::coordinates(x_raw))
+      colnames(x_raw_xy) <- c("x", "y")
+      x_raw_xy$key       <- paste0("(", x_raw_xy$x, ",", x_raw_xy$y, ")")
+      x_xy               <- data.frame(sp::coordinates(x))
+      colnames(x_xy)     <- c("x", "y")
+      x_xy$key           <- paste0("(", x_xy$x, ",", x_xy$y, ")")
+      pos                <- x_raw_xy$key %in% x_xy$key
+      dots <- lapply(dots, function(arg){
+        arg_adj <- arg
+        if(is.vector(unlist(arg))){
+          if(length(arg) == length(x_raw)) arg_adj <- arg[pos]
+        }
+        return(arg_adj)
+      })
+      param <- rlist::list.merge(list(x = x), dots)
+    }
+  }
   do.call(graphics::points, param)
   return(invisible())
 }
@@ -331,7 +352,7 @@ pretty_map <- function(x = NULL,
   if(!is.null(ext)) {
     area_crs <- raster::crs(ext)
     ext <- raster::extent(ext)
-  } else area_crs <- NA
+  } else area_crs <- sp::CRS(as.character(NA))
   ## (2) Attempt to get the CRS from spatial layers
   if(is.na(area_crs)){
     # Define a list of CRS strings from spatial layers
@@ -342,7 +363,7 @@ pretty_map <- function(x = NULL,
     layers_crs <- compact(layers_crs)
     # Generate a single CRS string
     if(length(layers_crs) == 0) {
-      area_crs <- NA
+      area_crs <- sp::CRS(as.character(NA))
     } else{
       check_crs_identical <- function(x) sum(duplicated.default(x)) == length(x) - 1L
       if(!check_crs_identical(layers_crs)) {
@@ -351,7 +372,7 @@ pretty_map <- function(x = NULL,
       area_crs <- layers_crs[[1]]
     }
   }
-  message("CRS taken as: ", area_crs, ".")
+  message("prettyGraphics::pretty_map() CRS taken as: '", area_crs, "'.")
 
   #### Get 'x' and 'y' coordinates used in pretty_axis from the ext object or the spatial layers
   # These will be used as xlim and ylim if x and ylim have not been supplied
