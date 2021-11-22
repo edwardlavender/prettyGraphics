@@ -27,7 +27,8 @@ pretty_scape_3d(
   stretch = 1,
   aspectmode = "cube",
   eye = list(),
-  verbose = TRUE
+  verbose = TRUE,
+  ...
 )
 }
 \arguments{
@@ -76,6 +77,8 @@ pretty_scape_3d(
 \item{eye}{(optional) A named list of arguments that control the camera perspective (see \code{\link[plotly]{layout}}).}
 
 \item{verbose}{A logical input which defines whether or not to display messages regarding function progress. This can be useful if \code{aggregate} or \code{buffer} are provided: for large rasters and/or many points, these steps may be slow.}
+
+\item{...}{Additional arguments passed to \code{\link[plotly]{plot_ly}}.}
 }
 \value{
 The function returns a \code{\link[plotly]{plotly}} plot.

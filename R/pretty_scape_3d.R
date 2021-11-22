@@ -25,6 +25,7 @@
 #' @param aspectmode A character which defines the shape of the plot: \code{"cube"} produces a cube; \code{"data"} provides a plot whether the size of the x, y and z axes is scaled according to the data.
 #' @param eye (optional) A named list of arguments that control the camera perspective (see \code{\link[plotly]{layout}}).
 #' @param verbose A logical input which defines whether or not to display messages regarding function progress. This can be useful if \code{aggregate} or \code{buffer} are provided: for large rasters and/or many points, these steps may be slow.
+#' @param ... Additional arguments passed to \code{\link[plotly]{plot_ly}}.
 #'
 #' @details The raster dimension should be less than approximately 1800 cells by 1800 cells. The coordinate system for the raster and, if applicable, markers and the buffer width, all need to be identical, whether this is implicit or specified explicitly.
 #'
@@ -103,10 +104,6 @@
 #' @export
 #'
 
-###############################################
-###############################################
-#### pretty_scape_3d()
-
 pretty_scape_3d <-
   function(r,
            aggregate = NULL,
@@ -126,7 +123,7 @@ pretty_scape_3d <-
            stretch = 1,
            aspectmode = "cube",
            eye = list(),
-           verbose = TRUE
+           verbose = TRUE,...
   ){
 
     #### Define buffer around points and clip spatial data, if required
@@ -193,7 +190,7 @@ pretty_scape_3d <-
     #### Basic plot
     # Plot
     if(verbose) cat("Producing plot...\n")
-    p <- plotly::plot_ly(x =  x, y = y, z = z) %>%
+    p <- plotly::plot_ly(x =  x, y = y, z = z,...) %>%
       plotly::layout(
         scene = list(
           xaxis = x_lab_ls,
