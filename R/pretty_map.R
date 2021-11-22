@@ -91,28 +91,30 @@ add_sp_points <- function(x, y = NULL, ext = NULL, crop_spatial = FALSE,...){
   if(inherits(x, "matrix")) x <- sp::SpatialPoints(x)
   x_raw <- x
   if(!is.null(ext) & crop_spatial) x <- raster::crop(x, ext)
-  param <- list(x = x,...)
-  if(!is.null(ext) & crop_spatial){
-    dots <- list(...)
-    if(length(dots) != 0L){
-      x_raw_xy           <- data.frame(sp::coordinates(x_raw))
-      colnames(x_raw_xy) <- c("x", "y")
-      x_raw_xy$key       <- paste0("(", x_raw_xy$x, ",", x_raw_xy$y, ")")
-      x_xy               <- data.frame(sp::coordinates(x))
-      colnames(x_xy)     <- c("x", "y")
-      x_xy$key           <- paste0("(", x_xy$x, ",", x_xy$y, ")")
-      pos                <- x_raw_xy$key %in% x_xy$key
-      dots <- lapply(dots, function(arg){
-        arg_adj <- arg
-        if(is.vector(unlist(arg))){
-          if(length(arg) == length(x_raw)) arg_adj <- arg[pos]
-        }
-        return(arg_adj)
-      })
-      param <- rlist::list.merge(list(x = x), dots)
+  if(!is.null(x)){
+    param <- list(x = x,...)
+    if(!is.null(ext) & crop_spatial){
+      dots <- list(...)
+      if(length(dots) != 0L){
+        x_raw_xy           <- data.frame(sp::coordinates(x_raw))
+        colnames(x_raw_xy) <- c("x", "y")
+        x_raw_xy$key       <- paste0("(", x_raw_xy$x, ",", x_raw_xy$y, ")")
+        x_xy               <- data.frame(sp::coordinates(x))
+        colnames(x_xy)     <- c("x", "y")
+        x_xy$key           <- paste0("(", x_xy$x, ",", x_xy$y, ")")
+        pos                <- x_raw_xy$key %in% x_xy$key
+        dots <- lapply(dots, function(arg){
+          arg_adj <- arg
+          if(is.vector(unlist(arg))){
+            if(length(arg) == length(x_raw)) arg_adj <- arg[pos]
+          }
+          return(arg_adj)
+        })
+        param <- rlist::list.merge(list(x = x), dots)
+      }
     }
+    do.call(graphics::points, param)
   }
-  do.call(graphics::points, param)
   return(invisible())
 }
 
@@ -125,9 +127,11 @@ add_sp_line <- function(x, y = NULL, ext = NULL, crop_spatial = FALSE,...){
   if(!is.null(y)) x <- cbind(x, y)
   if(inherits(x, "matrix")) x <- sp::SpatialPoints(x)
   if(!is.null(ext) & crop_spatial) x <- raster::crop(x, ext)
-  param <- list(x = x,...)
-  param$add <- TRUE
-  do.call(raster::plot, param)
+  if(!is.null(x)){
+    param <- list(x = x,...)
+    param$add <- TRUE
+    do.call(raster::plot, param)
+  }
   return(invisible())
 }
 
@@ -140,15 +144,17 @@ add_sp_path <- function(x, y = NULL, ext = NULL, crop_spatial = FALSE,...){
   if(!is.null(y)) x <- cbind(x, y)
   if(inherits(x, "matrix")) x <- sp::SpatialPoints(x)
   if(!is.null(ext) & crop_spatial) x <- raster::crop(x, ext)
-  x <- sp::coordinates(x)
-  if(inherits(x, "list")) x <- purrr::flatten(x)[[1]]
-  s <- 1:(nrow(x) - 1)
-  param <- list(...)
-  param$x0 <- x[s, 1]
-  param$x1 <- x[s + 1, 1]
-  param$y0 <- x[s, 2]
-  param$y1 <- x[s + 1, 2]
-  do.call(graphics::arrows, param)
+  if(!is.null(x)){
+    x <- sp::coordinates(x)
+    if(inherits(x, "list")) x <- purrr::flatten(x)[[1]]
+    s <- 1:(nrow(x) - 1)
+    param <- list(...)
+    param$x0 <- x[s, 1]
+    param$x1 <- x[s + 1, 1]
+    param$y0 <- x[s, 2]
+    param$y1 <- x[s + 1, 2]
+    do.call(graphics::arrows, param)
+  }
   return(invisible())
 }
 
@@ -159,9 +165,11 @@ add_sp_path <- function(x, y = NULL, ext = NULL, crop_spatial = FALSE,...){
 
 add_sp_poly <- function(x, ext = NULL, crop_spatial = FALSE,...){
   if(!is.null(ext) & crop_spatial) x <- raster::crop(x, ext)
-  param <- list(x = x,...)
-  param$add <- TRUE
-  do.call(raster::plot, param)
+  if(!is.null(x)){
+    param <- list(x = x,...)
+    param$add <- TRUE
+    do.call(raster::plot, param)
+  }
   return(invisible())
 }
 
@@ -173,33 +181,35 @@ add_sp_poly <- function(x, ext = NULL, crop_spatial = FALSE,...){
 add_sp_raster <- function(x, ext = NULL, crop_spatial = FALSE, plot_method = fields::image.plot, pretty_axis_args = NULL,...){
   # Crop raster
   if(!is.null(ext) & crop_spatial) x <- raster::crop(x, ext)
-  # Gather parameters
-  param <- list(x = x,...)
-  # Define zlim across range of data
-  if(is.null(param$zlim)) param$zlim <- c(raster::cellStats(x, "min"), raster::cellStats(x, "max"))
-  if(length(unique(param$zlim)) == 1){
-    message("The minimum and maximum values on the raster are the same: z-limits adjusted by +/- 5 per cent.")
-    param$zlim[1] <- param$zlim[1] * 0.95
-    param$zlim[2] <- param$zlim[2] * 1.05
+  if(!is.null(x)){
+    # Gather parameters
+    param <- list(x = x,...)
+    # Define zlim across range of data
+    if(is.null(param$zlim)) param$zlim <- c(raster::cellStats(x, "min"), raster::cellStats(x, "max"))
+    if(length(unique(param$zlim)) == 1){
+      message("The minimum and maximum values on the raster are the same: z-limits adjusted by +/- 5 per cent.")
+      param$zlim[1] <- param$zlim[1] * 0.95
+      param$zlim[2] <- param$zlim[2] * 1.05
+    }
+    # Use default colouration implemented by raster::plot() rather than fields::image.plot()
+    if(is.null(param$col)) param$col <- rev(grDevices::terrain.colors(255))
+    # Define 'pretty' axis
+    if(!is.null(pretty_axis_args)){
+      if(is.null(param$axis.args)) param$axis.args <- list()
+      if(is.null(param$axis.args$at)){
+        pretty_axis_args$side <- 4
+        if(is.null(pretty_axis_args$lim)) pretty_axis_args$lim <- list(param$zlim)
+        axis_ls <- implement_pretty_axis_args(list(param$zlim), pretty_axis_args,...)
+        axis_param <- axis_ls[[1]]$axis
+        param$axis.args$at <- axis_param$at
+        if(is.null(param$axis.args$labels)) param$axis.args$labels <- axis_param$labels
+      } else warning("'pretty_axis_args' argument ignored in add_sp_raster(): axis.args$at supplied.",
+                     call. = FALSE, immediate. = TRUE)
+    }
+    # Add spatial surface
+    param$add <- TRUE
+    suppressWarnings(do.call(plot_method, param))
   }
-  # Use default colouration implemented by raster::plot() rather than fields::image.plot()
-  if(is.null(param$col)) param$col <- rev(grDevices::terrain.colors(255))
-  # Define 'pretty' axis
-  if(!is.null(pretty_axis_args)){
-    if(is.null(param$axis.args)) param$axis.args <- list()
-    if(is.null(param$axis.args$at)){
-      pretty_axis_args$side <- 4
-      if(is.null(pretty_axis_args$lim)) pretty_axis_args$lim <- list(param$zlim)
-      axis_ls <- implement_pretty_axis_args(list(param$zlim), pretty_axis_args,...)
-      axis_param <- axis_ls[[1]]$axis
-      param$axis.args$at <- axis_param$at
-      if(is.null(param$axis.args$labels)) param$axis.args$labels <- axis_param$labels
-    } else warning("'pretty_axis_args' argument ignored in add_sp_raster(): axis.args$at supplied.",
-                   call. = FALSE, immediate. = TRUE)
-  }
-  # Add spatial surface
-  param$add <- TRUE
-  suppressWarnings(do.call(plot_method, param))
   return(invisible())
 }
 
