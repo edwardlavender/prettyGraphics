@@ -4,7 +4,7 @@
 \alias{list_depth}
 \title{Find the maximum depth of a list}
 \source{
-This function and the documentation are derived from \code{\link[plotrix]{listDepth}}. The function is defined separately in \code{\link[prettyGraphics]{prettyGraphics}} to reduce reliance on non-default packages.
+This function and the documentation are derived from \code{plotrix::listDepth()}. The function is defined separately in \code{\link[prettyGraphics]{prettyGraphics}} to reduce reliance on non-default packages.
 }
 \usage{
 list_depth(x)
