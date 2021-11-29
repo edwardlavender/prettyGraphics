@@ -69,14 +69,14 @@ pretty_hist(x, freq = FALSE)
 
 #### Example (3) Axes can be adjusted via xlim, ylim, breaks,
 # ... xn, ypretty, or xaxis() and yaxis()
-pp <- par(mfrow = c(1, 6))
+# pp <- par(mfrow = c(1, 6))
 pretty_hist(x, xlim = c(-10, 10), ylim = c(0, 1000))
 pretty_hist(x, breaks = seq(-5, 5, by = 1), ylim = c(0, 1000))
 pretty_hist(x, xn = 2)
 pretty_hist(x, ypretty = list(n = 10))
 pretty_hist(x, xaxis = list(at = -5:5))
 pretty_hist(x, yaxis = list(at = seq(0, 300, by = 100)))
-par(pp)
+# par(pp)
 
 #### Example (4) Axis labels can be adjusted via mtext() and mtext_args()
 pp <- par(mfrow = c(1, 2))
@@ -89,7 +89,7 @@ pretty_hist(x,
 par(pp)
 
 #### Example (5) Further  examples
-pp <- par(mfrow = c(4, 2))
+# pp <- par(mfrow = c(4, 2))
 # e.g.
 x <- c(1.466667, 1.500000)
 pretty_hist(x)
@@ -106,7 +106,7 @@ hist(x)
 x <- c(1e10, 1e20, 1e30)
 pretty_hist(x)
 hist(x)
-par(pp)
+# par(pp)
 
 #### Example (6) Some examples with dates and times
 ## Define some time series data

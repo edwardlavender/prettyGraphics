@@ -57,6 +57,7 @@ par_mf <- function(n){
 #' @return This function returns the indices of plots along the lower or upper triangle of a multi-panel figure.
 #'
 #' @examples
+#' \dontrun{
 #' #### Example (1): Plot the upper triangle with par(mfrow = ...)
 #' pp <- par(mfrow = c(4, 4))
 #' for(i in 1:16){
@@ -84,7 +85,7 @@ par_mf <- function(n){
 #'   if(i %in% par_tri(mf = c(4, 4), type = "upper.tri")) plot(1) else plot.new()
 #' }
 #' par(pp)
-#'
+#' }
 #' @author Edward Lavender
 #' @export
 

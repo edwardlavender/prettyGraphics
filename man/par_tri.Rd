@@ -18,6 +18,7 @@ This function returns the indices of plots along the lower or upper triangle of 
 For a multi-plot square matrix (i.e., a multi-panel plot comprising a matrix of subplots for each combination of units, e.g., individuals), it can be useful to plot only the lower or upper triangle of the matrix to avoid visualisation of duplicate combinations. For a given square matrix, this function returns the indices of plots that lie along the lower or upper matrix.
 }
 \examples{
+\dontrun{
 #### Example (1): Plot the upper triangle with par(mfrow = ...)
 pp <- par(mfrow = c(4, 4))
 for(i in 1:16){
@@ -45,7 +46,7 @@ for(i in 1:16){
   if(i \%in\% par_tri(mf = c(4, 4), type = "upper.tri")) plot(1) else plot.new()
 }
 par(pp)
-
+}
 }
 \author{
 Edward Lavender
