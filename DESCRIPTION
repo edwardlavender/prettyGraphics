@@ -12,14 +12,21 @@ Imports:
     rlist, stringi, stringr, 
     maptools, rgeos, sp, raster, rgdal
 Suggests:
-    pbapply, pryr, devtools,
+    pbapply,
+    pryr,
+    devtools,
     Orcs,
-    viridis, RColorBrewer, plotrix, lunar,
-    mgcv, 
-    knitr, rmarkdown
+    viridis,
+    RColorBrewer,
+    plotrix,
+    lunar,
+    mgcv,
+    knitr,
+    rmarkdown,
+    covr
 Depends: R (>= 3.5)
 License: GPL-3
-URL: https://github.com/edwardlavender/prettyGraphics/ 
+URL: https://edwardlavender.github.io/prettyGraphics/, https://github.com/edwardlavender/prettyGraphics/ 
 BugReports: https://github.com/edwardlavender/prettyGraphics/issues
 Encoding: UTF-8
 LazyData: true

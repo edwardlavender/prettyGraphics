@@ -13,7 +13,11 @@ knitr::opts_chunk$set(
 
 # prettyGraphics
 
+<!-- badges: start -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![R-CMD-check](https://github.com/edwardlavender/prettyGraphics/workflows/R-CMD-check/badge.svg)](https://github.com/edwardlavender/prettyGraphics/actions)
+[![Codecov test coverage](https://codecov.io/gh/edwardlavender/prettyGraphics/branch/master/graph/badge.svg)](https://codecov.io/gh/edwardlavender/prettyGraphics?branch=master)
+<!-- badges: end -->
 
 `prettyGraphics` is an R package designed to make the production of plots and data exploration easier, more flexible and prettier. `prettyGraphics` has been particularly inspired by the requirements of continuous ecological datasets. The package includes multiple 'building block' functions which help to define the initial arguments of a plot and then add elements to a plot in sequence. Some integrative functions draw on the flexibility of building blocks to define prettier plots for a variety of equivalent plotting functions in base R (e.g. `graphics::plot()`, `graphics::hist()` and more) or more specialised routines. Key functionality includes: 
 

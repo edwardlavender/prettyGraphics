@@ -1,9 +1,15 @@
 
 # prettyGraphics
 
+<!-- badges: start -->
+
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![R-CMD-check](https://github.com/edwardlavender/prettyGraphics/workflows/R-CMD-check/badge.svg)](https://github.com/edwardlavender/prettyGraphics/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/edwardlavender/prettyGraphics/branch/master/graph/badge.svg)](https://codecov.io/gh/edwardlavender/prettyGraphics?branch=master)
+<!-- badges: end -->
 
 `prettyGraphics` is an R package designed to make the production of
 plots and data exploration easier, more flexible and prettier.
