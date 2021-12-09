@@ -346,13 +346,25 @@ pretty_map <- function(x = NULL,
   layers <- list(list(x = x), add_rasters, add_polys, add_lines, add_paths, add_points)
   layers <- lapply(layers, function(layer_list){
     if(inherits(layer_list, "list")){
-      out <- layer_list[names(layer_list) %in% c("x", "y")]
+      if(!is.null(names(layer_list))){
+        out <- layer_list[names(layer_list) %in% c("x", "y")]
+      } else {
+        out <- lapply(layer_list, function(elm) elm[names(elm) %in% c("x")])
+      }
     } else{
       out <- layer_list
     }
     return(out)
   })
  layers <- rlist::list.clean(layers, fun = function(x) length(x) == 0L, recursive = TRUE)
+ layers <- purrr::flatten(layers)
+ layers <- lapply(layers, function(l) {
+   if(!inherits(l, "list"))
+     return(list(x = l))
+   else
+     return(l)
+ })
+ names(layers) <- NULL
 
   #### Get CRS
   cat_to_console("... Getting CRS...")
