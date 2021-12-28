@@ -65,8 +65,6 @@
 #'  \item{\link{vis_scape_3d}}{ An R Shiny wrapper for \link{pretty_scape_3d}.}
 #'   }
 #'
-#'
-#'
 #' @section Colour schemes: \describe{
 #'  \item{\link{pretty_cols_brewer}}{This function facilitates the creation of pretty colour schemes.}
 #'  \item{\link{pretty_cols_split_heat}}{This function generates a `split-heat' colour scheme in which values either side of a break-point are coloured differently.}
@@ -76,6 +74,11 @@
 #'  \item{\link{par_mf}}{This function defines a suitable plotting window for a given number of plots.}
 #'  \item{\link{par_tri}}{This function defines the indices of plots along the lower or upper triangle of a square multi-panel matrix.}
 #' }
+#'
+#' @section Tables: \describe{
+#'  \item{\link{tidy_numbers}}{This function tidies the number columns in a dataframe.}
+#'  \item{\link{tidy_write}}{This function writes a `tidy' table to file.}
+#'  }
 #'
 #' @docType package
 #' @name prettyGraphics

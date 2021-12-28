@@ -126,6 +126,11 @@ par(pp)
 * `par_mf()` defines a suitable plotting window for a given number of plots;
 * `par_tri()` defines the indices of plots along the lower or upper triangle of a square multi-panel matrix;
 
+## Tables
+
+* `tidy_numbers()` tidies the number columns in a dataframe; 
+* `tidy_write()` writes a 'tidy' table to file;
+
 ## Future functionality 
 
 Possible future functionality includes: 

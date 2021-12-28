@@ -95,6 +95,13 @@
 }
 }
 
+\section{Tables}{
+ \describe{
+ \item{\link{tidy_numbers}}{This function tidies the number columns in a dataframe.}
+ \item{\link{tidy_write}}{This function writes a `tidy' table to file.}
+ }
+}
+
 \author{
 Edward Lavender
 }
