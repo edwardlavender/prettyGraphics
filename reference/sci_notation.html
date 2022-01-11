@@ -68,6 +68,7 @@
   magnitude <span class="op">=</span> <span class="fl">5L</span>,
   digits <span class="op">=</span> <span class="cn">NULL</span>,
   specific <span class="op">=</span> <span class="cn">TRUE</span>,
+  make_exp <span class="op">=</span> <span class="cn">TRUE</span>,
   make_sci <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
     </div>
@@ -82,12 +83,14 @@
 <dd><p>An integer that defines the number of decimal places. If <code>NULL</code>, this is defined automatically to be the minimum number of decimal places required to distinguish numbers.</p></dd>
 <dt>specific</dt>
 <dd><p>A logical input that defines whether or not to convert only the specific numbers in <code>x</code> whose order of magnitude exceed <code>magnitude</code> into scientific notation. Otherwise, if the absolute order of magnitude of element in <code>x</code> exceeds <code>magnitude</code>, all elements are reformatted in scientific notation. (However, 0 is always retained as 0.)</p></dd>
+<dt>make_exp</dt>
+<dd><p>A logical input that defines whether or not to create an expression object or a character object.</p></dd>
 <dt>make_sci</dt>
 <dd><p>A logical input that defines whether or not to create scientific notation. This acts as an overall control: if <code>make_sci</code> is <code>FALSE</code>, the function simplify returns <code>x</code> unchanged.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A vector of expression objects that can be added to a plot.</p>
+    <p>A vector of expression objects (or a vector of character objects) that can be added to a plot.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -100,7 +103,7 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Example (1): sci_notation() returns an expression object</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Example (1): sci_notation() returns an expression object by default</span></span>
 <span class="r-in"><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1e-10</span>, <span class="fl">1e10</span>, by <span class="op">=</span> <span class="fl">1e9</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> expression("1" ~ "x" ~ 10^-10, "1" ~ "x" ~ 10^9, "2" ~ "x" ~ </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     10^9, "3" ~ "x" ~ 10^9, "4" ~ "x" ~ 10^9, "5" ~ "x" ~ 10^9, </span>
