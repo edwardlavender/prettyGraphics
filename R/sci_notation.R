@@ -5,10 +5,11 @@
 #' @param magnitude An integer that defines the order of magnitude (below or above 0) after which numbers in all or specific elements in x are converted to scientific notation (see \code{specific}).
 #' @param digits An integer that defines the number of decimal places. If \code{NULL}, this is defined automatically to be the minimum number of decimal places required to distinguish numbers.
 #' @param specific A logical input that defines whether or not to convert only the specific numbers in \code{x} whose order of magnitude exceed \code{magnitude} into scientific notation. Otherwise, if the absolute order of magnitude of element in \code{x} exceeds \code{magnitude}, all elements are reformatted in scientific notation. (However, 0 is always retained as 0.)
+#' @param make_exp A logical input that defines whether or not to create an expression object or a character object.
 #' @param make_sci A logical input that defines whether or not to create scientific notation. This acts as an overall control: if \code{make_sci} is \code{FALSE}, the function simplify returns \code{x} unchanged.
 #'
 #' @examples
-#' #### Example (1): sci_notation() returns an expression object
+#' #### Example (1): sci_notation() returns an expression object by default
 #' sci_notation(seq(1e-10, 1e10, by = 1e9))
 #' # Except for vectors in which all elements are below the specified magnitude,
 #' # ... which are left unchanged:
@@ -38,7 +39,7 @@
 #' sci_notation(c(0, 1, 2, 1e9), magnitude = 5, specific = FALSE)
 #' sci_notation(c(0, 1, 2, 1e9), magnitude = 5, specific = TRUE)
 #'
-#' @return A vector of expression objects that can be added to a plot.
+#' @return A vector of expression objects (or a vector of character objects) that can be added to a plot.
 #'
 #' @seealso  The function is implemented internally in \code{\link[prettyGraphics]{pretty_axis}} for numeric observations.
 #' @author Edward Lavender
@@ -50,6 +51,7 @@ sci_notation <- function(x,
                          magnitude = 5L,
                          digits = NULL,
                          specific = TRUE,
+                         make_exp = TRUE,
                          make_sci = TRUE){
   # Return x unchanged if make_sci is FALSE
   if(!make_sci) return(x)
@@ -112,7 +114,11 @@ sci_notation <- function(x,
   # Create a list of calls:
   lab <- list()
   for(i in 1:length(x)){
-    lab[[i]] <- bquote(.(coef[i]) ~ "x" ~ 10^.(pwr[i]))
+    if(make_exp) {
+      lab[[i]] <- bquote(.(coef[i]) ~ "x" ~ 10^.(pwr[i]))
+    } else {
+      lab[[i]] <- paste0(coef[i], " x 10^", pwr[i])
+    }
   }
   # Post-process any 0's
   if(any(x == 0)){
@@ -126,8 +132,12 @@ sci_notation <- function(x,
       lab[pos1] <- sprintf(paste0("%.", digits, "f"), x[pos1])
     }
   }
-  # Convert to expressions which can be stored in a vector
-  lab <- do.call(expression, lab)
+  # Convert to vector
+  if(make_exp) {
+    lab <- do.call(expression, lab)
+  } else {
+    lab <- unlist(lab)
+  }
   # Return labels
   return(lab)
 }

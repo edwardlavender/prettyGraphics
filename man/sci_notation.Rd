@@ -9,6 +9,7 @@ sci_notation(
   magnitude = 5L,
   digits = NULL,
   specific = TRUE,
+  make_exp = TRUE,
   make_sci = TRUE
 )
 }
@@ -21,16 +22,18 @@ sci_notation(
 
 \item{specific}{A logical input that defines whether or not to convert only the specific numbers in \code{x} whose order of magnitude exceed \code{magnitude} into scientific notation. Otherwise, if the absolute order of magnitude of element in \code{x} exceeds \code{magnitude}, all elements are reformatted in scientific notation. (However, 0 is always retained as 0.)}
 
+\item{make_exp}{A logical input that defines whether or not to create an expression object or a character object.}
+
 \item{make_sci}{A logical input that defines whether or not to create scientific notation. This acts as an overall control: if \code{make_sci} is \code{FALSE}, the function simplify returns \code{x} unchanged.}
 }
 \value{
-A vector of expression objects that can be added to a plot.
+A vector of expression objects (or a vector of character objects) that can be added to a plot.
 }
 \description{
 This function is used to express numbers in scientific notation for plotting purposes. Specific elements in a vector \code{x}, or all elements in that vector, are converted into scientific notation if their absolute order of magnitude is greater than a user-specified value. Scientific notation is expressed using the 'x10' format, suitable for publication-quality plots, rather than R's default 'e' notation. The number of decimal places can be user-defined or defined automatically such that only the minimum number of decimal places required to distinguish numbers in a sequence is used (i.e., as suitable for pretty axes on a plot).
 }
 \examples{
-#### Example (1): sci_notation() returns an expression object
+#### Example (1): sci_notation() returns an expression object by default
 sci_notation(seq(1e-10, 1e10, by = 1e9))
 # Except for vectors in which all elements are below the specified magnitude,
 # ... which are left unchanged:
