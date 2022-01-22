@@ -22,9 +22,11 @@
 #'
 #' @section Statistical inference: \describe{
 #' \item{\link{summarise_in_bins}}{This function computes statistical summaries of continuous data in bins.}
-#' \item{\link{add_error_bars}}{This function adds error bars to a plot.}
 #' \item{\link{list_CIs}}{This function  lists model predictions/confidence intervals from fitted values and standard errors (or similar).}
+#' \item{\link{add_error_bars}}{This function adds error bars to a plot.}
 #' \item{\link{add_error_envelope}}{This function adds model predictions (e.g. fitted lines, confidence intervals) to plots.}
+#' \item{\link{pretty_predictions_1d}}{This function plots pretty one-dimensional predictions.}
+#' \item{\link{pretty_predictions_2d}}{This function plots pretty two-dimensional predictions.}
 #' \item{\link{pretty_smooth_1d}}{This function plots pretty one-dimensional smooths.}
 #' \item{\link{pretty_smooth_2d}}{This function plots pretty two-dimensional smooths.}
 #' }
@@ -75,7 +77,7 @@
 #'  \item{\link{par_tri}}{This function defines the indices of plots along the lower or upper triangle of a square multi-panel matrix.}
 #' }
 #'
-#' @section Tables: \describe{
+#' @section Tidy tables: \describe{
 #'  \item{\link{tidy_numbers}}{This function tidies the number columns in a dataframe.}
 #'  \item{\link{tidy_write}}{This function writes a `tidy' table to file.}
 #'  }

@@ -176,6 +176,10 @@ pretty_predictions_2d(g, view = c("x1", "x2"),
                       legend_breaks = function(x) x *-1,
                       legend_labels = abs)
 graphics::par(pp)
+
+}
+\seealso{
+\code{\link[prettyGraphics]{pretty_predictions_1d}}
 }
 \author{
 Edward Lavender

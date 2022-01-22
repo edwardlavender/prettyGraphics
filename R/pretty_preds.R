@@ -1,3 +1,294 @@
+#######################################
+#######################################
+#### pretty_predictions_1d()
+
+#' @title Pretty one-dimensional predictions
+#' @description This function plots pretty one-dimensional predictions from a statistical \code{model}. Given a \code{model}, for each predictor, the function plots the predicted values of the response and associated 95 percent confidence intervals. Other predictors are held at the first level (for factors) or the mean value (for doubles) or at custom values specified in a dataframe called \code{newdata}.
+#'
+#' @param model A model (e.g. an output from \code{\link[mgcv]{gam}}).
+#' @param x_var,n_pred,newdata (optional) Prediction controls.
+#'   \itemize{
+#'     \item \code{x_var} is a character variable that defines the name(s) of  predictors for which to plot predictions. If unsupplied, predictions are plotted for each predictor in the \code{model}.
+#'     \item \code{n_pred} is a number that defines, for continuous predictors, the prediction resolution. For each continuous predictor, a sequence of values from the minimum to maximum value for that variable, with \code{n_pred} elements, is used for prediction. (For factors, predictions are plotted for each factor level.) Alternatively, \code{newdata} can be supplied.
+#'     \item \code{newdata} is a dataframe that contains the data used for prediction. If supplied, this should contain one variable that changes in value (defined in \code{x_var}), with other variables held at selected values.
+#'     }
+#' @param transform_x A function to transform values of the predictor(s) for plotting.
+#' @param xlim,ylim,ylim_fix,pretty_axis_args Axis controls. \code{xlim} and \code{ylim} control axis limits for all plots. If unsupplied, pretty limits are used. If pretty limits are used, \code{ylim_fix} is a logical variable that defines whether or not to use the same y-axis limits on all plots (\code{TRUE}), which can facilitate comparisons, or to use plot-specific limits (\code{FALSE}). \code{pretty_axis_args} is a named list of arguments, passed to \code{\link[prettyGraphics]{pretty_axis}}, for further control.
+#' @param add_points (optional) A named list of arguments, passed to \code{\link[graphics]{points}}, to customise observations added to plots. An empty list specifies default options. \code{NULL} suppresses this argument.
+#' @param add_error_bars,add_error_envelope (optional) Named lists of arguments, passed to \code{\link[prettyGraphics]{add_error_bars}} and \code{\link[prettyGraphics]{add_error_envelope}}, to customise the appearance of error bars (for factor predictors) or envelopes (for continuous predictors) respectively. Empty lists specify default options. \code{NULL} suppresses these arguments.
+#' @param add_xlab,add_ylab,add_main (optional) Named lists of arguments, passed to \code{\link[graphics]{mtext}}, to add axis titles to plots. X-axis labels and plot titles are added to each plot, while only one global y-axis label is added. Empty lists specify default arguments, in which case variable names are taken as specified in the \code{model} and plot titles are given as capitalised letters or numbers in square brackets (if there are more than 26 predictors). Alternatively, names can be specified via the `text' argument to \code{\link[graphics]{mtext}}. For \code{add_xlab} and \code{add_main} , the `text' argument can be a vector with one element for each plot; for \code{add_ylab} only one element should be supplied. \code{NULL} suppress these arguments.
+#' @param one_page A logical variable that defines whether or not to plot all plots on one page.
+#' @param ... Additional arguments passed to \code{\link[prettyGraphics]{pretty_plot}}.
+#'
+#' @details Interactions are not currently supported.
+#'
+#' @return The function plots predictions from a model.
+#'
+#' @examples
+#' #### Define a model for predictions
+#' mod_1 <- stats::lm(Sepal.Length ~ Sepal.Width + Species, data = iris)
+#' summary(mod_1)
+#'
+#' #### Example (1): Plot predictions using default options
+#' pretty_predictions_1d(mod_1)
+#'
+#' #### Example (2): Plot predictions for specified variables
+#' pretty_predictions_1d(mod_1, x_var = c("Sepal.Width"))
+#' pretty_predictions_1d(mod_1, x_var = c("Sepal.Width", "Species"))
+#'
+#' #### Example (3): Plot predictions using custom newdata
+#' p_dat <- data.frame(Sepal.Width = median(iris$Sepal.Width),
+#'                     Species = factor(levels(iris$Species),
+#'                                      levels = levels(iris$Species)))
+#' pretty_predictions_1d(mod_1,
+#'                       x_var = "Species",
+#'                       newdata = p_dat)
+#'
+#' #### Example (4): Customise uncertainty
+#' pretty_predictions_1d(mod_1,
+#'                       add_error_bars = list(cex = 5, bg = "black"),
+#'                       add_error_envelope = list(type = "lines"))
+#'
+#' #### Example (5): Customise axes
+#' pretty_predictions_1d(mod_1,
+#'                       ylim = c(NA, 10))
+#' pretty_predictions_1d(mod_1,
+#'                       ylim_fix = FALSE)
+#' pretty_predictions_1d(mod_1,
+#'                       pretty_axis_args = list(control_digits = 2))
+#'
+#' #### Example (6): Customise titles
+#' pretty_predictions_1d(mod_1,
+#'                       add_xlab = list(text = c("Width", "Species"), line = 2),
+#'                       add_ylab = list(line = -2),
+#'                       add_main = NULL)
+#' @seealso \code{\link[prettyGraphics]{pretty_predictions_2d}}
+#' @author Edward Lavender
+#' @export
+
+pretty_predictions_1d <- function(model,
+                                  newdata = NULL, x_var = NULL, n_pred = 100,
+                                  transform_x = NULL,
+                                  xlim = NULL, ylim = NULL, ylim_fix = TRUE, pretty_axis_args = list(),
+                                  add_points = list(cex = 0.5, lwd = 0.5, col = "grey20"),
+                                  add_error_bars = list(add_fit = list(pch = 3)),
+                                  add_error_envelope = list(),
+                                  add_xlab = list(line = 2.5),
+                                  add_ylab = list(line = 2.5),
+                                  add_main = list(adj = 0, font = 2),
+                                  one_page = TRUE,...){
+
+  #### Checks
+  check...("x", "y", "xlab", "ylab", "type")
+  if(!is.null(newdata)){
+    if(length(x_var) != 1L)
+      stop("If 'newdata' is specified, the predictor should be specified in 'x_var'.", call. = FALSE)
+  }
+  # Check named lists
+  # ...
+  #### Define data used to fit model
+  # If variable transformations have been applied
+  # ... in the model formula, these are retained here.
+  data <- stats::model.frame(model)
+  data_y <- data[, 1]
+  data_x <- data[, 2:ncol(data)]
+
+  #### Define a character vector of predictors
+  if(!is.null(x_var)){
+    if(!(all(x_var %in% colnames(data))))
+      stop("Not all elements in 'x_var' are found in 'model.frame(model)'.", call. = FALSE)
+  } else {
+    x_var <- colnames(data)[2:ncol(data)]
+  }
+
+  #### Define predictions and information required for plotting
+  info_by_var <- lapply(1:length(x_var), function(i){
+
+    #### Define variable
+    var <- x_var[i]
+    var_is_num <- is_number(data[, var])
+
+    #### Define new data for prediction
+    if(!is.null(newdata)){
+      nd <- newdata
+      x  <- nd[, var]
+    } else {
+      ## Define x values for selected predictor for prediction
+      if(var_is_num){
+        x <- seq(min(data[, var], na.rm = TRUE),
+                 max(data[, var], na.rm = TRUE),
+                 length.out = n_pred)
+      } else {
+        x <- levels(data[, var])
+        x <- factor(x, levels = x)
+      }
+      ## Define constants for other variables
+      # ... These are either as specified
+      # ... Or we simply take the mean value for numeric variables
+      # ... And the 1st level for factors
+      nd <- lapply(1:ncol(data_x), function(i){
+        x_tmp <- data_x[, i]
+        if(is_number(x_tmp)){
+          x_tmp <- rep(mean(x_tmp, na.rm = TRUE), length(x))
+        } else {
+          x_tmp <- factor(rep(levels(x_tmp)[1], length(x)), levels = levels(data_x[, i]))
+        }
+        x_tmp <- data.frame(x_tmp)
+        colnames(x_tmp) <- colnames(data_x)[i]
+        return(x_tmp)
+      })
+      nd <- do.call(cbind, nd)
+      nd <- data.frame(nd)
+      colnames(nd) <- colnames(data_x)
+      nd[, var] <- x
+    }
+
+    #### Make predictions on the scale of the response
+    pred <- stats::predict(model, nd, type = "response", se.fit = TRUE)
+    pred <- list_CIs(pred)
+    pred$fit <- as.numeric(pred$fit)
+    pred$lowerCI <- as.numeric(pred$lowerCI)
+    pred$upperCI <- as.numeric(pred$upperCI)
+
+
+    #### Variable transformations
+    if(!is.null(transform_x) && var_is_num) x <- transform_x(x)
+
+    #### Define pretty axes
+    # Define sides
+    paa <- pretty_axis_args
+    if(is.null(paa$side)) paa$side <- 1:2
+    # Define limits
+    if(is.null(paa$lim)){
+      paa$lim <- list(x = NULL,
+                      y = range(c(pred$lowerCI, data_y, pred$upperCI), na.rm = TRUE))
+      if(var_is_num){
+        paa$lim$x <- range(x, na.rm = TRUE)
+      }
+    }
+    if(!is.null(xlim)) paa$lim$x <- NULL
+    if(!is.null(ylim)) paa$lim$y <- NULL
+
+    #### Return a list of information required for plotting
+    out <- list(var = var,
+                x = x,
+                var_is_num = var_is_num,
+                pred = pred,
+                paa = paa,
+                ylim = ylim,
+                xlim = xlim)
+    return(out)
+  })
+
+  #### Set plotting window
+  if(one_page){
+    pp <- graphics::par(no.readonly = TRUE)
+    on.exit(do.call(graphics::par, pp), add = TRUE)
+    graphics::par(mfrow = par_mf(length(x_var)))
+  }
+
+  #### Define global axis limits
+  if(is.null(ylim) && ylim_fix){
+    ylims <- unlist(lapply(info_by_var, function(info) info$paa$lim[[2]]))
+    ylim <- pretty_axis(side = 1, x = list(ylims), add = FALSE)[[1]]$lim
+    info_by_var <- lapply(info_by_var, function(info){
+      if(!is.null(info$paa$lim)) info$paa$lim$y <- NULL
+      return(info)
+    })
+  }
+
+  #### Define plot-specific axis title sides
+  if(!is.null(add_xlab) && is.null(add_xlab$side)) add_xlab$side <- 1
+  if(!is.null(add_main) && is.null(add_main$side)) add_main$side <- 3
+
+  #### Loop over each predictor and make plot
+  invisible(
+    lapply(1:length(info_by_var), function(i){
+
+      ## Extract info
+      info       <- info_by_var[[i]]
+      var        <- info$var
+      x          <- info$x
+      var_is_num <- info$var_is_num
+      pred       <- info$pred
+      paa        <- info$paa
+
+      ## Base plot
+      axis_ls <- pretty_plot(x, pred$fit,
+                             xlim = xlim, ylim = ylim,
+                             xlab = "", ylab = "",
+                             pretty_axis_args = paa,
+                             type = "n",...)
+      ## Add error bars/CIs
+      if(var_is_num){
+        if(!is.null(add_error_envelope)){
+          add_error_envelope$x  <- x
+          add_error_envelope$ci <- pred
+          do.call("add_error_envelope", add_error_envelope)
+        }
+      } else {
+        if(!is.null(add_error_bars)){
+          add_error_bars$x   <- as.integer(x)
+          add_error_bars$fit <- pred$fit
+          add_error_bars$lwr <- pred$lowerCI
+          add_error_bars$upr <- pred$upperCI
+          do.call("add_error_bars", add_error_bars)
+        }
+      }
+
+      ## Add observations
+      if(!is.null(add_points)){
+        add_points$x <- data[, var]
+        add_points$y <- data_y
+        do.call(graphics::points, add_points)
+      }
+
+      ## Add back axes for tidiness
+      pretty_axis(axis_ls = axis_ls, add = TRUE)
+
+      ## Add plot-specific titles
+      if(!is.null(add_xlab)){
+        add_x_title <- add_xlab
+        if(is.null(add_x_title$text)) {
+          add_x_title$text <- var
+        } else {
+          add_x_title$text <- add_x_title$text[i]
+        }
+        do.call(graphics::mtext, add_x_title)
+      }
+      if(!is.null(add_main)){
+        add_main_title      <- add_main
+        if(is.null(add_main_title$text)) {
+          if(length(info_by_var) <= 26){
+            add_main_title$text <- LETTERS[i]
+          } else {
+            add_main_title$text <- paste0("[", i, "]")
+          }
+        } else {
+          add_main_title$text <- add_main_title$text[i]
+        }
+        do.call(graphics::mtext, add_main_title)
+      }
+    })
+  )
+
+  ## Add global titles (y axis)
+  if(!is.null(add_ylab)){
+    if(is.null(add_ylab$text))  add_ylab$text <- colnames(data)[1]
+    if(is.null(add_ylab$side))  add_ylab$side <- 2
+    if(length(info_by_var) > 1L && is.null(add_ylab$outer)) add_ylab$outer <- TRUE
+    do.call(graphics::mtext, add_ylab)
+  }
+
+  #### Return invisible()
+  return(invisible())
+}
+
+
+#######################################
+#######################################
+#### pretty_predictions_2d()
+
 #' @title Pretty two-dimensional predictions
 #' @description This is function plots pretty two-dimensional predictions from a statistical model.
 #' @param x A model (e.g. an output from \code{\link[mgcv]{gam}}).
@@ -127,7 +418,8 @@
 #'                       legend_breaks = function(x) x *-1,
 #'                       legend_labels = abs)
 #' graphics::par(pp)
-
+#'
+#' @seealso \code{\link[prettyGraphics]{pretty_predictions_1d}}
 #' @author Edward Lavender
 #' @export
 #'

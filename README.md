@@ -85,11 +85,13 @@ library(prettyGraphics)
 
   - `summarise_in_bins()` computes statistical summaries of continuous
     data in bins, which can be added to plots using `add_lines()`;
-  - `add_error_bars()` adds error bars to a plot;
   - `list_CIs()` lists model predictions/confidence intervals from
     fitted values and standard errors (or similar);
+  - `add_error_bars()` adds error bars to a plot;
   - `add_error_envelope()` adds model predictions (e.g. fitted lines,
     confidence intervals) to plots;
+  - `pretty_predictions_1d()` plots pretty one-dimensional predictions;
+  - `pretty_predictions_2d()` plots pretty two-dimensional predictions;
   - `pretty_smooth_1d()` plots pretty one-dimensional smooths estimated
     by `mgcv::gam()`;
   - `pretty_smooth_2d()` plots pretty two-dimensional smooths estimated
@@ -179,7 +181,7 @@ par(pp)
   - `par_tri()` defines the indices of plots along the lower or upper
     triangle of a square multi-panel matrix;
 
-## Tables
+## Tidy tables
 
   - `tidy_numbers()` tidies the number columns in a dataframe;
   - `tidy_write()` writes a ‘tidy’ table to file;
