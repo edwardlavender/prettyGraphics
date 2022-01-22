@@ -28,6 +28,7 @@ tidy_numbers <- function(.data, digits, ignore = TRUE){
   for(i in 1:ncol(.data)) test_is_number[i] <- is_number(.data[, i])
   if(any(test_is_number)){
     is_tibble <- inherits(.data, "tbl_df")
+    cnms <- colnames(.data)
     .data <- data.frame(.data)
     ind_is_number <- which(test_is_number)
     len_is_number <- length(ind_is_number)
@@ -45,7 +46,10 @@ tidy_numbers <- function(.data, digits, ignore = TRUE){
         }
       }
     }
-    if(is_tibble) .data <- dplyr::as_tibble(.data)
+    if(is_tibble) {
+      .data           <- dplyr::as_tibble(.data)
+      colnames(.data) <- cnms
+    }
   } else {
     message("No numerical columns in '.data'.")
   }
