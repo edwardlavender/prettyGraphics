@@ -92,13 +92,14 @@ pretty_predictions_1d <- function(model,
   data <- stats::model.frame(model)
   data_y <- data[, 1]
   data_x <- data[, 2:ncol(data)]
+  data_x <- data_x[, colnames(data_x) %in% all.vars(stats::formula(model))]
 
   #### Define a character vector of predictors
   if(!is.null(x_var)){
     if(!(all(x_var %in% colnames(data))))
       stop("Not all elements in 'x_var' are found in 'model.frame(model)'.", call. = FALSE)
   } else {
-    x_var <- colnames(data)[2:ncol(data)]
+    x_var <- all.vars(stats::formula(model))[-1L]
   }
 
   #### Define predictions and information required for plotting
@@ -192,7 +193,11 @@ pretty_predictions_1d <- function(model,
     ylims <- unlist(lapply(info_by_var, function(info) info$paa$lim[[2]]))
     ylim <- pretty_axis(side = 1, x = list(ylims), add = FALSE)[[1]]$lim
     info_by_var <- lapply(info_by_var, function(info){
-      if(!is.null(info$paa$lim)) info$paa$lim$y <- NULL
+      if(is.null(xlim)){
+        info$paa$lim <- NULL
+      } else {
+        info$paa$lim <- list(x = xlim, y = NULL)
+      }
       return(info)
     })
   }
