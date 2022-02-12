@@ -61,7 +61,7 @@ add_lagging_point_zero <-
     index_na <- which(is.na(x))
     xc <- format(x, scientific = FALSE, trim = TRUE)
     dp <- stringr::str_split_fixed(xc, "[.]", 2)[, 2]
-    if(all(nchar(dp) == 0) & ignore | is.null(n)) return(x)
+    if(all(nchar(dp) == 0) && ignore) return(x)
     x <- xc
     if(is.null(n)) n <- max(nchar(dp))
     diff <- n - nchar(dp)

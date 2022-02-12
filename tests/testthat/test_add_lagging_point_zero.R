@@ -1,5 +1,7 @@
 test_that("add_lagging_point_zero() returns objects of the correct class.", {
-  expect_type(add_lagging_point_zero(c(0.01, 0.002)), "double")
+  expect_type(add_lagging_point_zero(c(0.01, 0.002)), "character")
+  expect_type(add_lagging_point_zero(c(0.01, 0.02)), "character")
+  expect_type(add_lagging_point_zero(c(1, 2, 3), ignore = TRUE), "double")
 })
 
 test_that("add_lagging_point_zero() returns numbers to the same precision.", {
