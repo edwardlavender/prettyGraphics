@@ -93,6 +93,15 @@ pretty_predictions_1d <- function(model,
   data_y <- data[, 1]
   data_x <- data[, 2:ncol(data)]
   data_x <- data_x[, colnames(data_x) %in% all.vars(stats::formula(model))]
+  for(i in 1:ncol(data_x)){
+    if(inherits(data_x[, i], "character")){
+      data_x[, i] <- factor(data_x[, i])
+      warning(
+        paste0("'", colnames(data_x)[i], "' column coerced from character to factor with level(s): '",
+               paste0(levels(data_x[, i]), collapse = "', '"), "'."
+        ), immediate. = TRUE, call. = FALSE)
+    }
+  }
 
   #### Define a character vector of predictors
   if(!is.null(x_var)){
