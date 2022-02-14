@@ -91,8 +91,8 @@ pretty_predictions_1d <- function(model,
   # ... in the model formula, these are retained here.
   data <- stats::model.frame(model)
   data_y <- data[, 1]
-  data_x <- data[, 2:ncol(data)]
-  data_x <- data_x[, colnames(data_x) %in% all.vars(stats::formula(model))]
+  data_x <- data[, 2:ncol(data), drop = FALSE]
+  data_x <- data_x[, colnames(data_x) %in% all.vars(stats::formula(model)), drop = FALSE]
   for(i in 1:ncol(data_x)){
     if(inherits(data_x[, i], "character")){
       data_x[, i] <- factor(data_x[, i])
