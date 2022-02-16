@@ -3,13 +3,14 @@
 #### pretty_predictions_1d()
 
 #' @title Pretty one-dimensional predictions
-#' @description This function plots pretty one-dimensional predictions from a statistical \code{model}. Given a \code{model}, for each predictor, the function plots the predicted values of the response and associated 95 percent confidence intervals. Other predictors are held at the first level (for factors) or the mean value (for doubles) or at custom values specified in a dataframe called \code{newdata}.
+#' @description This function plots pretty one-dimensional predictions from a statistical \code{model}. Given a \code{model}, for each predictor, the function plots the predicted values of the response and associated 95 percent confidence intervals. Other predictors are held at the first level (for factors) or an average (e.g., mean or median, as specified) value (for doubles) or at custom values specified in a dataframe called \code{newdata}.
 #'
 #' @param model A model (e.g. an output from \code{\link[mgcv]{gam}}).
-#' @param x_var,n_pred,newdata (optional) Prediction controls.
+#' @param x_var,n_pred,newdata,average (optional) Prediction controls.
 #'   \itemize{
 #'     \item \code{x_var} is a character variable that defines the name(s) of  predictors for which to plot predictions. If unsupplied, predictions are plotted for each predictor in the \code{model}.
 #'     \item \code{n_pred} is a number that defines, for continuous predictors, the prediction resolution. For each continuous predictor, a sequence of values from the minimum to maximum value for that variable, with \code{n_pred} elements, is used for prediction. (For factors, predictions are plotted for each factor level.) Alternatively, \code{newdata} can be supplied.
+#'     \item \code{average} is a function that is used to define the value at which doubles are held constant for prediction. The default is \code{\link[base]{mean}}.
 #'     \item \code{newdata} is a dataframe that contains the data used for prediction. If supplied, this should contain one variable that changes in value (defined in \code{x_var}), with other variables held at selected values.
 #'     }
 #' @param transform_x A function to transform values of the predictor(s) for plotting.
@@ -67,7 +68,7 @@
 #' @export
 
 pretty_predictions_1d <- function(model,
-                                  newdata = NULL, x_var = NULL, n_pred = 100,
+                                  newdata = NULL, x_var = NULL, n_pred = 100, average = mean,
                                   transform_x = NULL,
                                   xlim = NULL, ylim = NULL, ylim_fix = TRUE, pretty_axis_args = list(),
                                   add_points = list(cex = 0.5, lwd = 0.5, col = "grey20"),
@@ -134,12 +135,12 @@ pretty_predictions_1d <- function(model,
       }
       ## Define constants for other variables
       # ... These are either as specified
-      # ... Or we simply take the mean value for numeric variables
+      # ... Or we simply take the average value for numeric variables
       # ... And the 1st level for factors
       nd <- lapply(1:ncol(data_x), function(i){
         x_tmp <- data_x[, i]
         if(is_number(x_tmp)){
-          x_tmp <- rep(mean(x_tmp, na.rm = TRUE), length(x))
+          x_tmp <- rep(average(x_tmp, na.rm = TRUE), length(x))
         } else {
           x_tmp <- factor(rep(levels(x_tmp)[1], length(x)), levels = levels(data_x[, i]))
         }
@@ -254,6 +255,22 @@ pretty_predictions_1d <- function(model,
       if(!is.null(add_points)){
         add_points$x <- data[, var]
         add_points$y <- data_y
+        args <- names(add_points)
+        pars <- names(graphics::par())
+        args_in_pars <- args[args %in% pars]
+        if(length(args_in_pars) > 0L){
+          lapply(args_in_pars, function(arg){
+            if(length(add_points[[arg]]) != 1){
+              if(length(add_points[[arg]]) != nrow(data)){
+                warning(paste0("length(add_points[['", arg, "']]) (n = ",
+                               length(add_points[[arg]]),
+                               ") does not equal nrow(model.frame(model)) (n = ",
+                               nrow(data), ")."),
+                        call. = FALSE, immediate. = TRUE)
+              }
+            }
+          })
+        }
         do.call(graphics::points, add_points)
       }
 

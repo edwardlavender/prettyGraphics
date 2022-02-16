@@ -9,6 +9,7 @@ pretty_predictions_1d(
   newdata = NULL,
   x_var = NULL,
   n_pred = 100,
+  average = mean,
   transform_x = NULL,
   xlim = NULL,
   ylim = NULL,
@@ -27,10 +28,11 @@ pretty_predictions_1d(
 \arguments{
 \item{model}{A model (e.g. an output from \code{\link[mgcv]{gam}}).}
 
-\item{x_var, n_pred, newdata}{(optional) Prediction controls.
+\item{x_var, n_pred, newdata, average}{(optional) Prediction controls.
 \itemize{
   \item \code{x_var} is a character variable that defines the name(s) of  predictors for which to plot predictions. If unsupplied, predictions are plotted for each predictor in the \code{model}.
   \item \code{n_pred} is a number that defines, for continuous predictors, the prediction resolution. For each continuous predictor, a sequence of values from the minimum to maximum value for that variable, with \code{n_pred} elements, is used for prediction. (For factors, predictions are plotted for each factor level.) Alternatively, \code{newdata} can be supplied.
+  \item \code{average} is a function that is used to define the value at which doubles are held constant for prediction. The default is \code{\link[base]{mean}}.
   \item \code{newdata} is a dataframe that contains the data used for prediction. If supplied, this should contain one variable that changes in value (defined in \code{x_var}), with other variables held at selected values.
   }}
 
@@ -52,7 +54,7 @@ pretty_predictions_1d(
 The function plots predictions from a model.
 }
 \description{
-This function plots pretty one-dimensional predictions from a statistical \code{model}. Given a \code{model}, for each predictor, the function plots the predicted values of the response and associated 95 percent confidence intervals. Other predictors are held at the first level (for factors) or the mean value (for doubles) or at custom values specified in a dataframe called \code{newdata}.
+This function plots pretty one-dimensional predictions from a statistical \code{model}. Given a \code{model}, for each predictor, the function plots the predicted values of the response and associated 95 percent confidence intervals. Other predictors are held at the first level (for factors) or an average (e.g., mean or median, as specified) value (for doubles) or at custom values specified in a dataframe called \code{newdata}.
 }
 \details{
 Interactions are not currently supported.
