@@ -82,7 +82,7 @@
 <dt>type</dt>
 <dd><p>A character input specifying the type of block to define. <code>"diel"</code> or <code>"season"</code> are currently supported. <code>"diel"</code> defines a dataframe with <code>date</code>, <code>time</code> and <code>level</code> (1, time of sunrise; 2, time of sunset). <code>"season"</code> defines a dataframe with <code>date</code>, <code>time</code> and <code>level</code> representing seasons.</p></dd>
 <dt>type_args</dt>
-<dd><p>A named list of arguments needed to implement <code>type</code>. This is required for <code>type = "diel"</code>. A list containing "lon" and "lat" is needed; these arguments are passed to <code><a href="https://rdrr.io/pkg/maptools/man/sun-methods.html" class="external-link">sunriset</a></code>.</p></dd>
+<dd><p>A named list of arguments needed to implement <code>type</code>. This is required for <code>type = "diel"</code>. A list containing "lon" and "lat" is needed; these arguments are passed to <code><a href="http://maptools.r-forge.r-project.org/reference/sun-methods.html" class="external-link">sunriset</a></code>.</p></dd>
 <dt>to_plot</dt>
 <dd><p>A logical input defining whether or not the returned dataframe is to be used as an input for plotting (see <code><a href="add_shading_bar.html">add_shading_bar</a></code>. If so, the function conducts some processing so that the times are defined exactly along the limits provided by <code>t1</code> and <code>t2</code>. This also adjusts the dataframe returned (see Value).</p></dd>
 <dt>col</dt>
