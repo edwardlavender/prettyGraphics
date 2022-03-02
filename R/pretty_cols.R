@@ -16,7 +16,12 @@
 #' @author Edward Lavender
 #' @export
 
-pretty_cols_brewer <- function(zlim, scheme = "YlOrRd", select = 1:8, pal = NULL, n_breaks = 100, rev = FALSE){
+pretty_cols_brewer <- function(zlim,
+                               scheme = "YlOrRd",
+                               select = 1:8,
+                               pal = NULL,
+                               n_breaks = 100,
+                               rev = FALSE){
   if(!requireNamespace("RColorBrewer", quietly = TRUE)){
     stop("Package \"RColorBrewer\" is needed for this function to work. Please install it.",
          call. = FALSE)
