@@ -23,7 +23,7 @@
 #'
 #' @details Interactions are not currently supported.
 #'
-#' @return The function plots predictions from a model.
+#' @return The function plots predictions from a model. A list of axis parameters, with one element (from \code{\link[prettyGraphics]{pretty_axis}}) for each variable, is returned invisibly.
 #'
 #' @examples
 #' #### Define a model for predictions
@@ -179,6 +179,7 @@ pretty_predictions_1d <- function(model,
     }
     if(!is.null(xlim)) paa$lim$x <- NULL
     if(!is.null(ylim)) paa$lim$y <- NULL
+    if(length(paa$lim) == 0L) paa$lim <- NULL
 
     #### Return a list of information required for plotting
     out <- list(var = var,
@@ -217,7 +218,7 @@ pretty_predictions_1d <- function(model,
   if(!is.null(add_main) && is.null(add_main$side)) add_main$side <- 3
 
   #### Loop over each predictor and make plot
-  invisible(
+  axis_ls_by_var <-
     lapply(1:length(info_by_var), function(i){
 
       ## Extract info
@@ -300,8 +301,8 @@ pretty_predictions_1d <- function(model,
         }
         do.call(graphics::mtext, add_main_title)
       }
+      return(axis_ls)
     })
-  )
 
   ## Add global titles (y axis)
   if(!is.null(add_ylab)){
@@ -312,7 +313,7 @@ pretty_predictions_1d <- function(model,
   }
 
   #### Return invisible()
-  return(invisible())
+  return(invisible(axis_ls_by_var))
 }
 
 

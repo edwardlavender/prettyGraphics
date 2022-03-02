@@ -51,7 +51,7 @@ pretty_predictions_1d(
 \item{...}{Additional arguments passed to \code{\link[prettyGraphics]{pretty_plot}}.}
 }
 \value{
-The function plots predictions from a model.
+The function plots predictions from a model. A list of axis parameters, with one element (from \code{\link[prettyGraphics]{pretty_axis}}) for each variable, is returned invisibly.
 }
 \description{
 This function plots pretty one-dimensional predictions from a statistical \code{model}. Given a \code{model}, for each predictor, the function plots the predicted values of the response and associated 95 percent confidence intervals. Other predictors are held at the first level (for factors) or an average (e.g., mean or median, as specified) value (for doubles) or at custom values specified in a dataframe called \code{newdata}.
