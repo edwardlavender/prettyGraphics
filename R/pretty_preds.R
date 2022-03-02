@@ -192,7 +192,7 @@ pretty_predictions_1d <- function(model,
   })
 
   #### Set plotting window
-  if(one_page){
+  if(length(info_by_var) > 1 && one_page){
     pp <- graphics::par(no.readonly = TRUE)
     on.exit(do.call(graphics::par, pp), add = TRUE)
     graphics::par(mfrow = par_mf(length(x_var)))
