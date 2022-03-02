@@ -286,9 +286,10 @@ check_named_list <- function(arg = NULL, l, ignore_empty = TRUE){
 clip_within_range <-
   function(x, range){
     stopifnot(length(range) == 2)
-    pos2rem <- which(x < range[1])
+    all_equal_vec <- Vectorize(all.equal, "target")
+    pos2rem <- which(x < range[1] & !as.logical(all_equal_vec(x, range[1])))
     if(length(pos2rem) > 0) x <- x[-c(pos2rem)]
-    pos2rem <- which(x > range[2])
+    pos2rem <- which(x > range[2] & !as.logical(all_equal_vec(x, range[2])))
     if(length(pos2rem) > 0) x <- x[-c(pos2rem)]
     return(x)
   }
