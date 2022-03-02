@@ -480,7 +480,14 @@ pretty_axis <-
       lx <- sapply(x, length)
       if(length(unique(lx)) != 1){
         message("'x' contains elements with different numbers of observations; collapsing each element (i) in 'x' to range(i).")
-        x <- lapply(x, function(e) range(e, na.rm = TRUE))
+        x <- lapply(x, function(e) {
+          if(inherits(e, "factor")){
+            rng <- range_factor(e)
+          } else {
+            rng <- range(e, na.rm = TRUE)
+          }
+           return(rng)
+        })
         lx <- c(2, 2)
       }
       # Create a dataframe and drop NAs

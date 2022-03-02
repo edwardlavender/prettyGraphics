@@ -1,5 +1,58 @@
 ###################################
 ###################################
+#### factor extremes
+
+#' @title Factor extremes
+#' @description These functions return the minimum/maximum (first/last) levels of a factor.
+#' @param x A factor.
+#' @return A factor.
+#'
+#' @examples
+#' x <- factor(LETTERS)
+#' min_factor(x)
+#' max_factor(x)
+#' range_factor(x)
+#' @author Edward Lavender
+#' @name extreme_factor
+NULL
+
+#### min.factor()
+#' @rdname extreme_factor
+#' @export
+
+min_factor <-
+  function(x){
+    stopifnot(inherits(x, "factor"))
+    x <- factor(levels(x)[1], levels = x)
+    return(x)
+  }
+
+#### max_factor()
+#' @rdname extreme_factor
+#' @export
+
+max_factor <-
+  function(x){
+    stopifnot(inherits(x, "factor"))
+    x <- factor(levels(x)[length(levels(x))], levels = x)
+    return(x)
+  }
+
+#### range_factor()
+#' @rdname extreme_factor
+#' @export
+
+range_factor <- function(x){
+  stopifnot(inherits(x, "factor"))
+  x_1 <- as.character(min_factor(x))
+  x_2 <- as.character(max_factor(x))
+  x   <- factor(c(x_1, x_2), levels = levels(x))
+  return(x)
+}
+
+
+###################################
+###################################
 #### is_number()
 
 #' @title Check if an object is a number
