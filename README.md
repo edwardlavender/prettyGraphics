@@ -160,6 +160,7 @@ par(pp)
       - `add_sp_line()` adds lines to a background map;
       - `add_sp_path()` adds paths to a background map;
       - `add_sp_points()` adds locations to a background map;
+      - `add_north_arrow()` adds a North arrow to a map;
       - `summarise_by_lat()` and `add_profile_lat()` calculate and add
         latitudinal profiles to a plot;
   - `pretty_scape_3d()` and `vis_scape_3d()` produce interactive,

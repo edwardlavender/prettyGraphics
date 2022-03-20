@@ -59,7 +59,7 @@
 #'         \item{\link{add_sp_path}}{ This function adds paths to a background map.}
 #'         \item{\link{add_sp_points}}{ This function adds points to a background map.}
 #'    }
-#'
+#'    \item{\link{add_north_arrow}}{This function adds a North arrow to a map.}
 #'   \item{\link{summarise_by_lat}}{This function summarises a \code{\link[raster]{raster}} across latitudinal bands.}
 #'   \item{\link{add_profile_lat}}{This function add latitudinal profiles to a plot of a \code{\link[raster]{raster}}.}
 #'

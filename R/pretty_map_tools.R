@@ -1,5 +1,125 @@
 #######################################
 #######################################
+#### add_north_arrow()
+
+#' @title Add a North arrow to a map
+#' @description This function adds a North arrow to a map.
+#'
+#' @param x0,y0 A character keyword or doubles that define the arrow's position (see \code{\link[grDevices]{xy.coords}}).
+#' @param width,mid,height Arrow shape controls. Each argument accepts a double that defines the arrow \code{width}, \code{mid}-point or \code{height}. \code{mid} is only used for \code{type = "filled head"}.
+#' @param type A character string that defines the arrow type. Currently supported options are (a) \code{"filled head"}, which adds a (filled) arrow head (via \code{\link[graphics]{polygon}}); (b) \code{"filled triangle"}, which adds a (filled) triangle (via \code{\link[graphics]{polygon}}); and (c) \code{"arrow"}, which adds an arrow (via \code{\link[graphics]{arrows}}).
+#' @param add_label A named list, passed to  \code{\link[graphics]{text}}, to add a label to the plot. \code{add_label = NULL} suppresses this option, \code{add_label = list()} implements default options and a named list customises these.
+#' @param col,... Additional graphical parameters passed to \code{\link[graphics]{polygon}} or \code{\link[graphics]{arrows}}.
+#'
+#' @details Future functionality should include the capacity to control the tilt of the arrow (which is currently vertical) and to add north and east arrows that act as scale bars.
+#'
+#' @return The function adds an arrow to a map and invisibly returns a named list with the \code{x} and \code{y} coordinates of the arrow (derived from \code{x0}, \code{y0}, \code{width}, \code{mid} and \code{height} as applicable).
+#'
+#' @examples
+#' #### Example (1): Implement function using the default options
+#' raster::plot(dat_gebco)
+#' add_north_arrow()
+#'
+#' #### Example (2): Adjust arrow location
+#' raster::plot(dat_gebco)
+#' add_north_arrow(x0 = "topright")
+#' raster::plot(dat_gebco)
+#' add_north_arrow(x0 = -5.55, y = 56.44)
+#'
+#' #### Example (3): Adjust arrow type
+#' raster::plot(dat_gebco)
+#' add_north_arrow("topleft")
+#' add_north_arrow("topright", type = "filled triangle")
+#' add_north_arrow("center", type = "filled triangle")
+#' add_north_arrow("right", type = "arrow")
+#'
+#' #### Example (4): Adjust arrow type parameters
+#' raster::plot(dat_gebco)
+#' add_north_arrow("topleft", type = "filled triangle", border = "red")
+#' add_north_arrow("center", type = "filled triangle", col = "blue")
+#' add_north_arrow("top", type = "arrow", length = 0.05, lwd = 2)
+#'
+#' #### Example (5): Add arrow label
+#' raster::plot(dat_gebco)
+#' add_north_arrow(add_label = list())
+#'
+#' @author Edward Lavender
+#' @export
+
+add_north_arrow <- function(x0 = "topleft", y0 = NULL,
+                            width, mid, height,
+                            type = c("filled head", "filled triangle", "arrow"),
+                            add_label = NULL,
+                            col = "black",...){
+  #### Define type
+  type <- match.arg(type)
+
+  #### Define anchor position
+  if(inherits(x0, "character")){
+    if(!is.null(y0)) warning("Argument 'y0' ignored.", call. = FALSE)
+    position <- graphics::legend(x = x0, legend = "", bty = "n")
+    x0 <- position$text$x
+    y0 <- position$text$y
+  } else {
+    if(is.null(y0)) stop("'y0' must be specified.", call. = FALSE)
+  }
+  boundaries <- graphics::par("usr")
+
+  ##### Use distances for height/width
+  #
+  # To be developed.
+  #
+
+  #### Define type-specific parameters
+  ## Width and height for triangle type
+  if(missing(width)){
+    width <- (boundaries[2] - boundaries[1])/15
+  }
+  if(missing(height)){
+    height <- (boundaries[4] - boundaries[3])/10
+  }
+  if(type == "filled head"){
+    if(missing(mid)){
+      mid <- height * 3/4
+    } else warning("Argument 'mid' only used with type = 'filled head'.", call. = FALSE)
+  }
+
+  #### Add arrow to map
+  ## polygon arrows
+  if(grepl("filled", type, fixed = TRUE)){
+    if(type == "filled triangle"){
+      x <- c(x0, x0 - width/2, x0 + width/2)
+      y <- c(y0, y0 - height, y0 - height)
+    } else if(type == "filled head"){
+      x <- c(x0, x0 - width/2, x0, x0 + width/2)
+      y <- c(y0, y0 - height, y0 - mid, y0 - height)
+    }
+    graphics::polygon(x, y, col = col,...)
+  } else {
+    ## arrows arrows
+    if(type == "arrow"){
+      x <- x0
+      y <- y0
+      graphics::arrows(x0 = x0, y0 = y0 - height, x1 = x0, y1 = y0,...)
+    }
+  }
+
+  #### Add label
+  if(!is.null(add_label)){
+    check_named_list(arg = NULL, l = add_label)
+    if(is.null(add_label$labels)) add_label$labels <- "N"
+    if(is.null(add_label$x)) add_label$x <- x0
+    if(is.null(add_label$y)) add_label$y <- y0 + y0 * 0.0001
+    do.call(graphics::text, add_label)
+  }
+
+  #### Return outputs
+  return(invisible(list(x, y)))
+}
+
+
+#######################################
+#######################################
 #### summarise_by_lat()
 
 #' @title Summarise a \code{\link[raster]{raster}} by latitude
