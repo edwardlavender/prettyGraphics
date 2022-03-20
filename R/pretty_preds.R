@@ -173,9 +173,6 @@ pretty_predictions_1d <- function(model,
     if(is.null(paa$lim)){
       paa$lim <- list(x = NULL,
                       y = range(c(pred$lowerCI, data_y, pred$upperCI), na.rm = TRUE))
-      if(var_is_num){
-        paa$lim$x <- range(x, na.rm = TRUE)
-      }
     }
     if(!is.null(xlim)) paa$lim$x <- NULL
     if(!is.null(ylim)) paa$lim$y <- NULL
