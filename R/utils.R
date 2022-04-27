@@ -287,9 +287,10 @@ clip_within_range <-
   function(x, range){
     stopifnot(length(range) == 2)
     all_equal_vec <- Vectorize(all.equal, "target")
-    pos2rem <- which(x < range[1] & !as.logical(all_equal_vec(x, range[1])))
+    is_true_vec   <- Vectorize(isTRUE, "x")
+    pos2rem <- which(x < range[1] & as.logical(!is_true_vec(all_equal_vec(x, range[1]))))
     if(length(pos2rem) > 0) x <- x[-c(pos2rem)]
-    pos2rem <- which(x > range[2] & !as.logical(all_equal_vec(x, range[2])))
+    pos2rem <- which(x > range[2] & as.logical(!is_true_vec(all_equal_vec(x, range[2]))))
     if(length(pos2rem) > 0) x <- x[-c(pos2rem)]
     return(x)
   }
