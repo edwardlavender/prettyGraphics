@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,37 +63,52 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pretty_line</span><span class="op">(</span>
-  <span class="va">x</span>,
-  pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  inherit <span class="op">=</span> <span class="cn">NULL</span>,
-  replace_axis <span class="op">=</span> <span class="cn">NULL</span>,
-  add <span class="op">=</span> <span class="cn">FALSE</span>,
-  return_list <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pretty_line</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  inherit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  replace_axis <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  return_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A vector of observed data. Numeric/integer, factor, date, or date-time objects are supported.</p></dd>
+
+
 <dt>pretty_axis_args</dt>
 <dd><p>A named list of arguments that is passed to <code><a href="pretty_axis.html">pretty_axis</a></code> which is used to draw the number line or timeline. If <code>axis_ls</code> is supplied, <code>inherit</code> and <code>replace_axis</code> can be used to modify this element before the line is drawn, if desired.</p></dd>
+
+
 <dt>inherit</dt>
 <dd><p>(optional) If the <code>axis_ls</code> argument is supplied to <code>pretty_axis_args</code>, <code>inherit</code> can be supplied. This is a single integer which specifies which element of the <code>axis_ls</code> list should be used. This is useful because the <code>axis_ls</code> argument returned by <code><a href="pretty_axis.html">pretty_axis</a></code> will usually have multiple elements (one for each axis on an existing plot); but for one dimensional number lines or timelines, only one of these element is relevant.</p></dd>
+
+
 <dt>replace_axis</dt>
 <dd><p>(optional) If the <code>axis_ls</code> argument is supplied to <code>pretty_axis_args</code>, <code>replace_axis</code> can be  supplied. This is a named list of arguments that is used to replace corresponding arguments (of the same name) in an inherited list of axis argument (i.e., the inherited 'axis' of <code>axis_ls</code>, if supplied). This allows some components of an inherited list (e.g. tick marks) to be retained, while others (e.g. axis position) are easily adjusted.</p></dd>
+
+
 <dt>add</dt>
 <dd><p>A logical input which defines whether not the line should be added to an existing plot (<code>TRUE</code>) or not (<code>FALSE</code>).</p></dd>
+
+
 <dt>return_list</dt>
 <dd><p>(depreciated) A logical input which defines whether or not to return the list produced by <code><a href="pretty_axis.html">pretty_axis</a></code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed to <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></code>, which is used to add observed data (<code>x</code>) to the line.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function produces a number line or a timeline. The function also invisibly returns the list of axis parameters defined by <code><a href="pretty_axis.html">pretty_axis</a></code>.</p>
+    
+
+<p>The function produces a number line or a timeline. The function also invisibly returns the list of axis parameters defined by <code><a href="pretty_axis.html">pretty_axis</a></code>.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -102,56 +117,56 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Generate some example (numeric) data for example number lines</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (1): Plot a number line using default options</span></span>
-<span class="r-in"><span class="fu">pretty_line</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Generate some example (numeric) data for example number lines</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (1): Plot a number line using default options</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_line</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_line-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (2): Customise points via ...</span></span>
-<span class="r-in"><span class="fu">pretty_line</span><span class="op">(</span><span class="va">x</span>, pch <span class="op">=</span> <span class="fl">21</span>, bg <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (2): Customise points via ...</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_line</span><span class="op">(</span><span class="va">x</span>, pch <span class="op">=</span> <span class="fl">21</span>, bg <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_line-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (2): Customise the number line via pretty_axis_args</span></span>
-<span class="r-in"><span class="fu">pretty_line</span><span class="op">(</span><span class="va">x</span>, pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>las <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">               pch <span class="op">=</span> <span class="fl">21</span>, bg <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (2): Customise the number line via pretty_axis_args</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_line</span><span class="op">(</span><span class="va">x</span>, pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>las <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               pch <span class="op">=</span> <span class="fl">21</span>, bg <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_line-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (3): Add a number line to an existing plot:</span></span>
-<span class="r-in"><span class="co"># Create plot</span></span>
-<span class="r-in"><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="pretty_plot.html">pretty_plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Method 1: manually specify pretty_axis_args as desired and specify add = TRUE:</span></span>
-<span class="r-in"><span class="fu">pretty_line</span><span class="op">(</span><span class="va">x</span>, pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">3</span>,</span>
-<span class="r-in">                                          axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pos <span class="op">=</span> <span class="va">axis_ls</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">               add <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">               pch <span class="op">=</span> <span class="fl">21</span>, bg <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (3): Add a number line to an existing plot:</span></span></span>
+<span class="r-in"><span><span class="co"># Create plot</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="pretty_plot.html">pretty_plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Method 1: manually specify pretty_axis_args as desired and specify add = TRUE:</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_line</span><span class="op">(</span><span class="va">x</span>, pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>                                          axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pos <span class="op">=</span> <span class="va">axis_ls</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               add <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>               pch <span class="op">=</span> <span class="fl">21</span>, bg <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_line-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Method 2: specify axis_ls argument to pretty_axis_args and, if applicable, inherit.</span></span>
-<span class="r-in"><span class="co"># In this situation, necessary arguments (e.g. side) can be replaced via replace_axis</span></span>
-<span class="r-in"><span class="co"># ... while the properties of the axis (i.e., labels, colour etc.) are maintained:</span></span>
-<span class="r-in"><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="pretty_plot.html">pretty_plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_line</span><span class="op">(</span><span class="va">x</span>, pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_ls</span><span class="op">)</span>,</span>
-<span class="r-in">               <span class="co"># select the  first element of axis_ls i.e. axis_ls[[1]]</span></span>
-<span class="r-in">               inherit <span class="op">=</span> <span class="fl">1</span>,</span>
-<span class="r-in">               <span class="co"># replace the following arguments in axis_ls[[1]]$axis while retaining remaining</span></span>
-<span class="r-in">               <span class="co"># ... arguments:</span></span>
-<span class="r-in">               replace_axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">3</span>, pos <span class="op">=</span> <span class="fl">5</span>, labels <span class="op">=</span> <span class="cn">FALSE</span>, lwd.ticks <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">               add <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">               pch <span class="op">=</span> <span class="fl">21</span>, bg <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Method 2: specify axis_ls argument to pretty_axis_args and, if applicable, inherit.</span></span></span>
+<span class="r-in"><span><span class="co"># In this situation, necessary arguments (e.g. side) can be replaced via replace_axis</span></span></span>
+<span class="r-in"><span><span class="co"># ... while the properties of the axis (i.e., labels, colour etc.) are maintained:</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="pretty_plot.html">pretty_plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_line</span><span class="op">(</span><span class="va">x</span>, pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_ls</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               <span class="co"># select the  first element of axis_ls i.e. axis_ls[[1]]</span></span></span>
+<span class="r-in"><span>               inherit <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>               <span class="co"># replace the following arguments in axis_ls[[1]]$axis while retaining remaining</span></span></span>
+<span class="r-in"><span>               <span class="co"># ... arguments:</span></span></span>
+<span class="r-in"><span>               replace_axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">3</span>, pos <span class="op">=</span> <span class="fl">5</span>, labels <span class="op">=</span> <span class="cn">FALSE</span>, lwd.ticks <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               add <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>               pch <span class="op">=</span> <span class="fl">21</span>, bg <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_line-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (4): An examine with time series data i.e., a timeline</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tseq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.POSIXt.html" class="external-link">seq.POSIXt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2017-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span>
-<span class="r-in">                   <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2018-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_line</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">tseq</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">21</span>, bg <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (4): An examine with time series data i.e., a timeline</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tseq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.POSIXt.html" class="external-link">seq.POSIXt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2017-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2018-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_line</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">tseq</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">21</span>, bg <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_line-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -166,7 +181,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

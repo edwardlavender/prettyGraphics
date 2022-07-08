@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,34 +63,47 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pretty_cols_brewer</span><span class="op">(</span>
-  <span class="va">zlim</span>,
-  scheme <span class="op">=</span> <span class="st">"YlOrRd"</span>,
-  select <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>,
-  pal <span class="op">=</span> <span class="cn">NULL</span>,
-  n_breaks <span class="op">=</span> <span class="fl">100</span>,
-  rev <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pretty_cols_brewer</span><span class="op">(</span></span>
+<span>  <span class="va">zlim</span>,</span>
+<span>  scheme <span class="op">=</span> <span class="st">"YlOrRd"</span>,</span>
+<span>  select <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>,</span>
+<span>  pal <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  n_breaks <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  rev <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>zlim</dt>
 <dd><p>A numeric range that the colour scheme should span.</p></dd>
+
+
 <dt>scheme</dt>
 <dd><p>A character that defines a colour scheme supported by <code><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></code>.</p></dd>
+
+
 <dt>select</dt>
 <dd><p>An integer vector that defines which colours to draw from the <code>scheme</code>.</p></dd>
+
+
 <dt>pal</dt>
 <dd><p>A colour palette function. If supplied <code>scheme</code> and <code>select</code> are silently ignored.</p></dd>
+
+
 <dt>n_breaks</dt>
 <dd><p>The number of breaks in the colour scheme.</p></dd>
+
+
 <dt>rev</dt>
 <dd><p>A logical value that defines whether or not to reverse sampled colours.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns a named list that contains the z limits (`zlim'), a numeric vector of breaks (`breaks'), the colour palette function (`pal') and the associated vector of colours (`col'). This can be passed to <code><a href="https://rdrr.io/pkg/fields/man/image.plot.html" class="external-link">image.plot</a></code>.</p>
+    
+
+<p>The function returns a named list that contains the z limits (`zlim'), a numeric vector of breaks (`breaks'), the colour palette function (`pal') and the associated vector of colours (`col'). This can be passed to <code><a href="https://rdrr.io/pkg/fields/man/image.plot.html" class="external-link">image.plot</a></code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -117,7 +130,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

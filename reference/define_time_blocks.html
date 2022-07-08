@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,34 +63,47 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">define_time_blocks</span><span class="op">(</span>
-  t1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,
-  t2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2017-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,
-  type <span class="op">=</span> <span class="st">"diel"</span>,
-  type_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  to_plot <span class="op">=</span> <span class="cn">TRUE</span>,
-  col <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">define_time_blocks</span><span class="op">(</span></span>
+<span>  t1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span>
+<span>  t2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2017-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"diel"</span>,</span>
+<span>  type_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  to_plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  col <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>t1</dt>
 <dd><p>The start time, in POSIXct format with the time zone specified.</p></dd>
+
+
 <dt>t2</dt>
 <dd><p>The end time, in POSIXct format with the time zone specified.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>A character input specifying the type of block to define. <code>"diel"</code> or <code>"season"</code> are currently supported. <code>"diel"</code> defines a dataframe with <code>date</code>, <code>time</code> and <code>level</code> (1, time of sunrise; 2, time of sunset). <code>"season"</code> defines a dataframe with <code>date</code>, <code>time</code> and <code>level</code> representing seasons.</p></dd>
+
+
 <dt>type_args</dt>
 <dd><p>A named list of arguments needed to implement <code>type</code>. This is required for <code>type = "diel"</code>. A list containing "lon" and "lat" is needed; these arguments are passed to <code><a href="http://maptools.r-forge.r-project.org/reference/sun-methods.html" class="external-link">sunriset</a></code>.</p></dd>
+
+
 <dt>to_plot</dt>
 <dd><p>A logical input defining whether or not the returned dataframe is to be used as an input for plotting (see <code><a href="add_shading_bar.html">add_shading_bar</a></code>. If so, the function conducts some processing so that the times are defined exactly along the limits provided by <code>t1</code> and <code>t2</code>. This also adjusts the dataframe returned (see Value).</p></dd>
+
+
 <dt>col</dt>
 <dd><p>A vector of colours, one for each factor that are added to the dataframe if <code>to_plot = TRUE</code>. For <code>type = "diel"</code>, <code>col</code> should specify the colour of day and night and for <code>type = "season"</code>, <code>col</code> should specify the colour of winter, spring, summer and autumn (in that order). If <code>col</code> is <code>NULL</code>, colours are chosen by default.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns a dataframe. If <code>to_plot = FALSE</code>, the dataframe contains 3 columns: <code>date</code>, <code>time</code> and <code>level</code>. If <code>type == "diel"</code>, levels correspond to day/night; if<code> type == "season"</code>, levels correspond to the four seasons. If <code>to_plot = TRUE</code>, <code>x1</code>, <code>x2</code> and <code>col</code> are returned.</p>
+    
+
+<p>The function returns a dataframe. If <code>to_plot = FALSE</code>, the dataframe contains 3 columns: <code>date</code>, <code>time</code> and <code>level</code>. If <code>type == "diel"</code>, levels correspond to day/night; if<code> type == "season"</code>, levels correspond to the four seasons. If <code>to_plot = TRUE</code>, <code>x1</code>, <code>x2</code> and <code>col</code> are returned.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -99,12 +112,12 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Example (1) define diel blocks between two dates</span></span>
-<span class="r-in"><span class="fu">define_time_blocks</span><span class="op">(</span>t1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span>
-<span class="r-in">                   t2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-10"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span>
-<span class="r-in">                   type <span class="op">=</span> <span class="st">"diel"</span>,</span>
-<span class="r-in">                   type_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lon <span class="op">=</span> <span class="fl">56</span>, lat <span class="op">=</span> <span class="op">-</span><span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">                   to_plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Example (1) define diel blocks between two dates</span></span></span>
+<span class="r-in"><span><span class="fu">define_time_blocks</span><span class="op">(</span>t1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   t2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-10"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   type <span class="op">=</span> <span class="st">"diel"</span>,</span></span>
+<span class="r-in"><span>                   type_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lon <span class="op">=</span> <span class="fl">56</span>, lat <span class="op">=</span> <span class="op">-</span><span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   to_plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          date level                time</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  2016-01-01     1 2016-01-01 02:06:57</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  2016-01-01     2 2016-01-01 14:31:31</span>
@@ -126,15 +139,15 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18 2016-01-09     2 2016-01-09 14:34:42</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19 2016-01-10     1 2016-01-10 02:11:24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20 2016-01-10     2 2016-01-10 14:35:03</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (2) define diel blocks between two dates to plot</span></span>
-<span class="r-in"><span class="fu">define_time_blocks</span><span class="op">(</span>t1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span>
-<span class="r-in">                   t2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-10"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span>
-<span class="r-in">                   type <span class="op">=</span> <span class="st">"diel"</span>,</span>
-<span class="r-in">                   type_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lon <span class="op">=</span> <span class="fl">56</span>, lat <span class="op">=</span> <span class="op">-</span><span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">                   to_plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">                   col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"dimgrey"</span><span class="op">)</span></span>
-<span class="r-in">                   <span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (2) define diel blocks between two dates to plot</span></span></span>
+<span class="r-in"><span><span class="fu">define_time_blocks</span><span class="op">(</span>t1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   t2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-10"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   type <span class="op">=</span> <span class="st">"diel"</span>,</span></span>
+<span class="r-in"><span>                   type_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lon <span class="op">=</span> <span class="fl">56</span>, lat <span class="op">=</span> <span class="op">-</span><span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   to_plot <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                   col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"dimgrey"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                   <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     x1                  x2     col</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  2016-01-01 00:00:00 2016-01-01 00:00:00   white</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  2016-01-01 00:00:00 2016-01-01 02:06:57 dimgrey</span>
@@ -157,13 +170,13 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19 2016-01-09 02:10:55 2016-01-09 14:34:42   white</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20 2016-01-09 14:34:42 2016-01-10 00:00:00 dimgrey</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 21 2016-01-10 00:00:00 2016-01-10 00:00:00   white</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (3) define seasonal blocks between two dates</span></span>
-<span class="r-in"><span class="fu">define_time_blocks</span><span class="op">(</span>t1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span>
-<span class="r-in">                   t2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-10"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span>
-<span class="r-in">                   type <span class="op">=</span> <span class="st">"diel"</span>,</span>
-<span class="r-in">                   type_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lon <span class="op">=</span> <span class="fl">56</span>, lat <span class="op">=</span> <span class="op">-</span><span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">                   to_plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (3) define seasonal blocks between two dates</span></span></span>
+<span class="r-in"><span><span class="fu">define_time_blocks</span><span class="op">(</span>t1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   t2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-10"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   type <span class="op">=</span> <span class="st">"diel"</span>,</span></span>
+<span class="r-in"><span>                   type_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lon <span class="op">=</span> <span class="fl">56</span>, lat <span class="op">=</span> <span class="op">-</span><span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   to_plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          date level                time</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  2016-01-01     1 2016-01-01 02:06:57</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  2016-01-01     2 2016-01-01 14:31:31</span>
@@ -185,9 +198,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18 2016-01-09     2 2016-01-09 14:34:42</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19 2016-01-10     1 2016-01-10 02:11:24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20 2016-01-10     2 2016-01-10 14:35:03</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -202,7 +215,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

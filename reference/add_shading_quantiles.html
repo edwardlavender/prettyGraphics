@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,37 +63,52 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">add_shading_quantiles</span><span class="op">(</span>
-  <span class="va">x</span>,
-  probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, length.out <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,
-  cols <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"dimgrey"</span>, <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">probs</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="fl">1</span> <span class="op">-</span> <span class="va">probs</span>, <span class="va">probs</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.05</span><span class="op">)</span>,
-  horiz <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">lim</span>,
-  return_list <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_shading_quantiles</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, length.out <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
+<span>  cols <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"dimgrey"</span>, <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">probs</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="fl">1</span> <span class="op">-</span> <span class="va">probs</span>, <span class="va">probs</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.05</span><span class="op">)</span>,</span>
+<span>  horiz <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">lim</span>,</span>
+<span>  return_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A numeric vector.</p></dd>
+
+
 <dt>probs</dt>
 <dd><p>A numeric vector of probabilities.</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>A character vector of colours. This should be of the same length as <code>probs</code>.</p></dd>
+
+
 <dt>horiz</dt>
 <dd><p>A logical input that defines whether or not shading is added horizontally or vertically across a plot (i.e., whether <code>x</code> is the x or y variable on a given plot). This is passed to <code><a href="add_shading_bar.html">add_shading_bar</a></code>.</p></dd>
+
+
 <dt>lim</dt>
 <dd><p>A numeric input that defines the horizontal or vertical limits. This is passed to passed to <code><a href="add_shading_bar.html">add_shading_bar</a></code>.</p></dd>
+
+
 <dt>return_list</dt>
 <dd><p>(depreciated) A logical input that defines whether or not to return a list of outputs (see Value).</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed to <code><a href="add_shading_bar.html">add_shading_bar</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>This function adds shading to a plot to show the sample quantiles corresponding to inputted probabilities. A named list of outputs is also returned invisibly. This contains: (1) 'dat', a dataframe with probabilities ('prob'), colours ('col') and quantiles ('quantile'); (2) 'data_legend', a dataframe that contains only probabilities ('x') and colours ('col'); and (3) 'pretty_axis_args', a list of suggested arguments for pretty axes. 'data_legend' and 'pretty_axis_args' can be passed directly to <code><a href="add_colour_bar.html">add_colour_bar</a></code> to add a colour bar to the plot.</p>
+    
+
+<p>This function adds shading to a plot to show the sample quantiles corresponding to inputted probabilities. A named list of outputs is also returned invisibly. This contains: (1) 'dat', a dataframe with probabilities ('prob'), colours ('col') and quantiles ('quantile'); (2) 'data_legend', a dataframe that contains only probabilities ('x') and colours ('col'); and (3) 'pretty_axis_args', a list of suggested arguments for pretty axes. 'data_legend' and 'pretty_axis_args' can be passed directly to <code><a href="add_colour_bar.html">add_colour_bar</a></code> to add a colour bar to the plot.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -102,41 +117,41 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Simulate some normally distributed observations</span></span>
-<span class="r-in"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="op">-</span><span class="fl">200</span>, <span class="fl">200</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Create a blank plot with appropriate axis limits</span></span>
-<span class="r-in"><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="pretty_plot.html">pretty_plot</a></span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Simulate some normally distributed observations</span></span></span>
+<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">100</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="op">-</span><span class="fl">200</span>, <span class="fl">200</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Create a blank plot with appropriate axis limits</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="pretty_plot.html">pretty_plot</a></span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 'y' argument not supplied; 'x' is plotted against an index.</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Add shading for the quantiles of observations, saving the</span></span>
-<span class="r-in"><span class="co"># ... list returned by the function so we can add a colour bar later.</span></span>
-<span class="r-in"><span class="va">asq_ls</span> <span class="op">&lt;-</span> <span class="fu">add_shading_quantiles</span><span class="op">(</span><span class="va">x</span>,</span>
-<span class="r-in">                                horiz <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">                                lim <span class="op">=</span> <span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span>,</span>
-<span class="r-in">                                border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Add observed points onto the plot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Add a colour bar via TeachingDemos::subplot() and</span></span>
-<span class="r-in"><span class="co"># ... prettyGraphics::add_colour_bar()</span></span>
-<span class="r-in"><span class="co"># ... using outputs returned by function:</span></span>
-<span class="r-in"><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span>fun <span class="op">=</span></span>
-<span class="r-in">                         <span class="fu"><a href="add_colour_bar.html">add_colour_bar</a></span><span class="op">(</span></span>
-<span class="r-in">                           data_legend <span class="op">=</span> <span class="va">asq_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span>
-<span class="r-in">                           pretty_axis_args <span class="op">=</span> <span class="va">asq_ls</span><span class="op">$</span><span class="va">pretty_axis_args</span></span>
-<span class="r-in">                         <span class="op">)</span>,</span>
-<span class="r-in">                       x <span class="op">=</span> <span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">+</span> <span class="fl">1</span>,</span>
-<span class="r-in">                       y <span class="op">=</span> <span class="va">axis_ls</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span class="r-in">                       size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">2.8</span><span class="op">)</span>,</span>
-<span class="r-in">                       vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Add shading for the quantiles of observations, saving the</span></span></span>
+<span class="r-in"><span><span class="co"># ... list returned by the function so we can add a colour bar later.</span></span></span>
+<span class="r-in"><span><span class="va">asq_ls</span> <span class="op">&lt;-</span> <span class="fu">add_shading_quantiles</span><span class="op">(</span><span class="va">x</span>,</span></span>
+<span class="r-in"><span>                                horiz <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                                lim <span class="op">=</span> <span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span>,</span></span>
+<span class="r-in"><span>                                border <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Add observed points onto the plot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Add a colour bar via TeachingDemos::subplot() and</span></span></span>
+<span class="r-in"><span><span class="co"># ... prettyGraphics::add_colour_bar()</span></span></span>
+<span class="r-in"><span><span class="co"># ... using outputs returned by function:</span></span></span>
+<span class="r-in"><span><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span>fun <span class="op">=</span></span></span>
+<span class="r-in"><span>                         <span class="fu"><a href="add_colour_bar.html">add_colour_bar</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>                           data_legend <span class="op">=</span> <span class="va">asq_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span></span>
+<span class="r-in"><span>                           pretty_axis_args <span class="op">=</span> <span class="va">asq_ls</span><span class="op">$</span><span class="va">pretty_axis_args</span></span></span>
+<span class="r-in"><span>                         <span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       x <span class="op">=</span> <span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">+</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>                       y <span class="op">=</span> <span class="va">axis_ls</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>                       size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">2.8</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_shading_quantiles-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -151,7 +166,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

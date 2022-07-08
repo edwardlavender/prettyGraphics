@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,27 +63,40 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">add_shading_bar</span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span>, horiz <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">lim</span>, <span class="va">col</span>, border <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_shading_bar</span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span>, horiz <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">lim</span>, <span class="va">col</span>, border <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x1</dt>
 <dd><p>A sequence of starting values (x or y coordinates) for each block.</p></dd>
+
+
 <dt>x2</dt>
 <dd><p>A sequence of ending values (x or y coordinates) for each block.</p></dd>
+
+
 <dt>horiz</dt>
 <dd><p>A numeric input that defines whether or not shading blocks are horizontal (i.e.  <code>x1</code> and <code>x2</code> represent y coordinates and <code>lim</code> represents <code>xlim</code>) or vertical (i.e.  <code>x1</code> and <code>x2</code> represent x coordinates and <code>lim</code> represents <code>ylim</code>).</p></dd>
+
+
 <dt>lim</dt>
 <dd><p>A numeric input that defines the horizontal or vertical limits of each block.</p></dd>
+
+
 <dt>col, border</dt>
 <dd><p>The colour of each block and its border.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other graphical parameters passed to <code><a href="https://rdrr.io/r/graphics/rect.html" class="external-link">rect</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function adds blocks of shading to a plot.</p>
+    
+
+<p>The function adds blocks of shading to a plot.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -96,55 +109,55 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">#### Define some data; we'll define a time series example</span></span>
-<span class="r-in"><span class="co"># Define times</span></span>
-<span class="r-in"><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.POSIXt.html" class="external-link">seq.POSIXt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span>
-<span class="r-in">                <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-02"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span>
-<span class="r-in">                by <span class="op">=</span> <span class="st">"30 mins"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>t <span class="op">=</span> <span class="va">t</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Imagine our response is animal depth through time</span></span>
-<span class="r-in"><span class="va">d</span><span class="op">$</span><span class="va">depth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span>, <span class="fl">200</span>, <span class="fl">25</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Define limits and visualise</span></span>
-<span class="r-in"><span class="va">ylim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">depth</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">t</span>, <span class="va">d</span><span class="op">$</span><span class="va">depth</span>, type <span class="op">=</span> <span class="st">"n"</span>, ylim <span class="op">=</span> <span class="va">ylim</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Define arguments for add_shading_bar()</span></span>
-<span class="r-in"><span class="co"># In this example, we'll add blocks of shading distinguishing 'day' versus 'night' to aid</span></span>
-<span class="r-in"><span class="co"># ... interpretation of the animal depth time series we've simulated above. To do this,</span></span>
-<span class="r-in"><span class="co"># ... we could use the define_time_blocks() function but, for transparency,</span></span>
-<span class="r-in"><span class="co"># ...  we'll use the following approach to define the times of day/night and associated colours</span></span>
-<span class="r-in"><span class="co"># ... in a dataframe that we can then pass to add_shading_bar():</span></span>
-<span class="r-in"><span class="co"># Define the times of day/night across the time series:</span></span>
-<span class="r-in"><span class="va">dates_block</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.POSIXt.html" class="external-link">seq.POSIXt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dat_block</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">dates_block</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>, level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dates_block</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dat_block</span><span class="op">$</span><span class="va">level</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">dat_block</span><span class="op">$</span><span class="va">level</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">56</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">pos_sunrise</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">dat_block</span><span class="op">$</span><span class="va">level</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">pos_sunset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">dat_block</span><span class="op">$</span><span class="va">level</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dat_block</span><span class="op">$</span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dat_block</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dat_block</span><span class="op">$</span><span class="va">time</span><span class="op">[</span><span class="va">pos_sunrise</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">maptools</span><span class="fu">::</span><span class="fu"><a href="http://maptools.r-forge.r-project.org/reference/sun-methods.html" class="external-link">sunriset</a></span><span class="op">(</span><span class="va">coords</span>,</span>
-<span class="r-in">                                                  dateTime <span class="op">=</span> <span class="va">dat_block</span><span class="op">$</span><span class="va">date</span><span class="op">[</span><span class="va">pos_sunrise</span><span class="op">]</span>,</span>
-<span class="r-in">                                                  direction <span class="op">=</span> <span class="st">"sunrise"</span>,</span>
-<span class="r-in">                                                  POSIXct.out <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">dat_block</span><span class="op">$</span><span class="va">time</span><span class="op">[</span><span class="va">pos_sunset</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">maptools</span><span class="fu">::</span><span class="fu"><a href="http://maptools.r-forge.r-project.org/reference/sun-methods.html" class="external-link">sunriset</a></span><span class="op">(</span><span class="va">coords</span>,</span>
-<span class="r-in">                                                 dateTime <span class="op">=</span> <span class="va">dat_block</span><span class="op">$</span><span class="va">date</span><span class="op">[</span><span class="va">pos_sunset</span><span class="op">]</span>,</span>
-<span class="r-in">                                                 direction <span class="op">=</span> <span class="st">"sunset"</span>,</span>
-<span class="r-in">                                                 POSIXct.out <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">dat_block</span><span class="op">$</span><span class="va">col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"dimgrey"</span><span class="op">)</span><span class="op">[</span><span class="va">dat_block</span><span class="op">$</span><span class="va">level</span><span class="op">]</span></span>
-<span class="r-in"><span class="co"># Rearrange dataframe:</span></span>
-<span class="r-in"><span class="va">x1</span> <span class="op">&lt;-</span> <span class="va">dat_block</span><span class="op">$</span><span class="va">time</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dat_block</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">x2</span> <span class="op">&lt;-</span> <span class="va">dat_block</span><span class="op">$</span><span class="va">time</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dat_block</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">col</span> <span class="op">&lt;-</span> <span class="va">dat_block</span><span class="op">$</span><span class="va">col</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dat_block</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">dat_block</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">x2</span>, col <span class="op">=</span> <span class="va">col</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dat_block</span><span class="op">$</span><span class="va">col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">dat_block</span><span class="op">$</span><span class="va">col</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Add shading</span></span>
-<span class="r-in"><span class="fu">add_shading_bar</span><span class="op">(</span><span class="va">dat_block</span><span class="op">$</span><span class="va">x1</span>,</span>
-<span class="r-in">            <span class="va">dat_block</span><span class="op">$</span><span class="va">x2</span>,</span>
-<span class="r-in">            horiz <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">            lim <span class="op">=</span> <span class="va">ylim</span>,</span>
-<span class="r-in">            col <span class="op">=</span> <span class="va">dat_block</span><span class="op">$</span><span class="va">col</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Define some data; we'll define a time series example</span></span></span>
+<span class="r-in"><span><span class="co"># Define times</span></span></span>
+<span class="r-in"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.POSIXt.html" class="external-link">seq.POSIXt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-02"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                by <span class="op">=</span> <span class="st">"30 mins"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>t <span class="op">=</span> <span class="va">t</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Imagine our response is animal depth through time</span></span></span>
+<span class="r-in"><span><span class="va">d</span><span class="op">$</span><span class="va">depth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span>, <span class="fl">200</span>, <span class="fl">25</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Define limits and visualise</span></span></span>
+<span class="r-in"><span><span class="va">ylim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">depth</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">t</span>, <span class="va">d</span><span class="op">$</span><span class="va">depth</span>, type <span class="op">=</span> <span class="st">"n"</span>, ylim <span class="op">=</span> <span class="va">ylim</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Define arguments for add_shading_bar()</span></span></span>
+<span class="r-in"><span><span class="co"># In this example, we'll add blocks of shading distinguishing 'day' versus 'night' to aid</span></span></span>
+<span class="r-in"><span><span class="co"># ... interpretation of the animal depth time series we've simulated above. To do this,</span></span></span>
+<span class="r-in"><span><span class="co"># ... we could use the define_time_blocks() function but, for transparency,</span></span></span>
+<span class="r-in"><span><span class="co"># ...  we'll use the following approach to define the times of day/night and associated colours</span></span></span>
+<span class="r-in"><span><span class="co"># ... in a dataframe that we can then pass to add_shading_bar():</span></span></span>
+<span class="r-in"><span><span class="co"># Define the times of day/night across the time series:</span></span></span>
+<span class="r-in"><span><span class="va">dates_block</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.POSIXt.html" class="external-link">seq.POSIXt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat_block</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">dates_block</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>, level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dates_block</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat_block</span><span class="op">$</span><span class="va">level</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">dat_block</span><span class="op">$</span><span class="va">level</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">56</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pos_sunrise</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">dat_block</span><span class="op">$</span><span class="va">level</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pos_sunset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">dat_block</span><span class="op">$</span><span class="va">level</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat_block</span><span class="op">$</span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dat_block</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat_block</span><span class="op">$</span><span class="va">time</span><span class="op">[</span><span class="va">pos_sunrise</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">maptools</span><span class="fu">::</span><span class="fu"><a href="http://maptools.r-forge.r-project.org/reference/sun-methods.html" class="external-link">sunriset</a></span><span class="op">(</span><span class="va">coords</span>,</span></span>
+<span class="r-in"><span>                                                  dateTime <span class="op">=</span> <span class="va">dat_block</span><span class="op">$</span><span class="va">date</span><span class="op">[</span><span class="va">pos_sunrise</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>                                                  direction <span class="op">=</span> <span class="st">"sunrise"</span>,</span></span>
+<span class="r-in"><span>                                                  POSIXct.out <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">dat_block</span><span class="op">$</span><span class="va">time</span><span class="op">[</span><span class="va">pos_sunset</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">maptools</span><span class="fu">::</span><span class="fu"><a href="http://maptools.r-forge.r-project.org/reference/sun-methods.html" class="external-link">sunriset</a></span><span class="op">(</span><span class="va">coords</span>,</span></span>
+<span class="r-in"><span>                                                 dateTime <span class="op">=</span> <span class="va">dat_block</span><span class="op">$</span><span class="va">date</span><span class="op">[</span><span class="va">pos_sunset</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>                                                 direction <span class="op">=</span> <span class="st">"sunset"</span>,</span></span>
+<span class="r-in"><span>                                                 POSIXct.out <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">dat_block</span><span class="op">$</span><span class="va">col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"dimgrey"</span><span class="op">)</span><span class="op">[</span><span class="va">dat_block</span><span class="op">$</span><span class="va">level</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="co"># Rearrange dataframe:</span></span></span>
+<span class="r-in"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="va">dat_block</span><span class="op">$</span><span class="va">time</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dat_block</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="va">dat_block</span><span class="op">$</span><span class="va">time</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dat_block</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">col</span> <span class="op">&lt;-</span> <span class="va">dat_block</span><span class="op">$</span><span class="va">col</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dat_block</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">dat_block</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="va">x1</span>, x2 <span class="op">=</span> <span class="va">x2</span>, col <span class="op">=</span> <span class="va">col</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat_block</span><span class="op">$</span><span class="va">col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">dat_block</span><span class="op">$</span><span class="va">col</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Add shading</span></span></span>
+<span class="r-in"><span><span class="fu">add_shading_bar</span><span class="op">(</span><span class="va">dat_block</span><span class="op">$</span><span class="va">x1</span>,</span></span>
+<span class="r-in"><span>            <span class="va">dat_block</span><span class="op">$</span><span class="va">x2</span>,</span></span>
+<span class="r-in"><span>            horiz <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>            lim <span class="op">=</span> <span class="va">ylim</span>,</span></span>
+<span class="r-in"><span>            col <span class="op">=</span> <span class="va">dat_block</span><span class="op">$</span><span class="va">col</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -154,11 +167,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Add back depth time series using add_lines()</span></span>
-<span class="r-in"><span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">t</span>, <span class="va">d</span><span class="op">$</span><span class="va">depth</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Add back depth time series using add_lines()</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">t</span>, <span class="va">d</span><span class="op">$</span><span class="va">depth</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_shading_bar-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -173,7 +186,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

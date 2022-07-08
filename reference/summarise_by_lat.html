@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,19 +63,24 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">summarise_by_lat</span><span class="op">(</span><span class="va">x</span>, stat <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">summarise_by_lat</span><span class="op">(</span><span class="va">x</span>, stat <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A <code><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></code>.</p></dd>
+
+
 <dt>stat</dt>
 <dd><p>A function that summarises the values of <code>x</code> across latitudinal bands.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns a dataframe with the latitudinal coordinates of each band (`y') and the summary (`stat'),</p>
+    
+
+<p>The function returns a dataframe with the latitudinal coordinates of each band (`y') and the summary (`stat'),</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -88,8 +93,8 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">summarise_by_lat</span><span class="op">(</span><span class="va">dat_gebco</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">summarise_by_lat</span><span class="op">(</span><span class="va">dat_gebco</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          y      stat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 56.34375 174.67772</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 56.34792 149.93881</span>
@@ -111,7 +116,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,56 +63,75 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pretty_predictions_1d</span><span class="op">(</span>
-  <span class="va">model</span>,
-  newdata <span class="op">=</span> <span class="cn">NULL</span>,
-  x_var <span class="op">=</span> <span class="cn">NULL</span>,
-  n_pred <span class="op">=</span> <span class="fl">100</span>,
-  average <span class="op">=</span> <span class="va">mean</span>,
-  transform_x <span class="op">=</span> <span class="cn">NULL</span>,
-  xlim <span class="op">=</span> <span class="cn">NULL</span>,
-  ylim <span class="op">=</span> <span class="cn">NULL</span>,
-  ylim_fix <span class="op">=</span> <span class="cn">TRUE</span>,
-  pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  add_points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cex <span class="op">=</span> <span class="fl">0.5</span>, lwd <span class="op">=</span> <span class="fl">0.5</span>, col <span class="op">=</span> <span class="st">"grey20"</span><span class="op">)</span>,
-  add_error_bars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>add_fit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>,
-  add_error_envelope <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  add_xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>,
-  add_ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>,
-  add_main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>adj <span class="op">=</span> <span class="fl">0</span>, font <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,
-  one_page <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pretty_predictions_1d</span><span class="op">(</span></span>
+<span>  <span class="va">model</span>,</span>
+<span>  newdata <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  x_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  n_pred <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  average <span class="op">=</span> <span class="va">mean</span>,</span>
+<span>  transform_x <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  xlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ylim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ylim_fix <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  add_points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cex <span class="op">=</span> <span class="fl">0.5</span>, lwd <span class="op">=</span> <span class="fl">0.5</span>, col <span class="op">=</span> <span class="st">"grey20"</span><span class="op">)</span>,</span>
+<span>  add_error_bars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>add_fit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  add_error_envelope <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  add_xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>,</span>
+<span>  add_ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>,</span>
+<span>  add_main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>adj <span class="op">=</span> <span class="fl">0</span>, font <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  one_page <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>model</dt>
 <dd><p>A model (e.g. an output from <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code>).</p></dd>
+
+
 <dt>x_var, n_pred, newdata, average</dt>
 <dd><p>(optional) Prediction controls.</p><ul><li><p><code>x_var</code> is a character variable that defines the name(s) of  predictors for which to plot predictions. If unsupplied, predictions are plotted for each predictor in the <code>model</code>.</p></li>
 <li><p><code>n_pred</code> is a number that defines, for continuous predictors, the prediction resolution. For each continuous predictor, a sequence of values from the minimum to maximum value for that variable, with <code>n_pred</code> elements, is used for prediction. (For factors, predictions are plotted for each factor level.) Alternatively, <code>newdata</code> can be supplied.</p></li>
 <li><p><code>average</code> is a function that is used to define the value at which doubles are held constant for prediction. The default is <code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></code>.</p></li>
 <li><p><code>newdata</code> is a dataframe that contains the data used for prediction. If supplied, this should contain one variable that changes in value (defined in <code>x_var</code>), with other variables held at selected values.</p></li>
 </ul></dd>
+
+
 <dt>transform_x</dt>
 <dd><p>A function to transform values of the predictor(s) for plotting.</p></dd>
+
+
 <dt>xlim, ylim, ylim_fix, pretty_axis_args</dt>
 <dd><p>Axis controls. <code>xlim</code> and <code>ylim</code> control axis limits for all plots. If unsupplied, pretty limits are used. If pretty limits are used, <code>ylim_fix</code> is a logical variable that defines whether or not to use the same y-axis limits on all plots (<code>TRUE</code>), which can facilitate comparisons, or to use plot-specific limits (<code>FALSE</code>). <code>pretty_axis_args</code> is a named list of arguments, passed to <code><a href="pretty_axis.html">pretty_axis</a></code>, for further control.</p></dd>
+
+
 <dt>add_points</dt>
 <dd><p>(optional) A named list of arguments, passed to <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></code>, to customise observations added to plots. An empty list specifies default options. <code>NULL</code> suppresses this argument.</p></dd>
+
+
 <dt>add_error_bars, add_error_envelope</dt>
 <dd><p>(optional) Named lists of arguments, passed to <code><a href="add_error_bars.html">add_error_bars</a></code> and <code><a href="add_error_envelope.html">add_error_envelope</a></code>, to customise the appearance of error bars (for factor predictors) or envelopes (for continuous predictors) respectively. Empty lists specify default options. <code>NULL</code> suppresses these arguments.</p></dd>
+
+
 <dt>add_xlab, add_ylab, add_main</dt>
 <dd><p>(optional) Named lists of arguments, passed to <code><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></code>, to add axis titles to plots. X-axis labels and plot titles are added to each plot, while only one global y-axis label is added. Empty lists specify default arguments, in which case variable names are taken as specified in the <code>model</code> and plot titles are given as capitalised letters or numbers in square brackets (if there are more than 26 predictors). Alternatively, names can be specified via the `text' argument to <code><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></code>. For <code>add_xlab</code> and <code>add_main</code> , the `text' argument can be a vector with one element for each plot; for <code>add_ylab</code> only one element should be supplied. <code>NULL</code> suppress these arguments.</p></dd>
+
+
 <dt>one_page</dt>
 <dd><p>A logical variable that defines whether or not to plot all plots on one page.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed to <code><a href="pretty_plot.html">pretty_plot</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function plots predictions from a model. A list of axis parameters, with one element (from <code><a href="pretty_axis.html">pretty_axis</a></code>) for each variable, is returned invisibly.</p>
+    
+
+<p>The function plots predictions from a model. A list of axis parameters, with one element (from <code><a href="pretty_axis.html">pretty_axis</a></code>) for each variable, is returned invisibly.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -129,9 +148,9 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Define a model for predictions</span></span>
-<span class="r-in"><span class="va">mod_1</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Sepal.Length</span> <span class="op">~</span> <span class="va">Sepal.Width</span> <span class="op">+</span> <span class="va">Species</span>, data <span class="op">=</span> <span class="va">iris</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod_1</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Define a model for predictions</span></span></span>
+<span class="r-in"><span><span class="va">mod_1</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Sepal.Length</span> <span class="op">~</span> <span class="va">Sepal.Width</span> <span class="op">+</span> <span class="va">Species</span>, data <span class="op">=</span> <span class="va">iris</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod_1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> stats::lm(formula = Sepal.Length ~ Sepal.Width + Species, data = iris)</span>
@@ -153,57 +172,57 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Multiple R-squared:  0.7259,	Adjusted R-squared:  0.7203 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> F-statistic: 128.9 on 3 and 146 DF,  p-value: &lt; 2.2e-16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (1): Plot predictions using default options</span></span>
-<span class="r-in"><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (1): Plot predictions using default options</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.</span>
 <span class="r-plt img"><img src="pretty_predictions_1d-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (2): Plot predictions for specified variables</span></span>
-<span class="r-in"><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>, x_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Width"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (2): Plot predictions for specified variables</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>, x_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Width"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_predictions_1d-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>, x_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Width"</span>, <span class="st">"Species"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>, x_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Width"</span>, <span class="st">"Species"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.</span>
 <span class="r-plt img"><img src="pretty_predictions_1d-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (3): Plot predictions using custom newdata</span></span>
-<span class="r-in"><span class="va">p_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Sepal.Width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Width</span><span class="op">)</span>,</span>
-<span class="r-in">                    Species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span>,</span>
-<span class="r-in">                                     levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>,</span>
-<span class="r-in">                      x_var <span class="op">=</span> <span class="st">"Species"</span>,</span>
-<span class="r-in">                      newdata <span class="op">=</span> <span class="va">p_dat</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (3): Plot predictions using custom newdata</span></span></span>
+<span class="r-in"><span><span class="va">p_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Sepal.Width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Width</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                    Species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                     levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>,</span></span>
+<span class="r-in"><span>                      x_var <span class="op">=</span> <span class="st">"Species"</span>,</span></span>
+<span class="r-in"><span>                      newdata <span class="op">=</span> <span class="va">p_dat</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.</span>
 <span class="r-plt img"><img src="pretty_predictions_1d-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (4): Customise uncertainty</span></span>
-<span class="r-in"><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>,</span>
-<span class="r-in">                      add_error_bars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cex <span class="op">=</span> <span class="fl">5</span>, bg <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span>,</span>
-<span class="r-in">                      add_error_envelope <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"lines"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (4): Customise uncertainty</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>,</span></span>
+<span class="r-in"><span>                      add_error_bars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cex <span class="op">=</span> <span class="fl">5</span>, bg <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                      add_error_envelope <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"lines"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 'border' argument dropped from 'add_ci' list for type = 'lines'.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 'border' argument dropped from 'add_ci' list for type = 'lines'.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.</span>
 <span class="r-plt img"><img src="pretty_predictions_1d-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (5): Customise axes</span></span>
-<span class="r-in"><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>,</span>
-<span class="r-in">                      ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (5): Customise axes</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>,</span></span>
+<span class="r-in"><span>                      ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.</span>
 <span class="r-plt img"><img src="pretty_predictions_1d-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>,</span>
-<span class="r-in">                      ylim_fix <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>,</span></span>
+<span class="r-in"><span>                      ylim_fix <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.</span>
 <span class="r-plt img"><img src="pretty_predictions_1d-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>,</span>
-<span class="r-in">                      pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>control_digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>,</span></span>
+<span class="r-in"><span>                      pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>control_digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.</span>
 <span class="r-plt img"><img src="pretty_predictions_1d-8.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (6): Customise titles</span></span>
-<span class="r-in"><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>,</span>
-<span class="r-in">                      add_xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Width"</span>, <span class="st">"Species"</span><span class="op">)</span>, line <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span class="r-in">                      add_ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>line <span class="op">=</span> <span class="op">-</span><span class="fl">2</span><span class="op">)</span>,</span>
-<span class="r-in">                      add_main <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (6): Customise titles</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>,</span></span>
+<span class="r-in"><span>                      add_xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Width"</span>, <span class="st">"Species"</span><span class="op">)</span>, line <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                      add_ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>line <span class="op">=</span> <span class="op">-</span><span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                      add_main <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.</span>
 <span class="r-plt img"><img src="pretty_predictions_1d-9.png" alt="" width="700" height="433"></span>
 </code></pre></div>
@@ -220,7 +239,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

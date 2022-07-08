@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,58 +63,87 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pretty_mat</span><span class="op">(</span>
-  <span class="va">z</span>,
-  retain_orientation <span class="op">=</span> <span class="cn">FALSE</span>,
-  zlim <span class="op">=</span> <span class="cn">NULL</span>,
-  col <span class="op">=</span> <span class="op">(</span><span class="fu">grDevices</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html" class="external-link">colorRampPalette</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"yellow"</span>, <span class="st">"orange"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,
-  col_diag <span class="op">=</span> <span class="cn">NULL</span>,
-  grid <span class="op">=</span> <span class="cn">NULL</span>,
-  add_axes <span class="op">=</span> <span class="cn">TRUE</span>,
-  xtick_every_n <span class="op">=</span> <span class="fl">1</span>,
-  ytick_every_n <span class="op">=</span> <span class="va">xtick_every_n</span>,
-  cex.axis <span class="op">=</span> <span class="fl">1</span>,
-  las <span class="op">=</span> <span class="cn">TRUE</span>,
-  xlab <span class="op">=</span> <span class="st">""</span>,
-  ylab <span class="op">=</span> <span class="st">""</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pretty_mat</span><span class="op">(</span></span>
+<span>  <span class="va">z</span>,</span>
+<span>  retain_orientation <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  zlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  col <span class="op">=</span> <span class="op">(</span><span class="fu">grDevices</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html" class="external-link">colorRampPalette</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"yellow"</span>, <span class="st">"orange"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,</span>
+<span>  col_diag <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  grid <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  add_axes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  xtick_every_n <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  ytick_every_n <span class="op">=</span> <span class="va">xtick_every_n</span>,</span>
+<span>  cex.axis <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  las <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>z</dt>
 <dd><p>A matrix to be plotted.</p></dd>
+
+
 <dt>retain_orientation</dt>
 <dd><p>A logical input which defines whether or not the plot should retain the same orientation as the printed matrix. The default is <code>FALSE</code>, in which case the underlying plotting function (<code><a href="https://rdrr.io/pkg/fields/man/image.plot.html" class="external-link">image.plot</a></code>) rotates the matrix by 90 degrees counter-clockwise in the plot. In contrast, <code>retain_orientation = TRUE</code> forces the matrix and the plot to retain the same orientation (see Details).</p></dd>
+
+
 <dt>zlim</dt>
 <dd><p>A numeric vector of length two which specifies the z axis limits (see <code><a href="https://rdrr.io/pkg/fields/man/image.plot.html" class="external-link">image.plot</a></code>),</p></dd>
+
+
 <dt>col</dt>
 <dd><p>A colour table to use for the image (see <code><a href="https://rdrr.io/pkg/fields/man/image.plot.html" class="external-link">image.plot</a></code>).</p></dd>
+
+
 <dt>col_diag</dt>
 <dd><p>(optional) A colour which, if provided, is used to shade the diagonal of the matrix. This is useful for symmetric square matrices.</p></dd>
+
+
 <dt>grid</dt>
 <dd><p>(optional) A named list which, if provided, is passed to <code><a href="add_grid_rect_xy.html">add_grid_rect_xy</a></code> to draw grid lines around each matrix cell. Arguments <code>x</code> and <code>y</code> default to the positions of each matrix cell and do not need to be provided. To use <code><a href="add_grid_rect_xy.html">add_grid_rect_xy</a></code>'s default graphical options, simply specify <code>grid = list()</code>.</p></dd>
+
+
 <dt>add_axes</dt>
 <dd><p>A logical input which defines whether or not to add axes to the plot. Axes tick marks are given every nth column and every nth row (see below).</p></dd>
+
+
 <dt>xtick_every_n</dt>
 <dd><p>A numeric input which defines the spacing between sequential tick marks for the x axis. Tick marks are given every <code>xtick_every_n</code> (see Details).</p></dd>
+
+
 <dt>ytick_every_n</dt>
 <dd><p>A numeric input which defines the spacing between sequential tick marks for the other axis. Tick marks are given every <code>ytick_every_n</code> (see Details).</p></dd>
+
+
 <dt>cex.axis</dt>
 <dd><p>A number which specifies the axis font size (see <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></code>).</p></dd>
+
+
 <dt>las</dt>
 <dd><p>The style of axis labels (see <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></code>).</p></dd>
+
+
 <dt>xlab</dt>
 <dd><p>The x axis label.</p></dd>
+
+
 <dt>ylab</dt>
 <dd><p>The y axis label.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed to <code><a href="https://rdrr.io/pkg/fields/man/image.plot.html" class="external-link">image.plot</a></code>. These should not include <code>x</code>, <code>y</code>, <code>xlim</code>, <code>ylim</code> or <code>axes</code> which are controlled internally.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns a plot of a matrix with coloured cells.</p>
+    
+
+<p>The function returns a plot of a matrix with coloured cells.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -127,93 +156,93 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Define an example square matrix</span></span>
-<span class="r-in"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">25</span></span>
-<span class="r-in"><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">100</span>, size <span class="op">=</span> <span class="va">n</span><span class="op">^</span><span class="fl">2</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">25</span>, nrow <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (1): The default options</span></span>
-<span class="r-in"><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Define an example square matrix</span></span></span>
+<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">25</span></span></span>
+<span class="r-in"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">100</span>, size <span class="op">=</span> <span class="va">n</span><span class="op">^</span><span class="fl">2</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">25</span>, nrow <span class="op">=</span> <span class="fl">25</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (1): The default options</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_mat-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (2): Customisation</span></span>
-<span class="r-in"><span class="co"># Adjust labelling and note how under the default settings the plot</span></span>
-<span class="r-in"><span class="co"># ... is rotated by 90 degrees counter-clockwise</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (2): Customisation</span></span></span>
+<span class="r-in"><span><span class="co"># Adjust labelling and note how under the default settings the plot</span></span></span>
+<span class="r-in"><span><span class="co"># ... is rotated by 90 degrees counter-clockwise</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_mat-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, xlab <span class="op">=</span> <span class="st">"ID"</span>, ylab <span class="op">=</span> <span class="st">"ID"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, xlab <span class="op">=</span> <span class="st">"ID"</span>, ylab <span class="op">=</span> <span class="st">"ID"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_mat-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Adjust the number of labels</span></span>
-<span class="r-in"><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, xlab <span class="op">=</span> <span class="st">"ID"</span>, ylab <span class="op">=</span> <span class="st">"ID"</span>,</span>
-<span class="r-in">           xtick_every_n <span class="op">=</span> <span class="fl">5</span>, ytick_every_n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Adjust the number of labels</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, xlab <span class="op">=</span> <span class="st">"ID"</span>, ylab <span class="op">=</span> <span class="st">"ID"</span>,</span></span>
+<span class="r-in"><span>           xtick_every_n <span class="op">=</span> <span class="fl">5</span>, ytick_every_n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_mat-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Compare to plot with retained orientation</span></span>
-<span class="r-in"><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, xlab <span class="op">=</span> <span class="st">"ID"</span>, ylab <span class="op">=</span> <span class="st">"ID"</span>,</span>
-<span class="r-in">           xtick_every_n <span class="op">=</span> <span class="fl">5</span>, ytick_every_n <span class="op">=</span> <span class="fl">2</span>,</span>
-<span class="r-in">           retain_orientation <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Compare to plot with retained orientation</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, xlab <span class="op">=</span> <span class="st">"ID"</span>, ylab <span class="op">=</span> <span class="st">"ID"</span>,</span></span>
+<span class="r-in"><span>           xtick_every_n <span class="op">=</span> <span class="fl">5</span>, ytick_every_n <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>           retain_orientation <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_mat-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Adjust z limits</span></span>
-<span class="r-in"><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Adjust z limits</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_mat-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Adjust colour scheme</span></span>
-<span class="r-in"><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/gray.colors.html" class="external-link">grey.colors</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Adjust colour scheme</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/gray.colors.html" class="external-link">grey.colors</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_mat-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Colour the diagonal (useful for symmetric square matrices)</span></span>
-<span class="r-in"><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, col_diag <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Colour the diagonal (useful for symmetric square matrices)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, col_diag <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_mat-8.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Add a grid using default options</span></span>
-<span class="r-in"><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, grid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Add a grid using default options</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, grid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_mat-9.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Customise the grid</span></span>
-<span class="r-in"><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, grid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"black"</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Customise the grid</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, grid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"black"</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_mat-10.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (3) Rectangular matrices function similarly</span></span>
-<span class="r-in"><span class="co"># Define matrix</span></span>
-<span class="r-in"><span class="va">n1</span> <span class="op">&lt;-</span> <span class="fl">5</span>; <span class="va">n2</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
-<span class="r-in"><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">100</span>, size <span class="op">=</span> <span class="va">n1</span><span class="op">*</span><span class="va">n2</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="va">n1</span>, nrow <span class="op">=</span> <span class="va">n2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (3) Rectangular matrices function similarly</span></span></span>
+<span class="r-in"><span><span class="co"># Define matrix</span></span></span>
+<span class="r-in"><span><span class="va">n1</span> <span class="op">&lt;-</span> <span class="fl">5</span>; <span class="va">n2</span> <span class="op">&lt;-</span> <span class="fl">10</span></span></span>
+<span class="r-in"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">100</span>, size <span class="op">=</span> <span class="va">n1</span><span class="op">*</span><span class="va">n2</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="va">n1</span>, nrow <span class="op">=</span> <span class="va">n2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  int [1:10, 1:5] 97 20 78 82 76 96 85 63 61 15 ...</span>
-<span class="r-in"><span class="co"># Visualise matrix with default options</span></span>
-<span class="r-in"><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Visualise matrix with default options</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_mat-11.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Adjust names</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Adjust names</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_mat-12.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Other options can be implemented as above</span></span>
-<span class="r-in"><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, grid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Other options can be implemented as above</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, grid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_mat-13.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># However, adding colours along the diagonal may not make sense for asymmetric matrices</span></span>
-<span class="r-in"><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, col_diag <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># However, adding colours along the diagonal may not make sense for asymmetric matrices</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, col_diag <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_mat-14.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#' #### Example (4): Understanding the retain_orientation argument:</span></span>
-<span class="r-in"><span class="co"># ... Under the default option (retain_orientation is FALSE), R plots a</span></span>
-<span class="r-in"><span class="co"># ... 90 degree counter-clockwise rotation of the conventional</span></span>
-<span class="r-in"><span class="co"># ... printed layout of a matrix. This can be difficult to interpret.</span></span>
-<span class="r-in"><span class="co"># ... retain_orientation = TRUE ensures the matrix is plotted in the</span></span>
-<span class="r-in"><span class="co"># ... correct orientation</span></span>
-<span class="r-in"><span class="co"># Define a simple matrix</span></span>
-<span class="r-in"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
-<span class="r-in"><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, ncol <span class="op">=</span> <span class="fl">3</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Distinguish row names from column names</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"><span class="co"># Check matrix</span></span>
-<span class="r-in"><span class="va">mat</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#' #### Example (4): Understanding the retain_orientation argument:</span></span></span>
+<span class="r-in"><span><span class="co"># ... Under the default option (retain_orientation is FALSE), R plots a</span></span></span>
+<span class="r-in"><span><span class="co"># ... 90 degree counter-clockwise rotation of the conventional</span></span></span>
+<span class="r-in"><span><span class="co"># ... printed layout of a matrix. This can be difficult to interpret.</span></span></span>
+<span class="r-in"><span><span class="co"># ... retain_orientation = TRUE ensures the matrix is plotted in the</span></span></span>
+<span class="r-in"><span><span class="co"># ... correct orientation</span></span></span>
+<span class="r-in"><span><span class="co"># Define a simple matrix</span></span></span>
+<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">3</span></span></span>
+<span class="r-in"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, ncol <span class="op">=</span> <span class="fl">3</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Distinguish row names from column names</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="co"># Check matrix</span></span></span>
+<span class="r-in"><span><span class="va">mat</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [,1] [,2] [,3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A    1    4    7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> B    2    5    8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> C    3    6    9</span>
-<span class="r-in"><span class="co"># Visualise 'default' versus 'expected' matrix</span></span>
-<span class="r-in"><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, retain_orientation <span class="op">=</span> <span class="cn">FALSE</span>, main <span class="op">=</span> <span class="st">"default (rotated)"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, retain_orientation <span class="op">=</span> <span class="cn">TRUE</span>, main <span class="op">=</span> <span class="st">"custom (original orientation)"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Visualise 'default' versus 'expected' matrix</span></span></span>
+<span class="r-in"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, retain_orientation <span class="op">=</span> <span class="cn">FALSE</span>, main <span class="op">=</span> <span class="st">"default (rotated)"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_mat</span><span class="op">(</span><span class="va">mat</span>, retain_orientation <span class="op">=</span> <span class="cn">TRUE</span>, main <span class="op">=</span> <span class="st">"custom (original orientation)"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_mat-15.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -228,7 +257,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

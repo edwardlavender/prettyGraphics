@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,34 +63,47 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">sci_notation</span><span class="op">(</span>
-  <span class="va">x</span>,
-  magnitude <span class="op">=</span> <span class="fl">5L</span>,
-  digits <span class="op">=</span> <span class="cn">NULL</span>,
-  specific <span class="op">=</span> <span class="cn">TRUE</span>,
-  make_exp <span class="op">=</span> <span class="cn">TRUE</span>,
-  make_sci <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sci_notation</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  magnitude <span class="op">=</span> <span class="fl">5L</span>,</span>
+<span>  digits <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  specific <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  make_exp <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  make_sci <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A numeric vector.</p></dd>
+
+
 <dt>magnitude</dt>
 <dd><p>An integer that defines the order of magnitude (below or above 0) after which numbers in all or specific elements in x are converted to scientific notation (see <code>specific</code>).</p></dd>
+
+
 <dt>digits</dt>
 <dd><p>An integer that defines the number of decimal places. If <code>NULL</code>, this is defined automatically to be the minimum number of decimal places required to distinguish numbers.</p></dd>
+
+
 <dt>specific</dt>
 <dd><p>A logical input that defines whether or not to convert only the specific numbers in <code>x</code> whose order of magnitude exceed <code>magnitude</code> into scientific notation. Otherwise, if the absolute order of magnitude of element in <code>x</code> exceeds <code>magnitude</code>, all elements are reformatted in scientific notation. (However, 0 is always retained as 0.)</p></dd>
+
+
 <dt>make_exp</dt>
 <dd><p>A logical input that defines whether or not to create an expression object or a character object.</p></dd>
+
+
 <dt>make_sci</dt>
 <dd><p>A logical input that defines whether or not to create scientific notation. This acts as an overall control: if <code>make_sci</code> is <code>FALSE</code>, the function simplify returns <code>x</code> unchanged.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A vector of expression objects (or a vector of character objects) that can be added to a plot.</p>
+    
+
+<p>A vector of expression objects (or a vector of character objects) that can be added to a plot.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -103,55 +116,55 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Example (1): sci_notation() returns an expression object by default</span></span>
-<span class="r-in"><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1e-10</span>, <span class="fl">1e10</span>, by <span class="op">=</span> <span class="fl">1e9</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Example (1): sci_notation() returns an expression object by default</span></span></span>
+<span class="r-in"><span><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1e-10</span>, <span class="fl">1e10</span>, by <span class="op">=</span> <span class="fl">1e9</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> expression("1" ~ "x" ~ 10^-10, "1" ~ "x" ~ 10^9, "2" ~ "x" ~ </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     10^9, "3" ~ "x" ~ 10^9, "4" ~ "x" ~ 10^9, "5" ~ "x" ~ 10^9, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "6" ~ "x" ~ 10^9, "7" ~ "x" ~ 10^9, "8" ~ "x" ~ 10^9, "9" ~ </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         "x" ~ 10^9, "1" ~ "x" ~ 10^10)</span>
-<span class="r-in"><span class="co"># Except for vectors in which all elements are below the specified magnitude,</span></span>
-<span class="r-in"><span class="co"># ... which are left unchanged:</span></span>
-<span class="r-in"><span class="fu">sci_notation</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Except for vectors in which all elements are below the specified magnitude,</span></span></span>
+<span class="r-in"><span><span class="co"># ... which are left unchanged:</span></span></span>
+<span class="r-in"><span><span class="fu">sci_notation</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  2  3  4  5  6  7  8  9 10</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (2): sci_notation() can be used to create pretty axis labels</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1e-10</span>, <span class="fl">1e10</span>, by <span class="op">=</span> <span class="fl">1e9</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">xtidy</span> <span class="op">&lt;-</span> <span class="fu">sci_notation</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, at <span class="op">=</span> <span class="va">x</span>, labels <span class="op">=</span> <span class="va">xtidy</span>, pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, las <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, by <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (2): sci_notation() can be used to create pretty axis labels</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1e-10</span>, <span class="fl">1e10</span>, by <span class="op">=</span> <span class="fl">1e9</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">xtidy</span> <span class="op">&lt;-</span> <span class="fu">sci_notation</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, at <span class="op">=</span> <span class="va">x</span>, labels <span class="op">=</span> <span class="va">xtidy</span>, pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, las <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, by <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sci_notation-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># This is implemented automatically by pretty_axis() (e.g., via pretty_plot()):</span></span>
-<span class="r-in"><span class="fu"><a href="pretty_plot.html">pretty_plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># This is implemented automatically by pretty_axis() (e.g., via pretty_plot()):</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="pretty_plot.html">pretty_plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sci_notation-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (3): The digits argument controls the number of decimal places:</span></span>
-<span class="r-in"><span class="co"># The default is to select the minimum number of decimal places to distinguish</span></span>
-<span class="r-in"><span class="co"># ... numbers:</span></span>
-<span class="r-in"><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.29876e11</span>, <span class="fl">1.29e11</span>, <span class="fl">1.29e12</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (3): The digits argument controls the number of decimal places:</span></span></span>
+<span class="r-in"><span><span class="co"># The default is to select the minimum number of decimal places to distinguish</span></span></span>
+<span class="r-in"><span><span class="co"># ... numbers:</span></span></span>
+<span class="r-in"><span><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.29876e11</span>, <span class="fl">1.29e11</span>, <span class="fl">1.29e12</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> expression("1.299" ~ "x" ~ 10^11, "1.290" ~ "x" ~ 10^11, "1.290" ~ </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "x" ~ 10^12)</span>
-<span class="r-in"><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.29876e11</span>, <span class="fl">1.298769e11</span>, <span class="fl">1.29e12</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.29876e11</span>, <span class="fl">1.298769e11</span>, <span class="fl">1.29e12</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> expression("1.298760" ~ "x" ~ 10^11, "1.298769" ~ "x" ~ 10^11, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "1.290000" ~ "x" ~ 10^12)</span>
-<span class="r-in"><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.29876e11</span>, <span class="fl">1.298769e12</span>, <span class="fl">1.29e13</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.29876e11</span>, <span class="fl">1.298769e12</span>, <span class="fl">1.29e13</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> expression("1" ~ "x" ~ 10^11, "1" ~ "x" ~ 10^12, "1" ~ "x" ~ </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     10^13)</span>
-<span class="r-in"><span class="co"># Otherwise, this can be directly specified:</span></span>
-<span class="r-in"><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.29876e11</span>, <span class="fl">1.29e11</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Otherwise, this can be directly specified:</span></span></span>
+<span class="r-in"><span><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.29876e11</span>, <span class="fl">1.29e11</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> expression("1.29876000" ~ "x" ~ 10^11, "1.29000000" ~ "x" ~ 10^11)</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (4) Magnitude and specific control implementation</span></span>
-<span class="r-in"><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1e9</span><span class="op">)</span>, magnitude <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (4) Magnitude and specific control implementation</span></span></span>
+<span class="r-in"><span><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1e9</span><span class="op">)</span>, magnitude <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> expression("0", "1" ~ "x" ~ 10^0, "2" ~ "x" ~ 10^0, "1" ~ "x" ~ </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     10^9)</span>
-<span class="r-in"><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1e9</span><span class="op">)</span>, magnitude <span class="op">=</span> <span class="fl">5</span>, specific <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1e9</span><span class="op">)</span>, magnitude <span class="op">=</span> <span class="fl">5</span>, specific <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> expression("0", "1" ~ "x" ~ 10^0, "2" ~ "x" ~ 10^0, "1" ~ "x" ~ </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     10^9)</span>
-<span class="r-in"><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1e9</span><span class="op">)</span>, magnitude <span class="op">=</span> <span class="fl">5</span>, specific <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">sci_notation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1e9</span><span class="op">)</span>, magnitude <span class="op">=</span> <span class="fl">5</span>, specific <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> expression("0", "1", "2", "1" ~ "x" ~ 10^9)</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -166,7 +179,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

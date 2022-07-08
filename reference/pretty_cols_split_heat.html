@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,35 +63,48 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pretty_cols_split_heat</span><span class="op">(</span>
-  <span class="va">zlim</span>,
-  split <span class="op">=</span> <span class="fl">0</span>,
-  scheme_cold <span class="op">=</span> <span class="st">"Blues"</span>,
-  scheme_hot <span class="op">=</span> <span class="st">"Reds"</span>,
-  select_cold <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>,
-  select_hot <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>,
-  n_breaks <span class="op">=</span> <span class="fl">100</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pretty_cols_split_heat</span><span class="op">(</span></span>
+<span>  <span class="va">zlim</span>,</span>
+<span>  split <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  scheme_cold <span class="op">=</span> <span class="st">"Blues"</span>,</span>
+<span>  scheme_hot <span class="op">=</span> <span class="st">"Reds"</span>,</span>
+<span>  select_cold <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>,</span>
+<span>  select_hot <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>,</span>
+<span>  n_breaks <span class="op">=</span> <span class="fl">100</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>zlim</dt>
 <dd><p>A numeric range that the colour scheme should span.</p></dd>
+
+
 <dt>split</dt>
 <dd><p>A number that divides the colour scheme. The default is <code>split = 0</code>, which splits the colour scheme around 0.</p></dd>
+
+
 <dt>scheme_cold</dt>
 <dd><p>A character that defines the colour scheme for numbers below <code>split</code> (e.g., negative numbers), supported by <code><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></code>.</p></dd>
+
+
 <dt>scheme_hot</dt>
 <dd><p>A character that defines the colour scheme for numbers above <code>split</code> (e.g., positive numbers), supported by <code><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></code>.</p></dd>
+
+
 <dt>select_cold, select_hot</dt>
 <dd><p>Integer vectors that define which colours to draw from <code>scheme_cold</code> and <code>scheme_cold</code> respectively.</p></dd>
+
+
 <dt>n_breaks</dt>
 <dd><p>The number of breaks in the colour scheme.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns a named list that contains the z limits (`zlim'), a numeric vector of breaks (`breaks') and the associated vector of colours (`col'). This can be passed to <code><a href="https://rdrr.io/pkg/fields/man/image.plot.html" class="external-link">image.plot</a></code>.</p>
+    
+
+<p>The function returns a named list that contains the z limits (`zlim'), a numeric vector of breaks (`breaks') and the associated vector of colours (`col'). This can be passed to <code><a href="https://rdrr.io/pkg/fields/man/image.plot.html" class="external-link">image.plot</a></code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -108,19 +121,19 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Generate a raster with positive and negative numbers</span></span>
-<span class="r-in"><span class="va">nrw</span> <span class="op">&lt;-</span> <span class="va">ncol</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
-<span class="r-in"><span class="va">n</span> <span class="op">&lt;-</span> <span class="va">nrw</span> <span class="op">*</span> <span class="va">ncol</span></span>
-<span class="r-in"><span class="va">zlim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="va">zlim</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">zlim</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="va">nrw</span>, ncol <span class="op">=</span> <span class="va">ncol</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Define colours</span></span>
-<span class="r-in"><span class="va">col_param</span> <span class="op">&lt;-</span> <span class="fu">pretty_cols_split_heat</span><span class="op">(</span>zlim <span class="op">=</span> <span class="va">zlim</span>, n_breaks <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Visualise raster with colour scheme</span></span>
-<span class="r-in"><span class="fu">fields</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/fields/man/image.plot.html" class="external-link">image.plot</a></span><span class="op">(</span><span class="va">r</span>,</span>
-<span class="r-in">                   zlim <span class="op">=</span> <span class="va">col_param</span><span class="op">$</span><span class="va">zlim</span>,</span>
-<span class="r-in">                   breaks <span class="op">=</span> <span class="va">col_param</span><span class="op">$</span><span class="va">breaks</span>,</span>
-<span class="r-in">                   col <span class="op">=</span> <span class="va">col_param</span><span class="op">$</span><span class="va">col</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Generate a raster with positive and negative numbers</span></span></span>
+<span class="r-in"><span><span class="va">nrw</span> <span class="op">&lt;-</span> <span class="va">ncol</span> <span class="op">&lt;-</span> <span class="fl">5</span></span></span>
+<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="va">nrw</span> <span class="op">*</span> <span class="va">ncol</span></span></span>
+<span class="r-in"><span><span class="va">zlim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="va">zlim</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">zlim</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="va">nrw</span>, ncol <span class="op">=</span> <span class="va">ncol</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Define colours</span></span></span>
+<span class="r-in"><span><span class="va">col_param</span> <span class="op">&lt;-</span> <span class="fu">pretty_cols_split_heat</span><span class="op">(</span>zlim <span class="op">=</span> <span class="va">zlim</span>, n_breaks <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Visualise raster with colour scheme</span></span></span>
+<span class="r-in"><span><span class="fu">fields</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/fields/man/image.plot.html" class="external-link">image.plot</a></span><span class="op">(</span><span class="va">r</span>,</span></span>
+<span class="r-in"><span>                   zlim <span class="op">=</span> <span class="va">col_param</span><span class="op">$</span><span class="va">zlim</span>,</span></span>
+<span class="r-in"><span>                   breaks <span class="op">=</span> <span class="va">col_param</span><span class="op">$</span><span class="va">breaks</span>,</span></span>
+<span class="r-in"><span>                   col <span class="op">=</span> <span class="va">col_param</span><span class="op">$</span><span class="va">col</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_cols_split_heat-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -136,7 +149,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

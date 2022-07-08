@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,52 +63,75 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pretty_map</span><span class="op">(</span>
-  x <span class="op">=</span> <span class="cn">NULL</span>,
-  add_rasters <span class="op">=</span> <span class="cn">NULL</span>,
-  add_polys <span class="op">=</span> <span class="cn">NULL</span>,
-  add_lines <span class="op">=</span> <span class="cn">NULL</span>,
-  add_paths <span class="op">=</span> <span class="cn">NULL</span>,
-  add_points <span class="op">=</span> <span class="cn">NULL</span>,
-  add_additional <span class="op">=</span> <span class="cn">NULL</span>,
-  crop_spatial <span class="op">=</span> <span class="cn">FALSE</span>,
-  xlim <span class="op">=</span> <span class="cn">NULL</span>,
-  ylim <span class="op">=</span> <span class="cn">NULL</span>,
-  pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>, control_sci_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>magnitude <span class="op">=</span> <span class="fl">16L</span>, digits <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pretty_map</span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  add_rasters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  add_polys <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  add_lines <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  add_paths <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  add_points <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  add_additional <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  crop_spatial <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  xlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ylim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>, control_sci_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>magnitude <span class="op">=</span> <span class="fl">16L</span>, digits <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>(optional) An <code><a href="https://rdrr.io/pkg/raster/man/extent.html" class="external-link">extent</a></code> object (or, preferably, an object, such as a Raster* or Spatial* object that includes a coordinate reference system (CRS) and from which an <code><a href="https://rdrr.io/pkg/raster/man/extent.html" class="external-link">extent</a></code> object can be derived) that defines the area's boundaries. If provided, this is used to define the background plot, including the CRS (if possible) and axis limits (if unspecified). If <code>x = NULL</code>, then the CRS and axis limits are derived from the spatial objects defined via <code>add_*</code> lists (see below) and, if applicable, other function arguments, such as <code>xlim</code> and <code>ylim</code>.</p></dd>
+
+
 <dt>add_rasters</dt>
 <dd><p>(optional) A (optionally nested) named list of arguments, passed to <code><a href="add_sp.html">add_sp_raster</a></code>, to add raster(s) to the plot. Nested lists are supported for the addition of multiple layers. Each list must contain an 'x' element that defines the raster to be added to the plot.</p></dd>
+
+
 <dt>add_polys</dt>
 <dd><p>(optional) A (optionally nested) named list of arguments, passed to <code><a href="add_sp.html">add_sp_poly</a></code>, to add polgyon(s) to the plot. The implementation of this argument follows that of <code>add_rasters</code> (above).</p></dd>
+
+
 <dt>add_lines</dt>
 <dd><p>(optional) A (optionally nested) named list of arguments, passed to <code><a href="add_sp.html">add_sp_line</a></code>, to add lines(s) to the plot. The implementation of this argument follows that of <code>add_rasters</code> (above), but x and y coordinates can be passed as vectors, a matrix or as a Spatial* object.</p></dd>
+
+
 <dt>add_paths</dt>
 <dd><p>(optional) A (optionally nested) named list of arguments, passed to <code><a href="add_sp.html">add_sp_path</a></code>, to add path(s) to the plot. The implementation of this argument follows that of <code>add_rasters</code> (above), but x and y coordinates can be passed as vectors, a matrix or as a Spatial* object.</p></dd>
+
+
 <dt>add_points</dt>
 <dd><p>(optional)  A (optionally nested) named list of arguments, passed to <code><a href="add_sp.html">add_sp_points</a></code>, to add points(s) to the plot. The implementation of this argument follows that of <code>add_rasters</code> (above), but x and y coordinates can be passed as vectors, a matrix or as a Spatial* object.</p></dd>
+
+
 <dt>add_additional</dt>
 <dd><p>(optional) A stand-alone function, to be executed after the background plot has been made and any specified spatial layers have been added to this, to customise the result.</p></dd>
+
+
 <dt>crop_spatial</dt>
 <dd><p>A logical variable that defines whether or not to crop spatial data to lie within the axis limits, which are defined from (a) <code>x</code>, <code>xlim</code> and <code>ylim</code>, or from inputted spatial objects, depending on user inputs.</p></dd>
+
+
 <dt>xlim, ylim, pretty_axis_args</dt>
 <dd><p>Axis control arguments. <code>xlim</code> and <code>ylim</code> control the axis limits, following the rules of the 'lim' argument in <code><a href="pretty_axis.html">pretty_axis</a></code>. Finer control can be achieved by passing additional arguments to this function as a named list via <code>pretty_axis_args</code>.</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>A logical variable that defines whether or not to print messages to the console to relay function progress. This can be useful with very large spatial datasets.</p></dd>
+
+
 <dt>...</dt>
-<dd><p>Additional arguments, passed to <code><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></code>, which creates the background plot, such as <code>xlab</code>, <code>ylab</code> and <code>main</code>.</p></dd>
+<dd><p>Additional arguments, passed to <code><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></code>, which creates the background plot, such as <code>xlab</code>, <code>ylab</code> and <code>main</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function produces a background plot of an area with spatial layers added (if applicable). The named list of axis parameters computed by <code><a href="pretty_axis.html">pretty_axis</a></code> is also returned invisibly.</p>
+    
+
+<p>The function produces a background plot of an area with spatial layers added (if applicable). The named list of axis parameters computed by <code><a href="pretty_axis.html">pretty_axis</a></code> is also returned invisibly.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -121,99 +144,99 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Example (1): Background only plots</span></span>
-<span class="r-in"><span class="fu">pretty_map</span><span class="op">(</span><span class="va">dat_gebco</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Example (1): Background only plots</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_map</span><span class="op">(</span><span class="va">dat_gebco</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 'x' is the only spatial information provided: plotting the background only.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> prettyGraphics::pretty_map() CRS taken as: '+proj=longlat +datum=WGS84 +no_defs'.</span>
 <span class="r-plt img"><img src="pretty_map-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">pretty_map</span><span class="op">(</span><span class="va">dat_coast_around_oban</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pretty_map</span><span class="op">(</span><span class="va">dat_coast_around_oban</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 'x' is the only spatial information provided: plotting the background only.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> prettyGraphics::pretty_map() CRS taken as: '+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0'.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has no comment</span>
 <span class="r-plt img"><img src="pretty_map-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">pretty_map</span><span class="op">(</span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/extent.html" class="external-link">extent</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span>, <span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pretty_map</span><span class="op">(</span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/extent.html" class="external-link">extent</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span>, <span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 'x' is the only spatial information provided: plotting the background only.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> prettyGraphics::pretty_map() CRS taken as: 'NA'.</span>
 <span class="r-plt img"><img src="pretty_map-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (2): Single spatial layers</span></span>
-<span class="r-in"><span class="co"># Plot a bathymetric map</span></span>
-<span class="r-in"><span class="fu">pretty_map</span><span class="op">(</span><span class="va">dat_gebco</span>, add_rasters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (2): Single spatial layers</span></span></span>
+<span class="r-in"><span><span class="co"># Plot a bathymetric map</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_map</span><span class="op">(</span><span class="va">dat_gebco</span>, add_rasters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> prettyGraphics::pretty_map() CRS taken as: '+proj=longlat +datum=WGS84 +no_defs'.</span>
-<span class="r-in"><span class="co"># With a single spatial layer, this is an equivalent implementation</span></span>
-<span class="r-in"><span class="fu">pretty_map</span><span class="op">(</span>add_rasters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># With a single spatial layer, this is an equivalent implementation</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_map</span><span class="op">(</span>add_rasters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> prettyGraphics::pretty_map() CRS taken as: '+proj=longlat +datum=WGS84 +no_defs'.</span>
 <span class="r-plt img"><img src="pretty_map-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># With multiple layers, we can get the extent of the area automatically</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="op">-</span><span class="fl">6</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">55</span>, <span class="fl">58</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_map</span><span class="op">(</span>add_rasters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span><span class="op">)</span>,</span>
-<span class="r-in">           add_points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># With multiple layers, we can get the extent of the area automatically</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="op">-</span><span class="fl">6</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">55</span>, <span class="fl">58</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_map</span><span class="op">(</span>add_rasters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           add_points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Spatial layers do not have identical CRS strings</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> prettyGraphics::pretty_map() CRS taken as: '+proj=longlat +datum=WGS84 +no_defs'.</span>
 <span class="r-plt img"><img src="pretty_map-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Or we can set it by specifying 'x' and, if necessary, crop other spatial data</span></span>
-<span class="r-in"><span class="co"># ... to this area</span></span>
-<span class="r-in"><span class="fu">pretty_map</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span>,</span>
-<span class="r-in">           add_rasters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span><span class="op">)</span>,</span>
-<span class="r-in">           add_points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">           crop_spatial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Or we can set it by specifying 'x' and, if necessary, crop other spatial data</span></span></span>
+<span class="r-in"><span><span class="co"># ... to this area</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_map</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span>,</span></span>
+<span class="r-in"><span>           add_rasters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           add_points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           crop_spatial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> prettyGraphics::pretty_map() CRS taken as: '+proj=longlat +datum=WGS84 +no_defs'.</span>
 <span class="r-plt img"><img src="pretty_map-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Or via xlim and ylim arguments</span></span>
-<span class="r-in"><span class="fu">pretty_map</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span>,</span>
-<span class="r-in">           add_rasters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span><span class="op">)</span>,</span>
-<span class="r-in">           add_points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">           xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5.5</span>, <span class="op">-</span><span class="fl">5.45</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">56.4</span>, <span class="fl">56.45</span><span class="op">)</span>,</span>
-<span class="r-in">           crop_spatial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Or via xlim and ylim arguments</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_map</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span>,</span></span>
+<span class="r-in"><span>           add_rasters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           add_points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5.5</span>, <span class="op">-</span><span class="fl">5.45</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">56.4</span>, <span class="fl">56.45</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           crop_spatial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> prettyGraphics::pretty_map() CRS taken as: '+proj=longlat +datum=WGS84 +no_defs'.</span>
 <span class="r-plt img"><img src="pretty_map-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (3): Use nested lists to inlclude multiple elements of the same type</span></span>
-<span class="r-in"><span class="co">## E.g., A map with a raster and multiple polygons, supplied as nested list</span></span>
-<span class="r-in"><span class="co"># Generate a random prism to include as a polygon</span></span>
-<span class="r-in"><span class="va">sim_prism</span> <span class="op">&lt;-</span> <span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/spsample.html" class="external-link">spsample</a></span><span class="op">(</span><span class="va">dat_coast_around_oban</span>, n <span class="op">=</span> <span class="fl">3</span>, type <span class="op">=</span> <span class="st">"random"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (3): Use nested lists to inlclude multiple elements of the same type</span></span></span>
+<span class="r-in"><span><span class="co">## E.g., A map with a raster and multiple polygons, supplied as nested list</span></span></span>
+<span class="r-in"><span><span class="co"># Generate a random prism to include as a polygon</span></span></span>
+<span class="r-in"><span><span class="va">sim_prism</span> <span class="op">&lt;-</span> <span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/spsample.html" class="external-link">spsample</a></span><span class="op">(</span><span class="va">dat_coast_around_oban</span>, n <span class="op">=</span> <span class="fl">3</span>, type <span class="op">=</span> <span class="st">"random"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has comment, which is lost in output; in tests, see</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html</span>
-<span class="r-in"><span class="va">sim_prism</span> <span class="op">&lt;-</span> <span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPolygons.html" class="external-link">Polygon</a></span><span class="op">(</span><span class="va">sim_prism</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">sim_prism</span> <span class="op">&lt;-</span> <span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPolygons.html" class="external-link">Polygon</a></span><span class="op">(</span><span class="va">sim_prism</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>less than 4 coordinates in polygon</span>
-<span class="r-in"><span class="va">sim_prism</span> <span class="op">&lt;-</span> <span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPolygons.html" class="external-link">SpatialPolygons</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPolygons.html" class="external-link">Polygons</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">sim_prism</span><span class="op">)</span>, ID <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Make map</span></span>
-<span class="r-in"><span class="fu">pretty_map</span><span class="op">(</span>add_rasters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span><span class="op">)</span>,</span>
-<span class="r-in">           add_polys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_coast_around_oban</span>, col <span class="op">=</span> <span class="st">"darkgreen"</span><span class="op">)</span>,</span>
-<span class="r-in">                            <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sim_prism</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">sim_prism</span> <span class="op">&lt;-</span> <span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPolygons.html" class="external-link">SpatialPolygons</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPolygons.html" class="external-link">Polygons</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">sim_prism</span><span class="op">)</span>, ID <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Make map</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_map</span><span class="op">(</span>add_rasters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           add_polys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_coast_around_oban</span>, col <span class="op">=</span> <span class="st">"darkgreen"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                            <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sim_prism</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Spatial layers do not have identical CRS strings</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> prettyGraphics::pretty_map() CRS taken as: '+proj=longlat +datum=WGS84 +no_defs'.</span>
 <span class="r-plt img"><img src="pretty_map-8.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (4): Customise spatial layers via additional arguments to each list</span></span>
-<span class="r-in"><span class="fu">pretty_map</span><span class="op">(</span><span class="va">dat_gebco</span>,</span>
-<span class="r-in">           add_rasters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span>, col <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (4): Customise spatial layers via additional arguments to each list</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_map</span><span class="op">(</span><span class="va">dat_gebco</span>,</span></span>
+<span class="r-in"><span>           add_rasters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_gebco</span>, col <span class="op">=</span> <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> prettyGraphics::pretty_map() CRS taken as: '+proj=longlat +datum=WGS84 +no_defs'.</span>
 <span class="r-plt img"><img src="pretty_map-9.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (4): Further customisation is possible via</span></span>
-<span class="r-in"><span class="co"># ... add_additional(), pretty_axis_args and ...</span></span>
-<span class="r-in"><span class="co">## add_additional()</span></span>
-<span class="r-in"><span class="va">add_titles</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, <span class="st">"x (UTM)"</span>, line <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, <span class="st">"y (UTM)"</span>, line <span class="op">=</span> <span class="op">-</span><span class="fl">8</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="fu">pretty_map</span><span class="op">(</span><span class="va">dat_gebco</span>, add_additional <span class="op">=</span> <span class="va">add_titles</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (4): Further customisation is possible via</span></span></span>
+<span class="r-in"><span><span class="co"># ... add_additional(), pretty_axis_args and ...</span></span></span>
+<span class="r-in"><span><span class="co">## add_additional()</span></span></span>
+<span class="r-in"><span><span class="va">add_titles</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, <span class="st">"x (UTM)"</span>, line <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, <span class="st">"y (UTM)"</span>, line <span class="op">=</span> <span class="op">-</span><span class="fl">8</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_map</span><span class="op">(</span><span class="va">dat_gebco</span>, add_additional <span class="op">=</span> <span class="va">add_titles</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 'x' is the only spatial information provided: plotting the background only.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> prettyGraphics::pretty_map() CRS taken as: '+proj=longlat +datum=WGS84 +no_defs'.</span>
 <span class="r-plt img"><img src="pretty_map-10.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">## Similar (less tidy) implementation via ...</span></span>
-<span class="r-in"><span class="fu">pretty_map</span><span class="op">(</span><span class="va">dat_gebco</span>, xlab <span class="op">=</span> <span class="st">"x (UTM)"</span>, ylab <span class="op">=</span> <span class="st">"y (UTM)"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Similar (less tidy) implementation via ...</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_map</span><span class="op">(</span><span class="va">dat_gebco</span>, xlab <span class="op">=</span> <span class="st">"x (UTM)"</span>, ylab <span class="op">=</span> <span class="st">"y (UTM)"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 'x' is the only spatial information provided: plotting the background only.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> prettyGraphics::pretty_map() CRS taken as: '+proj=longlat +datum=WGS84 +no_defs'.</span>
 <span class="r-plt img"><img src="pretty_map-11.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">## Fine-tune axes</span></span>
-<span class="r-in"><span class="fu">pretty_map</span><span class="op">(</span><span class="va">dat_gebco</span>, pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Fine-tune axes</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_map</span><span class="op">(</span><span class="va">dat_gebco</span>, pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 'x' is the only spatial information provided: plotting the background only.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> prettyGraphics::pretty_map() CRS taken as: '+proj=longlat +datum=WGS84 +no_defs'.</span>
 <span class="r-plt img"><img src="pretty_map-12.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -228,7 +251,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

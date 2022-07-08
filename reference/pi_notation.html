@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,23 +63,32 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pi_notation</span><span class="op">(</span><span class="va">x</span>, as_fraction <span class="op">=</span> <span class="cn">TRUE</span>, as_bar <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pi_notation</span><span class="op">(</span><span class="va">x</span>, as_fraction <span class="op">=</span> <span class="cn">TRUE</span>, as_bar <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A numeric vector.</p></dd>
+
+
 <dt>as_fraction</dt>
 <dd><p>A logical value that defines whether or not to express sequential multipliers of \(\pi\) as fractions (<code>TRUE</code>) or decimals (<code>FALSE</code>).</p></dd>
+
+
 <dt>as_bar</dt>
 <dd><p>If <code>as_fraction = TRUE</code>, <code>as_bar</code> is a logical value that defines whether or not to style fractions with a horizontal bar (i.e., \(\frac{a}{b}\)) or a slash (i.e., \(a/b\)).</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed to <code><a href="add_lagging_point_zero.html">add_lagging_point_zero</a></code> if <code>as_fraction = FALSE</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns an <code><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></code> object.</p>
+    
+
+<p>The function returns an <code><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></code> object.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -96,81 +105,81 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Example (1): Implement the function in isolation</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">8</span>, by <span class="op">=</span> <span class="fl">0.25</span><span class="op">*</span><span class="va">pi</span><span class="op">)</span><span class="op">/</span><span class="va">pi</span></span>
-<span class="r-in"><span class="fu">pi_notation</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Example (1): Implement the function in isolation</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">8</span>, by <span class="op">=</span> <span class="fl">0.25</span><span class="op">*</span><span class="va">pi</span><span class="op">)</span><span class="op">/</span><span class="va">pi</span></span></span>
+<span class="r-in"><span><span class="fu">pi_notation</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> expression("0" * pi, frac("1", "4") * pi, frac("1", "2") * pi, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     frac("3", "4") * pi, "1" * pi, frac("5", "4") * pi, frac("3", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         "2") * pi, frac("7", "4") * pi, "2" * pi, frac("9", "4") * </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         pi, frac("5", "2") * pi)</span>
-<span class="r-in"><span class="fu">pi_notation</span><span class="op">(</span><span class="va">x</span>, as_bar <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pi_notation</span><span class="op">(</span><span class="va">x</span>, as_bar <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> expression("0" * pi, "1" * "/" * "4" * pi, "1" * "/" * "2" * </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     pi, "3" * "/" * "4" * pi, "1" * pi, "5" * "/" * "4" * pi, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "3" * "/" * "2" * pi, "7" * "/" * "4" * pi, "2" * pi, "9" * </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         "/" * "4" * pi, "5" * "/" * "2" * pi)</span>
-<span class="r-in"><span class="fu">pi_notation</span><span class="op">(</span><span class="va">x</span>, as_fraction <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pi_notation</span><span class="op">(</span><span class="va">x</span>, as_fraction <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> expression("0.00" * pi, "0.25" * pi, "0.50" * pi, "0.75" * pi, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "1.00" * pi, "1.25" * pi, "1.50" * pi, "1.75" * pi, "2.00" * </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         pi, "2.25" * pi, "2.50" * pi)</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (2): Plotting with fractions</span></span>
-<span class="r-in"><span class="co">## Stacked fraction</span></span>
-<span class="r-in"><span class="va">xlabels</span> <span class="op">&lt;-</span> <span class="fu">pi_notation</span><span class="op">(</span><span class="va">x</span>, as_fraction <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, at <span class="op">=</span> <span class="va">x</span><span class="op">*</span><span class="va">pi</span>, labels <span class="op">=</span> <span class="va">xlabels</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (2): Plotting with fractions</span></span></span>
+<span class="r-in"><span><span class="co">## Stacked fraction</span></span></span>
+<span class="r-in"><span><span class="va">xlabels</span> <span class="op">&lt;-</span> <span class="fu">pi_notation</span><span class="op">(</span><span class="va">x</span>, as_fraction <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, at <span class="op">=</span> <span class="va">x</span><span class="op">*</span><span class="va">pi</span>, labels <span class="op">=</span> <span class="va">xlabels</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pi_notation-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">## Spread fraction</span></span>
-<span class="r-in"><span class="va">x_axis</span> <span class="op">&lt;-</span> <span class="fu">pi_notation</span><span class="op">(</span><span class="va">x</span>, as_fraction <span class="op">=</span> <span class="cn">TRUE</span>, as_bar <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, at <span class="op">=</span> <span class="va">x</span><span class="op">*</span><span class="va">pi</span>, labels <span class="op">=</span> <span class="va">xlabels</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Spread fraction</span></span></span>
+<span class="r-in"><span><span class="va">x_axis</span> <span class="op">&lt;-</span> <span class="fu">pi_notation</span><span class="op">(</span><span class="va">x</span>, as_fraction <span class="op">=</span> <span class="cn">TRUE</span>, as_bar <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, at <span class="op">=</span> <span class="va">x</span><span class="op">*</span><span class="va">pi</span>, labels <span class="op">=</span> <span class="va">xlabels</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pi_notation-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (3): Plotting with decimals</span></span>
-<span class="r-in"><span class="va">x_axis</span> <span class="op">&lt;-</span> <span class="fu">pi_notation</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, as_fraction <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, at <span class="op">=</span> <span class="va">x</span><span class="op">*</span><span class="va">pi</span>, labels <span class="op">=</span> <span class="va">xlabels</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (3): Plotting with decimals</span></span></span>
+<span class="r-in"><span><span class="va">x_axis</span> <span class="op">&lt;-</span> <span class="fu">pi_notation</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, as_fraction <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, at <span class="op">=</span> <span class="va">x</span><span class="op">*</span><span class="va">pi</span>, labels <span class="op">=</span> <span class="va">xlabels</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pi_notation-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (4): pi_notation() is implemented automatically in prettyGraphics</span></span>
-<span class="r-in"><span class="co"># ... via pretty_axis(), pretty_plot() etc.</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Define example time series of lunar phase in radians</span></span>
-<span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html" class="external-link">seq.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2016-01-01"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2016-02-01"</span><span class="op">)</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dat</span><span class="op">$</span><span class="va">lunar</span> <span class="op">&lt;-</span> <span class="fu">lunar</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lunar/man/lunar.phase.html" class="external-link">lunar.phase</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Visualise lunar phase time series, with pi_notation</span></span>
-<span class="r-in"><span class="fu"><a href="pretty_plot.html">pretty_plot</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span>, <span class="va">dat</span><span class="op">$</span><span class="va">lunar</span>,</span>
-<span class="r-in">            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pi_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">            <span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (4): pi_notation() is implemented automatically in prettyGraphics</span></span></span>
+<span class="r-in"><span><span class="co"># ... via pretty_axis(), pretty_plot() etc.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Define example time series of lunar phase in radians</span></span></span>
+<span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html" class="external-link">seq.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2016-01-01"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2016-02-01"</span><span class="op">)</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat</span><span class="op">$</span><span class="va">lunar</span> <span class="op">&lt;-</span> <span class="fu">lunar</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lunar/man/lunar.phase.html" class="external-link">lunar.phase</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Visualise lunar phase time series, with pi_notation</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="pretty_plot.html">pretty_plot</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span>, <span class="va">dat</span><span class="op">$</span><span class="va">lunar</span>,</span></span>
+<span class="r-in"><span>            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pi_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>            <span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Argument 'side' not supplied to pretty_axis_args (nor 'axis_ls'); defaulting to side = 1:2.</span>
-<span class="r-in"><span class="fu"><a href="add_moons.html">add_moons</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span><span class="op">)</span>, radius <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="add_moons.html">add_moons</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span><span class="op">)</span>, radius <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pi_notation-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Customise pi_notation</span></span>
-<span class="r-in"><span class="co"># Use as_bar = FALSE</span></span>
-<span class="r-in"><span class="fu"><a href="pretty_plot.html">pretty_plot</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span>, <span class="va">dat</span><span class="op">$</span><span class="va">lunar</span>,</span>
-<span class="r-in">            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pi_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>as_bar <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">            <span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Customise pi_notation</span></span></span>
+<span class="r-in"><span><span class="co"># Use as_bar = FALSE</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="pretty_plot.html">pretty_plot</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span>, <span class="va">dat</span><span class="op">$</span><span class="va">lunar</span>,</span></span>
+<span class="r-in"><span>            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pi_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>as_bar <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>            <span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Argument 'side' not supplied to pretty_axis_args (nor 'axis_ls'); defaulting to side = 1:2.</span>
-<span class="r-in"><span class="fu"><a href="add_moons.html">add_moons</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span><span class="op">)</span>, radius <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="add_moons.html">add_moons</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span><span class="op">)</span>, radius <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pi_notation-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Use decimals</span></span>
-<span class="r-in"><span class="fu"><a href="pretty_plot.html">pretty_plot</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span>, <span class="va">dat</span><span class="op">$</span><span class="va">lunar</span>,</span>
-<span class="r-in">            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pi_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>as_fraction <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">            <span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Use decimals</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="pretty_plot.html">pretty_plot</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span>, <span class="va">dat</span><span class="op">$</span><span class="va">lunar</span>,</span></span>
+<span class="r-in"><span>            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pi_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>as_fraction <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>            <span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Argument 'side' not supplied to pretty_axis_args (nor 'axis_ls'); defaulting to side = 1:2.</span>
-<span class="r-in"><span class="fu"><a href="add_moons.html">add_moons</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span><span class="op">)</span>, radius <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="add_moons.html">add_moons</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span><span class="op">)</span>, radius <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pi_notation-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Use pi_notation within specified axis limits</span></span>
-<span class="r-in"><span class="fu"><a href="pretty_plot.html">pretty_plot</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span>, <span class="va">dat</span><span class="op">$</span><span class="va">lunar</span>,</span>
-<span class="r-in">            ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">)</span>,</span>
-<span class="r-in">            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pi_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">            <span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Use pi_notation within specified axis limits</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="pretty_plot.html">pretty_plot</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span>, <span class="va">dat</span><span class="op">$</span><span class="va">lunar</span>,</span></span>
+<span class="r-in"><span>            ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pi_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>            <span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Argument 'side' not supplied to pretty_axis_args (nor 'axis_ls'); defaulting to side = 1:2.</span>
-<span class="r-in"><span class="fu"><a href="add_moons.html">add_moons</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span><span class="op">)</span>, radius <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="add_moons.html">add_moons</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date</span><span class="op">)</span>, radius <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pi_notation-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -185,7 +194,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

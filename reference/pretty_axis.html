@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,61 +63,92 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pretty_axis</span><span class="op">(</span>
-  side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,
-  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,
-  units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  pi_notation <span class="op">=</span> <span class="cn">NULL</span>,
-  control_axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>las <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  control_sci_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  control_digits <span class="op">=</span> <span class="cn">NULL</span>,
-  control_factor_lim <span class="op">=</span> <span class="fl">0.5</span>,
-  axis_ls <span class="op">=</span> <span class="cn">NULL</span>,
-  add <span class="op">=</span> <span class="cn">FALSE</span>,
-  return_list <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pretty_axis</span><span class="op">(</span></span>
+<span>  side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span>
+<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  pi_notation <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  control_axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>las <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  control_sci_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  control_digits <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  control_factor_lim <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  axis_ls <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  return_list <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>side</dt>
 <dd><p>A numeric input specifying the side(s) of a plot for which pretty axes should be defined.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>A list, with one element for each side, defining the values to be plotted on that side of the plot. Numeric, time stamp (i.e. <code><a href="https://rdrr.io/r/base/Dates.html" class="external-link">Dates</a></code> or <code><a href="https://rdrr.io/r/base/DateTimeClasses.html" class="external-link">DateTimeClasses</a></code>) or factor data are supported. Character vectors will be converted to factors for plotting.</p></dd>
+
+
 <dt>lim</dt>
 <dd><p>(optional) A list, with one element for each side, containing a vector of (one or both) axes limits for that axis. If provided, then axis tick marks (pretty or regular) are forced to lie within provided limits. Otherwise, suitable limits can be suggested by the function based on the data provided in <code>x</code>. It is possible to fix only the lower or upper limit by specifying <code>c(user_specified_limit, NA)</code> to fix the first limit (or simply or <code>user_specified_limit</code> in which case the first limit is taken as the one that should be fixed), or <code>c(NA, user_specified_limit)</code> to fix the upper limit; the other limit is then chosen automatically depending on the inputs to other function arguments. For factors, user-supplied limits are ignored. For factors with one level, limits are set to 0.75 and 1.25; for factors with multiple levels, limits are set to 1 and the number of factor levels. However, factor limits can be adjusted by <code>control_factor_lim</code> (see below).</p></dd>
+
+
 <dt>pretty</dt>
 <dd><p>A named list arguments that are used to create pretty axis tick marks. This list is passed to <code><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></code> (for numeric data), <code><a href="https://lubridate.tidyverse.org/reference/pretty_dates.html" class="external-link">pretty_dates</a></code> (for time stamp data) or to an internal function (for factors) to create pretty axes. If <code>pretty = list()</code>, pretty sequences for an axis/axes are not created and a user-defined sequence is implemented instead (see below). If each axis should be controlled by the same pretty parameters, these can be specified in the pretty argument in a single list. If each axis should be controlled by different parameters, a nested list is required, with a list of arguments for each axis provided within the overall list (see Examples). The default option is to create pretty axes with approximately <code>n = 5</code> breaks. For factors, the only implemented argument is <code>n</code>, which defines the number of pretty breaks; any other supplied arguments are silently ignored.</p></dd>
+
+
 <dt>units</dt>
 <dd><p>(optional) A list of units for each side. If <code>pretty = list()</code>, then a regular sequence of values between axes limits will be defined. This can be controlled by supplying the distance between sequential values to this argument (otherwise, a default value is used). For numeric axes, this is a number; for POSIXct axes, this is a character which specifies the duration between sequential ticks (e.g. "secs").</p></dd>
+
+
 <dt>axis</dt>
 <dd><p>(optional) A named list of arguments that are supplied to <code><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></code>, <code><a href="https://rdrr.io/r/graphics/axis.POSIXct.html" class="external-link">axis.POSIXct</a></code> or <code><a href="https://rdrr.io/r/graphics/axis.POSIXct.html" class="external-link">axis.Date</a></code> that control axes (e.g. <code>cex.axis</code>, <code>pos</code>, <code>col</code>, etc.). As for the <code>pretty</code> argument, a single list of arguments will affect all axes; otherwise, a nested list can be provided so that each axis can be controlled independently (see Examples).</p></dd>
+
+
 <dt>pi_notation</dt>
 <dd><p>(optional) A named list of arguments, passed to <code><a href="pi_notation.html">pi_notation</a></code>, to implement \(\pi\) notation for axis labels. The default option (<code>NULL</code>) suppresses this argument; a single list (<code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>) implements \(\pi\) notation for all axes using default arguments; and a nested list (e.g., <code>list(list(), NULL)</code>) implements \(\pi\) notation for specific axes.</p></dd>
+
+
 <dt>control_axis</dt>
 <dd><p>(optional) A named list of arguments that affect all axes. This is only useful if a nested list is provided to <code>axis</code> (see above). In this case, any arguments that should affect all axes can be provided via <code>control_axis</code> so that these do not need to be provided to each list in <code>axis</code>. (This is simply for convenience.)</p></dd>
+
+
 <dt>control_sci_notation</dt>
 <dd><p>A named list of arguments that controls scientific notation (see <code><a href="sci_notation.html">sci_notation</a></code>).</p></dd>
+
+
 <dt>control_digits</dt>
 <dd><p>(optional) An integer which defines the number of decimal places on numeric axes. If <code>NULL</code>, the number of decimal places is set automatically. This argument affects all numeric axes, unless (a) axis labels are all integers; (b) <code>pretty_axis</code> is implemented via <code><a href="pretty_plot.html">pretty_plot</a></code> and <code>x</code> is plotted against an index; or (c) <code><a href="sci_notation.html">sci_notation</a></code> is implemented in which case decimal places should be controlled independently for axes with scientific notation via the <code>digits</code> argument in <code>control_sci_notation</code> (see <code><a href="sci_notation.html">sci_notation</a></code>).</p></dd>
+
+
 <dt>control_factor_lim</dt>
 <dd><p>(optional) A number which specifies an additive adjustment to limits for a factor axis. For factors, with one or more level, limits become (0.75 - <code>control_factor_lim</code>) and (1.25 + <code>control_factor_lim</code>) or (1 - <code>control_factor_lim</code>) and (the number of factor levels + <code>control_factor_lim</code>) respectively.</p></dd>
+
+
 <dt>axis_ls</dt>
 <dd><p>(optional) The output of a call to <code>pretty_axis</code>. If this is provided, the function skips the definition of axis parameters and simply adds axes to a plot (see <code>add</code> below).</p></dd>
+
+
 <dt>add</dt>
 <dd><p>A logical input specifying whether or not to plot the axes. Usually, prettier plots result when <code>pretty_axis</code> is called prior to plotting to define axis limits; then, the plot can be created with those limits; and then the list created by the first call to <code>pretty_axis</code> can be supplied to the function again via the <code>axis_ls</code> argument, with <code>add = TRUE</code>, to add the axes (see Examples).</p></dd>
+
+
 <dt>return_list</dt>
 <dd><p>(depreciated) A logical input defining whether or not to return a list of axis parameters defined by the function.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Arguments (<code>cex.axis, cex.lab, col.axis, col.lab, font.axis, font.lab, las</code>) passed from other methods that are added to the <code>control_axis</code> argument and affect all axes.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns a list of parameters with an element for each <code>side</code>. Each element is a list which contains two elements: 'lim', a vector of the lower and upper axis limits for that <code>side</code> and 'axis', a list of parameters that define the axis for that <code>side</code>.</p>
+    
+
+<p>The function returns a list of parameters with an element for each <code>side</code>. Each element is a list which contains two elements: 'lim', a vector of the lower and upper axis limits for that <code>side</code> and 'axis', a list of parameters that define the axis for that <code>side</code>.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -126,26 +157,26 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Generate some data for numeric examples</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">x</span><span class="op">*</span><span class="fl">5</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### The default options</span></span>
-<span class="r-in"><span class="co"># The default options define the parameters of pretty axes with approx. n = 5 breaks</span></span>
-<span class="r-in"><span class="co"># apply pretty_axis to generate a list of parameters for pretty axes;</span></span>
-<span class="r-in"><span class="co"># we'll use the outputs to set the limits of the graph and then add pretty axes:</span></span>
-<span class="r-in"><span class="va">axis_args</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="co"># plot the graph using limits defined by function</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># add pretty axes by passing the axis_args list back to the function</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Generate some data for numeric examples</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">x</span><span class="op">*</span><span class="fl">5</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### The default options</span></span></span>
+<span class="r-in"><span><span class="co"># The default options define the parameters of pretty axes with approx. n = 5 breaks</span></span></span>
+<span class="r-in"><span><span class="co"># apply pretty_axis to generate a list of parameters for pretty axes;</span></span></span>
+<span class="r-in"><span><span class="co"># we'll use the outputs to set the limits of the graph and then add pretty axes:</span></span></span>
+<span class="r-in"><span><span class="va">axis_args</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># plot the graph using limits defined by function</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># add pretty axes by passing the axis_args list back to the function</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_axis-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$axis</span>
@@ -195,20 +226,20 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Adjusting pretty axes via the pretty argument</span></span>
-<span class="r-in"><span class="co"># We can add arguments to the pretty list that are passed to pretty() or lubridate::pretty_dates()</span></span>
-<span class="r-in"><span class="co"># ... to adjust the pretty axes produced.</span></span>
-<span class="r-in"><span class="co"># ... For example, we can adjust the minimum number of intervals on all axes if required:</span></span>
-<span class="r-in"><span class="va">axis_args</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, min.n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Adjusting pretty axes via the pretty argument</span></span></span>
+<span class="r-in"><span><span class="co"># We can add arguments to the pretty list that are passed to pretty() or lubridate::pretty_dates()</span></span></span>
+<span class="r-in"><span><span class="co"># ... to adjust the pretty axes produced.</span></span></span>
+<span class="r-in"><span><span class="co"># ... For example, we can adjust the minimum number of intervals on all axes if required:</span></span></span>
+<span class="r-in"><span><span class="va">axis_args</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, min.n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_axis-2.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$axis</span>
@@ -258,21 +289,21 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Adjusting different axes differently</span></span>
-<span class="r-in"><span class="co"># In example 1 and 2, the changes to the pretty argument affect all axes</span></span>
-<span class="r-in"><span class="co"># ... added to all specified sides. To make changes side-specific,</span></span>
-<span class="r-in"><span class="co"># ... we need to specify the arguments for each side in a separate list.</span></span>
-<span class="r-in"><span class="co"># For example, to have approx. 5 breaks on the first axis and 20 breaks on the second:</span></span>
-<span class="r-in"><span class="va">axis_args</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Adjusting different axes differently</span></span></span>
+<span class="r-in"><span><span class="co"># In example 1 and 2, the changes to the pretty argument affect all axes</span></span></span>
+<span class="r-in"><span><span class="co"># ... added to all specified sides. To make changes side-specific,</span></span></span>
+<span class="r-in"><span><span class="co"># ... we need to specify the arguments for each side in a separate list.</span></span></span>
+<span class="r-in"><span><span class="co"># For example, to have approx. 5 breaks on the first axis and 20 breaks on the second:</span></span></span>
+<span class="r-in"><span><span class="va">axis_args</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_axis-3.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$axis</span>
@@ -324,19 +355,19 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Pretty labels can be constrained within limits:</span></span>
-<span class="r-in"><span class="co"># Pretty labels are forced to be within limits if these are specified by the user</span></span>
-<span class="r-in"><span class="va">axis_args</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">15</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">19</span>, <span class="fl">49</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Pretty labels can be constrained within limits:</span></span></span>
+<span class="r-in"><span><span class="co"># Pretty labels are forced to be within limits if these are specified by the user</span></span></span>
+<span class="r-in"><span><span class="va">axis_args</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="fl">15</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">19</span>, <span class="fl">49</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_axis-4.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$axis</span>
@@ -386,19 +417,19 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Axes limits can be specified for some axes but not others by suppling</span></span>
-<span class="r-in"><span class="co"># ... NULL elements to the lim list, as follows:</span></span>
-<span class="r-in"><span class="va">axis_args</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">19</span>, <span class="fl">49</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Axes limits can be specified for some axes but not others by suppling</span></span></span>
+<span class="r-in"><span><span class="co"># ... NULL elements to the lim list, as follows:</span></span></span>
+<span class="r-in"><span><span class="va">axis_args</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">19</span>, <span class="fl">49</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_axis-5.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$axis</span>
@@ -448,56 +479,56 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### For any axis, only one limit can be fixed and the other will be define internally:</span></span>
-<span class="r-in"><span class="co"># If only one limit is provided, this is assumed to be the first limit:</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">0</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### For any axis, only one limit can be fixed and the other will be define internally:</span></span></span>
+<span class="r-in"><span><span class="co"># If only one limit is provided, this is assumed to be the first limit:</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">0</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"user")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  TRUE FALSE</span>
-<span class="r-in"><span class="co"># The second limit can be coded explicitly as NA:</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span></span>
+<span class="r-in"><span><span class="co"># The second limit can be coded explicitly as NA:</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"user")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  TRUE FALSE</span>
-<span class="r-in"><span class="co"># To hard-code the second limit, you must specify the first limit as NA:</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span></span>
+<span class="r-in"><span><span class="co"># To hard-code the second limit, you must specify the first limit as NA:</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="cn">NA</span><span class="op">)</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"user")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  TRUE FALSE</span>
-<span class="r-in"><span class="co"># Times work in the same way (see also later exampes):</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">            x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2016-01-04"</span>, <span class="st">"2016-05-01"</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,</span>
-<span class="r-in">            lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2016-01-01"</span><span class="op">)</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span></span>
+<span class="r-in"><span><span class="co"># Times work in the same way (see also later exampes):</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>            x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2016-01-04"</span>, <span class="st">"2016-05-01"</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2016-01-01"</span><span class="op">)</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2016-01-01" "2016-05-20"</span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">            x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2016-01-04"</span>, <span class="st">"2016-05-01"</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,</span>
-<span class="r-in">            lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-01"</span><span class="op">)</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>            x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2016-01-04"</span>, <span class="st">"2016-05-01"</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-01"</span><span class="op">)</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Argument 'x[[1]]' time zone currently ''; tz forced to UTC.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Argument 'lim[[1]]' time zone currently ''; tz forced to UTC.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2016-01-01 UTC" "2016-05-20 UTC"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### We can create regular sequences instead of pretty ones</span></span>
-<span class="r-in"><span class="co"># Instead of creating 'pretty' axes, we can choose to create a regular sequence</span></span>
-<span class="r-in"><span class="co"># ... and specify the total number of units between the start and end points</span></span>
-<span class="r-in"><span class="co"># ... (if we don't specify this, the default is 5 units or</span></span>
-<span class="r-in"><span class="co"># ... an automatically determined number of time steps, see below).</span></span>
-<span class="r-in"><span class="co"># Note that because units only takes one argument for each axes,</span></span>
-<span class="r-in"><span class="co"># ... we do not specify a nested list like we do for the pretty argument</span></span>
-<span class="r-in"><span class="co"># ... (or, as we'll see below) for the axis argument,</span></span>
-<span class="r-in"><span class="co"># ... in which all the arguments for each side need to be grouped into a list.</span></span>
-<span class="r-in"><span class="va">axis_args</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">12</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">41</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">3</span><span class="op">)</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### We can create regular sequences instead of pretty ones</span></span></span>
+<span class="r-in"><span><span class="co"># Instead of creating 'pretty' axes, we can choose to create a regular sequence</span></span></span>
+<span class="r-in"><span><span class="co"># ... and specify the total number of units between the start and end points</span></span></span>
+<span class="r-in"><span><span class="co"># ... (if we don't specify this, the default is 5 units or</span></span></span>
+<span class="r-in"><span><span class="co"># ... an automatically determined number of time steps, see below).</span></span></span>
+<span class="r-in"><span><span class="co"># Note that because units only takes one argument for each axes,</span></span></span>
+<span class="r-in"><span><span class="co"># ... we do not specify a nested list like we do for the pretty argument</span></span></span>
+<span class="r-in"><span><span class="co"># ... (or, as we'll see below) for the axis argument,</span></span></span>
+<span class="r-in"><span><span class="co"># ... in which all the arguments for each side need to be grouped into a list.</span></span></span>
+<span class="r-in"><span><span class="va">axis_args</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">12</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">41</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Both pretty and units specified for an axis. pretty arguments implemented.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Both pretty and units specified for an axis. pretty arguments implemented.</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_axis-6.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$axis</span>
@@ -547,21 +578,21 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### More on controlling each axis separately</span></span>
-<span class="r-in"><span class="co"># Of course, we can have some axes with pretty axes and others with user defined units</span></span>
-<span class="r-in"><span class="va">axis_args</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">12</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">41</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">5</span>, <span class="cn">NULL</span><span class="op">)</span>,</span>
-<span class="r-in">              axis_ls <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### More on controlling each axis separately</span></span></span>
+<span class="r-in"><span><span class="co"># Of course, we can have some axes with pretty axes and others with user defined units</span></span></span>
+<span class="r-in"><span><span class="va">axis_args</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">12</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">41</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">5</span>, <span class="cn">NULL</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              axis_ls <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_axis-7.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$axis</span>
@@ -611,22 +642,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Arguments are passed to axis(), axis.POSIXct() or axis.Date() via the axis argument</span></span>
-<span class="r-in"><span class="co"># As above, if we supply these once they will affect all graphs:</span></span>
-<span class="r-in"><span class="va">axis_args</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">12</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">41</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">5</span>, <span class="cn">NULL</span><span class="op">)</span>,</span>
-<span class="r-in">              axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span>, cex.axis <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span>,</span>
-<span class="r-in">              axis_ls <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Arguments are passed to axis(), axis.POSIXct() or axis.Date() via the axis argument</span></span></span>
+<span class="r-in"><span><span class="co"># As above, if we supply these once they will affect all graphs:</span></span></span>
+<span class="r-in"><span><span class="va">axis_args</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">12</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">41</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">5</span>, <span class="cn">NULL</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span>, cex.axis <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              axis_ls <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_axis-8.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$axis</span>
@@ -688,25 +719,25 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Graphical properties of each axis can be controlled separately</span></span>
-<span class="r-in"><span class="co"># We can change individual axes by creating a list of arguments for each axis</span></span>
-<span class="r-in"><span class="co"># changes to individual axes need to be specified via individual lists;</span></span>
-<span class="r-in"><span class="co"># e.g. to make the first axis red and the second blue, and to have 10 pretty labels</span></span>
-<span class="r-in"><span class="co"># ... on the first axis and 5 on the second we need to:</span></span>
-<span class="r-in"><span class="va">axis_args</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">12</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">41</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">              axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, cex.axis <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span>, cex.axis <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              axis_ls <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Graphical properties of each axis can be controlled separately</span></span></span>
+<span class="r-in"><span><span class="co"># We can change individual axes by creating a list of arguments for each axis</span></span></span>
+<span class="r-in"><span><span class="co"># changes to individual axes need to be specified via individual lists;</span></span></span>
+<span class="r-in"><span><span class="co"># e.g. to make the first axis red and the second blue, and to have 10 pretty labels</span></span></span>
+<span class="r-in"><span><span class="co"># ... on the first axis and 5 on the second we need to:</span></span></span>
+<span class="r-in"><span><span class="va">axis_args</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">12</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">41</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, cex.axis <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span>, cex.axis <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              axis_ls <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_axis-9.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$axis</span>
@@ -768,67 +799,67 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Shared arguments for each axis (e.g., cex.axis) can be passed via control_axis</span></span>
-<span class="r-in"><span class="co"># ... list to reduce typing in cases where other axis parameters require separate control</span></span>
-<span class="r-in"><span class="co"># ... (i.e., to avoid having to pass these arguments to every list in a nested list).</span></span>
-<span class="r-in"><span class="va">axis_args</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">12</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">41</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">              axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              control_axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cex.axis <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span>,</span>
-<span class="r-in">              axis_ls <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="va">axis_args</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">axis</span><span class="op">$</span><span class="va">cex.axis</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Shared arguments for each axis (e.g., cex.axis) can be passed via control_axis</span></span></span>
+<span class="r-in"><span><span class="co"># ... list to reduce typing in cases where other axis parameters require separate control</span></span></span>
+<span class="r-in"><span><span class="co"># ... (i.e., to avoid having to pass these arguments to every list in a nested list).</span></span></span>
+<span class="r-in"><span><span class="va">axis_args</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">12</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">41</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              control_axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cex.axis <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              axis_ls <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">axis_args</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">axis</span><span class="op">$</span><span class="va">cex.axis</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.5</span>
-<span class="r-in"><span class="va">axis_args</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">axis</span><span class="op">$</span><span class="va">cex.axis</span></span>
+<span class="r-in"><span><span class="va">axis_args</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">axis</span><span class="op">$</span><span class="va">cex.axis</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.5</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Control the number of decimal places for numeric axes via control_digits</span></span>
-<span class="r-in"><span class="co"># axis label decimal places are chosen automatically with the default setting control_digits = NULL:</span></span>
-<span class="r-in"><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>, control_digits <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">axis</span><span class="op">$</span><span class="va">labels</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Control the number of decimal places for numeric axes via control_digits</span></span></span>
+<span class="r-in"><span><span class="co"># axis label decimal places are chosen automatically with the default setting control_digits = NULL:</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>, control_digits <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">axis</span><span class="op">$</span><span class="va">labels</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "0.0" "0.2" "0.4" "0.6" "0.8" "1.0"</span>
-<span class="r-in"><span class="co"># user-specified decimal places:</span></span>
-<span class="r-in"><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>, control_digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">axis</span><span class="op">$</span><span class="va">labels</span></span>
+<span class="r-in"><span><span class="co"># user-specified decimal places:</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>, control_digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">axis</span><span class="op">$</span><span class="va">labels</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "0.000" "0.200" "0.400" "0.600" "0.800" "1.000"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Generate time stamp data</span></span>
-<span class="r-in"><span class="co"># Generate some x and y values, where x values are time stamps</span></span>
-<span class="r-in"><span class="co"># ... in POSIXct format. Note the incorporation of tz.</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.POSIXt.html" class="external-link">seq.POSIXt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span>
-<span class="r-in">                <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-02"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"2 mins"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">*</span><span class="fl">1e-6</span> <span class="op">+</span> <span class="fl">100</span>, <span class="fl">50</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### We can use this function with time stamps in POSIXct format too.</span></span>
-<span class="r-in"><span class="co"># Apply pretty_axis() function prior to plot to obtain suitable limits:</span></span>
-<span class="r-in"><span class="va">axis_args</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">              axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">                          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>las <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span class="r-in">                          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span class="r-in">                          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              axis_ls <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="co"># Plot graph using pretty_axis() limits:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>,</span>
-<span class="r-in">     type <span class="op">=</span> <span class="st">"l"</span>,</span>
-<span class="r-in">     axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">     xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Add pretty axes by passing the list of axis_args back to the function</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Generate time stamp data</span></span></span>
+<span class="r-in"><span><span class="co"># Generate some x and y values, where x values are time stamps</span></span></span>
+<span class="r-in"><span><span class="co"># ... in POSIXct format. Note the incorporation of tz.</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.POSIXt.html" class="external-link">seq.POSIXt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-02"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"2 mins"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">*</span><span class="fl">1e-6</span> <span class="op">+</span> <span class="fl">100</span>, <span class="fl">50</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### We can use this function with time stamps in POSIXct format too.</span></span></span>
+<span class="r-in"><span><span class="co"># Apply pretty_axis() function prior to plot to obtain suitable limits:</span></span></span>
+<span class="r-in"><span><span class="va">axis_args</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>las <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              axis_ls <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Plot graph using pretty_axis() limits:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>,</span></span>
+<span class="r-in"><span>     type <span class="op">=</span> <span class="st">"l"</span>,</span></span>
+<span class="r-in"><span>     axes <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>     xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Add pretty axes by passing the list of axis_args back to the function</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_axis-10.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$axis</span>
@@ -925,27 +956,27 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Axis parameters for time stamps are passed to axis.POSIXct() or axis.Date()</span></span>
-<span class="r-in"><span class="co"># ... which can incorporate other options</span></span>
-<span class="r-in"><span class="va">axis_args</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">              axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%H"</span><span class="op">)</span>,</span>
-<span class="r-in">                           <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>las <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span class="r-in">                           <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span class="r-in">                           <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              axis_ls <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>,</span>
-<span class="r-in">     type <span class="op">=</span> <span class="st">"l"</span>,</span>
-<span class="r-in">     axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">     xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Axis parameters for time stamps are passed to axis.POSIXct() or axis.Date()</span></span></span>
+<span class="r-in"><span><span class="co"># ... which can incorporate other options</span></span></span>
+<span class="r-in"><span><span class="va">axis_args</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%H"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                           <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>las <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                           <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                           <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              axis_ls <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>,</span></span>
+<span class="r-in"><span>     type <span class="op">=</span> <span class="st">"l"</span>,</span></span>
+<span class="r-in"><span>     axes <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>     xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_axis-11.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$axis</span>
@@ -1045,28 +1076,28 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Regular sequences, instead of 'pretty' axes can be generated with dates too</span></span>
-<span class="r-in"><span class="co"># To do this, units takes a character input (e.g. "mins" or "hours")</span></span>
-<span class="r-in"><span class="va">axis_args</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"hours"</span>, <span class="cn">NULL</span><span class="op">)</span>,</span>
-<span class="r-in">              axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%H"</span><span class="op">)</span>,</span>
-<span class="r-in">                          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>las <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span class="r-in">                          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span class="r-in">                          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              axis_ls <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>,</span>
-<span class="r-in">     type <span class="op">=</span> <span class="st">"l"</span>,</span>
-<span class="r-in">     axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">     xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Regular sequences, instead of 'pretty' axes can be generated with dates too</span></span></span>
+<span class="r-in"><span><span class="co"># To do this, units takes a character input (e.g. "mins" or "hours")</span></span></span>
+<span class="r-in"><span><span class="va">axis_args</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"hours"</span>, <span class="cn">NULL</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%H"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>las <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              axis_ls <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>,</span></span>
+<span class="r-in"><span>     type <span class="op">=</span> <span class="st">"l"</span>,</span></span>
+<span class="r-in"><span>     axes <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>     xlim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">lim</span>, ylim <span class="op">=</span> <span class="va">axis_args</span><span class="op">$</span><span class="va">`2`</span><span class="op">$</span><span class="va">lim</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>axis_ls <span class="op">=</span> <span class="va">axis_args</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_axis-12.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$axis</span>
@@ -1184,22 +1215,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### For factors, pretty axes can be created via pretty or via units.</span></span>
-<span class="r-in"><span class="co"># .. If pretty is supplied, approximately n factor levels are retained:</span></span>
-<span class="r-in"><span class="co"># ... and corresponding labels are added by default.</span></span>
-<span class="r-in"><span class="co"># Example data:</span></span>
-<span class="r-in"><span class="va">dx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dy</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
-<span class="r-in"><span class="co"># Example with tick for every level:</span></span>
-<span class="r-in"><span class="va">axis_ls</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dx</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### For factors, pretty axes can be created via pretty or via units.</span></span></span>
+<span class="r-in"><span><span class="co"># .. If pretty is supplied, approximately n factor levels are retained:</span></span></span>
+<span class="r-in"><span><span class="co"># ... and corresponding labels are added by default.</span></span></span>
+<span class="r-in"><span><span class="co"># Example data:</span></span></span>
+<span class="r-in"><span><span class="va">dx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dy</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span></span>
+<span class="r-in"><span><span class="co"># Example with tick for every level:</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dx</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $axis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $axis$at</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  2  3  4  5  6  7  8  9 10</span>
@@ -1222,8 +1253,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"user")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co"># Note that x limits are automatically defined between 1 and the maximum number of factors:</span></span>
-<span class="r-in"><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>; <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">dx</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Note that x limits are automatically defined between 1 and the maximum number of factors:</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>; <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">dx</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $axis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $axis$at</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  2  3  4  5  6  7  8  9 10</span>
@@ -1247,28 +1278,28 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10</span>
-<span class="r-in"><span class="co"># However, default factor limits can be extended via control_factor_lim</span></span>
-<span class="r-in"><span class="va">axis_ls</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dx</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              control_factor_lim <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span></span>
+<span class="r-in"><span><span class="co"># However, default factor limits can be extended via control_factor_lim</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dx</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              control_factor_lim <span class="op">=</span> <span class="fl">0.5</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.5 10.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"user")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE</span>
-<span class="r-in"><span class="co"># Example with tick mark for every other level</span></span>
-<span class="r-in"><span class="va">axis_ls</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dx</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span class="r-in"><span><span class="co"># Example with tick mark for every other level</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">dx</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $axis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $axis$at</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 3 5 7 9</span>
@@ -1291,18 +1322,18 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"user")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### For factors, pretty axes can also be specified via units:</span></span>
-<span class="r-in"><span class="co"># For example, to select every factor level:</span></span>
-<span class="r-in"><span class="va">axis_ls</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NULL</span><span class="op">)</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### For factors, pretty axes can also be specified via units:</span></span></span>
+<span class="r-in"><span><span class="co"># For example, to select every factor level:</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="cn">NULL</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $axis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $axis$at</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  2  3  4  5  6  7  8  9 10</span>
@@ -1325,16 +1356,16 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"user")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co"># Or, to select every other factor level:</span></span>
-<span class="r-in"><span class="va">axis_ls</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span><span class="op">)</span>,</span>
-<span class="r-in">              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">              units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">2</span>, <span class="cn">NULL</span><span class="op">)</span>,</span>
-<span class="r-in">              add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">              return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span class="r-in"><span><span class="co"># Or, to select every other factor level:</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>              x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">2</span>, <span class="cn">NULL</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              add <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>              return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $axis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $axis$at</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 3 5 7 9</span>
@@ -1357,20 +1388,20 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"user")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Examples with pi notation</span></span>
-<span class="r-in"><span class="co">## Define an example lunar phase time series</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html" class="external-link">seq.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2016-01-01"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2016-02-01"</span><span class="op">)</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">lunar</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lunar/man/lunar.phase.html" class="external-link">lunar.phase</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Under the default options, pi notation is suppressed</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
-<span class="r-in"><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">                       x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">                       pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">                       return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">                       <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">axis_ls</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">$</span><span class="va">axis</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"at"</span>, <span class="st">"labels"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Examples with pi notation</span></span></span>
+<span class="r-in"><span><span class="co">## Define an example lunar phase time series</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html" class="external-link">seq.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2016-01-01"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2016-02-01"</span><span class="op">)</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">lunar</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lunar/man/lunar.phase.html" class="external-link">lunar.phase</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Under the default options, pi notation is suppressed</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>                       x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>                       <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">axis_ls</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">$</span><span class="va">axis</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"at"</span>, <span class="st">"labels"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$at</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0  2  4  6  8 10</span>
@@ -1387,14 +1418,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0  2  4  6  8 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co">## To use pi notation for all axes with default args, specify list()</span></span>
-<span class="r-in"><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">                       x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">                       pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">                       pi_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">                       return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">                       <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">axis_ls</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">$</span><span class="va">axis</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"at"</span>, <span class="st">"labels"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## To use pi notation for all axes with default args, specify list()</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>                       x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       pi_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>                       <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">axis_ls</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">$</span><span class="va">axis</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"at"</span>, <span class="st">"labels"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$at</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.000000  1.570796  3.141593  4.712389  6.283185  7.853982  9.424778</span>
@@ -1417,14 +1448,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "2") * pi)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co">## To use pi notation for specific axes, specify a nested list():</span></span>
-<span class="r-in"><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">                       x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">                       pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">                       pi_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">                       return_list <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">                       <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">axis_ls</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">$</span><span class="va">axis</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"at"</span>, <span class="st">"labels"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## To use pi notation for specific axes, specify a nested list():</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>                       x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       pi_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       return_list <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>                       <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">axis_ls</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">$</span><span class="va">axis</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"at"</span>, <span class="st">"labels"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$at</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0  2  4  6  8 10</span>
@@ -1444,13 +1475,13 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "2") * pi)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co">## Pass arguments to pi_notation() to customise the result</span></span>
-<span class="r-in"><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span class="r-in">                       x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">                       pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
-<span class="r-in">                       pi_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>as_fraction <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">                       <span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">axis_ls</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">$</span><span class="va">axis</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"at"</span>, <span class="st">"labels"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Pass arguments to pi_notation() to customise the result</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu">pretty_axis</span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>                       x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                       pi_notation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>as_fraction <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                       <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">axis_ls</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">$</span><span class="va">axis</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"at"</span>, <span class="st">"labels"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$at</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0  2  4  6  8 10</span>
@@ -1469,10 +1500,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     pi, "2.5" * pi, "3.0" * pi, "3.5" * pi)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### The influence of NAs</span></span>
-<span class="r-in"><span class="co"># For all data types, NAs are removed with a message:</span></span>
-<span class="r-in"><span class="fu">pretty_axis</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### The influence of NAs</span></span></span>
+<span class="r-in"><span><span class="co"># For all data types, NAs are removed with a message:</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_axis</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 1 observation pair(s) in x are NA; these are removed.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`$axis</span>
@@ -1570,7 +1601,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -1585,7 +1616,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

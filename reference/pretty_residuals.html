@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,73 +63,104 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pretty_residuals</span><span class="op">(</span>
-  <span class="va">residuals</span>,
-  fv <span class="op">=</span> <span class="cn">NULL</span>,
-  lp <span class="op">=</span> <span class="va">fv</span>,
-  vars <span class="op">=</span> <span class="cn">NULL</span>,
-  timestamp <span class="op">=</span> <span class="cn">NULL</span>,
-  timestamp_fct <span class="op">=</span> <span class="cn">NULL</span>,
-  timestamp_fct_level <span class="op">=</span> <span class="cn">NULL</span>,
-  dat <span class="op">=</span> <span class="cn">NULL</span>,
-  plot <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">7</span>,
-  rand_pc <span class="op">=</span> <span class="cn">NULL</span>,
-  plot_rand_pc <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fl">6</span>,
-  points_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">21</span>, col <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="fl">0.3</span><span class="op">)</span>, bg <span class="op">=</span>
-    <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="fl">0.3</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,
-  lines_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="fl">0.9</span><span class="op">)</span><span class="op">)</span>,
-  pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, control_axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>las <span class="op">=</span>
-    <span class="cn">TRUE</span>, cex.axis <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span>,
-  mtext_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>`1` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, text <span class="op">=</span> <span class="st">"Residuals"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, text <span class="op">=</span> <span class="st">"Frequency"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span>, `2` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, text <span class="op">=</span>
-    <span class="st">"Theoretical Quantiles"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, text <span class="op">=</span> <span class="st">"Sample Quantiles"</span>, line
-    <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span>, `3` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, text <span class="op">=</span> <span class="st">"Fitted Values"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span>
-    <span class="fl">2</span>, text <span class="op">=</span> <span class="st">"Residuals"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span>, `4` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, text <span class="op">=</span>
-    <span class="st">"Linear Predictor"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, text <span class="op">=</span> <span class="st">"Residuals"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span>, `5`
-    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">vars</span>, <span class="kw">function</span><span class="op">(</span><span class="va">var</span><span class="op">)</span> <span class="op">{</span>     <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, text <span class="op">=</span> <span class="va">var</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, text <span class="op">=</span> <span class="st">"Residuals"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span>, `6` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, text <span class="op">=</span>
-    <span class="st">"Timestamp"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, text <span class="op">=</span> <span class="st">"Residuals"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span>, `7` <span class="op">=</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, text <span class="op">=</span> <span class="st">"Lag"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, text <span class="op">=</span> <span class="st">"ACF"</span>, line <span class="op">=</span>
-    <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pretty_residuals</span><span class="op">(</span></span>
+<span>  <span class="va">residuals</span>,</span>
+<span>  fv <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lp <span class="op">=</span> <span class="va">fv</span>,</span>
+<span>  vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  timestamp <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  timestamp_fct <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  timestamp_fct_level <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dat <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  plot <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">7</span>,</span>
+<span>  rand_pc <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  plot_rand_pc <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fl">6</span>,</span>
+<span>  points_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">21</span>, col <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="fl">0.3</span><span class="op">)</span>, bg <span class="op">=</span></span>
+<span>    <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="fl">0.3</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>  lines_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="fl">0.9</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, control_axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>las <span class="op">=</span></span>
+<span>    <span class="cn">TRUE</span>, cex.axis <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  mtext_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>`1` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, text <span class="op">=</span> <span class="st">"Residuals"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, text <span class="op">=</span> <span class="st">"Frequency"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span>, `2` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, text <span class="op">=</span></span>
+<span>    <span class="st">"Theoretical Quantiles"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, text <span class="op">=</span> <span class="st">"Sample Quantiles"</span>, line</span>
+<span>    <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span>, `3` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, text <span class="op">=</span> <span class="st">"Fitted Values"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span></span>
+<span>    <span class="fl">2</span>, text <span class="op">=</span> <span class="st">"Residuals"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span>, `4` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, text <span class="op">=</span></span>
+<span>    <span class="st">"Linear Predictor"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, text <span class="op">=</span> <span class="st">"Residuals"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span>, `5`</span>
+<span>    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">vars</span>, <span class="kw">function</span><span class="op">(</span><span class="va">var</span><span class="op">)</span> <span class="op">{</span>     <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, text <span class="op">=</span> <span class="va">var</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, text <span class="op">=</span> <span class="st">"Residuals"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span>, `6` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, text <span class="op">=</span></span>
+<span>    <span class="st">"Timestamp"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, text <span class="op">=</span> <span class="st">"Residuals"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span>, `7` <span class="op">=</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, text <span class="op">=</span> <span class="st">"Lag"</span>, line <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">2</span>, text <span class="op">=</span> <span class="st">"ACF"</span>, line <span class="op">=</span></span>
+<span>    <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>residuals</dt>
 <dd><p>A numeric vector of residuals from a model.</p></dd>
+
+
 <dt>fv</dt>
 <dd><p>A numeric vector of fitted values from a model.</p></dd>
+
+
 <dt>lp</dt>
 <dd><p>A numeric vector which defines the values of the linear predictor from a model.</p></dd>
+
+
 <dt>vars</dt>
 <dd><p>A character vector which defines the names of variables in a dataframe (see <code>dat</code>, below) against which residuals will be plotted if <code>plot</code> includes option 5 (see below).</p></dd>
+
+
 <dt>timestamp</dt>
 <dd><p>A character which defines the name of a variable in  <code>dat</code> which refers to time stamps. This is useful for models of data collected through time. If <code>NULL</code> and this plot is selected, <code>residuals</code> are plotted against an index for the selected data.</p></dd>
+
+
 <dt>timestamp_fct</dt>
 <dd><p>(optional) A character which defines the name of a variable in <code>dat</code> which distinguishes independent time series. If <code>timestamp</code> is provided, it is desirable to plot the residuals ~ time stamp for only one of these levels (see <code>timestamp_fct_level</code>).</p></dd>
+
+
 <dt>timestamp_fct_level</dt>
 <dd><p>An identifier of the independent time series in <code>timestamp_fct</code> to be plotted. If not provided, the function selects the longest time series.</p></dd>
+
+
 <dt>dat</dt>
 <dd><p>A dataframe containing columns named as specified in <code>vars</code>. This should be the same dataframe that was used to fit the model from which residuals are extracted, although it can include extra variables not included in the model.</p></dd>
+
+
 <dt>plot</dt>
 <dd><p>A numeric vector (1:7) which defines the plots to produce (see Details, below).</p></dd>
+
+
 <dt>rand_pc</dt>
 <dd><p>A number which defines a percentage of residuals to plotted. If specified, a random subset of residuals, chosen according to a uniform distribution, are plotted. This is useful for some plots of residuals (e.g. residuals versus fitted values) which can be difficult to interpret with large datasets. However, note that some plots of residuals (e.g. quantile-quantile plots) respond poorly to selecting samples of residuals, and this option is not recommended in those cases - see <code>plot_rand_pc</code>, below.</p></dd>
+
+
 <dt>plot_rand_pc</dt>
 <dd><p>A numeric input which defines which plots will use thinned residuals. This plots 3 - 6 by default (plots 1, 2 and 7 are still interpretable with large amounts of data.) The residual plot that corresponds to each plot number is explained in Details.</p></dd>
+
+
 <dt>points_args</dt>
 <dd><p>A named list of arguments that is passed to <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></code> to add points to appropriate plots.</p></dd>
+
+
 <dt>lines_args</dt>
 <dd><p>A named list that is passed to <code><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></code> to add lines to appropriate plots.</p></dd>
+
+
 <dt>pretty_axis_args</dt>
 <dd><p>A named list of arguments that is passed to <code><a href="pretty_axis.html">pretty_axis</a></code> which is used to create pretty axes. For simplicity, this is implemented for most plots.</p></dd>
+
+
 <dt>mtext_args</dt>
 <dd><p>A named list of arguments that is passed to <code><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></code> to add labels to each plot. List names correspond to plot numbers (see Details). The default is a nested list which tries to add suitable labels in suitable locations to all plots, but this can be edited.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Diagnostic plots of residuals.</p>
+    
+
+<p>Diagnostic plots of residuals.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -142,108 +173,108 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Simulate and model data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">x</span><span class="op">*</span><span class="fl">0.5</span>, <span class="fl">30</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dat</span><span class="op">$</span><span class="va">fct</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dat</span><span class="op">$</span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>, <span class="va">dat</span><span class="op">$</span><span class="va">x</span><span class="op">*</span><span class="fl">0.01</span>, <span class="fl">50</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">dat</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Plot residuals using default options</span></span>
-<span class="r-in"><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_residuals</span><span class="op">(</span>residuals <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">               fv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">               lp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">               vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z"</span>, <span class="st">"fct"</span><span class="op">)</span>,</span>
-<span class="r-in">               timestamp <span class="op">=</span> <span class="st">"x"</span>,</span>
-<span class="r-in">               dat <span class="op">=</span> <span class="va">dat</span>,</span>
-<span class="r-in">               <span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Simulate and model data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">x</span><span class="op">*</span><span class="fl">0.5</span>, <span class="fl">30</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat</span><span class="op">$</span><span class="va">fct</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat</span><span class="op">$</span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>, <span class="va">dat</span><span class="op">$</span><span class="va">x</span><span class="op">*</span><span class="fl">0.01</span>, <span class="fl">50</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">dat</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Plot residuals using default options</span></span></span>
+<span class="r-in"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_residuals</span><span class="op">(</span>residuals <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               fv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               lp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z"</span>, <span class="st">"fct"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               timestamp <span class="op">=</span> <span class="st">"x"</span>,</span></span>
+<span class="r-in"><span>               dat <span class="op">=</span> <span class="va">dat</span>,</span></span>
+<span class="r-in"><span>               <span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> plot (6) residuals ~ time stamp: 'timestamp_fct' is NULL; assuming 'dat' only contains one independent time series.</span>
-<span class="r-in"><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_residuals-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Plot a single plot</span></span>
-<span class="r-in"><span class="fu">pretty_residuals</span><span class="op">(</span>residuals <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>, plot <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Plot a single plot</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_residuals</span><span class="op">(</span>residuals <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>, plot <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_residuals-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Customisation of axes is via pretty_axis_args; changes affect most plots.</span></span>
-<span class="r-in"><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_residuals</span><span class="op">(</span>residuals <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 fv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 lp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z"</span>, <span class="st">"fct"</span><span class="op">)</span>,</span>
-<span class="r-in">                 timestamp <span class="op">=</span> <span class="st">"x"</span>,</span>
-<span class="r-in">                 dat <span class="op">=</span> <span class="va">dat</span>,</span>
-<span class="r-in">                 pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Customisation of axes is via pretty_axis_args; changes affect most plots.</span></span></span>
+<span class="r-in"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_residuals</span><span class="op">(</span>residuals <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 fv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 lp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z"</span>, <span class="st">"fct"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 timestamp <span class="op">=</span> <span class="st">"x"</span>,</span></span>
+<span class="r-in"><span>                 dat <span class="op">=</span> <span class="va">dat</span>,</span></span>
+<span class="r-in"><span>                 pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> plot (6) residuals ~ time stamp: 'timestamp_fct' is NULL; assuming 'dat' only contains one independent time series.</span>
-<span class="r-in"><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_residuals-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Customisation of graphics is via points_args() and lines_args()</span></span>
-<span class="r-in"><span class="co"># ... which are implemented for the relevant plots:</span></span>
-<span class="r-in"><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_residuals</span><span class="op">(</span>residuals <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 fv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 lp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z"</span>, <span class="st">"fct"</span><span class="op">)</span>,</span>
-<span class="r-in">                 timestamp <span class="op">=</span> <span class="st">"x"</span>,</span>
-<span class="r-in">                 dat <span class="op">=</span> <span class="va">dat</span>,</span>
-<span class="r-in">                 points_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">                 lines_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lwd <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="st">"skyblue"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Customisation of graphics is via points_args() and lines_args()</span></span></span>
+<span class="r-in"><span><span class="co"># ... which are implemented for the relevant plots:</span></span></span>
+<span class="r-in"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>, oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_residuals</span><span class="op">(</span>residuals <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 fv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 lp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z"</span>, <span class="st">"fct"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 timestamp <span class="op">=</span> <span class="st">"x"</span>,</span></span>
+<span class="r-in"><span>                 dat <span class="op">=</span> <span class="va">dat</span>,</span></span>
+<span class="r-in"><span>                 points_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 lines_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lwd <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="st">"skyblue"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> plot (6) residuals ~ time stamp: 'timestamp_fct' is NULL; assuming 'dat' only contains one independent time series.</span>
-<span class="r-in"><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_residuals-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### There are several customisation options for plotting observations against time stamps</span></span>
-<span class="r-in"><span class="co"># 'timestamp', 'timestamp_fct' and 'timestamp_fct_level' enable a specific time series to be</span></span>
-<span class="r-in"><span class="co"># ... plotted:</span></span>
-<span class="r-in"><span class="fu">pretty_residuals</span><span class="op">(</span>residuals <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 fv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 lp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 dat <span class="op">=</span> <span class="va">dat</span>,</span>
-<span class="r-in">                 plot <span class="op">=</span> <span class="fl">6</span>,</span>
-<span class="r-in">                 timestamp <span class="op">=</span> <span class="st">"x"</span>,</span>
-<span class="r-in">                 timestamp_fct <span class="op">=</span> <span class="st">"fct"</span>,</span>
-<span class="r-in">                 timestamp_fct_level <span class="op">=</span> <span class="fl">1</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### There are several customisation options for plotting observations against time stamps</span></span></span>
+<span class="r-in"><span><span class="co"># 'timestamp', 'timestamp_fct' and 'timestamp_fct_level' enable a specific time series to be</span></span></span>
+<span class="r-in"><span><span class="co"># ... plotted:</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_residuals</span><span class="op">(</span>residuals <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 fv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 lp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 dat <span class="op">=</span> <span class="va">dat</span>,</span></span>
+<span class="r-in"><span>                 plot <span class="op">=</span> <span class="fl">6</span>,</span></span>
+<span class="r-in"><span>                 timestamp <span class="op">=</span> <span class="st">"x"</span>,</span></span>
+<span class="r-in"><span>                 timestamp_fct <span class="op">=</span> <span class="st">"fct"</span>,</span></span>
+<span class="r-in"><span>                 timestamp_fct_level <span class="op">=</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_residuals-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># If 'timestamp' is not provided, an index is plotted:</span></span>
-<span class="r-in"><span class="fu">pretty_residuals</span><span class="op">(</span>residuals <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 fv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 lp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 dat <span class="op">=</span> <span class="va">dat</span>,</span>
-<span class="r-in">                 plot <span class="op">=</span> <span class="fl">6</span>,</span>
-<span class="r-in">                 timestamp <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span class="r-in">                 timestamp_fct <span class="op">=</span> <span class="st">"fct"</span>,</span>
-<span class="r-in">                 timestamp_fct_level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># If 'timestamp' is not provided, an index is plotted:</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_residuals</span><span class="op">(</span>residuals <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 fv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 lp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 dat <span class="op">=</span> <span class="va">dat</span>,</span></span>
+<span class="r-in"><span>                 plot <span class="op">=</span> <span class="fl">6</span>,</span></span>
+<span class="r-in"><span>                 timestamp <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>                 timestamp_fct <span class="op">=</span> <span class="st">"fct"</span>,</span></span>
+<span class="r-in"><span>                 timestamp_fct_level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> plot (6) residuals ~ time stamp: 'timestamp' is NULL so using an index for selected data.</span>
 <span class="r-plt img"><img src="pretty_residuals-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># If 'timestamp_fct' is not provided, data are assumed to comprise a single time series.</span></span>
-<span class="r-in"><span class="fu">pretty_residuals</span><span class="op">(</span>residuals <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 fv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 lp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 dat <span class="op">=</span> <span class="va">dat</span>,</span>
-<span class="r-in">                 plot <span class="op">=</span> <span class="fl">6</span>,</span>
-<span class="r-in">                 timestamp <span class="op">=</span> <span class="st">"x"</span>,</span>
-<span class="r-in">                 timestamp_fct <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># If 'timestamp_fct' is not provided, data are assumed to comprise a single time series.</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_residuals</span><span class="op">(</span>residuals <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 fv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 lp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 dat <span class="op">=</span> <span class="va">dat</span>,</span></span>
+<span class="r-in"><span>                 plot <span class="op">=</span> <span class="fl">6</span>,</span></span>
+<span class="r-in"><span>                 timestamp <span class="op">=</span> <span class="st">"x"</span>,</span></span>
+<span class="r-in"><span>                 timestamp_fct <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> plot (6) residuals ~ time stamp: 'timestamp_fct' is NULL; assuming 'dat' only contains one independent time series.</span>
 <span class="r-plt img"><img src="pretty_residuals-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># If 'timestamp_fct_level' is not provided, the longest time series is chosen by default:</span></span>
-<span class="r-in"><span class="fu">pretty_residuals</span><span class="op">(</span>residuals <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 fv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 lp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span>
-<span class="r-in">                 dat <span class="op">=</span> <span class="va">dat</span>,</span>
-<span class="r-in">                 plot <span class="op">=</span> <span class="fl">6</span>,</span>
-<span class="r-in">                 timestamp <span class="op">=</span> <span class="st">"x"</span>,</span>
-<span class="r-in">                 timestamp_fct <span class="op">=</span> <span class="st">"fct"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># If 'timestamp_fct_level' is not provided, the longest time series is chosen by default:</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_residuals</span><span class="op">(</span>residuals <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">resid</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 fv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 lp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 dat <span class="op">=</span> <span class="va">dat</span>,</span></span>
+<span class="r-in"><span>                 plot <span class="op">=</span> <span class="fl">6</span>,</span></span>
+<span class="r-in"><span>                 timestamp <span class="op">=</span> <span class="st">"x"</span>,</span></span>
+<span class="r-in"><span>                 timestamp_fct <span class="op">=</span> <span class="st">"fct"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> plot (6) residuals ~ time stamp: selecting the 'timestamp_fct' with the longest time series.</span>
 <span class="r-plt img"><img src="pretty_residuals-8.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -258,7 +289,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,34 +63,47 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">add_error_envelope</span><span class="op">(</span>
-  <span class="va">x</span>,
-  ci <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  type <span class="op">=</span> <span class="st">"poly"</span>,
-  add_ci <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"lightgrey"</span>, <span class="fl">0.8</span><span class="op">)</span>, border <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,
-  add_fit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"black"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_error_envelope</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  ci <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"poly"</span>,</span>
+<span>  add_ci <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"lightgrey"</span>, <span class="fl">0.8</span><span class="op">)</span>, border <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  add_fit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"black"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A numeric vector defining the x values at which fitted values/CIs will be plotted.</p></dd>
+
+
 <dt>ci</dt>
 <dd><p>A named list with fitted values (optional) and lower and upper CIs (i.e. <code>ci$fit</code>, <code>ci$lowerCI</code>, <code>ci$upperCI</code>). This can be created by <code><a href="list_CIs.html">list_CIs</a></code>.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>A character defining the method by which CIs will be added to a plot: as lines (<code>type = "l"</code> or <code>type = "lines"</code>) or as a shaded polygon (<code>"poly"</code>). For large datasets, <code>type = "lines"</code> is much faster.</p></dd>
+
+
 <dt>add_ci</dt>
 <dd><p>(optional) A named list of arguments to customise the appearance of the confidence envelope, passed to <code><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></code> or <code><a href="https://rdrr.io/r/graphics/polygon.html" class="external-link">polygon</a></code> depending on <code>type</code>. <code>add_ci = NULL</code> suppresses this option; <code>add_ci = list()</code> implements default arguments. If <code>type = "lines"</code>, then two nested lists can be included to specify the lower and upper CI lines differently, if desired.</p></dd>
+
+
 <dt>add_fit</dt>
 <dd><p>(optional) A named list of arguments to customise the appearence of the fitted line. <code>add_fit = NULL</code> suppresses this option; <code>add_fit = list()</code> implements default arguments.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments: none are currently implemented but depreciated arguments (<code>CI</code>, <code>fCI</code>, <code>CI_gp</code> and <code>fitted_gp</code>) are accepted (with a warning) via <code>...</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function adds model predictions to a plot.</p>
+    
+
+<p>The function adds model predictions to a plot.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -103,58 +116,58 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Define some data for a model</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0.5</span><span class="op">*</span><span class="va">x</span> <span class="op">-</span> <span class="fl">50</span>, <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Define model</span></span>
-<span class="r-in"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Define predictions</span></span>
-<span class="r-in"><span class="va">xp</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, by <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">m1</span>, newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">xp</span><span class="op">)</span>, se.fit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># List CIs</span></span>
-<span class="r-in"><span class="va">CIs</span> <span class="op">&lt;-</span> <span class="fu"><a href="list_CIs.html">list_CIs</a></span><span class="op">(</span>pred <span class="op">=</span> <span class="va">p</span>, plot_suggestions <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Visualise</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (1):</span></span>
-<span class="r-in"><span class="co"># Add predicted CIs as a polygon and add fitted line ontop using default graphical parameters</span></span>
-<span class="r-in"><span class="co"># Note that type = "poly", and add_fitted = TRUE do not need to be supplied</span></span>
-<span class="r-in"><span class="co"># ... since these are the default options</span></span>
-<span class="r-in"><span class="fu">add_error_envelope</span><span class="op">(</span>x <span class="op">=</span> <span class="va">xp</span>, ci <span class="op">=</span> <span class="va">CIs</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Define some data for a model</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0.5</span><span class="op">*</span><span class="va">x</span> <span class="op">-</span> <span class="fl">50</span>, <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Define model</span></span></span>
+<span class="r-in"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Define predictions</span></span></span>
+<span class="r-in"><span><span class="va">xp</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, by <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">m1</span>, newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">xp</span><span class="op">)</span>, se.fit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># List CIs</span></span></span>
+<span class="r-in"><span><span class="va">CIs</span> <span class="op">&lt;-</span> <span class="fu"><a href="list_CIs.html">list_CIs</a></span><span class="op">(</span>pred <span class="op">=</span> <span class="va">p</span>, plot_suggestions <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Visualise</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (1):</span></span></span>
+<span class="r-in"><span><span class="co"># Add predicted CIs as a polygon and add fitted line ontop using default graphical parameters</span></span></span>
+<span class="r-in"><span><span class="co"># Note that type = "poly", and add_fitted = TRUE do not need to be supplied</span></span></span>
+<span class="r-in"><span><span class="co"># ... since these are the default options</span></span></span>
+<span class="r-in"><span><span class="fu">add_error_envelope</span><span class="op">(</span>x <span class="op">=</span> <span class="va">xp</span>, ci <span class="op">=</span> <span class="va">CIs</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_error_envelope-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (2):</span></span>
-<span class="r-in"><span class="co"># Add predicted CIs as a polygon and add fitted lines with user-specified parameters</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">add_error_envelope</span><span class="op">(</span>x <span class="op">=</span> <span class="va">xp</span>,</span>
-<span class="r-in">                   ci <span class="op">=</span> <span class="va">CIs</span>,</span>
-<span class="r-in">                   add_ci <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"skyblue"</span>, <span class="fl">0.8</span><span class="op">)</span>, border <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span class="r-in">                   add_fit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, lwd <span class="op">=</span> <span class="fl">3</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in">                   <span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (2):</span></span></span>
+<span class="r-in"><span><span class="co"># Add predicted CIs as a polygon and add fitted lines with user-specified parameters</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">add_error_envelope</span><span class="op">(</span>x <span class="op">=</span> <span class="va">xp</span>,</span></span>
+<span class="r-in"><span>                   ci <span class="op">=</span> <span class="va">CIs</span>,</span></span>
+<span class="r-in"><span>                   add_ci <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"skyblue"</span>, <span class="fl">0.8</span><span class="op">)</span>, border <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   add_fit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span>, lwd <span class="op">=</span> <span class="fl">3</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                   <span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_error_envelope-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (3):</span></span>
-<span class="r-in"><span class="co"># Add predicted CIs as lines, where both upper and lower CIs have identical graphical parameters</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">add_error_envelope</span><span class="op">(</span>x <span class="op">=</span> <span class="va">xp</span>,</span>
-<span class="r-in">                   ci <span class="op">=</span> <span class="va">CIs</span>,</span>
-<span class="r-in">                   type <span class="op">=</span> <span class="st">"lines"</span>,</span>
-<span class="r-in">                   add_ci <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
-<span class="r-in">                   <span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (3):</span></span></span>
+<span class="r-in"><span><span class="co"># Add predicted CIs as lines, where both upper and lower CIs have identical graphical parameters</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">add_error_envelope</span><span class="op">(</span>x <span class="op">=</span> <span class="va">xp</span>,</span></span>
+<span class="r-in"><span>                   ci <span class="op">=</span> <span class="va">CIs</span>,</span></span>
+<span class="r-in"><span>                   type <span class="op">=</span> <span class="st">"lines"</span>,</span></span>
+<span class="r-in"><span>                   add_ci <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                   <span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_error_envelope-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (4):</span></span>
-<span class="r-in"><span class="co"># Control lower and upper CI lines independently in a nested list</span></span>
-<span class="r-in"><span class="co"># The first element is the lower CI; the second element is the upper CI</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">add_error_envelope</span><span class="op">(</span>x <span class="op">=</span> <span class="va">xp</span>,</span>
-<span class="r-in">                   ci <span class="op">=</span> <span class="va">CIs</span>,</span>
-<span class="r-in">                   type <span class="op">=</span> <span class="st">"lines"</span>,</span>
-<span class="r-in">                   add_ci <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">                   <span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (4):</span></span></span>
+<span class="r-in"><span><span class="co"># Control lower and upper CI lines independently in a nested list</span></span></span>
+<span class="r-in"><span><span class="co"># The first element is the lower CI; the second element is the upper CI</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">add_error_envelope</span><span class="op">(</span>x <span class="op">=</span> <span class="va">xp</span>,</span></span>
+<span class="r-in"><span>                   ci <span class="op">=</span> <span class="va">CIs</span>,</span></span>
+<span class="r-in"><span>                   type <span class="op">=</span> <span class="st">"lines"</span>,</span></span>
+<span class="r-in"><span>                   add_ci <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                   <span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_error_envelope-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -169,7 +182,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

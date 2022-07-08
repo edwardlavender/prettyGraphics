@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,66 +63,99 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pretty_smooth_1d</span><span class="op">(</span>
-  <span class="va">fit</span>,
-  shift <span class="op">=</span> <span class="fl">0</span>,
-  select <span class="op">=</span> <span class="fl">1</span>,
-  add_fit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  add_se_type <span class="op">=</span> <span class="st">"poly"</span>,
-  add_se <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"lightgrey"</span>, <span class="fl">0.8</span><span class="op">)</span>, border <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,
-  add_resid <span class="op">=</span> <span class="cn">NULL</span>,
-  add_rug <span class="op">=</span> <span class="cn">NULL</span>,
-  xlim <span class="op">=</span> <span class="cn">NULL</span>,
-  ylim <span class="op">=</span> <span class="cn">NULL</span>,
-  pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  add_xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>line <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,
-  add_ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>line <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,
-  assign_main <span class="op">=</span> <span class="cn">TRUE</span>,
-  add_main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>adj <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,
-  one_page <span class="op">=</span> <span class="cn">TRUE</span>,
-  return_list <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pretty_smooth_1d</span><span class="op">(</span></span>
+<span>  <span class="va">fit</span>,</span>
+<span>  shift <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  select <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  add_fit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  add_se_type <span class="op">=</span> <span class="st">"poly"</span>,</span>
+<span>  add_se <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"lightgrey"</span>, <span class="fl">0.8</span><span class="op">)</span>, border <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  add_resid <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  add_rug <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  xlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ylim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  add_xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>line <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  add_ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>line <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  assign_main <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  add_main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>adj <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  one_page <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  return_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>fit</dt>
 <dd><p>A list returned by <code><a href="https://rdrr.io/pkg/mgcv/man/plot.gam.html" class="external-link">plot.gam</a></code>. Each element is a list which contains all the necessary information to recreate a plot for a specific model term.</p></dd>
+
+
 <dt>shift</dt>
 <dd><p>A number which defines a value by which to shift model predictions/partial residuals vertically.</p></dd>
+
+
 <dt>select</dt>
 <dd><p>An integer that specifies the smooth term(s) (i.e., the elements in <code>fit</code>) to be plotted.</p></dd>
+
+
 <dt>add_fit</dt>
 <dd><p>(optional) A named list of arguments to customise the appearance of the fitted line. This is passed to <code><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></code> or the <code>add_fit</code> argument of <code><a href="add_error_envelope.html">add_error_envelope</a></code>.</p></dd>
+
+
 <dt>add_se_type</dt>
 <dd><p>(optional) A character that defines the method by which CIs are added to the plot: as lines (<code>"lines"</code>) or as a shaded polygon (<code>"poly"</code>). This is passed to the <code>type</code> argument of <code><a href="add_error_envelope.html">add_error_envelope</a></code>.</p></dd>
+
+
 <dt>add_se</dt>
 <dd><p>(optional) A named list of arguments to customise the appearance of the confidence intervals. This is passed to the <code>add_ci</code> argument of <code><a href="add_error_envelope.html">add_error_envelope</a></code>.</p></dd>
+
+
 <dt>add_resid</dt>
 <dd><p>(optional) A named list of arguments to customise the appearance of partial residuals via <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></code>. These are taken from the 'p.resid' elements in <code>fit</code>.</p></dd>
+
+
 <dt>add_rug</dt>
 <dd><p>(optional) A named list of arguments to add a rug of observed values to the plot. Observed values are taken from the 'raw' elements in <code>fit</code>. This is passed to <code><a href="https://rdrr.io/r/graphics/rug.html" class="external-link">rug</a></code>.</p></dd>
+
+
 <dt>xlim, ylim</dt>
 <dd><p>Axis limits for all plots. If <code>NULL</code>, axis limits are chosen according to the inputs to <code>pretty_axis_args</code>.</p></dd>
+
+
 <dt>pretty_axis_args</dt>
 <dd><p>A named list of arguments, passed to <code><a href="pretty_axis.html">pretty_axis</a></code> to customise axes.</p></dd>
+
+
 <dt>add_xlab, add_ylab</dt>
 <dd><p>(optional) Named list of arguments to customise the x and y axis labels. Labels are taken from the 'xlab' and 'ylab' elements in <code>fit</code> respectively. Lists are passed to <code><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></code>.</p></dd>
+
+
 <dt>assign_main</dt>
 <dd><p>(optional) A logical input that defines whether or not to assign a title to the plot. If <code>TRUE</code>, each plot (i)'s title is given by <code>LETTERS[1:length(select)][i]</code>.</p></dd>
+
+
 <dt>add_main</dt>
 <dd><p>(optional) A named list of arguments to customise plot titles. Labels are assigned (see <code>assign_main</code>) or taken from the 'main' elements in <code>fit</code>. This is passed to <code><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></code>.</p></dd>
+
+
 <dt>one_page</dt>
 <dd><p>A logical input that defines whether or not to plot all smooths on one page.</p></dd>
+
+
 <dt>return_list</dt>
 <dd><p>(depreciated) A logical input which defines whether or not to return a list, with one element for each <code>select</code> value, each containing the named list of axis arguments from <code><a href="pretty_axis.html">pretty_axis</a></code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments (none implemented).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns a pretty plot of one dimensional smooths(s) and, invisibly, the list of pretty axis parameters produced by <code><a href="pretty_axis.html">pretty_axis</a></code>.</p>
+    
+
+<p>The function returns a pretty plot of one dimensional smooths(s) and, invisibly, the list of pretty axis parameters produced by <code><a href="pretty_axis.html">pretty_axis</a></code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -135,62 +168,62 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Simulate some example data and fit an example model</span></span>
-<span class="r-in"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">0.1</span> <span class="op">*</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">0.002</span> <span class="op">*</span> <span class="va">z</span><span class="op">^</span><span class="fl">3</span> <span class="op">+</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="fu">s</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/plot.gam.html" class="external-link">plot.gam</a></span><span class="op">(</span><span class="va">mod</span>, residuals <span class="op">=</span> <span class="cn">TRUE</span>, pages <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Simulate some example data and fit an example model</span></span></span>
+<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">100</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">0.1</span> <span class="op">*</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">0.002</span> <span class="op">*</span> <span class="va">z</span><span class="op">^</span><span class="fl">3</span> <span class="op">+</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="fu">s</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="fu">s</span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/plot.gam.html" class="external-link">plot.gam</a></span><span class="op">(</span><span class="va">mod</span>, residuals <span class="op">=</span> <span class="cn">TRUE</span>, pages <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_smooth_1d-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### pretty_smooth_1d() implementation</span></span>
-<span class="r-in"><span class="co"># The default options</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### pretty_smooth_1d() implementation</span></span></span>
+<span class="r-in"><span><span class="co"># The default options</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following argument(s) are depreciated: 'fitted_gp'.</span>
 <span class="r-plt img"><img src="pretty_smooth_1d-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># The number of smooth terms is controlled via select</span></span>
-<span class="r-in"><span class="co"># ... and can be plotted on one page via one_page</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>, select <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, one_page <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># The number of smooth terms is controlled via select</span></span></span>
+<span class="r-in"><span><span class="co"># ... and can be plotted on one page via one_page</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>, select <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, one_page <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following argument(s) are depreciated: 'fitted_gp'.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following argument(s) are depreciated: 'fitted_gp'.</span>
 <span class="r-plt img"><img src="pretty_smooth_1d-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># The fitted line can be controlled via add_fit</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>, add_fit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># The fitted line can be controlled via add_fit</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>, add_fit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following argument(s) are depreciated: 'fitted_gp'.</span>
-<span class="r-in"><span class="co"># Confidence intervals can be suppressed via add_se_type = NULL or</span></span>
-<span class="r-in"><span class="co"># ... controlled via add_se and</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>, add_fit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>, add_se <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Confidence intervals can be suppressed via add_se_type = NULL or</span></span></span>
+<span class="r-in"><span><span class="co"># ... controlled via add_se and</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>, add_fit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>, add_se <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following argument(s) are depreciated: 'fitted_gp'.</span>
 <span class="r-plt img"><img src="pretty_smooth_1d-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>,</span>
-<span class="r-in">                 add_fit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>,</span>
-<span class="r-in">                 add_se_type <span class="op">=</span> <span class="st">"lines"</span>,</span>
-<span class="r-in">                 add_se <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>,</span></span>
+<span class="r-in"><span>                 add_fit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 add_se_type <span class="op">=</span> <span class="st">"lines"</span>,</span></span>
+<span class="r-in"><span>                 add_se <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following argument(s) are depreciated: 'fitted_gp'.</span>
 <span class="r-plt img"><img src="pretty_smooth_1d-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Partial residuals can be added via add_resid</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>, add_resid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cex <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Partial residuals can be added via add_resid</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>, add_resid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cex <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following argument(s) are depreciated: 'fitted_gp'.</span>
 <span class="r-plt img"><img src="pretty_smooth_1d-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># A rug can be added/surpressed via add_rug</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>, add_rug <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># A rug can be added/surpressed via add_rug</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>, add_rug <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following argument(s) are depreciated: 'fitted_gp'.</span>
 <span class="r-plt img"><img src="pretty_smooth_1d-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>, add_rug <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ticksize <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>, add_rug <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ticksize <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following argument(s) are depreciated: 'fitted_gp'.</span>
 <span class="r-plt img"><img src="pretty_smooth_1d-8.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Axis titles can be controlled via add_xlab, add_ylab and add_main</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>, add_main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cex <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Axis titles can be controlled via add_xlab, add_ylab and add_main</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>, add_main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cex <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following argument(s) are depreciated: 'fitted_gp'.</span>
 <span class="r-plt img"><img src="pretty_smooth_1d-9.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Axis titles are taken from the fitted object, so can be changed</span></span>
-<span class="r-in"><span class="co"># ... by changing the appropriate element in 'fit'</span></span>
-<span class="r-in"><span class="va">fit</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">xlab</span> <span class="op">&lt;-</span> <span class="st">"Updated x name"</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>, add_main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cex <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Axis titles are taken from the fitted object, so can be changed</span></span></span>
+<span class="r-in"><span><span class="co"># ... by changing the appropriate element in 'fit'</span></span></span>
+<span class="r-in"><span><span class="va">fit</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">xlab</span> <span class="op">&lt;-</span> <span class="st">"Updated x name"</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_1d</span><span class="op">(</span><span class="va">fit</span>, add_main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cex <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following argument(s) are depreciated: 'fitted_gp'.</span>
 <span class="r-plt img"><img src="pretty_smooth_1d-10.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -205,7 +238,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

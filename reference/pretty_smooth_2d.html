@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,41 +63,56 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pretty_smooth_2d</span><span class="op">(</span>
-  <span class="va">x</span>,
-  view <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">xlim</span>,
-  <span class="va">ylim</span>,
-  pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,
-  add_xy <span class="op">=</span> <span class="cn">NULL</span>,
-  add_rug_x <span class="op">=</span> <span class="cn">NULL</span>,
-  add_rug_y <span class="op">=</span> <span class="cn">NULL</span>,
-  return_list <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pretty_smooth_2d</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  view <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">xlim</span>,</span>
+<span>  <span class="va">ylim</span>,</span>
+<span>  pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  add_xy <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  add_rug_x <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  add_rug_y <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  return_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>An mgcv model (see <code><a href="https://rdrr.io/pkg/mgcv/man/vis.gam.html" class="external-link">vis.gam</a></code>).</p></dd>
+
+
 <dt>view</dt>
 <dd><p>A character vector of two variables (see <code><a href="https://rdrr.io/pkg/mgcv/man/vis.gam.html" class="external-link">vis.gam</a></code>).</p></dd>
+
+
 <dt>xlim, ylim, pretty_axis_args</dt>
 <dd><p>Axis control arguments. <code>xlim</code> and <code>ylim</code> control x and y axis limits via <code><a href="pretty_axis.html">pretty_axis</a></code>. If not supplied, <code>xlim</code> and <code>ylim</code> are defined as the range across each corresponding variable. To use default 'pretty' limits instead, specify <code>xlim = NULL</code> and <code>ylim = NULL</code>. Additional axis customisation is implemented by passing a named list of arguments to <code><a href="pretty_axis.html">pretty_axis</a></code> via <code>pretty_axis_args</code>.</p></dd>
+
+
 <dt>add_xy</dt>
 <dd><p>A named list of arguments, passed to <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></code>, to add observations to the plot. <code>add_xy = NULL</code> suppresses this option, <code>add_xy = list()</code> implements default arguments and a named list customises these.</p></dd>
+
+
 <dt>add_rug_x, add_rug_y</dt>
 <dd><p>Named list of arguments, passed to <code><a href="https://rdrr.io/r/graphics/rug.html" class="external-link">rug</a></code>, to add observed values of the variables defined in <code>view</code> to the plot. <code>add_rug_* = NULL</code> suppresses this option, <code>add_rug_*</code> implements default arguments and a named list customises these.</p></dd>
+
+
 <dt>return_list</dt>
 <dd><p>(depreciated) A logical input which defines whether or not to return the list produced by <code><a href="pretty_axis.html">pretty_axis</a></code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed to <code><a href="https://rdrr.io/pkg/mgcv/man/vis.gam.html" class="external-link">vis.gam</a></code>, excluding <code>"plot.type"</code> (since only contour plots are supported by this function) and <code>"axes"</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns a contour plot of the predictions of a generalised addition model for the two variables defined in <code>view</code> and, invisibly, the list of pretty axis parameters produced by <code><a href="pretty_axis.html">pretty_axis</a></code>.</p>
+    
+
+<p>The function returns a contour plot of the predictions of a generalised addition model for the two variables defined in <code>view</code> and, invisibly, the list of pretty axis parameters produced by <code><a href="pretty_axis.html">pretty_axis</a></code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -110,91 +125,91 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Simulate example data and fit model (following ?mgcv::vis.gam examples)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">n</span>    <span class="op">&lt;-</span> <span class="fl">200</span></span>
-<span class="r-in"><span class="va">sig2</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
-<span class="r-in"><span class="va">x0</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x1</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x2</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span>    <span class="op">&lt;-</span> <span class="va">x0</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">x1</span> <span class="op">*</span> <span class="va">x2</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="op">-</span><span class="fl">0.3</span>, <span class="fl">0.3</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">g</span>    <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="fu">s</span><span class="op">(</span><span class="va">x0</span>, <span class="va">x1</span>, <span class="va">x2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (1): Contour plot using default options</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Simulate example data and fit model (following ?mgcv::vis.gam examples)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">n</span>    <span class="op">&lt;-</span> <span class="fl">200</span></span></span>
+<span class="r-in"><span><span class="va">sig2</span> <span class="op">&lt;-</span> <span class="fl">4</span></span></span>
+<span class="r-in"><span><span class="va">x0</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x1</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x2</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span>    <span class="op">&lt;-</span> <span class="va">x0</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">x1</span> <span class="op">*</span> <span class="va">x2</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="op">-</span><span class="fl">0.3</span>, <span class="fl">0.3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">g</span>    <span class="op">&lt;-</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="fu">s</span><span class="op">(</span><span class="va">x0</span>, <span class="va">x1</span>, <span class="va">x2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (1): Contour plot using default options</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_smooth_2d-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (2): Customise axes via xlim, ylim and pretty_axis_args</span></span>
-<span class="r-in"><span class="co"># Use xlim and ylim</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span>
-<span class="r-in">                 xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span class="r-in">                 ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (2): Customise axes via xlim, ylim and pretty_axis_args</span></span></span>
+<span class="r-in"><span><span class="co"># Use xlim and ylim</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_smooth_2d-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Use pretty_axis_args</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span>
-<span class="r-in">                 pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Use pretty_axis_args</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_smooth_2d-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (3): Add observed data</span></span>
-<span class="r-in"><span class="co"># Specify list() to use default options</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span>
-<span class="r-in">                 add_xy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (3): Add observed data</span></span></span>
+<span class="r-in"><span><span class="co"># Specify list() to use default options</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 add_xy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_smooth_2d-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Customise addition of observed data</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span>
-<span class="r-in">                 add_xy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="st">".'"</span>, cex <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Customise addition of observed data</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 add_xy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="st">".'"</span>, cex <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_smooth_2d-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (4): Add rugs for the x and y variables</span></span>
-<span class="r-in"><span class="co"># Use default options</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span>
-<span class="r-in">                 add_rug_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">                 add_rug_y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (4): Add rugs for the x and y variables</span></span></span>
+<span class="r-in"><span><span class="co"># Use default options</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 add_rug_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 add_rug_y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_smooth_2d-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Customise options</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span>
-<span class="r-in">                 add_rug_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span>,</span>
-<span class="r-in">                 add_rug_y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Customise options</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 add_rug_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 add_rug_y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_smooth_2d-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (5): Pass additional options to mgcv::vis.gam() via ...</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span>
-<span class="r-in">                 main <span class="op">=</span> <span class="st">""</span>, xlab <span class="op">=</span> <span class="st">"x1[...]"</span>, ylab <span class="op">=</span> <span class="st">"x2[...]"</span>,</span>
-<span class="r-in">                 color <span class="op">=</span> <span class="st">"gray"</span>,</span>
-<span class="r-in">                 contour.col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (5): Pass additional options to mgcv::vis.gam() via ...</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 main <span class="op">=</span> <span class="st">""</span>, xlab <span class="op">=</span> <span class="st">"x1[...]"</span>, ylab <span class="op">=</span> <span class="st">"x2[...]"</span>,</span></span>
+<span class="r-in"><span>                 color <span class="op">=</span> <span class="st">"gray"</span>,</span></span>
+<span class="r-in"><span>                 contour.col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_smooth_2d-8.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (5): Integrate with add_colour_bar()</span></span>
-<span class="r-in"><span class="co"># Define plotting window with space for legend</span></span>
-<span class="r-in"><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Define z-limits for plot and legend and associated colours</span></span>
-<span class="r-in"><span class="va">zlim</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1.5</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">n_col</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
-<span class="r-in"><span class="va">col_param</span> <span class="op">&lt;-</span> <span class="fu"><a href="pretty_cols_brewer.html">pretty_cols_brewer</a></span><span class="op">(</span>zlim <span class="op">=</span> <span class="va">zlim</span>,</span>
-<span class="r-in">                                pal <span class="op">=</span> <span class="fu">grDevices</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">heat.colors</a></span>,</span>
-<span class="r-in">                                n_breaks <span class="op">=</span> <span class="va">n_col</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Make plot with colour scheme</span></span>
-<span class="r-in"><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span>
-<span class="r-in">                 zlim <span class="op">=</span> <span class="va">col_param</span><span class="op">$</span><span class="va">zlim</span>,</span>
-<span class="r-in">                 col <span class="op">=</span> <span class="st">"heat"</span>,</span>
-<span class="r-in">                 nCol <span class="op">=</span> <span class="va">n_col</span>,</span>
-<span class="r-in">                 nlevels <span class="op">=</span> <span class="va">n_col</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (5): Integrate with add_colour_bar()</span></span></span>
+<span class="r-in"><span><span class="co"># Define plotting window with space for legend</span></span></span>
+<span class="r-in"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Define z-limits for plot and legend and associated colours</span></span></span>
+<span class="r-in"><span><span class="va">zlim</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1.5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">n_col</span> <span class="op">&lt;-</span> <span class="fl">100</span></span></span>
+<span class="r-in"><span><span class="va">col_param</span> <span class="op">&lt;-</span> <span class="fu"><a href="pretty_cols_brewer.html">pretty_cols_brewer</a></span><span class="op">(</span>zlim <span class="op">=</span> <span class="va">zlim</span>,</span></span>
+<span class="r-in"><span>                                pal <span class="op">=</span> <span class="fu">grDevices</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">heat.colors</a></span>,</span></span>
+<span class="r-in"><span>                                n_breaks <span class="op">=</span> <span class="va">n_col</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Make plot with colour scheme</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_smooth_2d</span><span class="op">(</span><span class="va">g</span>, view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 zlim <span class="op">=</span> <span class="va">col_param</span><span class="op">$</span><span class="va">zlim</span>,</span></span>
+<span class="r-in"><span>                 col <span class="op">=</span> <span class="st">"heat"</span>,</span></span>
+<span class="r-in"><span>                 nCol <span class="op">=</span> <span class="va">n_col</span>,</span></span>
+<span class="r-in"><span>                 nlevels <span class="op">=</span> <span class="va">n_col</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>"nlevels" is not a graphical parameter</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>"nlevels" is not a graphical parameter</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>"nlevels" is not a graphical parameter</span>
-<span class="r-in"><span class="co"># Define legend param required for add_colour_bar()</span></span>
-<span class="r-in"><span class="va">legend_at</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">col_param</span><span class="op">$</span><span class="va">breaks</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">col_param</span><span class="op">$</span><span class="va">breaks</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">]</span>,</span>
-<span class="r-in">             col <span class="op">=</span> <span class="va">col_param</span><span class="op">$</span><span class="va">col</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">legend_axis</span> <span class="op">&lt;-</span> <span class="fu"><a href="pretty_axis.html">pretty_axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">4</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">legend_at</span><span class="op">$</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Add legend as subplot</span></span>
-<span class="r-in"><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span><span class="fu"><a href="add_colour_bar.html">add_colour_bar</a></span><span class="op">(</span><span class="va">legend_at</span>,</span>
-<span class="r-in">                                      pretty_axis_args <span class="op">=</span> <span class="va">legend_axis</span><span class="op">)</span>,</span>
-<span class="r-in">                                      x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">0.05</span>,</span>
-<span class="r-in">                                      vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span>,</span>
-<span class="r-in">                                      size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Define legend param required for add_colour_bar()</span></span></span>
+<span class="r-in"><span><span class="va">legend_at</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">col_param</span><span class="op">$</span><span class="va">breaks</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">col_param</span><span class="op">$</span><span class="va">breaks</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>             col <span class="op">=</span> <span class="va">col_param</span><span class="op">$</span><span class="va">col</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">legend_axis</span> <span class="op">&lt;-</span> <span class="fu"><a href="pretty_axis.html">pretty_axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">4</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">legend_at</span><span class="op">$</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Add legend as subplot</span></span></span>
+<span class="r-in"><span><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span><span class="fu"><a href="add_colour_bar.html">add_colour_bar</a></span><span class="op">(</span><span class="va">legend_at</span>,</span></span>
+<span class="r-in"><span>                                      pretty_axis_args <span class="op">=</span> <span class="va">legend_axis</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                      x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">0.05</span>,</span></span>
+<span class="r-in"><span>                                      vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>                                      size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_smooth_2d-9.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -209,7 +224,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

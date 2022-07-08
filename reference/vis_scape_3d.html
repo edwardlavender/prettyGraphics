@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,25 +63,36 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vis_scape_3d</span><span class="op">(</span><span class="va">r</span>, aggregate <span class="op">=</span> <span class="cn">NULL</span>, buffer <span class="op">=</span> <span class="cn">NULL</span>, add_markers <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vis_scape_3d</span><span class="op">(</span><span class="va">r</span>, aggregate <span class="op">=</span> <span class="cn">NULL</span>, buffer <span class="op">=</span> <span class="cn">NULL</span>, add_markers <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>r</dt>
 <dd><p>A <code><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></code> to be plotted (see <code><a href="pretty_scape_3d.html">pretty_scape_3d</a></code>).</p></dd>
+
+
 <dt>aggregate</dt>
-<dd><p>(optional) A named list of arguments that is passed to <code><a href="https://rdrr.io/pkg/raster/man/aggregate.html" class="external-link">aggregate</a></code> to aggregate raster cells, excluding the aggregation factor (<code>fact</code>), which is specified interactively.</p></dd>
+<dd><p>(optional) A named list of arguments that is passed to <code><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></code> to aggregate raster cells, excluding the aggregation factor (<code>fact</code>), which is specified interactively.</p></dd>
+
+
 <dt>buffer</dt>
 <dd><p>(optional) A named list of arguments that is passed to <code><a href="https://rdrr.io/pkg/rgeos/man/misc-gBuffer.html" class="external-link">gBuffer</a></code> to add a buffer around inputted points, within which the raster is shown, except <code>width</code> which is set interactively.</p></dd>
+
+
 <dt>add_markers</dt>
 <dd><p>(optional) A named list of arguments that is passed to <code><a href="https://rdrr.io/pkg/plotly/man/add_trace.html" class="external-link">add_markers</a></code> to add points to the plot. Of these, subsets of markers can be selected interactively to zoom into the landscape in particular areas.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other arguments passed to <code><a href="pretty_scape_3d.html">pretty_scape_3d</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns an interactive R Shiny application.</p>
+    
+
+<p>The function returns an interactive R Shiny application.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -98,68 +109,68 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Use UTM raster for visualisation</span></span>
-<span class="r-in"><span class="co"># This is best for visualisation because x, y and z coordinates are on the same scale (m)</span></span>
-<span class="r-in"><span class="co"># Planar coordinates coordinates are also required to zoom around points (see ?rgeos::gBuffer)</span></span>
-<span class="r-in"><span class="va">dat_gebco_utm</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/projectRaster.html" class="external-link">projectRaster</a></span><span class="op">(</span><span class="va">dat_gebco</span>, crs <span class="op">=</span> <span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/CRS-class.html" class="external-link">CRS</a></span><span class="op">(</span><span class="st">"+proj=utm +zone=29 ellps=WGS84"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example 1: Only supply a raster</span></span>
-<span class="r-in"><span class="co"># In this case, the two benefits of the Shiny, relative to pretty_scape_3d(), are</span></span>
-<span class="r-in"><span class="co"># ... (a) interactive adjustment of vertical stretch</span></span>
-<span class="r-in"><span class="co"># ... (b) interactive addition of horizontal planes</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># Only run examples in interactive R sessions</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in">  <span class="fu">vis_scape_3d</span><span class="op">(</span>r <span class="op">=</span> <span class="va">dat_gebco_utm</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example 2: Interactive raster aggregation</span></span>
-<span class="r-in"><span class="co"># To implement this, you need to directly specify at least one argument</span></span>
-<span class="r-in"><span class="co"># ... for raster::aggregate, such as the function, fun, via vis_scape_3d()'s aggregate argument.</span></span>
-<span class="r-in"><span class="co"># ... The aggregation fact is set interactively. Note that you will get a warning</span></span>
-<span class="r-in"><span class="co"># ... initally because the default aggregation fact is 1, i.e., no aggregation.</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in">  <span class="fu">vis_scape_3d</span><span class="op">(</span>r <span class="op">=</span> <span class="va">dat_gebco_utm</span>,</span>
-<span class="r-in">             aggregate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>fun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example 3: Zoom around inputted markers interactively</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in">  <span class="co"># Define example coordinates on UTM scale</span></span>
-<span class="r-in">  <span class="va">xyz</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/xyFromCell.html" class="external-link">coordinates</a></span><span class="op">(</span><span class="va">dat_gebco_utm</span><span class="op">)</span><span class="op">[</span><span class="fl">500</span><span class="op">:</span><span class="fl">520</span>, <span class="op">]</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">xyz</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">xyz</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, y <span class="op">=</span> <span class="va">xyz</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>, z <span class="op">=</span> <span class="op">-</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in">  <span class="co"># Lauch application and interactively define buffer size in m</span></span>
-<span class="r-in">  <span class="co"># Note that you will may a warning initally because the default buffer size is small.</span></span>
-<span class="r-in">  <span class="fu">vis_scape_3d</span><span class="op">(</span>r <span class="op">=</span> <span class="va">dat_gebco_utm</span>,</span>
-<span class="r-in">             add_markers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">xyz</span><span class="op">$</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">xyz</span><span class="op">$</span><span class="va">y</span>, z <span class="op">=</span> <span class="va">xyz</span><span class="op">$</span><span class="va">z</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example 4: Other arguments can be passed to pretty_scape_3d() via ...</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in">  <span class="fu">vis_scape_3d</span><span class="op">(</span>r <span class="op">=</span> <span class="va">dat_gebco_utm</span>,</span>
-<span class="r-in">             aspectmode <span class="op">=</span> <span class="st">"data"</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># However, note that inputting arguments to pretty_scape_3d() that are set by the Shiny</span></span>
-<span class="r-in"><span class="co"># ... interactively will cause an error:</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in">    <span class="fu">vis_scape_3d</span><span class="op">(</span>r <span class="op">=</span> <span class="va">dat_gebco_utm</span>,</span>
-<span class="r-in">               stretch <span class="op">=</span> <span class="fl">10</span></span>
-<span class="r-in">    <span class="op">)</span></span>
-<span class="r-in">  <span class="op">}</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Use UTM raster for visualisation</span></span></span>
+<span class="r-in"><span><span class="co"># This is best for visualisation because x, y and z coordinates are on the same scale (m)</span></span></span>
+<span class="r-in"><span><span class="co"># Planar coordinates coordinates are also required to zoom around points (see ?rgeos::gBuffer)</span></span></span>
+<span class="r-in"><span><span class="va">dat_gebco_utm</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/projectRaster.html" class="external-link">projectRaster</a></span><span class="op">(</span><span class="va">dat_gebco</span>, crs <span class="op">=</span> <span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/CRS-class.html" class="external-link">CRS</a></span><span class="op">(</span><span class="st">"+proj=utm +zone=29 ellps=WGS84"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example 1: Only supply a raster</span></span></span>
+<span class="r-in"><span><span class="co"># In this case, the two benefits of the Shiny, relative to pretty_scape_3d(), are</span></span></span>
+<span class="r-in"><span><span class="co"># ... (a) interactive adjustment of vertical stretch</span></span></span>
+<span class="r-in"><span><span class="co"># ... (b) interactive addition of horizontal planes</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># Only run examples in interactive R sessions</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu">vis_scape_3d</span><span class="op">(</span>r <span class="op">=</span> <span class="va">dat_gebco_utm</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example 2: Interactive raster aggregation</span></span></span>
+<span class="r-in"><span><span class="co"># To implement this, you need to directly specify at least one argument</span></span></span>
+<span class="r-in"><span><span class="co"># ... for raster::aggregate, such as the function, fun, via vis_scape_3d()'s aggregate argument.</span></span></span>
+<span class="r-in"><span><span class="co"># ... The aggregation fact is set interactively. Note that you will get a warning</span></span></span>
+<span class="r-in"><span><span class="co"># ... initally because the default aggregation fact is 1, i.e., no aggregation.</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu">vis_scape_3d</span><span class="op">(</span>r <span class="op">=</span> <span class="va">dat_gebco_utm</span>,</span></span>
+<span class="r-in"><span>             aggregate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>fun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example 3: Zoom around inputted markers interactively</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># Define example coordinates on UTM scale</span></span></span>
+<span class="r-in"><span>  <span class="va">xyz</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/coordinates.html" class="external-link">coordinates</a></span><span class="op">(</span><span class="va">dat_gebco_utm</span><span class="op">)</span><span class="op">[</span><span class="fl">500</span><span class="op">:</span><span class="fl">520</span>, <span class="op">]</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">xyz</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">xyz</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, y <span class="op">=</span> <span class="va">xyz</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>, z <span class="op">=</span> <span class="op">-</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="co"># Lauch application and interactively define buffer size in m</span></span></span>
+<span class="r-in"><span>  <span class="co"># Note that you will may a warning initally because the default buffer size is small.</span></span></span>
+<span class="r-in"><span>  <span class="fu">vis_scape_3d</span><span class="op">(</span>r <span class="op">=</span> <span class="va">dat_gebco_utm</span>,</span></span>
+<span class="r-in"><span>             add_markers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">xyz</span><span class="op">$</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">xyz</span><span class="op">$</span><span class="va">y</span>, z <span class="op">=</span> <span class="va">xyz</span><span class="op">$</span><span class="va">z</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example 4: Other arguments can be passed to pretty_scape_3d() via ...</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu">vis_scape_3d</span><span class="op">(</span>r <span class="op">=</span> <span class="va">dat_gebco_utm</span>,</span></span>
+<span class="r-in"><span>             aspectmode <span class="op">=</span> <span class="st">"data"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># However, note that inputting arguments to pretty_scape_3d() that are set by the Shiny</span></span></span>
+<span class="r-in"><span><span class="co"># ... interactively will cause an error:</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="fu">vis_scape_3d</span><span class="op">(</span>r <span class="op">=</span> <span class="va">dat_gebco_utm</span>,</span></span>
+<span class="r-in"><span>               stretch <span class="op">=</span> <span class="fl">10</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -174,7 +185,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

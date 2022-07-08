@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,49 +63,70 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pretty_curve</span><span class="op">(</span>
-  <span class="va">x</span>,
-  x_interp <span class="op">=</span> <span class="cn">TRUE</span>,
-  from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  n <span class="op">=</span> <span class="fl">101</span>,
-  <span class="va">f</span>,
-  param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  xlab <span class="op">=</span> <span class="st">"x"</span>,
-  ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"f("</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">param</span><span class="op">)</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">", "</span><span class="op">)</span>, <span class="st">")"</span><span class="op">)</span>,
-  type <span class="op">=</span> <span class="st">"l"</span>,
-  add_rug <span class="op">=</span> <span class="cn">NULL</span>,
-  return_list <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pretty_curve</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  x_interp <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">101</span>,</span>
+<span>  <span class="va">f</span>,</span>
+<span>  param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="st">"x"</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"f("</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">param</span><span class="op">)</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">", "</span><span class="op">)</span>, <span class="st">")"</span><span class="op">)</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"l"</span>,</span>
+<span>  add_rug <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  return_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>The x coordinates at which a function, <code>f</code>, should be evaluated. These may be interpolated between a user-specified range defined by user-specified limits depending on inputs to <code>x_interp</code>, <code>from</code>, <code>to</code> and <code>n</code> (see below).</p></dd>
+
+
 <dt>x_interp</dt>
 <dd><p>A logical input that defines whether or not a regular sequence of coordinates should be interpolated within the limits of <code>x</code> at which the function is evaluated. This is only implemented if <code>x</code> is not a sorted sequence.</p></dd>
+
+
 <dt>from, to, n</dt>
 <dd><p>If <code>x_interp = TRUE</code>, <code>from</code>, <code>to</code> and <code>n</code> specify the range and the number of values between these limits at which the function is evaluated. By default, <code>x_interp = TRUE</code> and the function is evaluated for <code>n = 101</code> values spanning the range of <code>x</code></p></dd>
+
+
 <dt>f</dt>
 <dd><p>A function which depends on a named argument, <code>x</code>, and any other named arguments (see <code>param</code>).</p></dd>
+
+
 <dt>param</dt>
 <dd><p>A named list of other arguments required to evaluate the function.</p></dd>
+
+
 <dt>xlab, ylab</dt>
 <dd><p>The x and y axis labels. These can also be added via the <code>mtext_args</code> argument of <code><a href="pretty_plot.html">pretty_plot</a></code> via <code>...</code>.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>A character that specifies the plot type (see <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot.default</a></code>).</p></dd>
+
+
 <dt>add_rug</dt>
 <dd><p>A named list of parameters, passed to <code><a href="https://rdrr.io/r/graphics/rug.html" class="external-link">rug</a></code> to add observed values to the plot. To add a rug using default parameters, simply specify <code>add_rug = list()</code>. If <code>x</code> values are not supplied in this list, they are taken from <code>x</code>. If <code>pos</code> is not supplied, the rug is positioned exactly along the x axis.</p></dd>
+
+
 <dt>return_list</dt>
 <dd><p>(depreciated) A logical input which defines whether or not to return the list of axis parameters produced by <code><a href="pretty_axis.html">pretty_axis</a></code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other parameters that are passed to <code><a href="pretty_plot.html">pretty_plot</a></code>, such as <code>pretty_axis_args</code> to adjust axes.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function evaluates a function and returns a plot. The list of axis parameters produced by <code><a href="pretty_axis.html">pretty_axis</a></code> is also returned invisibly.</p>
+    
+
+<p>The function evaluates a function and returns a plot. The list of axis parameters produced by <code><a href="pretty_axis.html">pretty_axis</a></code> is also returned invisibly.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -118,37 +139,37 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Generate some example x values</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Simple examples</span></span>
-<span class="r-in"><span class="fu">pretty_curve</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, f <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/GammaDist.html" class="external-link">dgamma</a></span>, param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">10</span>, scale <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Generate some example x values</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Simple examples</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_curve</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, f <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/GammaDist.html" class="external-link">dgamma</a></span>, param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">10</span>, scale <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_curve-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">pretty_curve</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, f <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/GammaDist.html" class="external-link">dgamma</a></span>, param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">11</span>, scale <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pretty_curve</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, f <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/GammaDist.html" class="external-link">dgamma</a></span>, param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">11</span>, scale <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_curve-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">pretty_curve</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, f <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span>, param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">10</span>, sd <span class="op">=</span> <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pretty_curve</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, f <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span>, param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">10</span>, sd <span class="op">=</span> <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_curve-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">pretty_curve</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, f <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span>, param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">10</span>, sd <span class="op">=</span> <span class="fl">30</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">pretty_curve</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, f <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span>, param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">10</span>, sd <span class="op">=</span> <span class="fl">30</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_curve-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Customise plot by passing arguments to pretty_plot()</span></span>
-<span class="r-in"><span class="fu">pretty_curve</span><span class="op">(</span><span class="va">x</span>, f <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/GammaDist.html" class="external-link">dgamma</a></span>, param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">10</span>, scale <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span class="r-in">             pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>las <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">             col <span class="op">=</span> <span class="st">"red"</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Customise plot by passing arguments to pretty_plot()</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_curve</span><span class="op">(</span><span class="va">x</span>, f <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/GammaDist.html" class="external-link">dgamma</a></span>, param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">10</span>, scale <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>             pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>las <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>             col <span class="op">=</span> <span class="st">"red"</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Argument 'side' not supplied to pretty_axis_args (nor 'axis_ls'); defaulting to side = 1:2.</span>
 <span class="r-plt img"><img src="pretty_curve-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Add a rug with observed data</span></span>
-<span class="r-in"><span class="co"># Default is to take 'x' as observed data</span></span>
-<span class="r-in"><span class="fu">pretty_curve</span><span class="op">(</span><span class="va">x</span>, f <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/GammaDist.html" class="external-link">dgamma</a></span>, param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">10</span>, scale <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span class="r-in">             add_rug <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Add a rug with observed data</span></span></span>
+<span class="r-in"><span><span class="co"># Default is to take 'x' as observed data</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_curve</span><span class="op">(</span><span class="va">x</span>, f <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/GammaDist.html" class="external-link">dgamma</a></span>, param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">10</span>, scale <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>             add_rug <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_curve-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Specify rug parameters</span></span>
-<span class="r-in"><span class="fu">pretty_curve</span><span class="op">(</span><span class="va">x</span>, f <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/GammaDist.html" class="external-link">dgamma</a></span>, param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">10</span>, scale <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span class="r-in">             add_rug <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, by <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Specify rug parameters</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_curve</span><span class="op">(</span><span class="va">x</span>, f <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/GammaDist.html" class="external-link">dgamma</a></span>, param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">10</span>, scale <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>             add_rug <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, by <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_curve-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -163,7 +184,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

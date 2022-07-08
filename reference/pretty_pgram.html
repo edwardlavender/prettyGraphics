@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,43 +63,62 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pretty_pgram</span><span class="op">(</span>
-  <span class="va">x</span>,
-  sampling_interval <span class="op">=</span> <span class="cn">NULL</span>,
-  scale <span class="op">=</span> <span class="cn">TRUE</span>,
-  log <span class="op">=</span> <span class="cn">FALSE</span>,
-  x_units <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span>,
-  x_type <span class="op">=</span> <span class="st">"f"</span>,
-  plot_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"blue"</span>, xlab <span class="op">=</span> <span class="va">x_type</span>, ylab <span class="op">=</span> <span class="st">"Spectral density"</span><span class="op">)</span>,
-  verbose <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pretty_pgram</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  sampling_interval <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  scale <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  log <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  x_units <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span>,</span>
+<span>  x_type <span class="op">=</span> <span class="st">"f"</span>,</span>
+<span>  plot_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"blue"</span>, xlab <span class="op">=</span> <span class="va">x_type</span>, ylab <span class="op">=</span> <span class="st">"Spectral density"</span><span class="op">)</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>An object of class "spec" (see <code><a href="https://rdrr.io/r/stats/spectrum.html" class="external-link">spectrum</a></code>) or a univariate time series to be passed to <code><a href="https://rdrr.io/r/stats/spectrum.html" class="external-link">spectrum</a></code>.</p></dd>
+
+
 <dt>sampling_interval</dt>
 <dd><p>A number that defines the sampling interval between sequential observations. If provided, this is used to re-express the frequencies that are returned by <code><a href="https://rdrr.io/r/stats/spectrum.html" class="external-link">spectrum</a></code> (where they are defined as the number of time cycles per time interval) into the number of cycles per unit time.</p></dd>
+
+
 <dt>scale</dt>
 <dd><p>A logical input that defines whether or not to scale the spectral densities returned by <code><a href="https://rdrr.io/r/stats/spectrum.html" class="external-link">spectrum</a></code> (by doubling) so that the area under the periodogram values equals the variance.</p></dd>
+
+
 <dt>log</dt>
 <dd><p>A logical input that defines whether or not to log (scaled) spectral densities. This is <code>FALSE</code> by default.</p></dd>
+
+
 <dt>x_units</dt>
 <dd><p>A function that is used to process the x-axis units, after having converted frequencies into the number of cycles per unit time. For example, if the x-axis is given as frequency per minute, <code>function(x) x*60</code> will convert the x-axis into frequency per hour.</p></dd>
+
+
 <dt>x_type</dt>
 <dd><p>A character input that specifies whether to plot frequencies (<code>"f"</code>) or periods (<code>"T"</code> = 1/f) on the x-axis.</p></dd>
+
+
 <dt>plot_args</dt>
 <dd><p>A named list of arguments that is passed to <code><a href="pretty_plot.html">pretty_plot</a></code> to customise the plot that is produced.</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>A logical input that defines whether or not to print messages to the console defining the actions implemented.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments to estimate the spectral density that are passed to <code><a href="https://rdrr.io/r/stats/spectrum.html" class="external-link">spectrum</a></code>, if <code>x</code> is a univariate time series.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns a plot of the spectral density (i.e., a spectral power plot).</p>
+    
+
+<p>The function returns a plot of the spectral density (i.e., a spectral power plot).</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -108,42 +127,42 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Define plotting window</span></span>
-<span class="r-in"><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Define a series of time stamps, with observations every 0.5 mins</span></span>
-<span class="r-in"><span class="va">delta</span> <span class="op">&lt;-</span> <span class="fl">0.5</span></span>
-<span class="r-in"><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30</span>, by <span class="op">=</span> <span class="va">delta</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Simulate a response, with a period of 5 (i.e., 5 mins between every cycle)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="op">(</span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">)</span><span class="op">/</span><span class="fl">5</span><span class="op">)</span><span class="op">*</span><span class="va">t</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">"Time (mins)"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Visualise 'raw' periodogram</span></span>
-<span class="r-in"><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/spectrum.html" class="external-link">spectrum</a></span><span class="op">(</span><span class="va">y</span>, log <span class="op">=</span> <span class="st">"no"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Default pretty_pgram adjustments</span></span>
-<span class="r-in"><span class="co"># ... including converting frequency to per unit time (per minute)</span></span>
-<span class="r-in"><span class="co"># ... 0.2 cycles per minute = 1/0.2 = period of 5 mins:</span></span>
-<span class="r-in"><span class="fu">pretty_pgram</span><span class="op">(</span><span class="va">y</span>, sampling_interval <span class="op">=</span> <span class="va">delta</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Define plotting window</span></span></span>
+<span class="r-in"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Define a series of time stamps, with observations every 0.5 mins</span></span></span>
+<span class="r-in"><span><span class="va">delta</span> <span class="op">&lt;-</span> <span class="fl">0.5</span></span></span>
+<span class="r-in"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30</span>, by <span class="op">=</span> <span class="va">delta</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Simulate a response, with a period of 5 (i.e., 5 mins between every cycle)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="op">(</span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">)</span><span class="op">/</span><span class="fl">5</span><span class="op">)</span><span class="op">*</span><span class="va">t</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">"Time (mins)"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Visualise 'raw' periodogram</span></span></span>
+<span class="r-in"><span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/spectrum.html" class="external-link">spectrum</a></span><span class="op">(</span><span class="va">y</span>, log <span class="op">=</span> <span class="st">"no"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Default pretty_pgram adjustments</span></span></span>
+<span class="r-in"><span><span class="co"># ... including converting frequency to per unit time (per minute)</span></span></span>
+<span class="r-in"><span><span class="co"># ... 0.2 cycles per minute = 1/0.2 = period of 5 mins:</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_pgram</span><span class="op">(</span><span class="va">y</span>, sampling_interval <span class="op">=</span> <span class="va">delta</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimating spectral density...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Scaling spectral density...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Re-expressing frequencies per unit time...</span>
-<span class="r-in"><span class="co"># Plot period instead of frequency (i.e., expect a period of 5 minutes)</span></span>
-<span class="r-in"><span class="fu">pretty_pgram</span><span class="op">(</span><span class="va">y</span>, sampling_interval <span class="op">=</span> <span class="va">delta</span>, x_type <span class="op">=</span> <span class="st">"T"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimating spectral density...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Scaling spectral density...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Re-expressing frequencies per unit time...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Converting frequencies to periods...</span>
-<span class="r-in"><span class="co"># Convert period into seconds (one period per 5 mins = one period per 300 seconds)</span></span>
-<span class="r-in"><span class="fu">pretty_pgram</span><span class="op">(</span><span class="va">y</span>,</span>
-<span class="r-in">             sampling_interval <span class="op">=</span> <span class="va">delta</span>,</span>
-<span class="r-in">             x_type <span class="op">=</span> <span class="st">"T"</span>,</span>
-<span class="r-in">             x_units <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">/</span><span class="fl">60</span></span>
-<span class="r-in">             <span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Plot period instead of frequency (i.e., expect a period of 5 minutes)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_pgram</span><span class="op">(</span><span class="va">y</span>, sampling_interval <span class="op">=</span> <span class="va">delta</span>, x_type <span class="op">=</span> <span class="st">"T"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimating spectral density...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Scaling spectral density...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Re-expressing frequencies per unit time...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Converting frequencies to periods...</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Convert period into seconds (one period per 5 mins = one period per 300 seconds)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_pgram</span><span class="op">(</span><span class="va">y</span>,</span></span>
+<span class="r-in"><span>             sampling_interval <span class="op">=</span> <span class="va">delta</span>,</span></span>
+<span class="r-in"><span>             x_type <span class="op">=</span> <span class="st">"T"</span>,</span></span>
+<span class="r-in"><span>             x_units <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">/</span><span class="fl">60</span></span></span>
+<span class="r-in"><span>             <span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimating spectral density...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Scaling spectral density...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Re-expressing frequencies per unit time...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Converting frequencies to periods...</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_pgram-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -158,7 +177,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,23 +63,32 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">check_input_value</span><span class="op">(</span><span class="va">arg</span>, <span class="va">input</span>, <span class="va">supp</span>, default <span class="op">=</span> <span class="va">supp</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">check_input_value</span><span class="op">(</span><span class="va">arg</span>, <span class="va">input</span>, <span class="va">supp</span>, default <span class="op">=</span> <span class="va">supp</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>arg</dt>
 <dd><p>A character string which defines the argument of the parent function.</p></dd>
+
+
 <dt>input</dt>
 <dd><p>The input to an argument of a parent function.</p></dd>
+
+
 <dt>supp</dt>
 <dd><p>A vector of supported input values for the argument in the parent function.</p></dd>
+
+
 <dt>default</dt>
 <dd><p>The default input value for the parent function.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns <code>input</code> or <code>default</code> (the latter with a warning) depending on whether or not <code>input</code> is within <code>supp</code> (i.e., whether or not the input to the argument of a parent function is supported).</p>
+    
+
+<p>The function returns <code>input</code> or <code>default</code> (the latter with a warning) depending on whether or not <code>input</code> is within <code>supp</code> (i.e., whether or not the input to the argument of a parent function is supported).</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -98,7 +107,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

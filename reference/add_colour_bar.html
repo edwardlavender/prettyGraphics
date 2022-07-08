@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,31 +63,42 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">add_colour_bar</span><span class="op">(</span>
-  <span class="va">data_legend</span>,
-  pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  mtext_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  data_raw <span class="op">=</span> <span class="cn">NULL</span>,
-  mark_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_colour_bar</span><span class="op">(</span></span>
+<span>  <span class="va">data_legend</span>,</span>
+<span>  pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  mtext_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  data_raw <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mark_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>data_legend</dt>
 <dd><p>A dataframe with two columns named 'x' and 'col'. 'x' is a regular sequence of values. 'col' is the colour of each value. This is used to define the colour bar. <code>data_legend</code> can be extracted from <code><a href="add_lines.html">add_lines</a></code>.</p></dd>
+
+
 <dt>pretty_axis_args</dt>
 <dd><p>A list of arguments passed to <code><a href="pretty_axis.html">pretty_axis</a></code> via the <code>axis_ls</code> argument to add an axis to the colour bar, defining the meaning of different colours.</p></dd>
+
+
 <dt>mtext_args</dt>
 <dd><p>A list of arguments passed to <code><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></code> to add a label to the legend.</p></dd>
+
+
 <dt>data_raw</dt>
 <dd><p>(optional) A numeric vector that contains the raw data to which the the colour bar refers. If provided, <code>data_raw</code> is used to calculate the range of the raw data; this can be added to the legend via <code>mark_args</code> (see below).</p></dd>
+
+
 <dt>mark_args</dt>
 <dd><p>(optional) A list of arguments passed to <code><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></code> (excluding <code>x</code> and <code>y</code>). If provided, these arguments are used to draw lines on the colour bar delineating the range of the raw data. This can be useful in circumstances in which the range of the colour bar differs from the raw data (the user has control over this; see Examples). A single list affects both the lower and upper limit delimiters identically; a nested list with two elements controls the lower and upper limit independently.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function return a plot of the colour bar. This can be added to an existing plot with <code><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></code>.</p>
+    
+
+<p>The function return a plot of the colour bar. This can be added to an existing plot with <code><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></code>.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -96,129 +107,129 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Define some data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">20</span>, <span class="fl">9</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">987</span>, <span class="fl">1200</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y2</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">*</span><span class="fl">3</span><span class="op">-</span><span class="fl">1000</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Plot graph and add colour line, saving output of add_lines to a list:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">colour_line_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, <span class="va">y2</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Define some data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">20</span>, <span class="fl">9</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">987</span>, <span class="fl">1200</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">*</span><span class="fl">3</span><span class="op">-</span><span class="fl">1000</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Plot graph and add colour line, saving output of add_lines to a list:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">colour_line_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, <span class="va">y2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_colour_bar-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (1): add_colour_bar uses outputs of add_lines and returns a plot</span></span>
-<span class="r-in"><span class="fu">add_colour_bar</span><span class="op">(</span>data_legend <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span>
-<span class="r-in">               pretty_axis_args <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">axis_legend</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (1): add_colour_bar uses outputs of add_lines and returns a plot</span></span></span>
+<span class="r-in"><span><span class="fu">add_colour_bar</span><span class="op">(</span>data_legend <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span></span>
+<span class="r-in"><span>               pretty_axis_args <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">axis_legend</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_colour_bar-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">#### Example (2): add_colour_bar can be used in combination with TeachingDemos::subplot()</span></span>
-<span class="r-in"><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span>; <span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, <span class="va">y2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span><span class="fu">add_colour_bar</span><span class="op">(</span>data_legend <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span>
-<span class="r-in">                              pretty_axis_args <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">axis_legend</span></span>
-<span class="r-in"><span class="op">)</span>,</span>
-<span class="r-in">x <span class="op">=</span> <span class="fl">1275</span>, y <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">2.75</span><span class="op">)</span>, vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">#### Example (2): add_colour_bar can be used in combination with TeachingDemos::subplot()</span></span></span>
+<span class="r-in"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span>; <span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, <span class="va">y2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span><span class="fu">add_colour_bar</span><span class="op">(</span>data_legend <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span></span>
+<span class="r-in"><span>                              pretty_axis_args <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">axis_legend</span></span></span>
+<span class="r-in"><span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>x <span class="op">=</span> <span class="fl">1275</span>, y <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">2.75</span><span class="op">)</span>, vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_colour_bar-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (3): the mtext_args argument can be used to add a label</span></span>
-<span class="r-in"><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span>; <span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, <span class="va">y2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span><span class="fu">add_colour_bar</span><span class="op">(</span>data_legend <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span>
-<span class="r-in">                              pretty_axis_args <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">axis_legend</span>,</span>
-<span class="r-in">                              mtext_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">4</span>,</span>
-<span class="r-in">                                                text <span class="op">=</span> <span class="st">"Legend"</span>,</span>
-<span class="r-in">                                                cex <span class="op">=</span> <span class="fl">1.5</span>,</span>
-<span class="r-in">                                                font <span class="op">=</span> <span class="fl">2</span>,</span>
-<span class="r-in">                                                line <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
-<span class="r-in"><span class="op">)</span>,</span>
-<span class="r-in">x <span class="op">=</span> <span class="fl">1275</span>, y <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">2.75</span><span class="op">)</span>, vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (3): the mtext_args argument can be used to add a label</span></span></span>
+<span class="r-in"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span>; <span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, <span class="va">y2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span><span class="fu">add_colour_bar</span><span class="op">(</span>data_legend <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span></span>
+<span class="r-in"><span>                              pretty_axis_args <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">axis_legend</span>,</span></span>
+<span class="r-in"><span>                              mtext_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">4</span>,</span></span>
+<span class="r-in"><span>                                                text <span class="op">=</span> <span class="st">"Legend"</span>,</span></span>
+<span class="r-in"><span>                                                cex <span class="op">=</span> <span class="fl">1.5</span>,</span></span>
+<span class="r-in"><span>                                                font <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>                                                line <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>x <span class="op">=</span> <span class="fl">1275</span>, y <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">2.75</span><span class="op">)</span>, vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_colour_bar-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (4): data_raw and mark_args can be used to delineate the range of data</span></span>
-<span class="r-in"><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span>; <span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, <span class="va">y2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span><span class="fu">add_colour_bar</span><span class="op">(</span>data_legend <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span>
-<span class="r-in">                              pretty_axis_args <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">axis_legend</span>,</span>
-<span class="r-in">                              data_raw <span class="op">=</span> <span class="va">y2</span>,</span>
-<span class="r-in">                              mark_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"dimgrey"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span>,</span>
-<span class="r-in">x <span class="op">=</span> <span class="fl">1275</span>, y <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">2.75</span><span class="op">)</span>, vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (4): data_raw and mark_args can be used to delineate the range of data</span></span></span>
+<span class="r-in"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span>; <span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, <span class="va">y2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span><span class="fu">add_colour_bar</span><span class="op">(</span>data_legend <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span></span>
+<span class="r-in"><span>                              pretty_axis_args <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">axis_legend</span>,</span></span>
+<span class="r-in"><span>                              data_raw <span class="op">=</span> <span class="va">y2</span>,</span></span>
+<span class="r-in"><span>                              mark_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"dimgrey"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>x <span class="op">=</span> <span class="fl">1275</span>, y <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">2.75</span><span class="op">)</span>, vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_colour_bar-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (5): the lower and upper data delimiters can be controlled independently</span></span>
-<span class="r-in"><span class="co"># ... using a nested list:</span></span>
-<span class="r-in"><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span>; <span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, <span class="va">y2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span><span class="fu">add_colour_bar</span><span class="op">(</span>data_legend <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span>
-<span class="r-in">                              pretty_axis_args <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">axis_legend</span>,</span>
-<span class="r-in">                              data_raw <span class="op">=</span> <span class="va">y2</span>,</span>
-<span class="r-in">                              mark_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"dimgrey"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span>,</span>
-<span class="r-in">x <span class="op">=</span> <span class="fl">1275</span>, y <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">2.75</span><span class="op">)</span>, vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (5): the lower and upper data delimiters can be controlled independently</span></span></span>
+<span class="r-in"><span><span class="co"># ... using a nested list:</span></span></span>
+<span class="r-in"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span>; <span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, <span class="va">y2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span><span class="fu">add_colour_bar</span><span class="op">(</span>data_legend <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span></span>
+<span class="r-in"><span>                              pretty_axis_args <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">axis_legend</span>,</span></span>
+<span class="r-in"><span>                              data_raw <span class="op">=</span> <span class="va">y2</span>,</span></span>
+<span class="r-in"><span>                              mark_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"dimgrey"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>x <span class="op">=</span> <span class="fl">1275</span>, y <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">2.75</span><span class="op">)</span>, vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_colour_bar-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (6): the axis harnesses the power of pretty_axis() and can be adjusted</span></span>
-<span class="r-in"><span class="co"># For example, in Example 5, it is clear that the colour bar extends</span></span>
-<span class="r-in"><span class="co"># ... beyond the range of the data. This is the default behaviour for pretty_axis()</span></span>
-<span class="r-in"><span class="co"># .... but we can force pretty labels to lie within the range of the data by adjusting</span></span>
-<span class="r-in"><span class="co"># ... the initial call to add_lines() to incorporate fixed limits</span></span>
-<span class="r-in"><span class="co"># ... in the pretty_axis_args argument:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">colour_line_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">x</span>,</span>
-<span class="r-in">                            <span class="va">y1</span>,</span>
-<span class="r-in">                            <span class="va">y2</span>,</span>
-<span class="r-in">                            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">y2</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">                                                    pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">                                                    <span class="op">)</span></span>
-<span class="r-in"><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span><span class="fu">add_colour_bar</span><span class="op">(</span>data_legend <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span>
-<span class="r-in">                              pretty_axis_args <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">axis_legend</span></span>
-<span class="r-in"><span class="op">)</span>,</span>
-<span class="r-in">x <span class="op">=</span> <span class="fl">1275</span>, y <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">2.75</span><span class="op">)</span>, vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (6): the axis harnesses the power of pretty_axis() and can be adjusted</span></span></span>
+<span class="r-in"><span><span class="co"># For example, in Example 5, it is clear that the colour bar extends</span></span></span>
+<span class="r-in"><span><span class="co"># ... beyond the range of the data. This is the default behaviour for pretty_axis()</span></span></span>
+<span class="r-in"><span><span class="co"># .... but we can force pretty labels to lie within the range of the data by adjusting</span></span></span>
+<span class="r-in"><span><span class="co"># ... the initial call to add_lines() to incorporate fixed limits</span></span></span>
+<span class="r-in"><span><span class="co"># ... in the pretty_axis_args argument:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">colour_line_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">x</span>,</span></span>
+<span class="r-in"><span>                            <span class="va">y1</span>,</span></span>
+<span class="r-in"><span>                            <span class="va">y2</span>,</span></span>
+<span class="r-in"><span>                            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">y2</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                                    pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                                                    <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span><span class="fu">add_colour_bar</span><span class="op">(</span>data_legend <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span></span>
+<span class="r-in"><span>                              pretty_axis_args <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">axis_legend</span></span></span>
+<span class="r-in"><span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>x <span class="op">=</span> <span class="fl">1275</span>, y <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">2.75</span><span class="op">)</span>, vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_colour_bar-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (7): another option is to increase the number of pretty breaks</span></span>
-<span class="r-in"><span class="co"># ... so the pretty axis and limits of the data line up well:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">colour_line_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, <span class="va">y2</span>, pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span><span class="fu">add_colour_bar</span><span class="op">(</span>data_legend <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span>
-<span class="r-in">                              pretty_axis_args <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">axis_legend</span></span>
-<span class="r-in"><span class="op">)</span>,</span>
-<span class="r-in">x <span class="op">=</span> <span class="fl">1275</span>, y <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">2.75</span><span class="op">)</span>, vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (7): another option is to increase the number of pretty breaks</span></span></span>
+<span class="r-in"><span><span class="co"># ... so the pretty axis and limits of the data line up well:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">colour_line_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span>, <span class="va">y2</span>, pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span><span class="fu">add_colour_bar</span><span class="op">(</span>data_legend <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span></span>
+<span class="r-in"><span>                              pretty_axis_args <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">axis_legend</span></span></span>
+<span class="r-in"><span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>x <span class="op">=</span> <span class="fl">1275</span>, y <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">2.75</span><span class="op">)</span>, vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_colour_bar-8.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (8): other axis customisation options are best handled via pretty_axis_args, e.g.:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">colour_line_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">x</span>,</span>
-<span class="r-in">                            <span class="va">y1</span>,</span>
-<span class="r-in">                            <span class="va">y2</span>,</span>
-<span class="r-in">                            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
-<span class="r-in">                                                    axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>las <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span><span class="fu">add_colour_bar</span><span class="op">(</span>data_legend <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span>
-<span class="r-in">                              pretty_axis_args <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">axis_legend</span></span>
-<span class="r-in"><span class="op">)</span>,</span>
-<span class="r-in">x <span class="op">=</span> <span class="fl">1275</span>, y <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">2.75</span><span class="op">)</span>, vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (8): other axis customisation options are best handled via pretty_axis_args, e.g.:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">colour_line_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">x</span>,</span></span>
+<span class="r-in"><span>                            <span class="va">y1</span>,</span></span>
+<span class="r-in"><span>                            <span class="va">y2</span>,</span></span>
+<span class="r-in"><span>                            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                                    axis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>las <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">TeachingDemos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/TeachingDemos/man/subplot.html" class="external-link">subplot</a></span><span class="op">(</span><span class="fu">add_colour_bar</span><span class="op">(</span>data_legend <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">data_legend</span>,</span></span>
+<span class="r-in"><span>                              pretty_axis_args <span class="op">=</span> <span class="va">colour_line_ls</span><span class="op">$</span><span class="va">axis_legend</span></span></span>
+<span class="r-in"><span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>x <span class="op">=</span> <span class="fl">1275</span>, y <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">2.75</span><span class="op">)</span>, vadj <span class="op">=</span> <span class="fl">0</span>, hadj <span class="op">=</span> <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_colour_bar-9.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -233,7 +244,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

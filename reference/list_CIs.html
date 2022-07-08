@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,34 +63,47 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">list_CIs</span><span class="op">(</span>
-  <span class="va">pred</span>,
-  inv_link <span class="op">=</span> <span class="va">I</span>,
-  fadj <span class="op">=</span> <span class="va">I</span>,
-  centre <span class="op">=</span> <span class="cn">FALSE</span>,
-  plot_suggestions <span class="op">=</span> <span class="cn">TRUE</span>,
-  pretty_param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">list_CIs</span><span class="op">(</span></span>
+<span>  <span class="va">pred</span>,</span>
+<span>  inv_link <span class="op">=</span> <span class="va">I</span>,</span>
+<span>  fadj <span class="op">=</span> <span class="va">I</span>,</span>
+<span>  centre <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  plot_suggestions <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  pretty_param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>pred</dt>
 <dd><p>A list of fitted values and corresponding SEs (usually from <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></code>).</p></dd>
+
+
 <dt>inv_link</dt>
 <dd><p>A function which defines the inverse link function. The default is <code>I</code> which leaves predictions unchanged. If supplied, the function applies <code>inv_link</code> after computing confidence intervals.</p></dd>
+
+
 <dt>fadj</dt>
 <dd><p>A function by which to modify predictions (after the inverse link function has been applied, if applicable). For example, in models of animal depth time series, models are often implemented by considering depth as a positive number, but plotted with depth as a negative number, for visualisation purposes.</p></dd>
+
+
 <dt>centre</dt>
 <dd><p>A logical input defining whether or not to centre predictions. If <code>TRUE</code>, the mean fitted value is minused from predictions.</p></dd>
+
+
 <dt>plot_suggestions</dt>
 <dd><p>A logical input defining whether or not to make plot suggestions (e.g. y limits) when can help make prettier plots.</p></dd>
+
+
 <dt>pretty_param</dt>
 <dd><p>A list of parameters, passed to <code><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></code>, if plot suggestions are requested. (<code><a href="pretty_axis.html">pretty_axis</a></code> is more flexible.)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list with (usually) three elements: (1) 'fit', fitted values; (2) 'lowerCI', lower CIs (0.025 percentile); and (3) 'upperCI', upper CIs (97.5 percentile). If <code>plot_suggetions = TRUE</code>, 'yat' is a vector of suggested positions for y axis positions based on model predictions and 'ylim' is a vector of suggested y axis limits.</p>
+    
+
+<p>A list with (usually) three elements: (1) 'fit', fitted values; (2) 'lowerCI', lower CIs (0.025 percentile); and (3) 'upperCI', upper CIs (97.5 percentile). If <code>plot_suggetions = TRUE</code>, 'yat' is a vector of suggested positions for y axis positions based on model predictions and 'ylim' is a vector of suggested y axis limits.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -103,19 +116,19 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (1): A simple linear model</span></span>
-<span class="r-in"><span class="co"># Define some data for a model</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">0.5</span><span class="op">*</span><span class="va">x</span> <span class="op">-</span> <span class="fl">50</span>, <span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Define model</span></span>
-<span class="r-in"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Define predictions</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">m1</span>, se.fit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># list CIs</span></span>
-<span class="r-in"><span class="va">CIs</span> <span class="op">&lt;-</span> <span class="fu">list_CIs</span><span class="op">(</span>pred <span class="op">=</span> <span class="va">p</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">CIs</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (1): A simple linear model</span></span></span>
+<span class="r-in"><span><span class="co"># Define some data for a model</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">0.5</span><span class="op">*</span><span class="va">x</span> <span class="op">-</span> <span class="fl">50</span>, <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Define model</span></span></span>
+<span class="r-in"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Define predictions</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">m1</span>, se.fit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># list CIs</span></span></span>
+<span class="r-in"><span><span class="va">CIs</span> <span class="op">&lt;-</span> <span class="fu">list_CIs</span><span class="op">(</span>pred <span class="op">=</span> <span class="va">p</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">CIs</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> List of 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ fit    : 'AsIs' Named num [1:1000] -39.6680.... -34.1110.... -23.6484.... -6.16898.... -42.9948.... ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr [1:1000] "1" "2" "3" "4" ...</span>
@@ -125,8 +138,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr [1:1000] "1" "2" "3" "4" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ yat    : num [1:6] -80 -60 -40 -20 0 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ylim   : num [1:2] -80 20</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -141,7 +154,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,62 +63,93 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pretty_plot</span><span class="op">(</span>
-  <span class="va">x</span>,
-  y <span class="op">=</span> <span class="cn">NULL</span>,
-  f <span class="op">=</span> <span class="fu">graphics</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span>,
-  plot_xy <span class="op">=</span> <span class="st">"xy"</span>,
-  plot_coordinates <span class="op">=</span> <span class="cn">TRUE</span>,
-  pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,
-  xlim <span class="op">=</span> <span class="cn">NULL</span>,
-  ylim <span class="op">=</span> <span class="cn">NULL</span>,
-  points_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  lines_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  <span class="va">xlab</span>,
-  <span class="va">ylab</span>,
-  <span class="va">main</span>,
-  mtext_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  return_list <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pretty_plot</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  y <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  f <span class="op">=</span> <span class="fu">graphics</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span>,</span>
+<span>  plot_xy <span class="op">=</span> <span class="st">"xy"</span>,</span>
+<span>  plot_coordinates <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  xlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ylim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  points_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  lines_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">xlab</span>,</span>
+<span>  <span class="va">ylab</span>,</span>
+<span>  <span class="va">main</span>,</span>
+<span>  mtext_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  return_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>The x coordinates or an object from which coordinates can be extracted (see Details). Coordinates are used to create the axes and may be plotted (see <code>f</code> and <code>plot_coordinates</code>).</p></dd>
+
+
 <dt>y</dt>
 <dd><p>(optional) The y coordinates.</p></dd>
+
+
 <dt>f</dt>
 <dd><p>A function used to create a plot. The default is <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></code> but some other functions are supported. <code>f</code> should support the following arguments: <code>axes</code>, which are turned off automatically; <code>xlim</code>, <code>ylim</code>; <code>xlab</code>; <code>ylab</code>; and <code>main</code>. This feature is experimental.</p></dd>
+
+
 <dt>plot_xy</dt>
 <dd><p>A character vector specifying whether the plotting function, <code>f</code>, requires <code>"x"</code>, <code>"y"</code> or both (<code>"xy"</code>).</p></dd>
+
+
 <dt>plot_coordinates</dt>
-<dd><p>A logical input which defines whether or not the plotting function acts on coordinates extracted from <code>x</code> or the original object (see examples using <code><a href="https://rdrr.io/pkg/raster/man/image.html" class="external-link">image</a></code>).</p></dd>
+<dd><p>A logical input which defines whether or not the plotting function acts on coordinates extracted from <code>x</code> or the original object (see examples using <code><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></code>).</p></dd>
+
+
 <dt>pretty_axis_args</dt>
 <dd><p>A named list or arguments passed to <code><a href="pretty_axis.html">pretty_axis</a></code> to define pretty axes. For convenience, x and y axis limits can also be specified via <code>xlim</code> and <code>ylim</code> (see below).</p></dd>
+
+
 <dt>xlim, ylim</dt>
 <dd><p>A vector of two axis limits. This is a short-cut to specifying axis limits via <code>pretty_axis_args</code> (see <code><a href="pretty_axis.html">pretty_axis</a></code>).</p></dd>
+
+
 <dt>points_args</dt>
 <dd><p>A named list of arguments passed to <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></code> to control points. These can also be supplied via <code>...</code> but <code>point_args</code> can provide additional flexibility where required. To implement this option, you probably want to specify <code>type = "n"</code> via <code>...</code> because <code>points_args</code> is evaluated after the plot is evaluated.</p></dd>
+
+
 <dt>lines_args</dt>
 <dd><p>A named list of arguments passed to <code><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></code> to control lines. These can also be supplied via <code>...</code> but <code>lines_args</code> can provide additional flexibility where required. To implement this option, you probably want to specify <code>type = "n"</code> via <code>...</code> because <code>lines_args</code> is evaluated after the plot is evaluated.</p></dd>
+
+
 <dt>xlab</dt>
 <dd><p>A character input which defines the label for the x axis. By default, this is "" so that labels can be added via <code>mtext_args</code> which is more flexible (see below). However, the label can be specified via <code>xlab</code> for speed.</p></dd>
+
+
 <dt>ylab</dt>
 <dd><p>A character input which defines the label for the y axis. By default, this is "" so that labels can be added via <code>mtext_args</code> which is more flexible (see below). However, the label can be specified via <code>ylab</code> for speed.</p></dd>
+
+
 <dt>main</dt>
 <dd><p>A character input which defines the label for the plot axis. By default, this is "" so that labels can be added via <code>mtext_args</code> which is more flexible (see below). However, the label can be specified via <code>main</code> for speed.</p></dd>
+
+
 <dt>mtext_args</dt>
 <dd><p>A named list of arguments passed to <code><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></code> to control axes' labels. These can also be supplied via <code>xlab</code>, <code>ylab</code> and <code>main</code> but <code>mtext_args</code> can provide additional flexibility where required.</p></dd>
+
+
 <dt>return_list</dt>
 <dd><p>(depreciated) A logical input which defines whether or not to return the list produced by <code><a href="pretty_axis.html">pretty_axis</a></code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other parameters passed to <code>f</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns a plot and, invisibly, a list of arguments that are used to create pretty axes via <code><a href="pretty_axis.html">pretty_axis</a></code>.</p>
+    
+
+<p>The function returns a plot and, invisibly, a list of arguments that are used to create pretty axes via <code><a href="pretty_axis.html">pretty_axis</a></code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -131,87 +162,87 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Example (1): An example with graphics::plot()</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">pretty_plot</span><span class="op">(</span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span class="r-in">            <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span class="r-in">            points_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">21</span>, col <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Example (1): An example with graphics::plot()</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_plot</span><span class="op">(</span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            points_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">21</span>, col <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_plot-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (2): pretty_plot() can also work with factors.</span></span>
-<span class="r-in"><span class="co"># ... As usual, the number of breaks can be controlled via pretty_axis_args:</span></span>
-<span class="r-in"><span class="co">## Define data:</span></span>
-<span class="r-in"><span class="va">dx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dy</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
-<span class="r-in"><span class="co">## Example plots:</span></span>
-<span class="r-in"><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Specify a break for every factor level via the pretty 'n' argument.</span></span>
-<span class="r-in"><span class="co"># ... (this can also be achieved via the units argument)</span></span>
-<span class="r-in"><span class="fu">pretty_plot</span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span>,</span>
-<span class="r-in">            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Specify a break for every other factor level via the pretty 'n' argument.</span></span>
-<span class="r-in"><span class="co"># ... (this can also be achieved via the units argument)</span></span>
-<span class="r-in"><span class="fu">pretty_plot</span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span>,</span>
-<span class="r-in">            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Comparisons to default plots:</span></span>
-<span class="r-in"><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot.default</a></span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (2): pretty_plot() can also work with factors.</span></span></span>
+<span class="r-in"><span><span class="co"># ... As usual, the number of breaks can be controlled via pretty_axis_args:</span></span></span>
+<span class="r-in"><span><span class="co">## Define data:</span></span></span>
+<span class="r-in"><span><span class="va">dx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dy</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span></span>
+<span class="r-in"><span><span class="co">## Example plots:</span></span></span>
+<span class="r-in"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Specify a break for every factor level via the pretty 'n' argument.</span></span></span>
+<span class="r-in"><span><span class="co"># ... (this can also be achieved via the units argument)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_plot</span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span>,</span></span>
+<span class="r-in"><span>            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Specify a break for every other factor level via the pretty 'n' argument.</span></span></span>
+<span class="r-in"><span><span class="co"># ... (this can also be achieved via the units argument)</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_plot</span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span>,</span></span>
+<span class="r-in"><span>            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Comparisons to default plots:</span></span></span>
+<span class="r-in"><span><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot.default</a></span><span class="op">(</span><span class="va">dx</span>, <span class="va">dy</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_plot-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (3): If only x is provided, x is plotted against an index</span></span>
-<span class="r-in"><span class="fu">pretty_plot</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (3): If only x is provided, x is plotted against an index</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_plot</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 'y' argument not supplied; 'x' is plotted against an index.</span>
 <span class="r-plt img"><img src="pretty_plot-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (4): Coordinates usually need to be provided</span></span>
-<span class="r-in"><span class="co"># ... but pretty_plot() works with some other objects.</span></span>
-<span class="r-in"><span class="co">## Density example</span></span>
-<span class="r-in"><span class="fu">pretty_plot</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (4): Coordinates usually need to be provided</span></span></span>
+<span class="r-in"><span><span class="co"># ... but pretty_plot() works with some other objects.</span></span></span>
+<span class="r-in"><span><span class="co">## Density example</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_plot</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_plot-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">## RasterLayer example</span></span>
-<span class="r-in"><span class="co"># Define example raster</span></span>
-<span class="r-in"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span>nrows<span class="op">=</span><span class="fl">10</span>, ncols<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/setValues.html" class="external-link">setValues</a></span><span class="op">(</span><span class="va">r</span>, <span class="fl">1</span><span class="op">:</span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/ncell.html" class="external-link">ncell</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Note the use of raster::image() rather than raster::plot() for plotting</span></span>
-<span class="r-in"><span class="co"># ... because raster::plot() doesn't act on xlim or ylim arguments defined by pretty_axis().</span></span>
-<span class="r-in"><span class="fu">pretty_plot</span><span class="op">(</span>x <span class="op">=</span> <span class="va">r</span>, y <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span class="r-in">            f <span class="op">=</span> <span class="fu">raster</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/raster/man/image.html" class="external-link">image</a></span>, plot_xy <span class="op">=</span> <span class="st">"x"</span>, plot_coordinates <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## RasterLayer example</span></span></span>
+<span class="r-in"><span><span class="co"># Define example raster</span></span></span>
+<span class="r-in"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span>nrows<span class="op">=</span><span class="fl">10</span>, ncols<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/setValues.html" class="external-link">setValues</a></span><span class="op">(</span><span class="va">r</span>, <span class="fl">1</span><span class="op">:</span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">ncell</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Note the use of raster::image() rather than raster::plot() for plotting</span></span></span>
+<span class="r-in"><span><span class="co"># ... because raster::plot() doesn't act on xlim or ylim arguments defined by pretty_axis().</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_plot</span><span class="op">(</span>x <span class="op">=</span> <span class="va">r</span>, y <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>            f <span class="op">=</span> <span class="fu">raster</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span>, plot_xy <span class="op">=</span> <span class="st">"x"</span>, plot_coordinates <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_plot-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co">## SpatialPolygonsDataFrame example</span></span>
-<span class="r-in"><span class="co"># Outline</span></span>
-<span class="r-in"><span class="fu">pretty_plot</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_coast_around_oban</span>, y <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span class="r-in">            f <span class="op">=</span> <span class="fu">raster</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span>, plot_xy <span class="op">=</span> <span class="st">"x"</span>, plot_coordinates <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## SpatialPolygonsDataFrame example</span></span></span>
+<span class="r-in"><span><span class="co"># Outline</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_plot</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_coast_around_oban</span>, y <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>            f <span class="op">=</span> <span class="fu">raster</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span>, plot_xy <span class="op">=</span> <span class="st">"x"</span>, plot_coordinates <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has no comment</span>
 <span class="r-plt img"><img src="pretty_plot-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># Customised plot</span></span>
-<span class="r-in"><span class="fu">pretty_plot</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_coast_around_oban</span>, y <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span class="r-in">            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span>,</span>
-<span class="r-in">            xlim <span class="op">=</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/extent.html" class="external-link">extent</a></span><span class="op">(</span><span class="va">dat_coast_around_oban</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>,</span>
-<span class="r-in">            ylim <span class="op">=</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/extent.html" class="external-link">extent</a></span><span class="op">(</span><span class="va">dat_coast_around_oban</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
-<span class="r-in">            f <span class="op">=</span> <span class="fu">raster</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span>, plot_xy <span class="op">=</span> <span class="st">"x"</span>, plot_coordinates <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">            col <span class="op">=</span> <span class="st">"darkgreen"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Customised plot</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_plot</span><span class="op">(</span>x <span class="op">=</span> <span class="va">dat_coast_around_oban</span>, y <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>            pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            xlim <span class="op">=</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/extent.html" class="external-link">extent</a></span><span class="op">(</span><span class="va">dat_coast_around_oban</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>            ylim <span class="op">=</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/extent.html" class="external-link">extent</a></span><span class="op">(</span><span class="va">dat_coast_around_oban</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>            f <span class="op">=</span> <span class="fu">raster</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span>, plot_xy <span class="op">=</span> <span class="st">"x"</span>, plot_coordinates <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>            col <span class="op">=</span> <span class="st">"darkgreen"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>CRS object has no comment</span>
 <span class="r-plt img"><img src="pretty_plot-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (5): An example with stats::qqnorm()</span></span>
-<span class="r-in"><span class="co"># Define x and y values for qqnorm plot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">qq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqplot</a></span><span class="op">(</span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, plot.it <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Define plot, saving list of axis parameters in axis_ls</span></span>
-<span class="r-in"><span class="co"># Supply x and y (qq$x and qq$y) respectively to create pretty axis limits;</span></span>
-<span class="r-in"><span class="co"># ... but use qqnorm to create plot which only required y (dd$y) (see ?stats::qqnorm)</span></span>
-<span class="r-in"><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu">pretty_plot</span><span class="op">(</span><span class="va">qq</span><span class="op">$</span><span class="va">x</span>, <span class="va">qq</span><span class="op">$</span><span class="va">y</span>, f <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></span>, plot_xy <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Set clipping region with axis limits</span></span>
-<span class="r-in"><span class="va">usr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"usr"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/clip.html" class="external-link">clip</a></span><span class="op">(</span><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">axis_ls</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">axis_ls</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Add qqline within limits</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqline</a></span><span class="op">(</span><span class="va">qq</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (5): An example with stats::qqnorm()</span></span></span>
+<span class="r-in"><span><span class="co"># Define x and y values for qqnorm plot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">qq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqplot</a></span><span class="op">(</span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, plot.it <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Define plot, saving list of axis parameters in axis_ls</span></span></span>
+<span class="r-in"><span><span class="co"># Supply x and y (qq$x and qq$y) respectively to create pretty axis limits;</span></span></span>
+<span class="r-in"><span><span class="co"># ... but use qqnorm to create plot which only required y (dd$y) (see ?stats::qqnorm)</span></span></span>
+<span class="r-in"><span><span class="va">axis_ls</span> <span class="op">&lt;-</span> <span class="fu">pretty_plot</span><span class="op">(</span><span class="va">qq</span><span class="op">$</span><span class="va">x</span>, <span class="va">qq</span><span class="op">$</span><span class="va">y</span>, f <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></span>, plot_xy <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Set clipping region with axis limits</span></span></span>
+<span class="r-in"><span><span class="va">usr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"usr"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/clip.html" class="external-link">clip</a></span><span class="op">(</span><span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">axis_ls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">axis_ls</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">axis_ls</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">lim</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Add qqline within limits</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqline</a></span><span class="op">(</span><span class="va">qq</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pretty_plot-8.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="st">"clip"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">usr</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="st">"clip"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">usr</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -226,7 +257,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

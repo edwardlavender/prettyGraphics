@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,31 +63,42 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pretty_labels</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">at</span>,
-  n <span class="op">=</span> <span class="cn">NULL</span>,
-  pi_notation_args <span class="op">=</span> <span class="cn">NULL</span>,
-  sci_notation_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pretty_labels</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">at</span>,</span>
+<span>  n <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  pi_notation_args <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sci_notation_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>An object, such as a numeric vector.</p></dd>
+
+
 <dt>at</dt>
 <dd><p>A numeric vector of axis positions.</p></dd>
+
+
 <dt>n</dt>
 <dd><p>(optional) An integer which defines the number of decimal places for numeric axes. This is passed to <code><a href="add_lagging_point_zero.html">add_lagging_point_zero</a></code>. If <code>NULL</code>, <code>n</code> is defined internally.</p></dd>
+
+
 <dt>pi_notation_args</dt>
 <dd><p>A named list of arguments passed to <code><a href="pi_notation.html">pi_notation</a></code> (excluding <code>x</code>).</p></dd>
+
+
 <dt>sci_notation_args</dt>
 <dd><p>A named list of arguments passed to <code><a href="sci_notation.html">sci_notation</a></code> (excluding <code>x</code>).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A vector of labels, of the same length as axis tick marks (<code>at</code>).</p>
+    
+
+<p>A vector of labels, of the same length as axis tick marks (<code>at</code>).</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -110,7 +121,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,35 +63,46 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">add_north_arrow</span><span class="op">(</span>
-  x0 <span class="op">=</span> <span class="st">"topleft"</span>,
-  y0 <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">width</span>,
-  <span class="va">mid</span>,
-  <span class="va">height</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"filled head"</span>, <span class="st">"filled triangle"</span>, <span class="st">"arrow"</span><span class="op">)</span>,
-  add_label <span class="op">=</span> <span class="cn">NULL</span>,
-  col <span class="op">=</span> <span class="st">"black"</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_north_arrow</span><span class="op">(</span></span>
+<span>  x0 <span class="op">=</span> <span class="st">"topleft"</span>,</span>
+<span>  y0 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">width</span>,</span>
+<span>  <span class="va">mid</span>,</span>
+<span>  <span class="va">height</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"filled head"</span>, <span class="st">"filled triangle"</span>, <span class="st">"arrow"</span><span class="op">)</span>,</span>
+<span>  add_label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  col <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x0, y0</dt>
 <dd><p>A character keyword or doubles that define the arrow's position (see <code><a href="https://rdrr.io/r/grDevices/xy.coords.html" class="external-link">xy.coords</a></code>).</p></dd>
+
+
 <dt>width, mid, height</dt>
 <dd><p>Arrow shape controls. Each argument accepts a double that defines the arrow <code>width</code>, <code>mid</code>-point or <code>height</code>. <code>mid</code> is only used for <code>type = "filled head"</code>.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>A character string that defines the arrow type. Currently supported options are (a) <code>"filled head"</code>, which adds a (filled) arrow head (via <code><a href="https://rdrr.io/r/graphics/polygon.html" class="external-link">polygon</a></code>); (b) <code>"filled triangle"</code>, which adds a (filled) triangle (via <code><a href="https://rdrr.io/r/graphics/polygon.html" class="external-link">polygon</a></code>); and (c) <code>"arrow"</code>, which adds an arrow (via <code><a href="https://rdrr.io/r/graphics/arrows.html" class="external-link">arrows</a></code>).</p></dd>
+
+
 <dt>add_label</dt>
 <dd><p>A named list, passed to  <code><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></code>, to add a label to the plot. <code>add_label = NULL</code> suppresses this option, <code>add_label = list()</code> implements default options and a named list customises these.</p></dd>
+
+
 <dt>col, ...</dt>
 <dd><p>Additional graphical parameters passed to <code><a href="https://rdrr.io/r/graphics/polygon.html" class="external-link">polygon</a></code> or <code><a href="https://rdrr.io/r/graphics/arrows.html" class="external-link">arrows</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function adds an arrow to a map and invisibly returns a named list with the <code>x</code> and <code>y</code> coordinates of the arrow (derived from <code>x0</code>, <code>y0</code>, <code>width</code>, <code>mid</code> and <code>height</code> as applicable).</p>
+    
+
+<p>The function adds an arrow to a map and invisibly returns a named list with the <code>x</code> and <code>y</code> coordinates of the arrow (derived from <code>x0</code>, <code>y0</code>, <code>width</code>, <code>mid</code> and <code>height</code> as applicable).</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -104,39 +115,39 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Example (1): Implement function using the default options</span></span>
-<span class="r-in"><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat_gebco</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">add_north_arrow</span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Example (1): Implement function using the default options</span></span></span>
+<span class="r-in"><span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat_gebco</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">add_north_arrow</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_north_arrow-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (2): Adjust arrow location</span></span>
-<span class="r-in"><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat_gebco</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">add_north_arrow</span><span class="op">(</span>x0 <span class="op">=</span> <span class="st">"topright"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (2): Adjust arrow location</span></span></span>
+<span class="r-in"><span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat_gebco</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">add_north_arrow</span><span class="op">(</span>x0 <span class="op">=</span> <span class="st">"topright"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_north_arrow-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat_gebco</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">add_north_arrow</span><span class="op">(</span>x0 <span class="op">=</span> <span class="op">-</span><span class="fl">5.55</span>, y <span class="op">=</span> <span class="fl">56.44</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat_gebco</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">add_north_arrow</span><span class="op">(</span>x0 <span class="op">=</span> <span class="op">-</span><span class="fl">5.55</span>, y <span class="op">=</span> <span class="fl">56.44</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_north_arrow-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (3): Adjust arrow type</span></span>
-<span class="r-in"><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat_gebco</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">add_north_arrow</span><span class="op">(</span><span class="st">"topleft"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">add_north_arrow</span><span class="op">(</span><span class="st">"topright"</span>, type <span class="op">=</span> <span class="st">"filled triangle"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">add_north_arrow</span><span class="op">(</span><span class="st">"center"</span>, type <span class="op">=</span> <span class="st">"filled triangle"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">add_north_arrow</span><span class="op">(</span><span class="st">"right"</span>, type <span class="op">=</span> <span class="st">"arrow"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (3): Adjust arrow type</span></span></span>
+<span class="r-in"><span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat_gebco</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">add_north_arrow</span><span class="op">(</span><span class="st">"topleft"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">add_north_arrow</span><span class="op">(</span><span class="st">"topright"</span>, type <span class="op">=</span> <span class="st">"filled triangle"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">add_north_arrow</span><span class="op">(</span><span class="st">"center"</span>, type <span class="op">=</span> <span class="st">"filled triangle"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">add_north_arrow</span><span class="op">(</span><span class="st">"right"</span>, type <span class="op">=</span> <span class="st">"arrow"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_north_arrow-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (4): Adjust arrow type parameters</span></span>
-<span class="r-in"><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat_gebco</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">add_north_arrow</span><span class="op">(</span><span class="st">"topleft"</span>, type <span class="op">=</span> <span class="st">"filled triangle"</span>, border <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">add_north_arrow</span><span class="op">(</span><span class="st">"center"</span>, type <span class="op">=</span> <span class="st">"filled triangle"</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">add_north_arrow</span><span class="op">(</span><span class="st">"top"</span>, type <span class="op">=</span> <span class="st">"arrow"</span>, length <span class="op">=</span> <span class="fl">0.05</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (4): Adjust arrow type parameters</span></span></span>
+<span class="r-in"><span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat_gebco</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">add_north_arrow</span><span class="op">(</span><span class="st">"topleft"</span>, type <span class="op">=</span> <span class="st">"filled triangle"</span>, border <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">add_north_arrow</span><span class="op">(</span><span class="st">"center"</span>, type <span class="op">=</span> <span class="st">"filled triangle"</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">add_north_arrow</span><span class="op">(</span><span class="st">"top"</span>, type <span class="op">=</span> <span class="st">"arrow"</span>, length <span class="op">=</span> <span class="fl">0.05</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_north_arrow-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (5): Add arrow label</span></span>
-<span class="r-in"><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat_gebco</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">add_north_arrow</span><span class="op">(</span>add_label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (5): Add arrow label</span></span></span>
+<span class="r-in"><span><span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat_gebco</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">add_north_arrow</span><span class="op">(</span>add_label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_north_arrow-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -151,7 +162,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

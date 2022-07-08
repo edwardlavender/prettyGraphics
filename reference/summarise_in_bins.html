@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,43 +63,62 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">summarise_in_bins</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">y</span>,
-  dat <span class="op">=</span> <span class="cn">NULL</span>,
-  bin <span class="op">=</span> <span class="cn">NULL</span>,
-  breaks <span class="op">=</span> <span class="cn">NULL</span>,
-  funs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>,
-  shift <span class="op">=</span> <span class="cn">TRUE</span>,
-  to_plot <span class="op">=</span> <span class="cn">TRUE</span>,
-  output <span class="op">=</span> <span class="st">"list"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">summarise_in_bins</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">y</span>,</span>
+<span>  dat <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bin <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  funs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>,</span>
+<span>  shift <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  to_plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  output <span class="op">=</span> <span class="st">"list"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>The x values which will be binned. Numeric/integer, POSIXct or Date objects are supported.</p></dd>
+
+
 <dt>y</dt>
 <dd><p>The y values for which summary statistics will be calculated in each bin.</p></dd>
+
+
 <dt>dat</dt>
 <dd><p>(optional) A dataframe containing columns 'x' and 'y' can be supplied instead of <code>x</code> and <code>y</code> above.</p></dd>
+
+
 <dt>bin</dt>
 <dd><p>A numeric or character input which defines the bin size. This is used to define a sequence of breaks, to which each value of <code>x</code> can be assigned and in each of which summary statistics are calculated. If <code>x</code> is a number, this should be a number; if <code>x</code> is a time in POSIXct format, this can be a number (in seconds), a character defining a unit of time; e.g., <code>"2 mins"</code>; and if x is a Date, this can be a number (in days) or a character as for POSIXct objects. For Date objects, bins smaller in size than one day are nonsensical; convert <code>x</code> to a POSIXct object first.</p></dd>
+
+
 <dt>breaks</dt>
 <dd><p>(optional) A numeric, POSIXct or Date vector of breaks. This can be supplied instead of <code>bin</code>. If supplied, summary statistics are calculated across user-supplied breaks, rather than those calculated between the range of the data (<code>x</code>) based on the bin size.</p></dd>
+
+
 <dt>funs</dt>
 <dd><p>A named list of functions to evaluate.</p></dd>
+
+
 <dt>shift</dt>
 <dd><p>A logical input which defines whether or not to shift the value of each bin by half a bin width (i.e. to the mid-point of each bin). This is beneficial for plots because summary statistics are shown for the mid-point of each bin.</p></dd>
+
+
 <dt>to_plot</dt>
 <dd><p>A logical input which defines whether or not the summary statistics are to be plotted (in due course). If so, the function conducts some additional checks to make sure bins are within the limits of the data: if the bin size is relatively large and <code>shift = TRUE</code>, it is possible that most extreme bins can be shifted outside of the range of the data; any such bins are removed from the reported outputs for pretty plotting.</p></dd>
+
+
 <dt>output</dt>
 <dd><p>A character which defines the output type. The currently implemented options are as follows. (1) <code>"list"</code> outputs a list, with one element for each summary statistic (each element consists of a dataframe with three columns: 'bin', the start or mid-point of each bin depending on whether or not <code>shift = TRUE</code>; 'stat', the value of the summary statistic in that bin; and 'fun', the function name, taken from <code>funs</code>). (2) <code>"data.frame"</code> binds the list described above into a single (long-format) dataframe.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns a list or a dataframe with summary statistics for each bin, depending on the input to <code>output</code>.</p>
+    
+
+<p>The function returns a list or a dataframe with summary statistics for each bin, depending on the input to <code>output</code>.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -108,24 +127,24 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#### Example 1: Numeric example</span></span>
-<span class="r-in"><span class="co"># Generate example data and visualise</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">x</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">-</span> <span class="fl">50</span>, <span class="fl">25</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Calculate summary statistics in bins 10 units in length by supplying custom</span></span>
-<span class="r-in"><span class="co"># ... functions via funs. shift = TRUE shift summary statistics to the middle value of each bin</span></span>
-<span class="r-in"><span class="co"># ... which can be helpful for plotting.</span></span>
-<span class="r-in"><span class="va">summary_ls</span> <span class="op">&lt;-</span> <span class="fu">summarise_in_bins</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>,</span>
-<span class="r-in">                                y <span class="op">=</span> <span class="va">y</span>,</span>
-<span class="r-in">                                bin <span class="op">=</span> <span class="fl">10</span>,</span>
-<span class="r-in">                                funs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span>,</span>
-<span class="r-in">                                            lowerSD <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">}</span>,</span>
-<span class="r-in">                                            upperSD <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">}</span><span class="op">)</span>,</span>
-<span class="r-in">                                shift <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Examine</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">summary_ls</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Example 1: Numeric example</span></span></span>
+<span class="r-in"><span><span class="co"># Generate example data and visualise</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">x</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">-</span> <span class="fl">50</span>, <span class="fl">25</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Calculate summary statistics in bins 10 units in length by supplying custom</span></span></span>
+<span class="r-in"><span><span class="co"># ... functions via funs. shift = TRUE shift summary statistics to the middle value of each bin</span></span></span>
+<span class="r-in"><span><span class="co"># ... which can be helpful for plotting.</span></span></span>
+<span class="r-in"><span><span class="va">summary_ls</span> <span class="op">&lt;-</span> <span class="fu">summarise_in_bins</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>,</span></span>
+<span class="r-in"><span>                                y <span class="op">=</span> <span class="va">y</span>,</span></span>
+<span class="r-in"><span>                                bin <span class="op">=</span> <span class="fl">10</span>,</span></span>
+<span class="r-in"><span>                                funs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span>,</span></span>
+<span class="r-in"><span>                                            lowerSD <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">}</span>,</span></span>
+<span class="r-in"><span>                                            upperSD <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">}</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                shift <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Examine</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">summary_ls</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> List of 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ mean   :'data.frame':	10 obs. of  3 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ bin : num [1:10] 6 16 26 36 46 56 66 76 86 96</span>
@@ -139,14 +158,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ bin : num [1:10] 6 16 26 36 46 56 66 76 86 96</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ stat: num [1:10] -14.1 15.4 20.4 45.2 62.1 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ fun : chr [1:10] "upperSD" "upperSD" "upperSD" "upperSD" ...</span>
-<span class="r-in"><span class="co"># Add a single summary statistic to the plot as a line:</span></span>
-<span class="r-in"><span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">summary_ls</span><span class="op">$</span><span class="va">mean</span><span class="op">$</span><span class="va">bin</span>, <span class="va">summary_ls</span><span class="op">$</span><span class="va">mean</span><span class="op">$</span><span class="va">stat</span>, col <span class="op">=</span> <span class="st">"orange"</span>, lwd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Or loop over every element in the list and add a line marking the values</span></span>
-<span class="r-in"><span class="co"># ... of that summary statistic in a particular colour:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/mapply.html" class="external-link">mapply</a></span><span class="op">(</span>FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">summary_df</span>, <span class="va">col</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">summary_df</span><span class="op">$</span><span class="va">bin</span>, <span class="va">summary_df</span><span class="op">$</span><span class="va">stat</span>,col <span class="op">=</span> <span class="va">col</span>, type <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span><span class="op">}</span>,</span>
-<span class="r-in">  <span class="va">summary_ls</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># Add a single summary statistic to the plot as a line:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">summary_ls</span><span class="op">$</span><span class="va">mean</span><span class="op">$</span><span class="va">bin</span>, <span class="va">summary_ls</span><span class="op">$</span><span class="va">mean</span><span class="op">$</span><span class="va">stat</span>, col <span class="op">=</span> <span class="st">"orange"</span>, lwd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Or loop over every element in the list and add a line marking the values</span></span></span>
+<span class="r-in"><span><span class="co"># ... of that summary statistic in a particular colour:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/mapply.html" class="external-link">mapply</a></span><span class="op">(</span>FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">summary_df</span>, <span class="va">col</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">summary_df</span><span class="op">$</span><span class="va">bin</span>, <span class="va">summary_df</span><span class="op">$</span><span class="va">stat</span>,col <span class="op">=</span> <span class="va">col</span>, type <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span><span class="op">}</span>,</span></span>
+<span class="r-in"><span>  <span class="va">summary_ls</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="summarise_in_bins-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mean</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
@@ -157,40 +176,40 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> $upperSD</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (3): POSIXct example</span></span>
-<span class="r-in"><span class="co"># Generate some example data and visualise:</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.POSIXt.html" class="external-link">seq.POSIXt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span>
-<span class="r-in">                <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-05"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"60 mins"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1e-3</span>, <span class="fl">1e2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Calculate example summary statistics</span></span>
-<span class="r-in"><span class="va">summary_ls</span> <span class="op">&lt;-</span> <span class="fu">summarise_in_bins</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>,</span>
-<span class="r-in">                                y <span class="op">=</span> <span class="va">y</span>,</span>
-<span class="r-in">                                bin <span class="op">=</span> <span class="st">"days"</span>,</span>
-<span class="r-in">                                funs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span>,</span>
-<span class="r-in">                                            median <span class="op">=</span> <span class="va">median</span><span class="op">)</span>,</span>
-<span class="r-in">                                shift <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">                               to_plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Visualise</span></span>
-<span class="r-in"><span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">summary_ls</span><span class="op">$</span><span class="va">mean</span><span class="op">$</span><span class="va">bin</span>, <span class="va">summary_ls</span><span class="op">$</span><span class="va">mean</span><span class="op">$</span><span class="va">stat</span>, col <span class="op">=</span> <span class="st">"red"</span>, type <span class="op">=</span> <span class="st">"b"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (3): POSIXct example</span></span></span>
+<span class="r-in"><span><span class="co"># Generate some example data and visualise:</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.POSIXt.html" class="external-link">seq.POSIXt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-01"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2016-01-05"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"60 mins"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1e-3</span>, <span class="fl">1e2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Calculate example summary statistics</span></span></span>
+<span class="r-in"><span><span class="va">summary_ls</span> <span class="op">&lt;-</span> <span class="fu">summarise_in_bins</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>,</span></span>
+<span class="r-in"><span>                                y <span class="op">=</span> <span class="va">y</span>,</span></span>
+<span class="r-in"><span>                                bin <span class="op">=</span> <span class="st">"days"</span>,</span></span>
+<span class="r-in"><span>                                funs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span>,</span></span>
+<span class="r-in"><span>                                            median <span class="op">=</span> <span class="va">median</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                shift <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                               to_plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Visualise</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">summary_ls</span><span class="op">$</span><span class="va">mean</span><span class="op">$</span><span class="va">bin</span>, <span class="va">summary_ls</span><span class="op">$</span><span class="va">mean</span><span class="op">$</span><span class="va">stat</span>, col <span class="op">=</span> <span class="st">"red"</span>, type <span class="op">=</span> <span class="st">"b"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="summarise_in_bins-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#### Example (4): Date example</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html" class="external-link">seq.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2016-01-01"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2016-10-01"</span><span class="op">)</span>, <span class="st">"days"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">*</span><span class="fl">1e-3</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">summary_ls</span> <span class="op">&lt;-</span> <span class="fu">summarise_in_bins</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>,</span>
-<span class="r-in">                                y <span class="op">=</span> <span class="va">y</span>,</span>
-<span class="r-in">                                bin <span class="op">=</span> <span class="st">"14 days"</span>,</span>
-<span class="r-in">                                funs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span>,</span>
-<span class="r-in">                                            median <span class="op">=</span> <span class="va">median</span><span class="op">)</span>,</span>
-<span class="r-in">                                shift <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">                                to_plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Visualise</span></span>
-<span class="r-in"><span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">summary_ls</span><span class="op">$</span><span class="va">mean</span><span class="op">$</span><span class="va">bin</span>, <span class="va">summary_ls</span><span class="op">$</span><span class="va">mean</span><span class="op">$</span><span class="va">stat</span>, col <span class="op">=</span> <span class="st">"red"</span>, type <span class="op">=</span> <span class="st">"b"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (4): Date example</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html" class="external-link">seq.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2016-01-01"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2016-10-01"</span><span class="op">)</span>, <span class="st">"days"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">*</span><span class="fl">1e-3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">summary_ls</span> <span class="op">&lt;-</span> <span class="fu">summarise_in_bins</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>,</span></span>
+<span class="r-in"><span>                                y <span class="op">=</span> <span class="va">y</span>,</span></span>
+<span class="r-in"><span>                                bin <span class="op">=</span> <span class="st">"14 days"</span>,</span></span>
+<span class="r-in"><span>                                funs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span>,</span></span>
+<span class="r-in"><span>                                            median <span class="op">=</span> <span class="va">median</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                shift <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                                to_plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Visualise</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="add_lines.html">add_lines</a></span><span class="op">(</span><span class="va">summary_ls</span><span class="op">$</span><span class="va">mean</span><span class="op">$</span><span class="va">bin</span>, <span class="va">summary_ls</span><span class="op">$</span><span class="va">mean</span><span class="op">$</span><span class="va">stat</span>, col <span class="op">=</span> <span class="st">"red"</span>, type <span class="op">=</span> <span class="st">"b"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="summarise_in_bins-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -205,7 +224,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prettyGraphics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -63,34 +63,47 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">add_model_predictions</span><span class="op">(</span>
-  <span class="va">x</span>,
-  CI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  fCI <span class="op">=</span> <span class="st">"poly"</span>,
-  CI_gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"lightgrey"</span>, <span class="fl">0.8</span><span class="op">)</span>, border <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,
-  add_fitted <span class="op">=</span> <span class="cn">TRUE</span>,
-  fitted_gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"black"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_model_predictions</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  CI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  fCI <span class="op">=</span> <span class="st">"poly"</span>,</span>
+<span>  CI_gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="st">"lightgrey"</span>, <span class="fl">0.8</span><span class="op">)</span>, border <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  add_fitted <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  fitted_gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"black"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A numeric vector defining the x values at which fitted values/CIs will be plotted.</p></dd>
+
+
 <dt>CI</dt>
 <dd><p>A named list with fitted values (optional) and lower and upper CIs (i.e. <code>CI$fit</code>, <code>CI$lowerCI</code>, <code>CI$upperCI</code>). This can be created by <code><a href="list_CIs.html">list_CIs</a></code>.</p></dd>
+
+
 <dt>fCI</dt>
 <dd><p>A character defining the method by which CIs will be added to a plot: as lines (<code>"lines"</code>) or as a shaded polygon (<code>"poly"</code>). For large datasets, <code>fCI = "lines"</code> is much faster.</p></dd>
+
+
 <dt>CI_gp</dt>
 <dd><p>A named list of graphical parameters for CIs. If <code>fCI = "lines"</code>, then two nested lists can be included to specify the lower and upper CI lines differently, if desired (see Examples).</p></dd>
+
+
 <dt>add_fitted</dt>
 <dd><p>A logical input defining whether or not add the fitted line.</p></dd>
+
+
 <dt>fitted_gp</dt>
 <dd><p>A named list of graphical parameters for the fitted line (passed to <code><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></code>).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function adds model predictions to a plot.</p>
+    
+
+<p>The function adds model predictions to a plot.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -113,7 +126,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
