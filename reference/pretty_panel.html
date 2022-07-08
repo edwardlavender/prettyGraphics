@@ -74,6 +74,7 @@
 <span>  add_xlab <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  add_ylab <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  add_main <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  add_main_box <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  add_additional <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  par_param <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  by_row <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -96,7 +97,11 @@
 
 
 <dt>add_xlab, add_ylab, add_main</dt>
-<dd><p>(optional) Named lists of arguments, passed to <code><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></code>, to add axis titles to plots. Panel titles are added to each panel, while only  global labels are added for the x and y axes. Empty lists specify default arguments. In this case, panel titles are given as capitalised letters or numbers (if there are more than 26 predictors), in bold, plus the grouping level in brackets; e.g., <strong>A</strong> (Group One) or <strong>1</strong> (Group One). X and y axis labels are simply given as <code>x</code> and <code>y</code>. Alternatively, names can be specified via the `text' argument to <code><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></code>. <code>NULL</code> suppress these arguments.</p></dd>
+<dd><p>(optional) Named lists of argument to add panel and axis titles. <code>add_xlab</code> and <code>add_ylab</code> are passed to <code><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></code> and <code>add_main</code> is passed to  <code><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></code> if <code>add_main_box = FALSE</code> or <code><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></code> otherwise. Panel titles are added to each panel, while only  global labels are added for the x and y axes. Empty lists specify default arguments. In this case, panel titles are given as capitalised letters or numbers (if there are more than 26 predictors), in bold, plus the grouping level in brackets; e.g., <strong>A</strong> (Group One) or <strong>1</strong> (Group One). X and y axis labels are simply given as <code>x</code> and <code>y</code>. A <code>fun</code> element in <code>add_main</code> is permitted which acts on group names (e.g., <code><a href="https://rdrr.io/r/grDevices/plotmath.html" class="external-link">italic</a></code> via <code>function(x) bquote(italic(.(x))))</code>). Alternatively, names can be specified via the `text' argument to <code><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></code>. <code>NULL</code> suppress these arguments.</p></dd>
+
+
+<dt>add_main_box</dt>
+<dd><p>A logical variable that defines whether or not to add the title for each panel in a box at the top of the panel.</p></dd>
 
 
 <dt>add_additional</dt>
@@ -130,37 +135,22 @@
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#### Example (1): Implement function using default options</span></span></span>
 <span class="r-in"><span><span class="fu">pretty_panel</span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Length</span>, <span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Width</span>, <span class="va">iris</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] setosa</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] versicolor</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
 <span class="r-plt img"><img src="pretty_panel-1.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] virginica</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
+<span class="r-plt img"><img src="pretty_panel-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#### Example (2): Control axes via pretty_axis_args, xlim and ylim</span></span></span>
 <span class="r-in"><span><span class="fu">pretty_panel</span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Length</span>, <span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Width</span>, <span class="va">iris</span><span class="op">$</span><span class="va">Species</span>,</span></span>
 <span class="r-in"><span>             pretty_axis_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>             by_row <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] setosa</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] versicolor</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
-<span class="r-plt img"><img src="pretty_panel-2.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] virginica</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
+<span class="r-plt img"><img src="pretty_panel-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="pretty_panel-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#### Example (3): Control par via par_param and by_row</span></span></span>
 <span class="r-in"><span><span class="co">## Example using par</span></span></span>
 <span class="r-in"><span><span class="fu">pretty_panel</span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Length</span>, <span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Width</span>, <span class="va">iris</span><span class="op">$</span><span class="va">Species</span>,</span></span>
 <span class="r-in"><span>             par_param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] setosa</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] versicolor</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
-<span class="r-plt img"><img src="pretty_panel-3.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] virginica</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
+<span class="r-plt img"><img src="pretty_panel-5.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="pretty_panel-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># Par arguments are reset unless supplied via par_param,</span></span></span>
@@ -173,26 +163,16 @@
 <span class="r-in"><span><span class="co">## Example with by_row</span></span></span>
 <span class="r-in"><span><span class="fu">pretty_panel</span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Length</span>, <span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Width</span>, <span class="va">iris</span><span class="op">$</span><span class="va">Species</span>,</span></span>
 <span class="r-in"><span>             by_row <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] setosa</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] versicolor</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
-<span class="r-plt img"><img src="pretty_panel-4.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] virginica</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
+<span class="r-plt img"><img src="pretty_panel-7.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="pretty_panel-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#### Example (4): Add titles</span></span></span>
 <span class="r-in"><span><span class="fu">pretty_panel</span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Length</span>, <span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Width</span>, <span class="va">iris</span><span class="op">$</span><span class="va">Species</span>,</span></span>
 <span class="r-in"><span>             add_xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"Length"</span>, line <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>             add_ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"Width"</span>, line <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>             add_main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>adj <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] setosa</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] versicolor</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
-<span class="r-plt img"><img src="pretty_panel-5.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] virginica</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
+<span class="r-plt img"><img src="pretty_panel-9.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="pretty_panel-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#### Example (5): Use add_additional(...) and ... to add additional elements</span></span></span>
 <span class="r-in"><span><span class="co">## Scenario: We will plot predictions from a model of sepal width ~ length for each spp</span></span></span>
@@ -217,13 +197,8 @@
 <span class="r-in"><span>             data <span class="op">=</span> <span class="va">iris</span>,</span></span>
 <span class="r-in"><span>             add_additional <span class="op">=</span> <span class="va">add_pred</span>,</span></span>
 <span class="r-in"><span>             type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] setosa</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] versicolor</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
-<span class="r-plt img"><img src="pretty_panel-6.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] virginica</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
+<span class="r-plt img"><img src="pretty_panel-11.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="pretty_panel-12.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
