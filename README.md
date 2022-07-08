@@ -59,7 +59,9 @@ library(prettyGraphics)
     and add pretty axes to plots (i.e., axes with intelligible tick mark
     labels that are positioned in appropriate, adjoining positions,
     rather than as an approximate box around a plot);
-  - `pi_notation()` translates numeric vectors into \(\pi\) notation;
+  - `pi_notation()` translates numeric vectors into
+    ![\\pi](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cpi
+    "\\pi") notation;
   - `sci_notation()` translates the ‘e’ notation used by base R into
     scientific notation;
   - `add_lagging_point_zero()` brings all numbers up to the same number
@@ -100,6 +102,7 @@ library(prettyGraphics)
 ## Standard plotting functions
 
   - `pretty_plot()` creates prettier plots for a variety of functions;
+  - `pretty_panel()` creates prettier grouped, multi-panel, plots;
   - `pretty_hist()` creates prettier histograms;
   - `pretty_boxplot()` creates prettier boxplots;
   - `pretty_curve()` evaluates and plots functions;

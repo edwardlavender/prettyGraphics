@@ -1,7 +1,7 @@
 Package: prettyGraphics
 Type: Package
 Title: Pretty Graphics with R
-Version: 0.1.0
+Version: 0.1.1
 Author: Edward Lavender
 Maintainer: Edward Lavender <el72@st-andrews.ac.uk>
 Description: Making publication-quality plotting and data exploration easier. 

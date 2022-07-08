@@ -73,6 +73,7 @@ library(prettyGraphics)
 ## Standard plotting functions 
 
 * `pretty_plot()` creates prettier plots for a variety of functions; 
+* `pretty_panel()` creates prettier grouped, multi-panel, plots;
 * `pretty_hist()` creates prettier histograms;
 * `pretty_boxplot()` creates prettier boxplots;
 * `pretty_curve()` evaluates and plots functions;

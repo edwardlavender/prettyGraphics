@@ -44,6 +44,7 @@
 \section{Standard plotting functions}{
  \describe{
 \item{\link{pretty_plot}}{This function creates prettier plots for a variety of functions.}
+\item{\link{pretty_panel}}{This function creates prettier grouped, multi-panel, plots.}
 \item{\link{pretty_hist}}{This function creates prettier histograms.}
 \item{\link{pretty_boxplot}}{This function creates prettier boxplots.}
 \item{\link{pretty_curve}}{This function evaluates and plots functions.}
