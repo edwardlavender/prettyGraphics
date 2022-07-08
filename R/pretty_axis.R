@@ -548,7 +548,7 @@ pretty_axis <-
 
           #### Compact lists
           # unlist limits if necessary
-          ilim <- unlist(ilim)
+          if(inherits(ilim, "list")) ilim <- Reduce(c, ilim)
           # the default is a blank list (list(NULL))
           # this is necessary for mapply, but causes problems down the line
           # so, having passed the arguments to mapply, we'll now remove NULLs:

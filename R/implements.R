@@ -24,7 +24,7 @@ implement_pretty_axis_args <-
     if(is.null(pretty_axis_args$lim)) pretty_axis_args$lim <- list(x = NULL, y = NULL)
     if(!is.null(xlim)){
       # Drop attributes
-      xlim <- as.numeric(xlim)
+      # xlim <- as.numeric(xlim)
       # Add to pretty_axis_args
       if(!is.null(pretty_axis_args$lim[1][[1]])) warning("pretty_axis_args$lim[[1]] replaced by input to 'xlim'.")
       pretty_axis_args$lim[[1]] <- xlim
