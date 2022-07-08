@@ -1,5 +1,7 @@
 # prettyGraphics 0.1.1
 
+* Improvements
+    * pretty_axis() draws axes and tick marks separately
 * Fixes:
     * `pretty_axis()` limit definition 
 * New functions: 

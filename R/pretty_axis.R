@@ -700,6 +700,17 @@ pretty_axis <-
         # Define appropriate function
         add_axis <- choose_foo_axis(at)
         do.call(add_axis, tmp_axis_args)
+        elem$axis$col.ticks <- elem$axis$col
+        elem$axis$col <- NA
+        if(is.null(elem$axis$col.ticks)) elem$axis$col.ticks <- "black"
+        lat <- length(elem$axis$at)
+        pos <- elem$axis$at > elem$lim[1] & elem$axis$at < elem$lim[2]
+        elem$axis <- lapply(elem$axis, function(e){
+          if(length(e) == lat){
+            e <- e[pos]
+          }
+          return(e)
+        })
         do.call(add_axis, elem$axis)
       })
     }
