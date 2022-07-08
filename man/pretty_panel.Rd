@@ -15,6 +15,7 @@ pretty_panel(
   add_xlab = NULL,
   add_ylab = NULL,
   add_main = NULL,
+  add_main_box = TRUE,
   add_additional = NULL,
   par_param = NULL,
   by_row = TRUE,
@@ -28,7 +29,9 @@ pretty_panel(
 
 \item{xlim, ylim, pretty_axis_args}{Axis controls. \code{xlim} and \code{ylim} control axis limits for all plots. \code{pretty_axis_args} is a named list of arguments, passed to \code{\link[prettyGraphics]{pretty_axis}}, for further control.}
 
-\item{add_xlab, add_ylab, add_main}{(optional) Named lists of arguments, passed to \code{\link[graphics]{mtext}}, to add axis titles to plots. Panel titles are added to each panel, while only  global labels are added for the x and y axes. Empty lists specify default arguments. In this case, panel titles are given as capitalised letters or numbers (if there are more than 26 predictors), in bold, plus the grouping level in brackets; e.g., \strong{A} (Group One) or \strong{1} (Group One). X and y axis labels are simply given as \code{x} and \code{y}. Alternatively, names can be specified via the `text' argument to \code{\link[graphics]{mtext}}. \code{NULL} suppress these arguments.}
+\item{add_xlab, add_ylab, add_main}{(optional) Named lists of argument to add panel and axis titles. \code{add_xlab} and \code{add_ylab} are passed to \code{\link[graphics]{mtext}} and \code{add_main} is passed to  \code{\link[graphics]{mtext}} if \code{add_main_box = FALSE} or \code{\link[graphics]{legend}} otherwise. Panel titles are added to each panel, while only  global labels are added for the x and y axes. Empty lists specify default arguments. In this case, panel titles are given as capitalised letters or numbers (if there are more than 26 predictors), in bold, plus the grouping level in brackets; e.g., \strong{A} (Group One) or \strong{1} (Group One). X and y axis labels are simply given as \code{x} and \code{y}. A \code{fun} element in \code{add_main} is permitted which acts on group names (e.g., \code{\link[grDevices]{italic}} via \code{function(x) bquote(italic(.(x))))}). Alternatively, names can be specified via the `text' argument to \code{\link[graphics]{mtext}}. \code{NULL} suppress these arguments.}
+
+\item{add_main_box}{A logical variable that defines whether or not to add the title for each panel in a box at the top of the panel.}
 
 \item{add_additional}{A function used to add additional elements to each panel. This must accept two arguments, even if they are ignored: (1) a list of axis parameters (from \code{\link[prettyGraphics]{pretty_axis}}) and (2) the group-specific dataframe (see examples).}
 
