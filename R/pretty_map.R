@@ -9,8 +9,13 @@
 #' @param y (optional) A numeric vector of y coordinates. This is only required if \code{x} is a numeric vector of x coordinates.
 #' @param ext (optional) An \code{\link[raster]{extent}} object that defines the extent of an area. If \code{crop_spatial = TRUE}, then the object is cropped to lie within this area via \code{\link[raster]{crop}} (see below).
 #' @param crop_spatial (optional) A logical variable that defines whether or not to crop the spatial layer to lie within the domain defined by \code{ext}. This is only implemented if \code{ext} is provided.
-#' @param plot_method A function that adds the layer to the plot. This is only implemented for \code{add_sp_raster} and the default is \code{\link[fields]{image.plot}}.
-#' @param pretty_axis_args (optional) A named list, passed to \code{\link[prettyGraphics]{pretty_axis}}, to control the tick mark positions and labels on the colour bar. This is only implemented \code{add_sp_raster}. For the default plotting method (\code{\link[fields]{image.plot}}), these can be controlled using the \code{axis.args} argument via \code{...}, but \code{pretty_axis_args} can help to make prettier labels (e.g., with scientific notation). If supplied, \code{plot_method} must accept an \code{axis.args} like \code{\link[fields]{image.plot}}. \code{\link[prettyGraphics]{pretty_axis}} is used to define a pretty sequence of tick mark positions and labels, and these passed to \code{plot_method} via \code{axis.args} as the \code{at} and \code{labels} elements.
+#' @param plot_method For \code{\link[prettyGraphics]{add_sp_raster}}, \code{plot_method} is function that adds the layer to the plot. The default is \code{\link[fields]{image.plot}}.
+#' @param pretty_axis_args (optional) For \code{\link[prettyGraphics]{add_sp_raster}}, \code{pretty_axis_args} is a named list, passed to \code{\link[prettyGraphics]{pretty_axis}}, to control the tick mark positions and labels on the colour bar. This is only implemented \code{add_sp_raster}. For the default plotting method (\code{\link[fields]{image.plot}}), these can be controlled using the \code{axis.args} argument via \code{...}, but \code{pretty_axis_args} can help to make prettier labels (e.g., with scientific notation). If supplied, \code{plot_method} must accept an \code{axis.args} like \code{\link[fields]{image.plot}}. \code{\link[prettyGraphics]{pretty_axis}} is used to define a pretty sequence of tick mark positions and labels, and these passed to \code{plot_method} via \code{axis.args} as the \code{at} and \code{labels} elements.
+#' @param crs_to For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{crs_to} is a \code{\link[sp]{CRS}} object that defines the Coordinate Reference System of the grid.
+#' @param easts For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{easts} is a numeric vector of easting coordinates (in \code{crs_to}).
+#' @param norths For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{norths} is a numeric vector of northing coordinates (in \code{crs_to}).
+#' @param add_grid For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{add_grid} is a named list of graphical parameters, passed to \code{\link[raster]{plot}}, to customise the grid. \code{NULL} suppresses this option.
+#' @param add_labels For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{add_labels} is a named list of parameters, passed to \code{\link[graphics]{axis}}, to customise axis (grid) labels. \code{NULL} suppresses this option.
 #' @param ... Additional arguments passed to the plotting functions, which are \code{plot_method} (usually \code{\link[fields]{image.plot}}) for rasters, \code{\link[graphics]{arrows}} for paths, \code{\link[graphics]{points}} for points and \code{\link[raster]{plot}} for all other objects.
 #'
 #' @details These functions are designed to work with \code{\link[prettyGraphics]{pretty_map}}, which produces a background plot and then adds layers to this plot. However, they can also be called directly after the definition of a background plot.
@@ -76,6 +81,13 @@
 #' pretty_map(add_rasters = list(x = dat_gebco),
 #'            add_polys = list(list(x = dat_coast_around_oban, col = "darkgreen"),
 #'                             list(x = sim_prism, col = "blue")))
+#'
+#' #### Example (4): Adding a lon/lat grid onto a projected map
+#' pretty_map(add_polys = list(x = dat_coast_around_oban),
+#'            pretty_axis_args =
+#'              list(control_axis = list(lwd.ticks = 0, labels = FALSE))
+#'            )
+#' add_sp_grid_ll(dat_coast_around_oban)
 #'
 #' @author Edward Lavender
 #' @name add_sp
@@ -211,6 +223,101 @@ add_sp_raster <- function(x, ext = NULL, crop_spatial = FALSE, plot_method = fie
     suppressWarnings(do.call(plot_method, param))
   }
   return(invisible())
+}
+
+
+#### add_sp_grid_ll()
+#' @rdname add_sp
+#' @export
+
+add_sp_grid_ll <- function(x,
+                           crs_to = sp::CRS(SRS_string = "EPSG:4326"),
+                           easts = NULL,
+                           norths = NULL,
+                           ext = raster::extent(x),
+                           add_grid = list(lty = 2, lwd = 0.5),
+                           add_labels = list()){
+
+  #### Define grid properties (in lon/lat)
+  crs_from  <- raster::crs(x)
+  xlim      <- ext[1:2]
+  ylim      <- ext[3:4]
+  x_ll      <- sp::spTransform(x, crs_to)
+  if(is.null(easts)){
+    easts <- matrix(c(xlim[1], ylim[1], xlim[2], ylim[1]),
+                    byrow = TRUE, ncol = 2)
+    easts <- sp::SpatialPoints(easts, crs_from)
+    easts <- sp::spTransform(easts, crs_to)
+    easts <- raster::coordinates(easts)
+    easts <- pretty_seq(easts[, 1], lim = range(easts[, 1]))$at
+  }
+  if(is.null(norths)){
+    norths <- matrix(c(xlim[1], ylim[1], xlim[1], ylim[2]),
+                     byrow = TRUE, ncol = 2)
+    norths <- sp::SpatialPoints(norths, crs_from)
+    norths <- sp::spTransform(norths, crs_to)
+    norths <- raster::coordinates(norths)
+    norths <- pretty_seq(norths[, 2], lim = range(norths[, 2]))$at
+  }
+
+  #### Define lon/lat grid on original projection to add to plot
+  # Define grid in lon/lat
+  grd         <- sp::gridlines(x_ll, easts, norths)
+  # Convert grid to original projection and crop to map extent
+  grd_orig    <- sp::spTransform(grd, crs_from)
+  grd_orig     <- raster::crop(grd_orig, raster::extent(xlim, ylim))
+
+  #### Add grid to plot
+  if(!is.null(add_grid)){
+    add_grid$x   <- grd_orig
+    add_grid$add <- TRUE
+    do.call(raster::plot, add_grid)
+  }
+
+  #### Add labels
+  if(!is.null(add_labels)){
+
+    ## Define x/y positions and labels
+    # Define x positions and corresponding xlabels
+    xat <- sp::SpatialPoints(cbind(easts, norths[1]), crs_to)
+    xat <- sp::spTransform(xat, crs_from)
+    xat <- raster::coordinates(xat)
+    xlb <- add_lagging_point_zero(easts)
+    xlb <- paste0("'", xlb, "'*degree*W")
+
+    # Define y positions and corresponding labels
+    yat <- sp::SpatialPoints(cbind(easts[1], norths), crs_to)
+    yat <- sp::spTransform(yat, crs_from)
+    yat <- raster::coordinates(yat)
+    ylb <- add_lagging_point_zero(norths)
+    ylb <- paste0("'", ylb, "'*degree*N")
+
+    ## Add labels
+    # Add x labels
+    add_labels_x <- add_labels_y <- add_labels
+    add_labels_x$side      <- 1
+    add_labels_x$at        <- xat[, 1]
+    add_labels_x$labels    <- parse(text = xlb)
+    add_labels_x$pos       <- ylim[1]
+    add_labels_x$lwd       <- 0
+    add_labels_x$lwd.ticks <- 0
+    do.call(graphics::axis, add_labels_x)
+    # Add y labels
+    add_labels_y$side      <- 2
+    add_labels_y$at        <- yat[, 2]
+    add_labels_y$labels    <- parse(text = ylb)
+    add_labels_y$pos       <- xlim[1]
+    add_labels_y$lwd       <- 0
+    add_labels_y$lwd.ticks <- 0
+    if(is.null(add_labels_y$las)) add_labels_y$las <- TRUE
+    do.call(graphics::axis, add_labels_y)
+  }
+
+  #### Return outputs
+  out <- list(grid = grd_orig)
+  if(!is.null(add_labels)) out$labels <- list(x = xlb, y = ylb)
+  return(invisible(out))
+
 }
 
 

@@ -59,6 +59,7 @@
 #'         \item{\link{add_sp_line}}{ This function adds lines to a background map.}
 #'         \item{\link{add_sp_path}}{ This function adds paths to a background map.}
 #'         \item{\link{add_sp_points}}{ This function adds points to a background map.}
+#'         \item{\link{add_sp_grid_ll}}{ This function adds a longitude--latitude grid over a background (projected) map.}
 #'    }
 #'    \item{\link{add_north_arrow}}{This function adds a North arrow to a map.}
 #'   \item{\link{summarise_by_lat}}{This function summarises a \code{\link[raster]{raster}} across latitudinal bands.}

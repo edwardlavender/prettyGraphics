@@ -7,6 +7,7 @@
 \alias{add_sp_path}
 \alias{add_sp_poly}
 \alias{add_sp_raster}
+\alias{add_sp_grid_ll}
 \title{Add spatial layers to a background map}
 \usage{
 add_sp_points(x, y = NULL, ext = NULL, crop_spatial = FALSE, ...)
@@ -25,6 +26,16 @@ add_sp_raster(
   pretty_axis_args = NULL,
   ...
 )
+
+add_sp_grid_ll(
+  x,
+  crs_to = sp::CRS(SRS_string = "EPSG:4326"),
+  easts = NULL,
+  norths = NULL,
+  ext = raster::extent(x),
+  add_grid = list(lty = 2, lwd = 0.5),
+  add_labels = list()
+)
 }
 \arguments{
 \item{x}{A Raster* or Spatial* object, a two-column matrix of x and y coordinates or a numeric vector of x coordinates. Coordinate specifications are only supported for points, lines and paths; otherwise a Raster* or Spatial* object should be supplied. A numeric vector for \code{x} is assumed if \code{y} is provided (see below).}
@@ -37,9 +48,19 @@ add_sp_raster(
 
 \item{...}{Additional arguments passed to the plotting functions, which are \code{plot_method} (usually \code{\link[fields]{image.plot}}) for rasters, \code{\link[graphics]{arrows}} for paths, \code{\link[graphics]{points}} for points and \code{\link[raster]{plot}} for all other objects.}
 
-\item{plot_method}{A function that adds the layer to the plot. This is only implemented for \code{add_sp_raster} and the default is \code{\link[fields]{image.plot}}.}
+\item{plot_method}{For \code{\link[prettyGraphics]{add_sp_raster}}, \code{plot_method} is function that adds the layer to the plot. The default is \code{\link[fields]{image.plot}}.}
 
-\item{pretty_axis_args}{(optional) A named list, passed to \code{\link[prettyGraphics]{pretty_axis}}, to control the tick mark positions and labels on the colour bar. This is only implemented \code{add_sp_raster}. For the default plotting method (\code{\link[fields]{image.plot}}), these can be controlled using the \code{axis.args} argument via \code{...}, but \code{pretty_axis_args} can help to make prettier labels (e.g., with scientific notation). If supplied, \code{plot_method} must accept an \code{axis.args} like \code{\link[fields]{image.plot}}. \code{\link[prettyGraphics]{pretty_axis}} is used to define a pretty sequence of tick mark positions and labels, and these passed to \code{plot_method} via \code{axis.args} as the \code{at} and \code{labels} elements.}
+\item{pretty_axis_args}{(optional) For \code{\link[prettyGraphics]{add_sp_raster}}, \code{pretty_axis_args} is a named list, passed to \code{\link[prettyGraphics]{pretty_axis}}, to control the tick mark positions and labels on the colour bar. This is only implemented \code{add_sp_raster}. For the default plotting method (\code{\link[fields]{image.plot}}), these can be controlled using the \code{axis.args} argument via \code{...}, but \code{pretty_axis_args} can help to make prettier labels (e.g., with scientific notation). If supplied, \code{plot_method} must accept an \code{axis.args} like \code{\link[fields]{image.plot}}. \code{\link[prettyGraphics]{pretty_axis}} is used to define a pretty sequence of tick mark positions and labels, and these passed to \code{plot_method} via \code{axis.args} as the \code{at} and \code{labels} elements.}
+
+\item{crs_to}{For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{crs_to} is a \code{\link[sp]{CRS}} object that defines the Coordinate Reference System of the grid.}
+
+\item{easts}{For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{easts} is a numeric vector of easting coordinates (in \code{crs_to}).}
+
+\item{norths}{For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{norths} is a numeric vector of northing coordinates (in \code{crs_to}).}
+
+\item{add_grid}{For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{add_grid} is a named list of graphical parameters, passed to \code{\link[raster]{plot}}, to customise the grid. \code{NULL} suppresses this option.}
+
+\item{add_labels}{For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{add_labels} is a named list of parameters, passed to \code{\link[graphics]{axis}}, to customise axis (grid) labels. \code{NULL} suppresses this option.}
 }
 \value{
 The function adds a spatial layers to an existing plot.
@@ -110,6 +131,13 @@ sim_prism <- sp::SpatialPolygons(list(sp::Polygons(list(sim_prism), ID = 1)))
 pretty_map(add_rasters = list(x = dat_gebco),
            add_polys = list(list(x = dat_coast_around_oban, col = "darkgreen"),
                             list(x = sim_prism, col = "blue")))
+
+#### Example (4): Adding a lon/lat grid onto a projected map
+pretty_map(add_polys = list(x = dat_coast_around_oban),
+           pretty_axis_args =
+             list(control_axis = list(lwd.ticks = 0, labels = FALSE))
+           )
+add_sp_grid_ll(dat_coast_around_oban)
 
 }
 \author{
