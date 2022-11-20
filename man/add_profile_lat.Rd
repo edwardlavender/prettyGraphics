@@ -11,8 +11,7 @@ add_profile_lat(
   calc_upr = function(x) stats::quantile(x, 0.75),
   xlim = NULL,
   ylim = NULL,
-  pretty_axis_args = list(side = 3:2, axis = list(list(), list(lwd = 0, labels =
-    FALSE))),
+  pretty_axis_args = list(side = 3:2, axis = list(list(), list(lwd = 0, labels = FALSE))),
   axes = TRUE,
   x_at = NULL,
   y_at = ylim,
