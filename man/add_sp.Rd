@@ -34,7 +34,9 @@ add_sp_grid_ll(
   norths = NULL,
   ext = raster::extent(x),
   add_grid = list(lty = 2, lwd = 0.5),
-  add_labels = list()
+  add_labels = list(),
+  add_labels_unit_x = 1L,
+  add_labels_unit_y = 1L
 )
 }
 \arguments{
@@ -61,6 +63,8 @@ add_sp_grid_ll(
 \item{add_grid}{For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{add_grid} is a named list of graphical parameters, passed to \code{\link[raster]{plot}}, to customise the grid. \code{NULL} suppresses this option.}
 
 \item{add_labels}{For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{add_labels} is a named list of parameters, passed to \code{\link[graphics]{axis}}, to customise axis (grid) labels. \code{NULL} suppresses this option.}
+
+\item{add_labels_unit_x, add_labels_unit_y}{For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{add_labels_unit_x} and \code{add_labels_unit_y} are integers that define which labels to keep (1 means every label; 2 means every 2nd label, and so on).}
 }
 \value{
 The function adds a spatial layers to an existing plot.

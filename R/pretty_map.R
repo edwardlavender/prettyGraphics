@@ -1,3 +1,35 @@
+######################################
+######################################
+#### Spatial helpers
+
+#' @title A \code{\link[raster]{crop}} wrapper
+#' @description This function is a simple \code{\link[base]{tryCatch}} wrapper for \code{\link[raster]{crop}}. The function attempts to crop a spatial layer, \code{x}, by an \code{\link[raster]{extent}} object. If this proceedure fails, the function throws a warning and returns \code{NULL}; otherwise \code{x} is cropped and returned.
+#' @param x A Raster or Spatial* object.
+#' @param ext An \code{\link[raster]{extent}} object, used to crop \code{x}.
+#' @param layer A character that defines the spatial layer type. This is used to produce an informative warning message if necessary.
+#' @details This function is designed to support \code{\link[prettyGraphics]{pretty_map}} and associated funtions.
+#' @return The function returns \code{x} cropped by \code{ext} or \code{NULL} with a warning if the cropping routine throws an error.
+#' @examples
+#' \dontrun{
+#'  # Success
+#' .crop(dat_gebco, raster::extent(dat_gebco), layer = "raster")
+#'  # Failure
+#'  .crop(sp::SpatialPoints(cbind(1:10, 1:10)), raster::extent(dat_gebco), layer = "raster")
+#' }
+#' @author Edward Lavender
+#' @keywords internal
+
+.crop <- function(x, ext, layer = c("raster", "polygon", "line", "paths", "points")){
+  layer <- match.arg(layer)
+  x <- tryCatch(raster::crop(x, ext), error = function(e) e)
+  if(inherits(x, "error")) {
+    warning(paste("The", layer, "layer could not be cropped and is not shown on the map. This can happen if none of the elements in the layer are within the map's extent. The error message in this case is aa follows.", x), immediate. = TRUE, call. = FALSE)
+    x <- NULL
+  }
+  x
+}
+
+
 #######################################
 #######################################
 #### add_sp_*()
@@ -16,6 +48,7 @@
 #' @param norths For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{norths} is a numeric vector of northing coordinates (in \code{crs_to}).
 #' @param add_grid For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{add_grid} is a named list of graphical parameters, passed to \code{\link[raster]{plot}}, to customise the grid. \code{NULL} suppresses this option.
 #' @param add_labels For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{add_labels} is a named list of parameters, passed to \code{\link[graphics]{axis}}, to customise axis (grid) labels. \code{NULL} suppresses this option.
+#' @param add_labels_unit_x,add_labels_unit_y For \code{\link[prettyGraphics]{add_sp_grid_ll}}, \code{add_labels_unit_x} and \code{add_labels_unit_y} are integers that define which labels to keep (1 means every label; 2 means every 2nd label, and so on).
 #' @param ... Additional arguments passed to the plotting functions, which are \code{plot_method} (usually \code{\link[fields]{image.plot}}) for rasters, \code{\link[graphics]{arrows}} for paths, \code{\link[graphics]{points}} for points and \code{\link[raster]{plot}} for all other objects.
 #'
 #' @details These functions are designed to work with \code{\link[prettyGraphics]{pretty_map}}, which produces a background plot and then adds layers to this plot. However, they can also be called directly after the definition of a background plot.
@@ -102,7 +135,7 @@ add_sp_points <- function(x, y = NULL, ext = NULL, crop_spatial = FALSE,...){
   if(!is.null(y)) x <- cbind(x, y)
   if(inherits(x, "matrix")) x <- sp::SpatialPoints(x)
   x_raw <- x
-  if(!is.null(ext) & crop_spatial) x <- raster::crop(x, ext)
+  if(!is.null(ext) & crop_spatial) x <- .crop(x, ext, layer = "points")
   if(!is.null(x)){
     param <- list(x = x,...)
     if(!is.null(ext) & crop_spatial){
@@ -138,7 +171,7 @@ add_sp_points <- function(x, y = NULL, ext = NULL, crop_spatial = FALSE,...){
 add_sp_line <- function(x, y = NULL, ext = NULL, crop_spatial = FALSE,...){
   if(!is.null(y)) x <- cbind(x, y)
   if(inherits(x, "matrix")) x <- sp::SpatialPoints(x)
-  if(!is.null(ext) & crop_spatial) x <- raster::crop(x, ext)
+  if(!is.null(ext) & crop_spatial) x <- .crop(x, ext, layer = "line")
   if(!is.null(x)){
     param <- list(x = x,...)
     param$add <- TRUE
@@ -155,7 +188,7 @@ add_sp_line <- function(x, y = NULL, ext = NULL, crop_spatial = FALSE,...){
 add_sp_path <- function(x, y = NULL, ext = NULL, crop_spatial = FALSE,...){
   if(!is.null(y)) x <- cbind(x, y)
   if(inherits(x, "matrix")) x <- sp::SpatialPoints(x)
-  if(!is.null(ext) & crop_spatial) x <- raster::crop(x, ext)
+  if(!is.null(ext) & crop_spatial) x <- .crop(x, ext, layer = "path")
   if(!is.null(x)){
     x <- sp::coordinates(x)
     if(inherits(x, "list")) x <- purrr::flatten(x)[[1]]
@@ -176,7 +209,7 @@ add_sp_path <- function(x, y = NULL, ext = NULL, crop_spatial = FALSE,...){
 #' @export
 
 add_sp_poly <- function(x, ext = NULL, crop_spatial = FALSE,...){
-  if(!is.null(ext) & crop_spatial) x <- raster::crop(x, ext)
+  if(!is.null(ext) & crop_spatial) x <- .crop(x, ext, layer = "polygon")
   if(!is.null(x)){
     param <- list(x = x,...)
     param$add <- TRUE
@@ -192,7 +225,7 @@ add_sp_poly <- function(x, ext = NULL, crop_spatial = FALSE,...){
 
 add_sp_raster <- function(x, ext = NULL, crop_spatial = FALSE, plot_method = fields::image.plot, pretty_axis_args = NULL,...){
   # Crop raster
-  if(!is.null(ext) & crop_spatial) x <- raster::crop(x, ext)
+  if(!is.null(ext) & crop_spatial) x <- .crop(x, ext, layer = "raster")
   if(!is.null(x)){
     # Gather parameters
     param <- list(x = x,...)
@@ -236,7 +269,9 @@ add_sp_grid_ll <- function(x,
                            norths = NULL,
                            ext = raster::extent(x),
                            add_grid = list(lty = 2, lwd = 0.5),
-                           add_labels = list()){
+                           add_labels = list(),
+                           add_labels_unit_x = 1L,
+                           add_labels_unit_y = 1L){
 
   #### Define grid properties (in lon/lat)
   crs_from  <- raster::crs(x)
@@ -298,6 +333,11 @@ add_sp_grid_ll <- function(x,
     add_labels_x$side      <- 1
     add_labels_x$at        <- xat[, 1]
     add_labels_x$labels    <- parse(text = xlb)
+    if(add_labels_unit_x > 1L){
+      px <- seq(from = 0, to = length(add_labels_x$labels), by = add_labels_unit_x)
+      px <- !(seq_along(add_labels_x$labels) %in% px)
+      add_labels_x$labels[px] <- ""
+    }
     add_labels_x$pos       <- ylim[1]
     add_labels_x$lwd       <- 0
     add_labels_x$lwd.ticks <- 0
@@ -306,6 +346,11 @@ add_sp_grid_ll <- function(x,
     add_labels_y$side      <- 2
     add_labels_y$at        <- yat[, 2]
     add_labels_y$labels    <- parse(text = ylb)
+    if(add_labels_unit_y > 1L){
+      py <- seq(from = 0, to = length(add_labels_y$labels), by = add_labels_unit_y)
+      py <- !(seq_along(add_labels_y$labels) %in% py)
+      add_labels_y$labels[py] <- ""
+    }
     add_labels_y$pos       <- xlim[1]
     add_labels_y$lwd       <- 0
     add_labels_y$lwd.ticks <- 0
@@ -315,7 +360,7 @@ add_sp_grid_ll <- function(x,
 
   #### Return outputs
   out <- list(grid = grd_orig)
-  if(!is.null(add_labels)) out$labels <- list(x = xlb, y = ylb)
+  if(!is.null(add_labels)) out$labels <- list(x = add_labels_x, y = add_labels_y)
   return(invisible(out))
 
 }
