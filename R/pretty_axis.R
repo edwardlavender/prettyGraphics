@@ -703,14 +703,6 @@ pretty_axis <-
         elem$axis$col.ticks <- elem$axis$col
         elem$axis$col <- NA
         if(is.null(elem$axis$col.ticks)) elem$axis$col.ticks <- "black"
-        lat <- length(elem$axis$at)
-        pos <- elem$axis$at > elem$lim[1] & elem$axis$at < elem$lim[2]
-        elem$axis <- lapply(elem$axis, function(e){
-          if(length(e) == lat){
-            e <- e[pos]
-          }
-          return(e)
-        })
         do.call(add_axis, elem$axis)
       })
     }
