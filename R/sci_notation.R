@@ -56,6 +56,7 @@ sci_notation <- function(x,
   # Return x unchanged if make_sci is FALSE
   if(!make_sci) return(x)
   # Capture NAs
+  x0 <- x
   is_na <- is.na(x)
   if (any(is_na)) {
     pos_na <- which(is_na)
@@ -64,7 +65,7 @@ sci_notation <- function(x,
   # Define power
   pwr  <- floor(log10(abs(x)))
   # If there are no elements in x greater than the specified magnitude, then return the numbers unchanged
-  if(!any(abs(pwr)[!is.infinite(abs(pwr))] >= 5)) return(x)
+  if(!any(abs(pwr)[!is.infinite(abs(pwr))] >= 5)) return(x0)
   # Define coefficient to specified number of decimal places
   coef <- x/10^pwr
   # Determine minimum suitable number of digits to distinguish numbers
