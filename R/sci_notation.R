@@ -55,6 +55,12 @@ sci_notation <- function(x,
                          make_sci = TRUE){
   # Return x unchanged if make_sci is FALSE
   if(!make_sci) return(x)
+  # Capture NAs
+  is_na <- is.na(x)
+  if (any(is_na)) {
+    pos_na <- which(is_na)
+    x <- x[!is.na(x)]
+  }
   # Define power
   pwr  <- floor(log10(abs(x)))
   # If there are no elements in x greater than the specified magnitude, then return the numbers unchanged
@@ -137,6 +143,12 @@ sci_notation <- function(x,
     lab <- do.call(expression, lab)
   } else {
     lab <- unlist(lab)
+  }
+  # Append NAs in original positions
+  if (any(is_na)) {
+    for (p in pos_na) {
+      lab <- append(lab, NA, after = p - 1)
+    }
   }
   # Return labels
   return(lab)
