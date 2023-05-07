@@ -6,6 +6,7 @@
 \usage{
 pretty_predictions_1d(
   model,
+  data = NULL,
   newdata = NULL,
   x_var = NULL,
   n_pred = 100,
@@ -27,6 +28,8 @@ pretty_predictions_1d(
 }
 \arguments{
 \item{model}{A model (e.g. an output from \code{\link[mgcv]{gam}}).}
+
+\item{data}{(optional) The dataframe used to fit the model. If missing, this is extracted via \code{model.frame(model)}; however, this approach may fail if functions (e.g., \code{\link[base]{scale}}) have been applied to variables as part of the model formula.}
 
 \item{x_var, n_pred, newdata, average}{(optional) Prediction controls.
 \itemize{

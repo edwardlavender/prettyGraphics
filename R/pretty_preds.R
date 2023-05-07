@@ -6,6 +6,7 @@
 #' @description This function plots pretty one-dimensional predictions from a statistical \code{model}. Given a \code{model}, for each predictor, the function plots the predicted values of the response and associated 95 percent confidence intervals. Other predictors are held at the first level (for factors) or an average (e.g., mean or median, as specified) value (for doubles) or at custom values specified in a dataframe called \code{newdata}.
 #'
 #' @param model A model (e.g. an output from \code{\link[mgcv]{gam}}).
+#' @param data (optional) The dataframe used to fit the model. If missing, this is extracted via \code{model.frame(model)}; however, this approach may fail if functions (e.g., \code{\link[base]{scale}}) have been applied to variables as part of the model formula.
 #' @param x_var,n_pred,newdata,average (optional) Prediction controls.
 #'   \itemize{
 #'     \item \code{x_var} is a character variable that defines the name(s) of  predictors for which to plot predictions. If unsupplied, predictions are plotted for each predictor in the \code{model}.
@@ -67,7 +68,7 @@
 #' @author Edward Lavender
 #' @export
 
-pretty_predictions_1d <- function(model,
+pretty_predictions_1d <- function(model, data = NULL,
                                   newdata = NULL, x_var = NULL, n_pred = 100, average = mean,
                                   transform_x = NULL,
                                   xlim = NULL, ylim = NULL, ylim_fix = TRUE, pretty_axis_args = list(),
@@ -90,7 +91,7 @@ pretty_predictions_1d <- function(model,
   #### Define data used to fit model
   # If variable transformations have been applied
   # ... in the model formula, these are retained here.
-  data <- stats::model.frame(model)
+  if(is.null(data)) data <- stats::model.frame(model)
   data_y <- data[, 1]
   data_x <- data[, 2:ncol(data), drop = FALSE]
   data_x <- data_x[, colnames(data_x) %in% all.vars(stats::formula(model)), drop = FALSE]
