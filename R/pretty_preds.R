@@ -12,7 +12,8 @@
 #'     \item \code{x_var} is a character variable that defines the name(s) of  predictors for which to plot predictions. If unsupplied, predictions are plotted for each predictor in the \code{model}.
 #'     \item \code{n_pred} is a number that defines, for continuous predictors, the prediction resolution. For each continuous predictor, a sequence of values from the minimum to maximum value for that variable, with \code{n_pred} elements, is used for prediction. (For factors, predictions are plotted for each factor level.) Alternatively, \code{newdata} can be supplied.
 #'     \item \code{average} is a function that is used to define the value at which doubles are held constant for prediction. The default is \code{\link[base]{mean}}.
-#'     \item \code{newdata} is a dataframe that contains the data used for prediction. If supplied, this should contain one variable that changes in value (defined in \code{x_var}), with other variables held at selected values.
+#'     \item \code{newdata} is a dataframe that contains the data used for prediction. If supplied, this should contain one variable that changes in value (defined in \code{x_var}), with other variables held at selected values. If supplied, this supersedes \code{constants} (see below).
+#'     \item \code{constants} is a one-row dataframe of constant values for explanatory variables. If supplied, \code{n_pred} model predictions are generated for \code{x_var}, while holding other variables constant at the values specified in \code{constants}.
 #'     }
 #' @param transform_x A function to transform values of the predictor(s) for plotting.
 #' @param xlim,ylim,ylim_fix,pretty_axis_args Axis controls. \code{xlim} and \code{ylim} control axis limits for all plots. If unsupplied, pretty limits are used. If pretty limits are used, \code{ylim_fix} is a logical variable that defines whether or not to use the same y-axis limits on all plots (\code{TRUE}), which can facilitate comparisons, or to use plot-specific limits (\code{FALSE}). \code{pretty_axis_args} is a named list of arguments, passed to \code{\link[prettyGraphics]{pretty_axis}}, for further control.
@@ -45,6 +46,10 @@
 #' pretty_predictions_1d(mod_1,
 #'                       x_var = "Species",
 #'                       newdata = p_dat)
+#' # Or use constants to use custom constants but standard values for x_var
+#' pretty_predictions_1d(mod_1,
+#'                       constants = data.frame(Sepal.Width = 3),
+#'                       x_var = "Species")
 #'
 #' #### Example (4): Customise uncertainty
 #' pretty_predictions_1d(mod_1,
@@ -100,7 +105,7 @@
 #' @export
 
 pretty_predictions_1d <- function(model, data = NULL,
-                                  newdata = NULL, x_var = NULL, n_pred = 100, average = mean,
+                                  newdata = NULL, constants = NULL, x_var = NULL, n_pred = 100, average = mean,
                                   transform_x = NULL,
                                   xlim = NULL, ylim = NULL, ylim_fix = TRUE, pretty_axis_args = list(),
                                   add_points = list(cex = 0.5, lwd = 0.5, col = "grey20"),
@@ -116,6 +121,9 @@ pretty_predictions_1d <- function(model, data = NULL,
   if(!is.null(newdata)){
     if(length(x_var) != 1L)
       stop("If 'newdata' is specified, the predictor should be specified in 'x_var'.", call. = FALSE)
+    if(!is.null(constants)) {
+      warning("`constants` is ignored if `newdata` is supplied.", immediate. = TRUE, call. = FALSE)
+    }
   }
   # Check named lists
   # ...
@@ -133,6 +141,11 @@ pretty_predictions_1d <- function(model, data = NULL,
         paste0("'", colnames(data_x)[i], "' column coerced from character to factor with level(s): '",
                paste0(levels(data_x[, i]), collapse = "', '"), "'."
         ), immediate. = TRUE, call. = FALSE)
+    }
+  }
+  if (!is.null(constants)) {
+    if (nrow(constants) != 1L) {
+      stop("`constants` is expected to be a dataframe with one row.", call. = FALSE)
     }
   }
 
@@ -169,20 +182,29 @@ pretty_predictions_1d <- function(model, data = NULL,
       # ... These are either as specified
       # ... Or we simply take the average value for numeric variables
       # ... And the 1st level for factors
-      nd <- lapply(1:ncol(data_x), function(i){
-        x_tmp <- data_x[, i]
-        if(is_number(x_tmp, first = TRUE)){
-          x_tmp <- rep(average(x_tmp, na.rm = TRUE), length(x))
-        } else {
-          x_tmp <- factor(rep(levels(x_tmp)[1], length(x)), levels = levels(data_x[, i]))
-        }
-        x_tmp <- data.frame(x_tmp)
-        colnames(x_tmp) <- colnames(data_x)[i]
-        return(x_tmp)
-      })
-      nd <- do.call(cbind, nd)
-      nd <- data.frame(nd)
-      colnames(nd) <- colnames(data_x)
+      if (!is.null(constants)) {
+        # Duplicate constants for every value of x, if supplied
+        # This assumes that constants has been correctly defined.
+        constants <- lapply(seq_len(length(x)), function(i) {
+          constants
+        }) |> dplyr::bind_rows()
+      } else {
+        constants <- lapply(1:ncol(data_x), function(i){
+          x_tmp <- data_x[, i]
+          if(is_number(x_tmp, first = TRUE)){
+            x_tmp <- rep(average(x_tmp, na.rm = TRUE), length(x))
+          } else {
+            x_tmp <- factor(rep(levels(x_tmp)[1], length(x)), levels = levels(data_x[, i]))
+          }
+          x_tmp <- data.frame(x_tmp)
+          colnames(x_tmp) <- colnames(data_x)[i]
+          return(x_tmp)
+        })
+        constants <- do.call(cbind, constants)
+        constants <- data.frame(constants)
+        colnames(constants) <- colnames(data_x)
+      }
+      nd <- constants
       nd[, var] <- x
     }
 

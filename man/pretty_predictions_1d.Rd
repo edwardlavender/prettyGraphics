@@ -8,6 +8,7 @@ pretty_predictions_1d(
   model,
   data = NULL,
   newdata = NULL,
+  constants = NULL,
   x_var = NULL,
   n_pred = 100,
   average = mean,
@@ -36,7 +37,8 @@ pretty_predictions_1d(
   \item \code{x_var} is a character variable that defines the name(s) of  predictors for which to plot predictions. If unsupplied, predictions are plotted for each predictor in the \code{model}.
   \item \code{n_pred} is a number that defines, for continuous predictors, the prediction resolution. For each continuous predictor, a sequence of values from the minimum to maximum value for that variable, with \code{n_pred} elements, is used for prediction. (For factors, predictions are plotted for each factor level.) Alternatively, \code{newdata} can be supplied.
   \item \code{average} is a function that is used to define the value at which doubles are held constant for prediction. The default is \code{\link[base]{mean}}.
-  \item \code{newdata} is a dataframe that contains the data used for prediction. If supplied, this should contain one variable that changes in value (defined in \code{x_var}), with other variables held at selected values.
+  \item \code{newdata} is a dataframe that contains the data used for prediction. If supplied, this should contain one variable that changes in value (defined in \code{x_var}), with other variables held at selected values. If supplied, this supersedes \code{constants} (see below).
+  \item \code{constants} is a one-row dataframe of constant values for explanatory variables. If supplied, \code{n_pred} model predictions are generated for \code{x_var}, while holding other variables constant at the values specified in \code{constants}.
   }}
 
 \item{transform_x}{A function to transform values of the predictor(s) for plotting.}
@@ -81,6 +83,10 @@ p_dat <- data.frame(Sepal.Width = median(iris$Sepal.Width),
 pretty_predictions_1d(mod_1,
                       x_var = "Species",
                       newdata = p_dat)
+# Or use constants to use custom constants but standard values for x_var
+pretty_predictions_1d(mod_1,
+                      constants = data.frame(Sepal.Width = 3),
+                      x_var = "Species")
 
 #### Example (4): Customise uncertainty
 pretty_predictions_1d(mod_1,
