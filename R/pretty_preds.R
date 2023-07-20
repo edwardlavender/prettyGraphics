@@ -592,15 +592,6 @@ pretty_predictions_2d <- function(x, view = NULL,
     do.call(graphics::points, add_xy)
   }
 
-  #### Add contours
-  if(!is.null(add_contour)){
-    add_contour$x <- xp
-    add_contour$y <- yp
-    add_contour$z <- z
-    add_contour$add <- TRUE
-    do.call(graphics::contour, add_contour)
-  }
-
   #### Add rugs
   # x variable
   if(!is.null(add_rug_x)) {
@@ -631,6 +622,15 @@ pretty_predictions_2d <- function(x, view = NULL,
       }
     }
     do.call(graphics::rug, add_rug_y)
+  }
+
+  #### Add contours
+  if(!is.null(add_contour)){
+    add_contour$x <- xp
+    add_contour$y <- yp
+    add_contour$z <- z
+    add_contour$add <- TRUE
+    do.call(graphics::contour, add_contour)
   }
 
   #### Add axes
