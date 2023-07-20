@@ -19,6 +19,7 @@
 #' @param xlim,ylim,ylim_fix,pretty_axis_args Axis controls. \code{xlim} and \code{ylim} control axis limits for all plots. If unsupplied, pretty limits are used. If pretty limits are used, \code{ylim_fix} is a logical variable that defines whether or not to use the same y-axis limits on all plots (\code{TRUE}), which can facilitate comparisons, or to use plot-specific limits (\code{FALSE}). \code{pretty_axis_args} is a named list of arguments, passed to \code{\link[prettyGraphics]{pretty_axis}}, for further control.
 #' @param add_points (optional) A named list of arguments, passed to \code{\link[graphics]{points}}, to customise observations added to plots. An empty list specifies default options. \code{NULL} suppresses this argument.
 #' @param add_error_bars,add_error_envelope (optional) Named lists of arguments, passed to \code{\link[prettyGraphics]{add_error_bars}} and \code{\link[prettyGraphics]{add_error_envelope}}, to customise the appearance of error bars (for factor predictors) or envelopes (for continuous predictors) respectively. Empty lists specify default options. \code{NULL} suppresses these arguments.
+#' @param add_order A character vector that defines the order in which you want to add \code{predictions} and \code{points}. By default, predictions are added first, since these often mask points otherwise. However, this order is reversible.
 #' @param add_xlab,add_ylab,add_main (optional) Named lists of arguments, passed to \code{\link[graphics]{mtext}}, to add axis titles to plots. X-axis labels and plot titles are added to each plot, while only one global y-axis label is added. Empty lists specify default arguments, in which case variable names are taken as specified in the \code{model} and plot titles are given as capitalised letters or numbers in square brackets (if there are more than 26 predictors). Alternatively, names can be specified via the `text' argument to \code{\link[graphics]{mtext}}. For \code{add_xlab} and \code{add_main} , the `text' argument can be a vector with one element for each plot; for \code{add_ylab} only one element should be supplied. \code{NULL} suppress these arguments.
 #' @param one_page A logical variable that defines whether or not to plot all plots on one page.
 #' @param ... Additional arguments passed to \code{\link[prettyGraphics]{pretty_plot}}.
@@ -111,6 +112,7 @@ pretty_predictions_1d <- function(model, data = NULL,
                                   add_points = list(cex = 0.5, lwd = 0.5, col = "grey20"),
                                   add_error_bars = list(add_fit = list(pch = 3)),
                                   add_error_envelope = list(),
+                                  add_order = c("predictions", "points"),
                                   add_xlab = list(line = 2.5),
                                   add_ylab = list(line = 2.5),
                                   add_main = list(adj = 0, font = 2),
@@ -148,6 +150,7 @@ pretty_predictions_1d <- function(model, data = NULL,
       stop("`constants` is expected to be a dataframe with one row.", call. = FALSE)
     }
   }
+  add_order <- match.arg(add_order, several.ok = TRUE)
 
   #### Define a character vector of predictors
   if(!is.null(x_var)){
@@ -288,48 +291,59 @@ pretty_predictions_1d <- function(model, data = NULL,
                              xlab = "", ylab = "",
                              pretty_axis_args = paa,
                              type = "n",...)
-      ## Add error bars/CIs
-      if(var_is_num){
-        if(!is.null(add_error_envelope)){
-          add_error_envelope$x  <- x
-          add_error_envelope$ci <- pred
-          do.call("add_error_envelope", add_error_envelope)
-        }
-      } else {
-        if(!is.null(add_error_bars)){
-          add_error_bars$x   <- as.integer(x)
-          add_error_bars$fit <- pred$fit
-          add_error_bars$lwr <- pred$lowerCI
-          add_error_bars$upr <- pred$upperCI
-          do.call("add_error_bars", add_error_bars)
-        }
-      }
 
-      ## Add observations
-      if(!is.null(add_points)){
-        if(!is.null(transform_x) && var_is_num) {
-          data[, var] <- transform_x(data[, var])
+      ## Define helpers
+      # Add error bars/CIs
+      add_p <- function() {
+        if(var_is_num){
+          if(!is.null(add_error_envelope)){
+            add_error_envelope$x  <- x
+            add_error_envelope$ci <- pred
+            do.call("add_error_envelope", add_error_envelope)
+          }
+        } else {
+          if(!is.null(add_error_bars)){
+            add_error_bars$x   <- as.integer(x)
+            add_error_bars$fit <- pred$fit
+            add_error_bars$lwr <- pred$lowerCI
+            add_error_bars$upr <- pred$upperCI
+            do.call("add_error_bars", add_error_bars)
+          }
         }
-        add_points$x <- data[, var]
-        add_points$y <- data_y
-        args <- names(add_points)
-        pars <- names(graphics::par())
-        args_in_pars <- args[args %in% pars]
-        if(length(args_in_pars) > 0L){
-          lapply(args_in_pars, function(arg){
-            if(length(add_points[[arg]]) != 1){
-              if(length(add_points[[arg]]) != nrow(data)){
-                warning(paste0("length(add_points[['", arg, "']]) (n = ",
-                               length(add_points[[arg]]),
-                               ") does not equal nrow(model.frame(model)) (n = ",
-                               nrow(data), ")."),
-                        call. = FALSE, immediate. = TRUE)
-              }
-            }
-          })
-        }
-        do.call(graphics::points, add_points)
       }
+      # Add observations
+      add_o <- function() {
+        if(!is.null(add_points)){
+          if(!is.null(transform_x) && var_is_num) {
+            data[, var] <- transform_x(data[, var])
+          }
+          add_points$x <- data[, var]
+          add_points$y <- data_y
+          args <- names(add_points)
+          pars <- names(graphics::par())
+          args_in_pars <- args[args %in% pars]
+          if(length(args_in_pars) > 0L){
+            lapply(args_in_pars, function(arg){
+              if(length(add_points[[arg]]) != 1){
+                if(length(add_points[[arg]]) != nrow(data)){
+                  warning(paste0("length(add_points[['", arg, "']]) (n = ",
+                                 length(add_points[[arg]]),
+                                 ") does not equal nrow(model.frame(model)) (n = ",
+                                 nrow(data), ")."),
+                          call. = FALSE, immediate. = TRUE)
+                }
+              }
+            })
+          }
+          do.call(graphics::points, add_points)
+        }
+      }
+      addpo <- list(predictions = add_p, points = add_o)
+
+      ## Add predictions/observations in order
+      lapply(add_order, function(nm) {
+        do.call(addpo[[nm]], list())
+      })
 
       ## Add back axes for tidiness
       pretty_axis(axis_ls = axis_ls, add = TRUE)
@@ -590,6 +604,8 @@ pretty_predictions_2d <- function(x, view = NULL,
     attributes(yp) <- attributes(dat[, view[2]])
     xp <- transform(xp)
     yp <- transform(yp)
+    dat[, view[1]] <- transform(dat[, view[1]])
+    dat[, view[2]] <- transform(dat[, view[2]])
   }
   if(is.null(pretty_axis_args$lim)) pretty_axis_args$lim <- list(x = NULL, y = NULL)
   if(is.null(xlim)) {

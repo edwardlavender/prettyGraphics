@@ -20,6 +20,7 @@ pretty_predictions_1d(
   add_points = list(cex = 0.5, lwd = 0.5, col = "grey20"),
   add_error_bars = list(add_fit = list(pch = 3)),
   add_error_envelope = list(),
+  add_order = c("predictions", "points"),
   add_xlab = list(line = 2.5),
   add_ylab = list(line = 2.5),
   add_main = list(adj = 0, font = 2),
@@ -48,6 +49,8 @@ pretty_predictions_1d(
 \item{add_points}{(optional) A named list of arguments, passed to \code{\link[graphics]{points}}, to customise observations added to plots. An empty list specifies default options. \code{NULL} suppresses this argument.}
 
 \item{add_error_bars, add_error_envelope}{(optional) Named lists of arguments, passed to \code{\link[prettyGraphics]{add_error_bars}} and \code{\link[prettyGraphics]{add_error_envelope}}, to customise the appearance of error bars (for factor predictors) or envelopes (for continuous predictors) respectively. Empty lists specify default options. \code{NULL} suppresses these arguments.}
+
+\item{add_order}{A character vector that defines the order in which you want to add \code{predictions} and \code{points}. By default, predictions are added first, since these often mask points otherwise. However, this order is reversible.}
 
 \item{add_xlab, add_ylab, add_main}{(optional) Named lists of arguments, passed to \code{\link[graphics]{mtext}}, to add axis titles to plots. X-axis labels and plot titles are added to each plot, while only one global y-axis label is added. Empty lists specify default arguments, in which case variable names are taken as specified in the \code{model} and plot titles are given as capitalised letters or numbers in square brackets (if there are more than 26 predictors). Alternatively, names can be specified via the `text' argument to \code{\link[graphics]{mtext}}. For \code{add_xlab} and \code{add_main} , the `text' argument can be a vector with one element for each plot; for \code{add_ylab} only one element should be supplied. \code{NULL} suppress these arguments.}
 
