@@ -11,6 +11,7 @@ pretty_predictions_2d(
   cond = list(),
   predict_param = list(),
   select = "fit",
+  transform = NULL,
   xlim = NULL,
   ylim = NULL,
   zlim = NULL,
@@ -44,6 +45,8 @@ pretty_predictions_2d(
   \item \code{predict_param} (optional) A named list of arguments, passed to \code{\link[stats]{predict}}, to customise predictions.
   \item \code{select} (optional) If the call to \code{\link[stats]{predict}} returns a list, \code{select} is the name of the element in that list that is plotted (e.g., \code{"fit"} or \code{"se.fit"}). If the call to \code{\link[stats]{predict}} returns a numeric vector, this is ignored.
 }}
+
+\item{transform}{A function used to (back)-transform the predictor variables in \code{view} after prediction for plotting (i.e., the x and y axes). Use this option, for examples, if you scaled variables prior to model fitting and you want to back-transform them onto the natural scale.}
 
 \item{xlim, ylim, zlim}{Axis limits.}
 
@@ -176,6 +179,29 @@ pretty_predictions_2d(g, view = c("x1", "x2"),
                       legend_breaks = function(x) x *-1,
                       legend_labels = abs)
 graphics::par(pp)
+
+#### Example (9): Variable back-transformations
+# see also pretty_predictions_1d()
+# Define function to scale numbers without changing class
+# (scale() creates a matrix)
+scale_num <- function(x) {
+  y <- scale(x)
+  attributes(y)$dim <- NULL
+  y
+}
+# Define function to unscale numbers, based on stored attributes
+unscale <- function(x) {
+  mu      <- attr(x, "scaled:center")
+  sigma   <- attr(x, "scaled:scale")
+  x * sigma + mu
+}
+# Scale predictors for modelling
+x0s <- scale_num(x0)
+x1s <- scale_num(x1)
+x2s <- scale_num(x2)
+gs    <- mgcv::gam(y ~ s(x0s, x1s, x2s))
+# Plot predictions on original scale
+pretty_predictions_2d(gs, view = c("x1s", "x2s"), transform = unscale)
 
 }
 \seealso{

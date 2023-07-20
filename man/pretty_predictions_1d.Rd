@@ -32,7 +32,7 @@ pretty_predictions_1d(
 
 \item{data}{(optional) The dataframe used to fit the model. If missing, this is extracted via \code{model.frame(model)}; however, this approach may fail if functions (e.g., \code{\link[base]{scale}}) have been applied to variables as part of the model formula.}
 
-\item{x_var, n_pred, newdata, average}{(optional) Prediction controls.
+\item{x_var, n_pred, average, newdata, constants}{(optional) Prediction controls.
 \itemize{
   \item \code{x_var} is a character variable that defines the name(s) of  predictors for which to plot predictions. If unsupplied, predictions are plotted for each predictor in the \code{model}.
   \item \code{n_pred} is a number that defines, for continuous predictors, the prediction resolution. For each continuous predictor, a sequence of values from the minimum to maximum value for that variable, with \code{n_pred} elements, is used for prediction. (For factors, predictions are plotted for each factor level.) Alternatively, \code{newdata} can be supplied.

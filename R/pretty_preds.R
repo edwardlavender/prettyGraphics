@@ -7,7 +7,7 @@
 #'
 #' @param model A model (e.g. an output from \code{\link[mgcv]{gam}}).
 #' @param data (optional) The dataframe used to fit the model. If missing, this is extracted via \code{model.frame(model)}; however, this approach may fail if functions (e.g., \code{\link[base]{scale}}) have been applied to variables as part of the model formula.
-#' @param x_var,n_pred,newdata,average (optional) Prediction controls.
+#' @param x_var,n_pred,average,newdata,constants (optional) Prediction controls.
 #'   \itemize{
 #'     \item \code{x_var} is a character variable that defines the name(s) of  predictors for which to plot predictions. If unsupplied, predictions are plotted for each predictor in the \code{model}.
 #'     \item \code{n_pred} is a number that defines, for continuous predictors, the prediction resolution. For each continuous predictor, a sequence of values from the minimum to maximum value for that variable, with \code{n_pred} elements, is used for prediction. (For factors, predictions are plotted for each factor level.) Alternatively, \code{newdata} can be supplied.
@@ -388,6 +388,7 @@ pretty_predictions_1d <- function(model, data = NULL,
 #'     \item \code{predict_param} (optional) A named list of arguments, passed to \code{\link[stats]{predict}}, to customise predictions.
 #'     \item \code{select} (optional) If the call to \code{\link[stats]{predict}} returns a list, \code{select} is the name of the element in that list that is plotted (e.g., \code{"fit"} or \code{"se.fit"}). If the call to \code{\link[stats]{predict}} returns a numeric vector, this is ignored.
 #'   }
+#' @param transform A function used to (back)-transform the predictor variables in \code{view} after prediction for plotting (i.e., the x and y axes). Use this option, for examples, if you scaled variables prior to model fitting and you want to back-transform them onto the natural scale.
 #' @param col_pal,col_n Colour controls.
 #'   \itemize{
 #'     \item \code{col_pal} is a colour palette function from which colours are drawn.
@@ -507,6 +508,29 @@ pretty_predictions_1d <- function(model, data = NULL,
 #'                       legend_labels = abs)
 #' graphics::par(pp)
 #'
+#' #### Example (9): Variable back-transformations
+#' # see also pretty_predictions_1d()
+#' # Define function to scale numbers without changing class
+#' # (scale() creates a matrix)
+#' scale_num <- function(x) {
+#'   y <- scale(x)
+#'   attributes(y)$dim <- NULL
+#'   y
+#' }
+#' # Define function to unscale numbers, based on stored attributes
+#' unscale <- function(x) {
+#'   mu      <- attr(x, "scaled:center")
+#'   sigma   <- attr(x, "scaled:scale")
+#'   x * sigma + mu
+#' }
+#' # Scale predictors for modelling
+#' x0s <- scale_num(x0)
+#' x1s <- scale_num(x1)
+#' x2s <- scale_num(x2)
+#' gs    <- mgcv::gam(y ~ s(x0s, x1s, x2s))
+#' # Plot predictions on original scale
+#' pretty_predictions_2d(gs, view = c("x1s", "x2s"), transform = unscale)
+#'
 #' @seealso \code{\link[prettyGraphics]{pretty_predictions_1d}}
 #' @author Edward Lavender
 #' @export
@@ -514,6 +538,7 @@ pretty_predictions_1d <- function(model, data = NULL,
 
 pretty_predictions_2d <- function(x, view = NULL,
                                   n_grid = 30, cond = list(), predict_param = list(), select = "fit",
+                                  transform = NULL,
                                   xlim = NULL, ylim = NULL, zlim = NULL,
                                   xlab = NULL, ylab = NULL,
                                   pretty_axis_args = list(side = 1:4, axis = list(list(), list(), list(labels = FALSE),
@@ -560,6 +585,12 @@ pretty_predictions_2d <- function(x, view = NULL,
   for(i in seq_along(s)[-length(s)]) z[, i] <- nd$pred[(s[i] + 1):s[i+1]]
 
   #### Define axis limits
+  if(!is.null(transform)) {
+    attributes(xp) <- attributes(dat[, view[1]])
+    attributes(yp) <- attributes(dat[, view[2]])
+    xp <- transform(xp)
+    yp <- transform(yp)
+  }
   if(is.null(pretty_axis_args$lim)) pretty_axis_args$lim <- list(x = NULL, y = NULL)
   if(is.null(xlim)) {
     xlim <- pretty_axis_args$lim[[1]]
