@@ -64,6 +64,37 @@
 #'                       add_xlab = list(text = c("Width", "Species"), line = 2),
 #'                       add_ylab = list(line = -2),
 #'                       add_main = NULL)
+#'
+#' #### Example (7) Back transformations
+#' # The function can be implemented with tranformed variables, but note:
+#' # * Transformations must be applied to the dataframe used to fit the model
+#' # ... (and not in the model fitting function);
+#' # * Transformations should not change variable types (e.g. scale() transforms
+#' # ... numbers into matrices, and this is not permitted).
+#' # * All numeric variables are affected by transform_x
+#'
+#' ## (A) Scale variable and plot predictions on transformed scale
+#' # Define function to scale numbers that doesn't change variable types
+#' scale_num <- function(x) {
+#'   y <- scale(x)
+#'   attributes(y)$dim <- NULL
+#'   y
+#' }
+#' # Scale Sepal.Width
+#' iris$Sepal.Width.S <- scale_num(iris$Sepal.Width)
+#' # Implement model
+#' mod_2 <- stats::lm(Sepal.Length ~ Sepal.Width.S + Species, data = iris)
+#' # Visualise predictions
+#' pretty_predictions_1d(mod_2)
+#'
+#' ## (B) Back-transform predictions
+#' unscale <- function(x) {
+#'   mu      <- attr(x, "scaled:center")
+#'   sigma   <- attr(x, "scaled:scale")
+#'   x * sigma + mu
+#' }
+#' pretty_predictions_1d(mod_2, transform_x = unscale)
+#'
 #' @seealso \code{\link[prettyGraphics]{pretty_predictions_2d}}
 #' @author Edward Lavender
 #' @export
@@ -118,7 +149,7 @@ pretty_predictions_1d <- function(model, data = NULL,
 
     #### Define variable
     var <- x_var[i]
-    var_is_num <- is_number(data[, var])
+    var_is_num <- is_number(data[, var], first = TRUE)
 
     #### Define new data for prediction
     if(!is.null(newdata)){
@@ -140,7 +171,7 @@ pretty_predictions_1d <- function(model, data = NULL,
       # ... And the 1st level for factors
       nd <- lapply(1:ncol(data_x), function(i){
         x_tmp <- data_x[, i]
-        if(is_number(x_tmp)){
+        if(is_number(x_tmp, first = TRUE)){
           x_tmp <- rep(average(x_tmp, na.rm = TRUE), length(x))
         } else {
           x_tmp <- factor(rep(levels(x_tmp)[1], length(x)), levels = levels(data_x[, i]))
@@ -162,9 +193,11 @@ pretty_predictions_1d <- function(model, data = NULL,
     pred$lowerCI <- as.numeric(pred$lowerCI)
     pred$upperCI <- as.numeric(pred$upperCI)
 
-
     #### Variable transformations
-    if(!is.null(transform_x) && var_is_num) x <- transform_x(x)
+    if(!is.null(transform_x) && var_is_num) {
+      attributes(x) <- attributes(data[, var])
+      x <- transform_x(x)
+    }
 
     #### Define pretty axes
     # Define sides
@@ -252,6 +285,9 @@ pretty_predictions_1d <- function(model, data = NULL,
 
       ## Add observations
       if(!is.null(add_points)){
+        if(!is.null(transform_x) && var_is_num) {
+          data[, var] <- transform_x(data[, var])
+        }
         add_points$x <- data[, var]
         add_points$y <- data_y
         args <- names(add_points)

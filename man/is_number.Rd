@@ -4,10 +4,12 @@
 \alias{is_number}
 \title{Check if an object is a number}
 \usage{
-is_number(x)
+is_number(x, first = FALSE)
 }
 \arguments{
 \item{x}{An object.}
+
+\item{first}{A logical variable that defines whether or not to select \code{x[[1]]}. This avoids issues with some inputs (e.g., \code{scale(x)} is a matrix).}
 }
 \value{
 A logical value which defines whether or not \code{x} is a number.

@@ -58,12 +58,14 @@ range_factor <- function(x){
 #' @title Check if an object is a number
 #' @description This function checks if an input is a number (i.e., an integer or numeric object).
 #' @param x An object.
+#' @param first A logical variable that defines whether or not to select \code{x[[1]]}. This avoids issues with some inputs (e.g., \code{scale(x)} is a matrix).
 #' @return A logical value which defines whether or not \code{x} is a number.
 #' @author Edward Lavender
 #' @keywords internal
 
 is_number <-
-  function(x){
+  function(x, first = FALSE){
+    if (first) x <- x[[1]]
     is_number <- inherits(x, "integer") | inherits(x, "numeric")
     return(is_number)
   }
