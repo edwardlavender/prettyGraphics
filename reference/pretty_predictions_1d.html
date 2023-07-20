@@ -65,7 +65,9 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pretty_predictions_1d</span><span class="op">(</span></span>
 <span>  <span class="va">model</span>,</span>
+<span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  newdata <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  constants <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  x_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  n_pred <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  average <span class="op">=</span> <span class="va">mean</span>,</span>
@@ -91,11 +93,16 @@
 <dd><p>A model (e.g. an output from <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code>).</p></dd>
 
 
-<dt>x_var, n_pred, newdata, average</dt>
+<dt>data</dt>
+<dd><p>(optional) The dataframe used to fit the model. If missing, this is extracted via <code>model.frame(model)</code>; however, this approach may fail if functions (e.g., <code><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></code>) have been applied to variables as part of the model formula.</p></dd>
+
+
+<dt>x_var, n_pred, average, newdata, constants</dt>
 <dd><p>(optional) Prediction controls.</p><ul><li><p><code>x_var</code> is a character variable that defines the name(s) of  predictors for which to plot predictions. If unsupplied, predictions are plotted for each predictor in the <code>model</code>.</p></li>
 <li><p><code>n_pred</code> is a number that defines, for continuous predictors, the prediction resolution. For each continuous predictor, a sequence of values from the minimum to maximum value for that variable, with <code>n_pred</code> elements, is used for prediction. (For factors, predictions are plotted for each factor level.) Alternatively, <code>newdata</code> can be supplied.</p></li>
 <li><p><code>average</code> is a function that is used to define the value at which doubles are held constant for prediction. The default is <code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></code>.</p></li>
-<li><p><code>newdata</code> is a dataframe that contains the data used for prediction. If supplied, this should contain one variable that changes in value (defined in <code>x_var</code>), with other variables held at selected values.</p></li>
+<li><p><code>newdata</code> is a dataframe that contains the data used for prediction. If supplied, this should contain one variable that changes in value (defined in <code>x_var</code>), with other variables held at selected values. If supplied, this supersedes <code>constants</code> (see below).</p></li>
+<li><p><code>constants</code> is a one-row dataframe of constant values for explanatory variables. If supplied, <code>n_pred</code> model predictions are generated for <code>x_var</code>, while holding other variables constant at the values specified in <code>constants</code>.</p></li>
 </ul></dd>
 
 
@@ -193,6 +200,11 @@
 <span class="r-in"><span>                      x_var <span class="op">=</span> <span class="st">"Species"</span>,</span></span>
 <span class="r-in"><span>                      newdata <span class="op">=</span> <span class="va">p_dat</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.</span>
+<span class="r-in"><span><span class="co"># Or use constants to use custom constants but standard values for x_var</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_1</span>,</span></span>
+<span class="r-in"><span>                      constants <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Sepal.Width <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                      x_var <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.</span>
 <span class="r-plt img"><img src="pretty_predictions_1d-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#### Example (4): Customise uncertainty</span></span></span>
@@ -225,6 +237,41 @@
 <span class="r-in"><span>                      add_main <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.</span>
 <span class="r-plt img"><img src="pretty_predictions_1d-9.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#### Example (7) Back transformations</span></span></span>
+<span class="r-in"><span><span class="co"># The function can be implemented with tranformed variables, but note:</span></span></span>
+<span class="r-in"><span><span class="co"># * Transformations must be applied to the dataframe used to fit the model</span></span></span>
+<span class="r-in"><span><span class="co"># ... (and not in the model fitting function);</span></span></span>
+<span class="r-in"><span><span class="co"># * Transformations should not change variable types (e.g. scale() transforms</span></span></span>
+<span class="r-in"><span><span class="co"># ... numbers into matrices, and this is not permitted).</span></span></span>
+<span class="r-in"><span><span class="co"># * All numeric variables are affected by transform_x</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## (A) Scale variable and plot predictions on transformed scale</span></span></span>
+<span class="r-in"><span><span class="co"># Define function to scale numbers that doesn't change variable types</span></span></span>
+<span class="r-in"><span><span class="va">scale_num</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">$</span><span class="va">dim</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span></span>
+<span class="r-in"><span>  <span class="va">y</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="co"># Scale Sepal.Width</span></span></span>
+<span class="r-in"><span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Width.S</span> <span class="op">&lt;-</span> <span class="fu">scale_num</span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Width</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Implement model</span></span></span>
+<span class="r-in"><span><span class="va">mod_2</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">Sepal.Length</span> <span class="op">~</span> <span class="va">Sepal.Width.S</span> <span class="op">+</span> <span class="va">Species</span>, data <span class="op">=</span> <span class="va">iris</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Visualise predictions</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_2</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.</span>
+<span class="r-plt img"><img src="pretty_predictions_1d-10.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## (B) Back-transform predictions</span></span></span>
+<span class="r-in"><span><span class="va">unscale</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">mu</span>      <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"scaled:center"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">sigma</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"scaled:scale"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span> <span class="op">*</span> <span class="va">sigma</span> <span class="op">+</span> <span class="va">mu</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="fu">pretty_predictions_1d</span><span class="op">(</span><span class="va">mod_2</span>, transform_x <span class="op">=</span> <span class="va">unscale</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.</span>
+<span class="r-plt img"><img src="pretty_predictions_1d-11.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -239,7 +286,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

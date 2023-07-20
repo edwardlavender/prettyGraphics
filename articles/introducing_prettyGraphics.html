@@ -75,14 +75,15 @@
 
       
 
-      </header><script src="introducing_prettyGraphics_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Vignette: An introduction to prettyGraphics</h1>
-                        <h4 data-toc-skip class="author">Edward Lavender<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
+                        <h4 data-toc-skip class="author">Edward
+Lavender<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
 </h4>
             
-            <h4 data-toc-skip class="date">01 August 2022</h4>
+            <h4 data-toc-skip class="date">20 July 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/edwardlavender/prettyGraphics/blob/HEAD/vignettes/introducing_prettyGraphics.Rmd" class="external-link"><code>vignettes/introducing_prettyGraphics.Rmd</code></a></small>
       <div class="hidden name"><code>introducing_prettyGraphics.Rmd</code></div>
@@ -106,18 +107,77 @@ body{
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p><code>prettyGraphics</code> is an <code>R</code> package designed to make the production of plots and data exploration easier, more flexible and prettier using similar functions to familiar favourites in base <code>R</code>. The package is based on a number of functions which act as ‘building blocks’; these help to define the initial arguments of a plot and then add elements to a plot sequentially. A number of integrative functions link these functions together to facilitate the production of prettier versions of common plot types (e.g. a more flexible implementation of <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">graphics::plot()</a></code> with pretty axes) as well as more specialised plot types. Notable functionality of <code>prettyGraphics</code> includes the following:</p>
+<p><code>prettyGraphics</code> is an <code>R</code> package designed to
+make the production of plots and data exploration easier, more flexible
+and prettier using similar functions to familiar favourites in base
+<code>R</code>. The package is based on a number of functions which act
+as ‘building blocks’; these help to define the initial arguments of a
+plot and then add elements to a plot sequentially. A number of
+integrative functions link these functions together to facilitate the
+production of prettier versions of common plot types (e.g. a more
+flexible implementation of <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">graphics::plot()</a></code> with pretty
+axes) as well as more specialised plot types. Notable functionality of
+<code>prettyGraphics</code> includes the following:</p>
 <ul>
 <li>
-<strong>The definition of pretty axes</strong>. The definition of ‘pretty’ axes (i.e., axes with intelligible tick mark labels that are positioned in appropriate, adjoining positions, rather than as an approximate box around a plot) underlies publication-quality plots but these are not implemented automatically by base R. <code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> is a very flexible function which makes this possible. A few other functions, such as <code><a href="../reference/sci_notation.html">sci_notation()</a></code>, which can be used to add labels with scientific notation to a plot (i.e. <span class="math inline">\(a \times 10^b\)</span> rather than <span class="math inline">\(ae^b\)</span>), and <code><a href="../reference/add_lagging_point_zero.html">add_lagging_point_zero()</a></code>, which brings all numbers up to the same number of decimal places, complement this function. <code><a href="../reference/add_grid_rect_xy.html">add_grid_rect_xy()</a></code> can be used to add a rectangular grid at user-defined positions (e.g. coinciding with axis labels), to aid interpretation.</li>
+<strong>The definition of pretty axes</strong>. The definition of
+‘pretty’ axes (i.e., axes with intelligible tick mark labels that are
+positioned in appropriate, adjoining positions, rather than as an
+approximate box around a plot) underlies publication-quality plots but
+these are not implemented automatically by base R.
+<code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> is a very flexible function which makes this
+possible. A few other functions, such as <code><a href="../reference/sci_notation.html">sci_notation()</a></code>,
+which can be used to add labels with scientific notation to a plot
+(i.e. <span class="math inline">\(a \times 10^b\)</span> rather than
+<span class="math inline">\(ae^b\)</span>), and
+<code><a href="../reference/add_lagging_point_zero.html">add_lagging_point_zero()</a></code>, which brings all numbers up to
+the same number of decimal places, complement this function.
+<code><a href="../reference/add_grid_rect_xy.html">add_grid_rect_xy()</a></code> can be used to add a rectangular grid at
+user-defined positions (e.g. coinciding with axis labels), to aid
+interpretation.</li>
 <li>
-<strong>Data exploration</strong>. Some functions facilitate exploration of the relationships among variables. For example, in base <code>R</code>, it’s easy to add lines to a plot to illustrate a relationship. However, it is a more long-winded process to add a line that is coloured by the values of a third variable, followed by a highly customisable colour bar legend, to illustrate the relationship between the response and more than one explanatory variable. This essential part of data exploration is implemented by <code><a href="../reference/add_lines.html">add_lines()</a></code> and <code><a href="../reference/add_colour_bar.html">add_colour_bar()</a></code>. Adding shading to a plot is another way to illustrate possible relationships, especially between a response/explanatory variable and a factor. For example, in plots of depth time series, it is often useful to add shading delineating day/night periods. Adding shading to a plot is made easy with <code><a href="../reference/add_shading_bar.html">add_shading_bar()</a></code>.</li>
+<strong>Data exploration</strong>. Some functions facilitate
+exploration of the relationships among variables. For example, in base
+<code>R</code>, it’s easy to add lines to a plot to illustrate a
+relationship. However, it is a more long-winded process to add a line
+that is coloured by the values of a third variable, followed by a highly
+customisable colour bar legend, to illustrate the relationship between
+the response and more than one explanatory variable. This essential part
+of data exploration is implemented by <code><a href="../reference/add_lines.html">add_lines()</a></code> and
+<code><a href="../reference/add_colour_bar.html">add_colour_bar()</a></code>. Adding shading to a plot is another way
+to illustrate possible relationships, especially between a
+response/explanatory variable and a factor. For example, in plots of
+depth time series, it is often useful to add shading delineating
+day/night periods. Adding shading to a plot is made easy with
+<code><a href="../reference/add_shading_bar.html">add_shading_bar()</a></code>.</li>
 <li>
-<strong>Statistical inference</strong>. The definition and addition of statistical summarises or model predictions to a plot can help to reveal signal from noise or in the interpretation and evaluation of models. For example, for continuous data, it may be helpful to calculate the mean value, the minimum, the maximum, the 89 % quantiles or another statistic in a sequence of bins <span class="math inline">\(n\)</span> units in width (e.g. <span class="math inline">\(10 cm\)</span>, <span class="math inline">\(0.5 ms^{-2}\)</span>, <span class="math inline">\(12 hours\)</span>, etc.). This is facilitated by <code>summmarise_in_bins()</code> and <code><a href="../reference/add_lines.html">add_lines()</a></code>. Alternatively, the addition of model predictions (e.g. fitted values ± confidence intervals) to observed data is facilitated by <code><a href="../reference/list_CIs.html">list_CIs()</a></code> and <code><a href="../reference/add_error_envelope.html">add_error_envelope()</a></code>. For discrete explanatory variables, error bars can be added using <code><a href="../reference/add_error_bars.html">add_error_bars()</a></code>.</li>
+<strong>Statistical inference</strong>. The definition and addition
+of statistical summarises or model predictions to a plot can help to
+reveal signal from noise or in the interpretation and evaluation of
+models. For example, for continuous data, it may be helpful to calculate
+the mean value, the minimum, the maximum, the 89 % quantiles or another
+statistic in a sequence of bins <span class="math inline">\(n\)</span>
+units in width (e.g. <span class="math inline">\(10 cm\)</span>, <span class="math inline">\(0.5 ms^{-2}\)</span>, <span class="math inline">\(12 hours\)</span>, etc.). This is facilitated by
+<code>summmarise_in_bins()</code> and <code><a href="../reference/add_lines.html">add_lines()</a></code>.
+Alternatively, the addition of model predictions (e.g. fitted values ±
+confidence intervals) to observed data is facilitated by
+<code><a href="../reference/list_CIs.html">list_CIs()</a></code> and <code><a href="../reference/add_error_envelope.html">add_error_envelope()</a></code>. For
+discrete explanatory variables, error bars can be added using
+<code><a href="../reference/add_error_bars.html">add_error_bars()</a></code>.</li>
 <li>
-<strong>Integrative functions</strong>. Some functions use the power of building block functions to create prettier versions of standard plots, such as histograms or density plots, and more specialised plot types, such as plots of model residuals or spatial data. For example, <code><a href="../reference/pretty_plot.html">pretty_plot()</a></code> functions like <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">graphics::plot()</a></code> but uses <code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> to define pretty axes and is more flexible.</li>
+<strong>Integrative functions</strong>. Some functions use the power
+of building block functions to create prettier versions of standard
+plots, such as histograms or density plots, and more specialised plot
+types, such as plots of model residuals or spatial data. For example,
+<code><a href="../reference/pretty_plot.html">pretty_plot()</a></code> functions like <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">graphics::plot()</a></code>
+but uses <code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> to define pretty axes and is more
+flexible.</li>
 </ul>
-<p>The aim of this vignette is to introduce some of these functions, to highlight their flexibility and their use, and to show how they can be strung together to produce prettier plots designed to shed light on interesting questions. For each function, much more detail is provided in the help files.</p>
+<p>The aim of this vignette is to introduce some of these functions, to
+highlight their flexibility and their use, and to show how they can be
+strung together to produce prettier plots designed to shed light on
+interesting questions. For each function, much more detail is provided
+in the help files.</p>
 </div>
 <div class="section level2">
 <h2 id="package-set-up">Package set up<a class="anchor" aria-label="anchor" href="#package-set-up"></a>
@@ -131,7 +191,8 @@ body{
 <span><span class="co"># devtools::install_github("edwardlavender/prettyGraphics")</span></span>
 <span><span class="co"># Load package:</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://edwardlavender.github.io/prettyGraphics/" class="external-link">prettyGraphics</a></span><span class="op">)</span></span></code></pre></div>
-<p>This vignette also uses functions from the following packages, which you may need to install before loading and attaching:</p>
+<p>This vignette also uses functions from the following packages, which
+you may need to install before loading and attaching:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span> <span class="co"># pipe, %&gt;%</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/pryr" class="external-link">pryr</a></span><span class="op">)</span>     <span class="co"># active binding, %&lt;a-%</span></span>
@@ -140,7 +201,8 @@ body{
 <div class="section level3">
 <h3 id="basic-motivation">Basic motivation<a class="anchor" aria-label="anchor" href="#basic-motivation"></a>
 </h3>
-<p>The primary motivation of the package is to make publication quality plots by default, as in these simple examples:</p>
+<p>The primary motivation of the package is to make publication quality
+plots by default, as in these simple examples:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># pretty_plot()</span></span>
 <span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
@@ -161,11 +223,20 @@ body{
 <div class="section level3">
 <h3 id="r-prerequisites">R prerequisites<a class="anchor" aria-label="anchor" href="#r-prerequisites"></a>
 </h3>
-<p>Before proceeding, let’s introduce a few tricks used by <code>prettyGraphics</code> and this vignette with which it may be helpful to be familiar.</p>
+<p>Before proceeding, let’s introduce a few tricks used by
+<code>prettyGraphics</code> and this vignette with which it may be
+helpful to be familiar.</p>
 <div class="section level4">
 <h4 id="lists-and-do-call">lists and <code>do.call()</code><a class="anchor" aria-label="anchor" href="#lists-and-do-call"></a>
 </h4>
-<p>The use of lists and <code><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call()</a></code> is a backbone of <code>prettyGraphics</code>. Lists are very useful objects in <code>R</code> which can store all sorts of objects. Lists contain elements, which may be named, that contain these objects. For example, in the following list, the first element is named <code>a</code> and it contains the number 10. The second element is unnamed and contains 0; the third element is unnamed and contains a dataframe; and the fourth element is an unnamed list which contains the number 16:</p>
+<p>The use of lists and <code><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call()</a></code> is a backbone of
+<code>prettyGraphics</code>. Lists are very useful objects in
+<code>R</code> which can store all sorts of objects. Lists contain
+elements, which may be named, that contain these objects. For example,
+in the following list, the first element is named <code>a</code> and it
+contains the number 10. The second element is unnamed and contains 0;
+the third element is unnamed and contains a dataframe; and the fourth
+element is an unnamed list which contains the number 16:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">10</span>, <span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">16</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span></span>
@@ -177,7 +248,14 @@ body{
 <span><span class="co">#&gt;   ..$ y: num 2</span></span>
 <span><span class="co">#&gt;  $  :List of 1</span></span>
 <span><span class="co">#&gt;   ..$ : num 16</span></span></code></pre></div>
-<p>One particularly useful feature of lists is that they can be used to hold function arguments. Specifically, a named list of arguments can be passed to a function via <code><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call()</a></code> for the that function to evaluate. In the following example, I generate a collection of numbers and then I use the <code><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty()</a></code> function to define a pretty sequence across the range of these numbers, by specifying the <code>x</code> and <code>n</code> arguments of <code><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty()</a></code> in a named list:</p>
+<p>One particularly useful feature of lists is that they can be used to
+hold function arguments. Specifically, a named list of arguments can be
+passed to a function via <code><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call()</a></code> for the that function to
+evaluate. In the following example, I generate a collection of numbers
+and then I use the <code><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty()</a></code> function to define a pretty
+sequence across the range of these numbers, by specifying the
+<code>x</code> and <code>n</code> arguments of <code><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty()</a></code> in
+a named list:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># generate numbers </span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span></span>
@@ -196,7 +274,20 @@ body{
 <span><span class="co">#&gt; [1] 1 2 3 4 5 6 7 8</span></span>
 <span><span class="co">#&gt; [1] 1 2 3 4 5 6 7 8</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
-<p><code>prettyGraphics</code> makes use of this functionality. For example, there is a function, <code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> which can make pretty axes. This includes an argument, <code>pretty</code>, which takes in a list of arguments that are passed to <code><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty()</a></code>, <code><a href="https://lubridate.tidyverse.org/reference/pretty_dates.html" class="external-link">lubridate::pretty_dates()</a></code> or another function to make pretty axes. Here is a canned example in which I add pretty axes to side 1 and 2 of a plot using <code><a href="../reference/pretty_axis.html">pretty_axis()</a></code>. Each axis has approximately five pretty breaks, which the function defines by default based on the data to be plotted (<code>x</code> and <code>y</code> here). In this case, since <code>x</code> and <code>y</code> are numeric, the named list of arguments is passed to <code><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty()</a></code> within the function to define the pretty sequence. <code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> then does some more work to define axis placement and then adds the axes to the plot.</p>
+<p><code>prettyGraphics</code> makes use of this functionality. For
+example, there is a function, <code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> which can make
+pretty axes. This includes an argument, <code>pretty</code>, which takes
+in a list of arguments that are passed to <code><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty()</a></code>,
+<code><a href="https://lubridate.tidyverse.org/reference/pretty_dates.html" class="external-link">lubridate::pretty_dates()</a></code> or another function to make
+pretty axes. Here is a canned example in which I add pretty axes to side
+1 and 2 of a plot using <code><a href="../reference/pretty_axis.html">pretty_axis()</a></code>. Each axis has
+approximately five pretty breaks, which the function defines by default
+based on the data to be plotted (<code>x</code> and <code>y</code>
+here). In this case, since <code>x</code> and <code>y</code> are
+numeric, the named list of arguments is passed to <code><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty()</a></code>
+within the function to define the pretty sequence.
+<code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> then does some more work to define axis
+placement and then adds the axes to the plot.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span></span>
@@ -249,7 +340,10 @@ body{
 <span><span class="co">#&gt; [1]  0 10</span></span>
 <span><span class="co">#&gt; attr(,"user")</span></span>
 <span><span class="co">#&gt; [1] FALSE FALSE</span></span></code></pre>
-<p>Under-the-hood, <code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> loops over any nested lists, which means each axis can be controlled independently via a nested list. For example, to specify the x and y axes with different numbers of pretty breaks, the following code could be used:</p>
+<p>Under-the-hood, <code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> loops over any nested
+lists, which means each axis can be controlled independently via a
+nested list. For example, to specify the x and y axes with different
+numbers of pretty breaks, the following code could be used:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/pretty_axis.html">pretty_axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, pretty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -300,16 +394,24 @@ body{
 <span><span class="co">#&gt; [1]  0 10</span></span>
 <span><span class="co">#&gt; attr(,"user")</span></span>
 <span><span class="co">#&gt; [1] FALSE FALSE</span></span></code></pre>
-<p>There are many more examples of the power and flexibility of <code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> in the help file (use <code><a href="../reference/pretty_axis.html">?pretty_axis</a></code>).</p>
+<p>There are many more examples of the power and flexibility of
+<code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> in the help file (use
+<code><a href="../reference/pretty_axis.html">?pretty_axis</a></code>).</p>
 </div>
 <div class="section level4">
 <h4 id="active-binding-and-a-">Active binding and <code>%&lt;a-%</code><a class="anchor" aria-label="anchor" href="#active-binding-and-a-"></a>
 </h4>
-<p>This vignette also uses a trick called active binding to minimise code repetition. This is implemented via the <code>pryr</code> package. With active binding, the user can save code in an object. When the object is executed, the code that is bound to that object is then executed. Consider the following example. First, we’ll make a plot and actively bind this to an object.</p>
+<p>This vignette also uses a trick called active binding to minimise
+code repetition. This is implemented via the <code>pryr</code> package.
+With active binding, the user can save code in an object. When the
+object is executed, the code that is bound to that object is then
+executed. Consider the following example. First, we’ll make a plot and
+actively bind this to an object.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create active binding; note that no object will show at this stage. </span></span>
 <span><span class="va">active_binding_example</span> <span class="op"><a href="https://rdrr.io/pkg/pryr/man/assign-active.html" class="external-link">%&lt;a-%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></code></pre></div>
-<p>Then, after executing the object, the code is evaluated and the plot becomes visible:</p>
+<p>Then, after executing the object, the code is evaluated and the plot
+becomes visible:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">active_binding_example</span></span></code></pre></div>
 <p><img src="introducing_prettyGraphics_files/figure-html/unnamed-chunk-11-1.png" width="288" style="display: block; margin: auto;"></p>
@@ -318,7 +420,15 @@ body{
 <div class="section level3">
 <h3 id="example-dataset">Example dataset<a class="anchor" aria-label="anchor" href="#example-dataset"></a>
 </h3>
-<p>To illustrate some of the functionality of <code>prettyGraphics</code>, I will mainly use an example ecological dataset comprising a sample of a depth and temperature observations at defined time stamps collected from two flapper skate, <em>Dipturus intermedius</em>, off the West Coast of Scotland by Scottish Natural Heritage and Marine Scotland Science. We’ll load these data and focus on one individual for simplicity. For visualisation purposes, we’ll also define a new column that contains depth expressed as a negative number:</p>
+<p>To illustrate some of the functionality of
+<code>prettyGraphics</code>, I will mainly use an example ecological
+dataset comprising a sample of a depth and temperature observations at
+defined time stamps collected from two flapper skate, <em>Dipturus
+intermedius</em>, off the West Coast of Scotland by Scottish Natural
+Heritage and Marine Scotland Science. We’ll load these data and focus on
+one individual for simplicity. For visualisation purposes, we’ll also
+define a new column that contains depth expressed as a negative
+number:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">dat_flapper</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">dat_flapper</span><span class="op">$</span><span class="va">id</span> <span class="op">==</span> <span class="st">"A"</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">df</span><span class="op">$</span><span class="va">dn</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">$</span><span class="va">depth</span><span class="op">*</span><span class="op">-</span><span class="fl">1</span></span>
@@ -342,8 +452,21 @@ body{
 <div class="section level3">
 <h3 id="an-introduction-to-pretty_axis">An introduction to <code>pretty_axis()</code><a class="anchor" aria-label="anchor" href="#an-introduction-to-pretty_axis"></a>
 </h3>
-<p>The first step towards building a publication-quality plot is the definition of suitable axis limits and the addition of suitable axes in appropriate positions. In <code>prettyGraphics</code>, <code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> is the function which controls axes. We will start by implementing this function directly, but later in the vignette, we will move on to using wrapper functions, like <code><a href="../reference/pretty_plot.html">pretty_plot()</a></code> which can handle these steps automatically if desired.</p>
-<p>Consider the following example, in which the default plot (produced by <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">graphics::plot()</a></code>) is contrasted with one created using <code><a href="../reference/pretty_axis.html">pretty_axis()</a></code>. Note that I choose to plot the x axis on the <span class="math inline">\(3^{rd}\)</span> side in this and following examples so that we can visualise this axis as the ‘sea surface’, from which we can visualise animal movement into shallower or deeper water.</p>
+<p>The first step towards building a publication-quality plot is the
+definition of suitable axis limits and the addition of suitable axes in
+appropriate positions. In <code>prettyGraphics</code>,
+<code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> is the function which controls axes. We will
+start by implementing this function directly, but later in the vignette,
+we will move on to using wrapper functions, like
+<code><a href="../reference/pretty_plot.html">pretty_plot()</a></code> which can handle these steps automatically if
+desired.</p>
+<p>Consider the following example, in which the default plot (produced
+by <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">graphics::plot()</a></code>) is contrasted with one created using
+<code><a href="../reference/pretty_axis.html">pretty_axis()</a></code>. Note that I choose to plot the x axis on the
+<span class="math inline">\(3^{rd}\)</span> side in this and following
+examples so that we can visualise this axis as the ‘sea surface’, from
+which we can visualise animal movement into shallower or deeper
+water.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#### Set plotting window </span></span>
 <span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
@@ -415,12 +538,15 @@ body{
 <span><span class="co">#&gt; attr(,"user")</span></span>
 <span><span class="co">#&gt; [1] FALSE FALSE</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></code></pre>
-<p><code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> has lots of customisation options which are exemplified in the help file (use <code><a href="../reference/pretty_axis.html">?pretty_axis</a></code>).</p>
+<p><code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> has lots of customisation options which
+are exemplified in the help file (use <code><a href="../reference/pretty_axis.html">?pretty_axis</a></code>).</p>
 </div>
 <div class="section level3">
 <h3 id="add-grids-add_grid">Add grids: <code>add_grid()</code><a class="anchor" aria-label="anchor" href="#add-grids-add_grid"></a>
 </h3>
-<p>To aid interpretation, it is often helpful to add a regular grid to a plot at user-specified positions. Here, we’ll add a grid coinciding with pretty axis locations:</p>
+<p>To aid interpretation, it is often helpful to add a regular grid to a
+plot at user-specified positions. Here, we’ll add a grid coinciding with
+pretty axis locations:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot1</span>; <span class="va">add_pretty_axis</span>;</span>
 <span><span class="co">#&gt; $`3`</span></span>
@@ -522,7 +648,12 @@ body{
 <div class="section level3">
 <h3 id="add-lines-add_lines">Add lines: <code>add_lines()</code><a class="anchor" aria-label="anchor" href="#add-lines-add_lines"></a>
 </h3>
-<p>Now that we have visualised the raw time series, we might start to explore relationships among variables. In this case, we have a couple of continuous explanatory variables and it might be helpful to consider not only how depth changes through time, but whether this change is related to temperature. To do this, one option is to colour the depth time series by temperature:</p>
+<p>Now that we have visualised the raw time series, we might start to
+explore relationships among variables. In this case, we have a couple of
+continuous explanatory variables and it might be helpful to consider not
+only how depth changes through time, but whether this change is related
+to temperature. To do this, one option is to colour the depth time
+series by temperature:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#### Define plotting window </span></span>
 <span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
@@ -618,7 +749,14 @@ body{
 <span><span class="co">#&gt; attr(,"user")</span></span>
 <span><span class="co">#&gt; [1] FALSE FALSE</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></code></pre>
-<p><code><a href="../reference/add_lines.html">add_lines()</a></code> and <code><a href="../reference/add_colour_bar.html">add_colour_bar()</a></code> have lots of customisation options which are exemplified in the help file (use <code>?add_lines()</code> and <code>?add_colour_bar()</code>). For example, we could easily change the colour scheme by supplying a different function to create colours, or adjust the axis labels on the colour bar by passing arguments to <code>pretty_axis_args</code>. (Under-the-hood, this calls <code><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call()</a></code> to evaluate additional arguments).</p>
+<p><code><a href="../reference/add_lines.html">add_lines()</a></code> and <code><a href="../reference/add_colour_bar.html">add_colour_bar()</a></code> have lots
+of customisation options which are exemplified in the help file (use
+<code>?add_lines()</code> and <code>?add_colour_bar()</code>). For
+example, we could easily change the colour scheme by supplying a
+different function to create colours, or adjust the axis labels on the
+colour bar by passing arguments to <code>pretty_axis_args</code>.
+(Under-the-hood, this calls <code><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call()</a></code> to evaluate
+additional arguments).</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#### Define plotting window (as above)</span></span>
 <span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
@@ -693,12 +831,24 @@ body{
 <span><span class="co">#&gt; attr(,"user")</span></span>
 <span><span class="co">#&gt; [1] FALSE FALSE</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></code></pre>
-<p>For these sample data, this exploration suggests that the predominant axis of variation in exploited temperatures is through time, rather than through space (i.e. as the skate move shallower/deeper over short periods of time). Without any modelling, this suggests that one explanation for movements between shallow and deep water for some marine species, the so-called ‘hunt-warm, rest-cold’ hypothesis in which individuals are hypothesised to descend into deeper waters to maximise digestive efficiency following feeding, is probably not a suitable explanation for the vertical movements of this individual.</p>
+<p>For these sample data, this exploration suggests that the predominant
+axis of variation in exploited temperatures is through time, rather than
+through space (i.e. as the skate move shallower/deeper over short
+periods of time). Without any modelling, this suggests that one
+explanation for movements between shallow and deep water for some marine
+species, the so-called ‘hunt-warm, rest-cold’ hypothesis in which
+individuals are hypothesised to descend into deeper waters to maximise
+digestive efficiency following feeding, is probably not a suitable
+explanation for the vertical movements of this individual.</p>
 </div>
 <div class="section level3">
 <h3 id="add-shading-add_shading_bar">Add shading: <code>add_shading_bar()</code><a class="anchor" aria-label="anchor" href="#add-shading-add_shading_bar"></a>
 </h3>
-<p>Colouring lines by the value of a third variable is one useful approach in the exploration of relationships. For discrete variables, adding rectangular shading demarking switches between values is also useful for inference. For instance, in the following example, we add vertical blocks of shading delineating day/night periods:</p>
+<p>Colouring lines by the value of a third variable is one useful
+approach in the exploration of relationships. For discrete variables,
+adding rectangular shading demarking switches between values is also
+useful for inference. For instance, in the following example, we add
+vertical blocks of shading delineating day/night periods:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#### Reproduce blank plot with pretty limits</span></span>
 <span><span class="va">plot2</span></span>
@@ -709,6 +859,14 @@ body{
 <span>                                type <span class="op">=</span> <span class="st">"diel"</span>, </span>
 <span>                                type_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lat <span class="op">=</span> <span class="op">-</span><span class="fl">5</span>, lon <span class="op">=</span> <span class="fl">56</span><span class="op">)</span>, </span>
 <span>                                col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"dimgrey"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Please note that 'maptools' will be retired during October 2023,</span></span>
+<span><span class="co">#&gt; plan transition at your earliest convenience (see</span></span>
+<span><span class="co">#&gt; https://r-spatial.org/r/2023/05/15/evolution4.html and earlier blogs</span></span>
+<span><span class="co">#&gt; for guidance);some functionality will be moved to 'sp'.</span></span>
+<span><span class="co">#&gt;  Checking rgeos availability: TRUE</span></span>
+<span><span class="co">#&gt; Warning: sun-methods moved to new package suntools</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning: sun-methods moved to new package suntools</span></span>
 <span></span>
 <span><span class="co">#### These can also be generated by the user. All that is required is that</span></span>
 <span><span class="co"># ... the positions (and colours) of the blocks is specified, here by x1, x2 and col:</span></span>
@@ -774,7 +932,15 @@ body{
 <span><span class="co">#&gt; [1] -250    0</span></span>
 <span><span class="co">#&gt; attr(,"user")</span></span>
 <span><span class="co">#&gt; [1] FALSE FALSE</span></span></code></pre>
-<p><code>?define_time_blocks()</code> and <code>?add_shading_bar()</code> provide further information about these functions. In this case, adding shading reveals that this individual often seems to ascend at night – a common behaviour in marine organisms termed diel vertical migration – but this behaviour is highly variable, both in extent and direction (i.e. sometimes the individual is shallower in the day). These insights from data exploration help build understanding, in this case of the movements of a poorly studied and Critically Endangered elasmobranch.</p>
+<p><code>?define_time_blocks()</code> and
+<code>?add_shading_bar()</code> provide further information about these
+functions. In this case, adding shading reveals that this individual
+often seems to ascend at night – a common behaviour in marine organisms
+termed diel vertical migration – but this behaviour is highly variable,
+both in extent and direction (i.e. sometimes the individual is shallower
+in the day). These insights from data exploration help build
+understanding, in this case of the movements of a poorly studied and
+Critically Endangered elasmobranch.</p>
 </div>
 </div>
 <div class="section level2">
@@ -783,7 +949,15 @@ body{
 <div class="section level3">
 <h3 id="add-statistical-summarises-summarise_in_bins">Add statistical summarises: <code>summarise_in_bins()</code><a class="anchor" aria-label="anchor" href="#add-statistical-summarises-summarise_in_bins"></a>
 </h3>
-<p>Statistical summaries can also aid interpretation. <code><a href="../reference/summarise_in_bins.html">summarise_in_bins()</a></code> can be used to calculate summary statistics for continuous data in user-specified bins or breaks. With the argument <code>shift = TRUE</code>, the resulting summary statistics are shifted to the middle value of each bin, reflecting that they are a summary across that bin. With <code>to_plot = TRUE</code> additional checks are implemented to ensure the resulting summaries are retained within plot limits. For example, we can examine the change in depth in 12 hour intervals as follows:</p>
+<p>Statistical summaries can also aid interpretation.
+<code><a href="../reference/summarise_in_bins.html">summarise_in_bins()</a></code> can be used to calculate summary
+statistics for continuous data in user-specified bins or breaks. With
+the argument <code>shift = TRUE</code>, the resulting summary statistics
+are shifted to the middle value of each bin, reflecting that they are a
+summary across that bin. With <code>to_plot = TRUE</code> additional
+checks are implemented to ensure the resulting summaries are retained
+within plot limits. For example, we can examine the change in depth in
+12 hour intervals as follows:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#### Reproduct plot </span></span>
 <span><span class="va">plot1</span></span>
@@ -864,12 +1038,28 @@ body{
 <span><span class="co">#&gt; [1] -250    0</span></span>
 <span><span class="co">#&gt; attr(,"user")</span></span>
 <span><span class="co">#&gt; [1] FALSE FALSE</span></span></code></pre>
-<p>Further information is provided in the help file (see <code>?summarise_in_bins()</code>). Here, these simple summaries help to demonstrate that there is no clear, overall trend in the mean depth or the variation in depth through time for this individual over a two week period. Small movements seem to occur frequently within 12 hour windows, but their overall extent is relatively stable (except in the middle of the time series, when the individual rapidly ascended to the surface; at this point the individual was re-caught and released).</p>
+<p>Further information is provided in the help file (see
+<code>?summarise_in_bins()</code>). Here, these simple summaries help to
+demonstrate that there is no clear, overall trend in the mean depth or
+the variation in depth through time for this individual over a two week
+period. Small movements seem to occur frequently within 12 hour windows,
+but their overall extent is relatively stable (except in the middle of
+the time series, when the individual rapidly ascended to the surface; at
+this point the individual was re-caught and released).</p>
 </div>
 <div class="section level3">
-<h3 id="add-model-predictions-list_cis-and-add_error_envelope">Add model predictions: <code>list_CIs()</code> and <code>add_error_envelope()</code><a class="anchor" aria-label="anchor" href="#add-model-predictions-list_cis-and-add_error_envelope"></a>
+<h3 id="add-model-predictions-list_cis-and-add_error_envelope">Add model predictions: <code>list_CIs()</code> and
+<code>add_error_envelope()</code><a class="anchor" aria-label="anchor" href="#add-model-predictions-list_cis-and-add_error_envelope"></a>
 </h3>
-<p>During or following data exploration, models are useful tools to elucidate trends and relationships. To evaluate the performance of models, it is often useful to plot model predictions ontop of observed data. With these continuous data, two functions make this easy with <code>prettyGraphics</code>: <code><a href="../reference/list_CIs.html">list_CIs()</a></code> and <code><a href="../reference/add_error_envelope.html">add_error_envelope()</a></code>. To illustrate this, below I consider a model of depth as a smooth function of time, using a thinned subset of the data, and then add predictions to a plot of the depth time series. Note that this model is purely for demonstration purposes.</p>
+<p>During or following data exploration, models are useful tools to
+elucidate trends and relationships. To evaluate the performance of
+models, it is often useful to plot model predictions ontop of observed
+data. With these continuous data, two functions make this easy with
+<code>prettyGraphics</code>: <code><a href="../reference/list_CIs.html">list_CIs()</a></code> and
+<code><a href="../reference/add_error_envelope.html">add_error_envelope()</a></code>. To illustrate this, below I consider
+a model of depth as a smooth function of time, using a thinned subset of
+the data, and then add predictions to a plot of the depth time series.
+Note that this model is purely for demonstration purposes.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#### Flag and thin time series to reduce serial autocorrelation </span></span>
 <span><span class="va">dat_flapper_thin</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>, by <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, <span class="op">]</span></span>
@@ -956,12 +1146,25 @@ body{
 <span><span class="co">#&gt; [1] -250    0</span></span>
 <span><span class="co">#&gt; attr(,"user")</span></span>
 <span><span class="co">#&gt; [1] FALSE FALSE</span></span></code></pre>
-<p><code>?list_CIs()</code> and <code>?add_error_envelope()</code> detail customisation options. In this case, our model reinforces our belief that the overall change in the mean depth is limited through time, although we would need to interrogate our model much more closely before putting too much confidence in its predictions (see below).</p>
+<p><code>?list_CIs()</code> and <code>?add_error_envelope()</code>
+detail customisation options. In this case, our model reinforces our
+belief that the overall change in the mean depth is limited through
+time, although we would need to interrogate our model much more closely
+before putting too much confidence in its predictions (see below).</p>
 </div>
 <div class="section level3">
 <h3 id="model-residuals-pretty_residuals">Model residuals: <code>pretty_residuals()</code><a class="anchor" aria-label="anchor" href="#model-residuals-pretty_residuals"></a>
 </h3>
-<p>To examine the extent to which model assumptions are met, residual diagnostic plots are instructive. These include standard diagnostic plots (i.e., residuals versus fitted values, residuals versus the linear predictor, a histogram of residuals and a quantile-quantile plot of residuals) as well as plots of residuals against covariates (<code>vars</code>, below) and, for time series, time stamps and autocorrelation functions (ACF) of residuals. This functionality is provided by <code><a href="../reference/pretty_residuals.html">pretty_residuals()</a></code>, which plots standard diagnostic plots with pretty axes as well as residuals against one or more variables, time stamps and the ACF (if applicable).</p>
+<p>To examine the extent to which model assumptions are met, residual
+diagnostic plots are instructive. These include standard diagnostic
+plots (i.e., residuals versus fitted values, residuals versus the linear
+predictor, a histogram of residuals and a quantile-quantile plot of
+residuals) as well as plots of residuals against covariates
+(<code>vars</code>, below) and, for time series, time stamps and
+autocorrelation functions (ACF) of residuals. This functionality is
+provided by <code><a href="../reference/pretty_residuals.html">pretty_residuals()</a></code>, which plots standard
+diagnostic plots with pretty axes as well as residuals against one or
+more variables, time stamps and the ACF (if applicable).</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/pretty_residuals.html">pretty_residuals</a></span><span class="op">(</span>residuals <span class="op">=</span> <span class="va">m1</span><span class="op">$</span><span class="va">std.rsd</span>, </span>
@@ -975,7 +1178,13 @@ body{
 <span><span class="co">#&gt; plot (6) residuals ~ time stamp: 'timestamp_fct' is NULL; assuming 'dat' only contains one independent time series.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></code></pre></div>
 <p><img src="introducing_prettyGraphics_files/figure-html/unnamed-chunk-20-1.png" width="672"></p>
-<p>For large datasets, it can be helpful if some plots are based on random subset of residuals. For example, below we’ll use all residuals for most plots (some plots, like quantile-quantile plots, can be quite sensitive to the removal of data), but only plot a random sample of 50 % of residuals for plots 3 and 4, which show the residuals versus fitted values and the linear predictor. (In this case, the two plots are identical.)</p>
+<p>For large datasets, it can be helpful if some plots are based on
+random subset of residuals. For example, below we’ll use all residuals
+for most plots (some plots, like quantile-quantile plots, can be quite
+sensitive to the removal of data), but only plot a random sample of 50 %
+of residuals for plots 3 and 4, which show the residuals versus fitted
+values and the linear predictor. (In this case, the two plots are
+identical.)</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>, oma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/pretty_residuals.html">pretty_residuals</a></span><span class="op">(</span>residuals <span class="op">=</span> <span class="va">m1</span><span class="op">$</span><span class="va">std.rsd</span>, </span>
@@ -991,28 +1200,59 @@ body{
 <span><span class="co">#&gt; plot (6) residuals ~ time stamp: 'timestamp_fct' is NULL; assuming 'dat' only contains one independent time series.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></code></pre></div>
 <p><img src="introducing_prettyGraphics_files/figure-html/unnamed-chunk-21-1.png" width="672"></p>
-<p>More details are given in <code><a href="../reference/pretty_residuals.html">?pretty_residuals</a></code>. For the example depth time series, these plots demonstrate that out model needs to be interpreted with caution: residuals versus fitted values, temperature and time stamp look reasonable, but the model has not perfectly captured the autocorrelation among residuals and the assumption of normality is clearly violated.</p>
+<p>More details are given in <code><a href="../reference/pretty_residuals.html">?pretty_residuals</a></code>. For the
+example depth time series, these plots demonstrate that out model needs
+to be interpreted with caution: residuals versus fitted values,
+temperature and time stamp look reasonable, but the model has not
+perfectly captured the autocorrelation among residuals and the
+assumption of normality is clearly violated.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="common-plotting-functions">Common plotting functions<a class="anchor" aria-label="anchor" href="#common-plotting-functions"></a>
 </h2>
-<p><code>prettyGraphics</code> contains some integrative functions which implement some of the building blocks described above for particular purposes, with more or less generality. Examples include <code><a href="../reference/pretty_plot.html">pretty_plot()</a></code>, which is very like <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">graphics::plot()</a></code> but uses the power of <code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> to make the axes and can handle several function types (e.g. <code><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">stats::qqnorm()</a></code>, see below), <code><a href="../reference/pretty_hist.html">pretty_hist()</a></code> and <code>pretty_density()</code> which produce histograms and density plots (which can be useful in data exploration and model diagnostics) and other functions.</p>
+<p><code>prettyGraphics</code> contains some integrative functions which
+implement some of the building blocks described above for particular
+purposes, with more or less generality. Examples include
+<code><a href="../reference/pretty_plot.html">pretty_plot()</a></code>, which is very like
+<code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">graphics::plot()</a></code> but uses the power of
+<code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> to make the axes and can handle several
+function types (e.g. <code><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">stats::qqnorm()</a></code>, see below),
+<code><a href="../reference/pretty_hist.html">pretty_hist()</a></code> and <code>pretty_density()</code> which
+produce histograms and density plots (which can be useful in data
+exploration and model diagnostics) and other functions.</p>
 <div class="section level3">
 <h3 id="the-standard-plotting-function-pretty_plot">The standard plotting function: <code>pretty_plot()</code><a class="anchor" aria-label="anchor" href="#the-standard-plotting-function-pretty_plot"></a>
 </h3>
-<p><code><a href="../reference/pretty_plot.html">pretty_plot()</a></code> is a general function which produces plots with pretty axes. This operates like <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">graphics::plot()</a></code>, with a few differences:</p>
+<p><code><a href="../reference/pretty_plot.html">pretty_plot()</a></code> is a general function which produces plots
+with pretty axes. This operates like <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">graphics::plot()</a></code>, with
+a few differences:</p>
 <ul>
 <li>
-<strong>Axes</strong>. Axes are controlled by <code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> via <code>pretty_axis_args</code>, which ensures they are always appropriately placed.</li>
+<strong>Axes</strong>. Axes are controlled by
+<code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> via <code>pretty_axis_args</code>, which
+ensures they are always appropriately placed.</li>
 <li>
-<strong>Axis labels</strong>. Labels can be added to a plot using <code>xlab</code>, <code>ylab</code> and <code>main</code>, as usual, or with <code><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">graphics::mtext()</a></code> via the <code>mtext_args</code> argument, which offers more flexibility.</li>
+<strong>Axis labels</strong>. Labels can be added to a plot using
+<code>xlab</code>, <code>ylab</code> and <code>main</code>, as usual, or
+with <code><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">graphics::mtext()</a></code> via the <code>mtext_args</code>
+argument, which offers more flexibility.</li>
 <li>
-<strong>Plot functions</strong>. Several plotting functions can be used via the specification of a function, <code>f</code> and <code>plot_xy</code>, which describes whether the function takes in the <code>x</code> or <code>y</code> coordinates or both (for example <code><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">stats::qqnorm()</a></code> uses <code>y</code> alone, see below).</li>
+<strong>Plot functions</strong>. Several plotting functions can be
+used via the specification of a function, <code>f</code> and
+<code>plot_xy</code>, which describes whether the function takes in the
+<code>x</code> or <code>y</code> coordinates or both (for example
+<code><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">stats::qqnorm()</a></code> uses <code>y</code> alone, see below).</li>
 <li>
-<strong>Graphics</strong>. Points and lines can be added to a plot by supplying the usual arguments (e.g. <code>pch</code>), or via named lists of arguments (<code>points_args</code> or <code>lines_args</code>) passed to <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">graphics::points()</a></code> or <code><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">graphics::lines()</a></code>.</li>
+<strong>Graphics</strong>. Points and lines can be added to a plot
+by supplying the usual arguments (e.g. <code>pch</code>), or via named
+lists of arguments (<code>points_args</code> or <code>lines_args</code>)
+passed to <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">graphics::points()</a></code> or
+<code><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">graphics::lines()</a></code>.</li>
 </ul>
-<p>For example, we can re-create a pretty version of our depth time series plots, with most of the work (e.g. definition of suitable axes based on user inputs) implemented internally, via:</p>
+<p>For example, we can re-create a pretty version of our depth time
+series plots, with most of the work (e.g. definition of suitable axes
+based on user inputs) implemented internally, via:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/pretty_plot.html">pretty_plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">timestamp</span>, </span>
 <span>            y <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">depth</span>, </span>
@@ -1026,7 +1266,9 @@ body{
 <span>                <span class="op">)</span></span>
 <span>            <span class="op">)</span></span></code></pre></div>
 <p><img src="introducing_prettyGraphics_files/figure-html/unnamed-chunk-22-1.png" width="672"></p>
-<p><code><a href="../reference/pretty_plot.html">pretty_plot()</a></code> can use some other functions, like <code><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">stats::qqnorm()</a></code>, which is implemented under-the-hood in <code><a href="../reference/pretty_residuals.html">pretty_residuals()</a></code>, as follows:</p>
+<p><code><a href="../reference/pretty_plot.html">pretty_plot()</a></code> can use some other functions, like
+<code><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">stats::qqnorm()</a></code>, which is implemented under-the-hood in
+<code><a href="../reference/pretty_residuals.html">pretty_residuals()</a></code>, as follows:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></span><span class="op">(</span><span class="va">m1</span><span class="op">$</span><span class="va">std.rsd</span><span class="op">)</span></span>
@@ -1047,9 +1289,15 @@ body{
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="histograms-and-density-plots-pretty_hist-and-pretty_curve">Histograms and density plots: <code>pretty_hist()</code> and <code>pretty_curve()</code><a class="anchor" aria-label="anchor" href="#histograms-and-density-plots-pretty_hist-and-pretty_curve"></a>
+<h3 id="histograms-and-density-plots-pretty_hist-and-pretty_curve">Histograms and density plots: <code>pretty_hist()</code> and
+<code>pretty_curve()</code><a class="anchor" aria-label="anchor" href="#histograms-and-density-plots-pretty_hist-and-pretty_curve"></a>
 </h3>
-<p>Histograms and density plots are also useful components of data exploration and/or modelling diagnostics. Below, I use <code><a href="../reference/pretty_hist.html">pretty_hist()</a></code> to create a histogram of the distribution of depths and <code><a href="../reference/pretty_curve.html">pretty_curve()</a></code> to explore the distribution of observed data in relation to a Gaussian distribution with parameters estimated by the model above:</p>
+<p>Histograms and density plots are also useful components of data
+exploration and/or modelling diagnostics. Below, I use
+<code><a href="../reference/pretty_hist.html">pretty_hist()</a></code> to create a histogram of the distribution of
+depths and <code><a href="../reference/pretty_curve.html">pretty_curve()</a></code> to explore the distribution of
+observed data in relation to a Gaussian distribution with parameters
+estimated by the model above:</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#### Plotting window </span></span>
 <span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
@@ -1070,7 +1318,10 @@ body{
 <div class="section level3">
 <h3 id="boxplots-pretty_boxplot">Boxplots: <code>pretty_boxplot()</code><a class="anchor" aria-label="anchor" href="#boxplots-pretty_boxplot"></a>
 </h3>
-<p>For factor data, boxplots are often particularly informative, and these can be implemented via <code><a href="../reference/pretty_boxplot.html">pretty_boxplot()</a></code>. For example, we could explore the distribution of depths occupied by the two sampled individuals as follows:</p>
+<p>For factor data, boxplots are often particularly informative, and
+these can be implemented via <code><a href="../reference/pretty_boxplot.html">pretty_boxplot()</a></code>. For example,
+we could explore the distribution of depths occupied by the two sampled
+individuals as follows:</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/pretty_boxplot.html">pretty_boxplot</a></span><span class="op">(</span><span class="va">dat_flapper</span><span class="op">$</span><span class="va">id</span>, <span class="va">dat_flapper</span><span class="op">$</span><span class="va">depth</span>, xlab <span class="op">=</span> <span class="st">"ID"</span>, ylab <span class="op">=</span> <span class="st">"Depth (m)"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; pretty$n greater than the number of factor levels; resetting n to be the total number of factor levels.</span></span></code></pre></div>
@@ -1080,26 +1331,48 @@ body{
 <div class="section level2">
 <h2 id="temporal-data">Temporal data<a class="anchor" aria-label="anchor" href="#temporal-data"></a>
 </h2>
-<p>Alongside some standard plotting functions, <code>prettyGraphics</code> includes some functions designed to facilitate visualisation of other data types, such as temporal data, spatial data.</p>
+<p>Alongside some standard plotting functions,
+<code>prettyGraphics</code> includes some functions designed to
+facilitate visualisation of other data types, such as temporal data,
+spatial data.</p>
 <div class="section level3">
 <h3 id="number-lines-and-timelines-pretty_line">Number lines and timelines: <code>pretty_line()</code><a class="anchor" aria-label="anchor" href="#number-lines-and-timelines-pretty_line"></a>
 </h3>
-<p>In some cases, one dimensional visualisation of observations, especially those collected through time, can be useful. For example, we could view a timeline of the depth time series observations as follows:</p>
+<p>In some cases, one dimensional visualisation of observations,
+especially those collected through time, can be useful. For example, we
+could view a timeline of the depth time series observations as
+follows:</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/pretty_line.html">pretty_line</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">timestamp</span>, pch <span class="op">=</span> <span class="fl">21</span>, col <span class="op">=</span> <span class="st">"red"</span>, bg <span class="op">=</span> <span class="st">"red"</span>, cex <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="introducing_prettyGraphics_files/figure-html/unnamed-chunk-26-1.png" width="672"></p>
-<p>This kind of approach is particularly useful for presence or presence/absence observations collected through time. <code>?pretty_line()</code> provides further information and examples, including exemplifying the addition of one dimensional number lines or timelines to existing plots.</p>
+<p>This kind of approach is particularly useful for presence or
+presence/absence observations collected through time.
+<code>?pretty_line()</code> provides further information and examples,
+including exemplifying the addition of one dimensional number lines or
+timelines to existing plots.</p>
 </div>
 <div class="section level3">
 <h3 id="time-series-plot-pretty_ts">Time series plot: <code>pretty_ts()</code><a class="anchor" aria-label="anchor" href="#time-series-plot-pretty_ts"></a>
 </h3>
-<p>For time series data, <code><a href="../reference/pretty_ts.html">pretty_ts()</a></code> links most of the building blocks described above to streamline the creation of complex plots. See <code>?pretty_ts()</code> for examples. <code><a href="../reference/vis_ts.html">vis_ts()</a></code> is an extension of <code><a href="../reference/pretty_ts.html">pretty_ts()</a></code> into an interactive environment which facilitates rapid data exploration and the production of publication-quality plots for time series data via an R Shiny-Dashboard interface.</p>
+<p>For time series data, <code><a href="../reference/pretty_ts.html">pretty_ts()</a></code> links most of the
+building blocks described above to streamline the creation of complex
+plots. See <code>?pretty_ts()</code> for examples. <code><a href="../reference/vis_ts.html">vis_ts()</a></code>
+is an extension of <code><a href="../reference/pretty_ts.html">pretty_ts()</a></code> into an interactive
+environment which facilitates rapid data exploration and the production
+of publication-quality plots for time series data via an R
+Shiny-Dashboard interface.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="spatial-data">Spatial data<a class="anchor" aria-label="anchor" href="#spatial-data"></a>
 </h2>
-<p>For spatial data, functionality is currently limited but may be expanded in the future. At present, <code><a href="../reference/pretty_scape_3d.html">pretty_scape_3d()</a></code> and <code><a href="../reference/vis_scape_3d.html">vis_scape_3d()</a></code> can be used to visualise landscapes in 3d. For example, we could visualise the bathymetric landscape in the area from which flapper skate depth time series were sampled using the following example bathymetry data, included as a raster in <code>prettyGraphics</code>, sourced from <a href="https://www.gebco.net" class="external-link">GEBCO</a>:</p>
+<p>For spatial data, functionality is currently limited but may be
+expanded in the future. At present, <code><a href="../reference/pretty_scape_3d.html">pretty_scape_3d()</a></code> and
+<code><a href="../reference/vis_scape_3d.html">vis_scape_3d()</a></code> can be used to visualise landscapes in 3d.
+For example, we could visualise the bathymetric landscape in the area
+from which flapper skate depth time series were sampled using the
+following example bathymetry data, included as a raster in
+<code>prettyGraphics</code>, sourced from <a href="https://www.gebco.net" class="external-link">GEBCO</a>:</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract raster</span></span>
 <span><span class="va">r</span> <span class="op">&lt;-</span> <span class="va">dat_gebco</span></span>
@@ -1111,27 +1384,57 @@ body{
 <span><span class="fu"><a href="../reference/pretty_scape_3d.html">pretty_scape_3d</a></span><span class="op">(</span>r <span class="op">=</span> <span class="va">r</span>, </span>
 <span>                stretch <span class="op">=</span> <span class="fl">50</span>, </span>
 <span>                aspectmode <span class="op">=</span> <span class="st">"data"</span><span class="op">)</span></span></code></pre></div>
-<p>(The figure is hidden to minimise vignette file size.) For further options, see <code><a href="../reference/pretty_scape_3d.html">?pretty_scape_3d</a></code> and <code><a href="../reference/vis_scape_3d.html">?vis_scape_3d</a></code>.</p>
+<p>(The figure is hidden to minimise vignette file size.) For further
+options, see <code><a href="../reference/pretty_scape_3d.html">?pretty_scape_3d</a></code> and
+<code><a href="../reference/vis_scape_3d.html">?vis_scape_3d</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="conclusions">Conclusions<a class="anchor" aria-label="anchor" href="#conclusions"></a>
 </h2>
-<p><code>prettyGraphics</code> is an R package designed to make common data exploration tasks and plot production for continuous data easier and more flexible. This vignette has introduced some of the main functions; more details are available in the package reference manual. <code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> is an especially useful function in the creation of publication quality plots in base R. The subsequent addition of lines, colour bars, statistical summaries, shading and model predictions adds value to data exploration and publication-quality plots, but can be surprisingly difficult with base R. <code>prettyGraphics</code> facilitates these operations. Functions can be used sequentially or via integrative functions, such as <code><a href="../reference/pretty_plot.html">pretty_plot()</a></code>. These operate similarly to functions in base <code>R</code> but harness some of the power of building block functions to create improved plots.</p>
+<p><code>prettyGraphics</code> is an R package designed to make common
+data exploration tasks and plot production for continuous data easier
+and more flexible. This vignette has introduced some of the main
+functions; more details are available in the package reference manual.
+<code><a href="../reference/pretty_axis.html">pretty_axis()</a></code> is an especially useful function in the
+creation of publication quality plots in base R. The subsequent addition
+of lines, colour bars, statistical summaries, shading and model
+predictions adds value to data exploration and publication-quality
+plots, but can be surprisingly difficult with base R.
+<code>prettyGraphics</code> facilitates these operations. Functions can
+be used sequentially or via integrative functions, such as
+<code><a href="../reference/pretty_plot.html">pretty_plot()</a></code>. These operate similarly to functions in base
+<code>R</code> but harness some of the power of building block functions
+to create improved plots.</p>
 </div>
 <div class="section level2">
 <h2 id="future-developments">Future developments<a class="anchor" aria-label="anchor" href="#future-developments"></a>
 </h2>
-<p><code>prettyGraphics</code> has been designed especially for continuous responses and explanatory variables, although some functions (e.g. <code><a href="../reference/add_shading_bar.html">add_shading_bar()</a></code>) help with discrete variables or factors. This functionality may be expanded in due course. Suggestions are welcome. However, the principle motivation for <code>prettyGraphics</code> remains the requirements of (ecological) research, which means that <code>prettyGraphics</code> does not aspire to provide the level of comprehensive functionality of other plotting packages (e.g. <code>ggplot2</code>, <code>plotly</code>).</p>
+<p><code>prettyGraphics</code> has been designed especially for
+continuous responses and explanatory variables, although some functions
+(e.g. <code><a href="../reference/add_shading_bar.html">add_shading_bar()</a></code>) help with discrete variables or
+factors. This functionality may be expanded in due course. Suggestions
+are welcome. However, the principle motivation for
+<code>prettyGraphics</code> remains the requirements of (ecological)
+research, which means that <code>prettyGraphics</code> does not aspire
+to provide the level of comprehensive functionality of other plotting
+packages (e.g. <code>ggplot2</code>, <code>plotly</code>).</p>
 </div>
 <div class="section level2">
 <h2 id="acknowledgements">Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements"></a>
 </h2>
-<p>This work was conducted during a PhD Studentship at the University of St Andrews, jointly funded by Scottish Natural Heritage, through the Marine Alliance for Science and Technology for Scotland (MASTS), and the Centre for Research into Ecological and Environmental Modelling. EL is a member of the MASTS Graduate School.</p>
+<p>This work was conducted during a PhD Studentship at the University of
+St Andrews, jointly funded by Scottish Natural Heritage, through the
+Marine Alliance for Science and Technology for Scotland (MASTS), and the
+Centre for Research into Ecological and Environmental Modelling. EL is a
+member of the MASTS Graduate School.</p>
 </div>
-<div class="footnotes">
+<div class="footnotes footnotes-end-of-document">
 <hr>
 <ol>
-<li id="fn1"><p>Centre for Research into Ecological and Environmental Modelling, The Observatory, University of St Andrews, St Andrews, Scotland, KY16 9LZ and Scottish Oceans Institute, East Sands, University of St Andrews, St Andrews, Scotland, KY16 8LB, <a href="mailto:el72@st-andrews.ac.uk" class="email">el72@st-andrews.ac.uk</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Centre for Research into Ecological and Environmental
+Modelling, The Observatory, University of St Andrews, St Andrews,
+Scotland, KY16 9LZ and Scottish Oceans Institute, East Sands, University
+of St Andrews, St Andrews, Scotland, KY16 8LB, <a href="mailto:el72@st-andrews.ac.uk" class="email">el72@st-andrews.ac.uk</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
@@ -1153,7 +1456,7 @@ body{
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
