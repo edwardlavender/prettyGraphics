@@ -15,6 +15,7 @@
 #'     \item \code{newdata} is a dataframe that contains the data used for prediction. If supplied, this should contain one variable that changes in value (defined in \code{x_var}), with other variables held at selected values. If supplied, this supersedes \code{constants} (see below).
 #'     \item \code{constants} is a one-row dataframe of constant values for explanatory variables. If supplied, \code{n_pred} model predictions are generated for \code{x_var}, while holding other variables constant at the values specified in \code{constants}.
 #'     }
+#' @param extract_fit,extract_se Functions that extract fitted values and standard errors, respectively, from the object returned by \code{\link[stats]{predict}}.
 #' @param transform_x A function to transform values of the predictor(s) for plotting.
 #' @param xlim,ylim,ylim_fix,pretty_axis_args Axis controls. \code{xlim} and \code{ylim} control axis limits for all plots. If unsupplied, pretty limits are used. If pretty limits are used, \code{ylim_fix} is a logical variable that defines whether or not to use the same y-axis limits on all plots (\code{TRUE}), which can facilitate comparisons, or to use plot-specific limits (\code{FALSE}). \code{pretty_axis_args} is a named list of arguments, passed to \code{\link[prettyGraphics]{pretty_axis}}, for further control.
 #' @param add_points (optional) A named list of arguments, passed to \code{\link[graphics]{points}}, to customise observations added to plots. An empty list specifies default options. \code{NULL} suppresses this argument.
@@ -107,6 +108,7 @@
 
 pretty_predictions_1d <- function(model, data = NULL,
                                   newdata = NULL, constants = NULL, x_var = NULL, n_pred = 100, average = mean,
+                                  extract_fit = function(p) p$fit, extract_se = function(p) p$se.fit,
                                   transform_x = NULL,
                                   xlim = NULL, ylim = NULL, ylim_fix = TRUE, pretty_axis_args = list(),
                                   add_points = list(cex = 0.5, lwd = 0.5, col = "grey20"),
@@ -132,10 +134,20 @@ pretty_predictions_1d <- function(model, data = NULL,
   #### Define data used to fit model
   # If variable transformations have been applied
   # ... in the model formula, these are retained here.
+  # Note for some models (e.g., mgcv with family gaulss), the model formula may be a list
+  # ... Hence the way terms is defined below.
   if(is.null(data)) data <- stats::model.frame(model)
   data_y <- data[, 1]
   data_x <- data[, 2:ncol(data), drop = FALSE]
-  data_x <- data_x[, colnames(data_x) %in% all.vars(stats::formula(model)), drop = FALSE]
+  sfm <- stats::formula(model)
+  if (inherits(sfm, "formula")) {
+    rhs <- all.vars(sfm)[-1]
+  } else if (inherits(sfm, "list")) {
+    rhs <- unique(unlist(sapply(sfm, all.vars)))[-1L]
+  } else {
+    stop("Class returned by stats::formula(model) unsupported.", call. = FALSE)
+  }
+  data_x <- data_x[, colnames(data_x) %in% rhs, drop = FALSE]
   for(i in 1:ncol(data_x)){
     if(inherits(data_x[, i], "character")){
       data_x[, i] <- factor(data_x[, i])
@@ -157,7 +169,7 @@ pretty_predictions_1d <- function(model, data = NULL,
     if(!(all(x_var %in% colnames(data))))
       stop("Not all elements in 'x_var' are found in 'model.frame(model)'.", call. = FALSE)
   } else {
-    x_var <- all.vars(stats::formula(model))[-1L]
+    x_var <- rhs
   }
 
   #### Define predictions and information required for plotting
@@ -213,6 +225,7 @@ pretty_predictions_1d <- function(model, data = NULL,
 
     #### Make predictions on the scale of the response
     pred <- stats::predict(model, nd, type = "response", se.fit = TRUE)
+    pred <- list(fit = extract_fit(pred), se.fit = extract_se(pred))
     pred <- list_CIs(pred)
     pred$fit <- as.numeric(pred$fit)
     pred$lowerCI <- as.numeric(pred$lowerCI)

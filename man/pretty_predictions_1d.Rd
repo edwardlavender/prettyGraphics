@@ -12,6 +12,8 @@ pretty_predictions_1d(
   x_var = NULL,
   n_pred = 100,
   average = mean,
+  extract_fit = function(p) p$fit,
+  extract_se = function(p) p$se.fit,
   transform_x = NULL,
   xlim = NULL,
   ylim = NULL,
@@ -41,6 +43,8 @@ pretty_predictions_1d(
   \item \code{newdata} is a dataframe that contains the data used for prediction. If supplied, this should contain one variable that changes in value (defined in \code{x_var}), with other variables held at selected values. If supplied, this supersedes \code{constants} (see below).
   \item \code{constants} is a one-row dataframe of constant values for explanatory variables. If supplied, \code{n_pred} model predictions are generated for \code{x_var}, while holding other variables constant at the values specified in \code{constants}.
   }}
+
+\item{extract_fit, extract_se}{Functions that extract fitted values and standard errors, respectively, from the object returned by \code{\link[stats]{predict}}.}
 
 \item{transform_x}{A function to transform values of the predictor(s) for plotting.}
 
