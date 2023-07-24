@@ -10,7 +10,7 @@ pretty_predictions_2d(
   n_grid = 30,
   cond = list(),
   predict_param = list(),
-  select = "fit",
+  extract_fit = function(p) p,
   transform = NULL,
   xlim = NULL,
   ylim = NULL,
@@ -38,12 +38,12 @@ pretty_predictions_2d(
 
 \item{view}{A character vector of two variables that define the variables on the x and y axis.}
 
-\item{n_grid, cond, predict_param, select}{Prediction controls.
+\item{n_grid, cond, predict_param, extract_fit}{Prediction controls.
 \itemize{
   \item \code{n_grid} is an integer that defines the resolution of the surface (in both x and y directions).
   \item \code{cond} (optional) is a named list that defines the values of other predictors (i.e., those not in \code{view}) for which to make predictions. If un-supplied, factor variables are set at the most commonly occuring factor level and continuous variables are set at the closest observed value to the median.
   \item \code{predict_param} (optional) A named list of arguments, passed to \code{\link[stats]{predict}}, to customise predictions.
-  \item \code{select} (optional) If the call to \code{\link[stats]{predict}} returns a list, \code{select} is the name of the element in that list that is plotted (e.g., \code{"fit"} or \code{"se.fit"}). If the call to \code{\link[stats]{predict}} returns a numeric vector, this is ignored.
+  \item \code{extract_fit} A function that extracts fitted values/values to be plotted from the object returned by \code{\link[stats]{predict}}.
 }}
 
 \item{transform}{A function used to (back)-transform the predictor variables in \code{view} after prediction for plotting (i.e., the x and y axes). Use this option, for examples, if you scaled variables prior to model fitting and you want to back-transform them onto the natural scale.}
@@ -106,7 +106,8 @@ pretty_predictions_2d(g, view = c("x1", "x2"), n_grid = 10)
 pretty_predictions_2d(g, view = c("x1", "x2"), cond = list(x0 = mean(x0)))
 # Use predict_param for further control, e.g., to plot SEs
 pretty_predictions_2d(g, view = c("x1", "x2"),
-                      predict_param = list(se.fit = TRUE), select = "se.fit")
+                      predict_param = list(se.fit = TRUE),
+                      extract_fit = function(p) p$se.fit)
 
 #### Example (3): Customise colours
 # Use col_pal and col_n
