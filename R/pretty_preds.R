@@ -11,12 +11,13 @@ model_terms <- function(model) {
   # ... hence the use of this function to get model terms.
   sfm <- stats::formula(model)
   if (inherits(sfm, "formula")) {
-    rhs <- all.vars(sfm)
+    v <- all.vars(sfm)
   } else if (inherits(sfm, "list")) {
-    rhs <- unique(unlist(sapply(sfm, all.vars)))
+    v <- unique(unlist(sapply(sfm, all.vars)))
   } else {
     stop("Class returned by stats::formula(model) unsupported.", call. = FALSE)
   }
+  v
 }
 
 
