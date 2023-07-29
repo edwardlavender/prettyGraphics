@@ -167,6 +167,9 @@ pretty_predictions_1d <- function(model, data = NULL,
       stop("`add_points_jitter` should not contain negative numbers.", call. = FALSE)
     }
   })
+  if (length(add_points_jitter) > 0L && any(!(names(add_points_jitter) %in% model_terms(model)))) {
+    stop("Unrecognised names (variables) in `add_points_jitter`.", call. = FALSE)
+  }
   # Check named lists
   # ...
 
@@ -200,9 +203,6 @@ pretty_predictions_1d <- function(model, data = NULL,
       stop("Not all elements in 'x_var' are found in 'model.frame(model)'.", call. = FALSE)
   } else {
     x_var <- rhs
-  }
-  if (length(add_points_jitter) > 0L && any(!(names(add_points_jitter) %in% x_var))) {
-    stop("Unrecognised names (variables) in `add_points_jitter`.", call. = FALSE)
   }
 
   #### Define predictions and information required for plotting
