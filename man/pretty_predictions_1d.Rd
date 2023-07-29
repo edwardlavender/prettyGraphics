@@ -57,7 +57,7 @@ pretty_predictions_1d(
 
 \item{add_error_bars, add_error_envelope}{(optional) Named lists of arguments, passed to \code{\link[prettyGraphics]{add_error_bars}} and \code{\link[prettyGraphics]{add_error_envelope}}, to customise the appearance of error bars (for factor predictors) or envelopes (for continuous predictors) respectively. Empty lists specify default options. \code{NULL} suppresses these arguments.}
 
-\item{add_order}{A character vector that defines the order in which you want to add \code{predictions} and \code{points}. By default, predictions are added first, since these often mask points otherwise. However, this order is reversible.}
+\item{add_order}{A character vector or a list that defines the order in which you want to add \code{predictions} and \code{points}. By default, predictions are added first, since these often mask points otherwise. However, this order is reversible. If a list is supplied, this must be a named list, with one element for each predictor variable, that defines the order.}
 
 \item{add_xlab, add_ylab, add_main}{(optional) Named lists of arguments, passed to \code{\link[graphics]{mtext}}, to add axis titles to plots. X-axis labels and plot titles are added to each plot, while only one global y-axis label is added. Empty lists specify default arguments, in which case variable names are taken as specified in the \code{model} and plot titles are given as capitalised letters or numbers in square brackets (if there are more than 26 predictors). Alternatively, names can be specified via the `text' argument to \code{\link[graphics]{mtext}}. For \code{add_xlab} and \code{add_main} , the `text' argument can be a vector with one element for each plot; for \code{add_ylab} only one element should be supplied. \code{NULL} suppress these arguments.}
 
@@ -150,6 +150,14 @@ pretty_predictions_1d(mod_2, transform_x = unscale)
 #### Example (8) Jitter points
 # Jitter points horizontally for species
 pretty_predictions_1d(mod_1, add_points_jitter = list(Species = c(0.1, 0)))
+
+#### Example (9) Modify order of points/predictions
+# Customise plot order across all predictors
+pretty_predictions_1d(mod_1, add_order = c("points", "predictions"))
+# Predictor-specific customisation
+pretty_predictions_1d(mod_1,
+                      add_order = list(Sepal.Width = c("predictions", "points"),
+                                      Species = c("points", "predictions")))
 
 }
 \seealso{
