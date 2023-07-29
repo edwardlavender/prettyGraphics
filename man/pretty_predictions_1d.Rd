@@ -20,6 +20,7 @@ pretty_predictions_1d(
   ylim_fix = TRUE,
   pretty_axis_args = list(),
   add_points = list(cex = 0.5, lwd = 0.5, col = "grey20"),
+  add_points_jitter = list(),
   add_error_bars = list(add_fit = list(pch = 3)),
   add_error_envelope = list(),
   add_order = c("predictions", "points"),
@@ -51,6 +52,8 @@ pretty_predictions_1d(
 \item{xlim, ylim, ylim_fix, pretty_axis_args}{Axis controls. \code{xlim} and \code{ylim} control axis limits for all plots. If unsupplied, pretty limits are used. If pretty limits are used, \code{ylim_fix} is a logical variable that defines whether or not to use the same y-axis limits on all plots (\code{TRUE}), which can facilitate comparisons, or to use plot-specific limits (\code{FALSE}). \code{pretty_axis_args} is a named list of arguments, passed to \code{\link[prettyGraphics]{pretty_axis}}, for further control.}
 
 \item{add_points}{(optional) A named list of arguments, passed to \code{\link[graphics]{points}}, to customise observations added to plots. An empty list specifies default options. \code{NULL} suppresses this argument.}
+
+\item{add_points_jitter}{A named list of jitter values for points. If supplied, element names should correspond to selected predictor variables in the model. Each element should contain two non-negative numbers that define the amount to jitter points in the x and y directions. Jittering is implemented using \code{\link[stats]{runif}}. This is silently ignored if \code{add_points} is \code{NULL}. Note that jittering does not currently influence axis limits, so use this option with caution.}
 
 \item{add_error_bars, add_error_envelope}{(optional) Named lists of arguments, passed to \code{\link[prettyGraphics]{add_error_bars}} and \code{\link[prettyGraphics]{add_error_envelope}}, to customise the appearance of error bars (for factor predictors) or envelopes (for continuous predictors) respectively. Empty lists specify default options. \code{NULL} suppresses these arguments.}
 
@@ -143,6 +146,10 @@ unscale <- function(x) {
   x * sigma + mu
 }
 pretty_predictions_1d(mod_2, transform_x = unscale)
+
+#### Example (8) Jitter points
+# Jitter points horizontally for species
+pretty_predictions_1d(mod_1, add_points_jitter = list(Species = c(0.1, 0)))
 
 }
 \seealso{

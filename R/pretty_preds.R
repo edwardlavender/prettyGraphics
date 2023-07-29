@@ -42,6 +42,7 @@ model_terms <- function(model) {
 #' @param transform_x A function to transform values of the predictor(s) for plotting.
 #' @param xlim,ylim,ylim_fix,pretty_axis_args Axis controls. \code{xlim} and \code{ylim} control axis limits for all plots. If unsupplied, pretty limits are used. If pretty limits are used, \code{ylim_fix} is a logical variable that defines whether or not to use the same y-axis limits on all plots (\code{TRUE}), which can facilitate comparisons, or to use plot-specific limits (\code{FALSE}). \code{pretty_axis_args} is a named list of arguments, passed to \code{\link[prettyGraphics]{pretty_axis}}, for further control.
 #' @param add_points (optional) A named list of arguments, passed to \code{\link[graphics]{points}}, to customise observations added to plots. An empty list specifies default options. \code{NULL} suppresses this argument.
+#' @param add_points_jitter A named list of jitter values for points. If supplied, element names should correspond to selected predictor variables in the model. Each element should contain two non-negative numbers that define the amount to jitter points in the x and y directions. Jittering is implemented using \code{\link[stats]{runif}}. This is silently ignored if \code{add_points} is \code{NULL}. Note that jittering does not currently influence axis limits, so use this option with caution.
 #' @param add_error_bars,add_error_envelope (optional) Named lists of arguments, passed to \code{\link[prettyGraphics]{add_error_bars}} and \code{\link[prettyGraphics]{add_error_envelope}}, to customise the appearance of error bars (for factor predictors) or envelopes (for continuous predictors) respectively. Empty lists specify default options. \code{NULL} suppresses these arguments.
 #' @param add_order A character vector that defines the order in which you want to add \code{predictions} and \code{points}. By default, predictions are added first, since these often mask points otherwise. However, this order is reversible.
 #' @param add_xlab,add_ylab,add_main (optional) Named lists of arguments, passed to \code{\link[graphics]{mtext}}, to add axis titles to plots. X-axis labels and plot titles are added to each plot, while only one global y-axis label is added. Empty lists specify default arguments, in which case variable names are taken as specified in the \code{model} and plot titles are given as capitalised letters or numbers in square brackets (if there are more than 26 predictors). Alternatively, names can be specified via the `text' argument to \code{\link[graphics]{mtext}}. For \code{add_xlab} and \code{add_main} , the `text' argument can be a vector with one element for each plot; for \code{add_ylab} only one element should be supplied. \code{NULL} suppress these arguments.
@@ -125,6 +126,10 @@ model_terms <- function(model) {
 #' }
 #' pretty_predictions_1d(mod_2, transform_x = unscale)
 #'
+#' #### Example (8) Jitter points
+#' # Jitter points horizontally for species
+#' pretty_predictions_1d(mod_1, add_points_jitter = list(Species = c(0.1, 0)))
+#'
 #' @seealso \code{\link[prettyGraphics]{pretty_predictions_2d}}
 #' @author Edward Lavender
 #' @export
@@ -135,6 +140,7 @@ pretty_predictions_1d <- function(model, data = NULL,
                                   transform_x = NULL,
                                   xlim = NULL, ylim = NULL, ylim_fix = TRUE, pretty_axis_args = list(),
                                   add_points = list(cex = 0.5, lwd = 0.5, col = "grey20"),
+                                  add_points_jitter = list(),
                                   add_error_bars = list(add_fit = list(pch = 3)),
                                   add_error_envelope = list(),
                                   add_order = c("predictions", "points"),
@@ -152,12 +158,21 @@ pretty_predictions_1d <- function(model, data = NULL,
       warning("`constants` is ignored if `newdata` is supplied.", immediate. = TRUE, call. = FALSE)
     }
   }
+  check_named_list(l = add_points_jitter, ignore_empty = TRUE)
+  lapply(add_points_jitter, function(elm) {
+    if (length(elm) != 2) {
+      stop("Each element of `add_points_jitter` should be a vector of length two.", call. = FALSE)
+    }
+    if (any(elm < 0)) {
+      stop("`add_points_jitter` should not contain negative numbers.", call. = FALSE)
+    }
+  })
   # Check named lists
   # ...
+
   #### Define data used to fit model
   # If variable transformations have been applied
   # ... in the model formula, these are retained here.
-
   if(is.null(data)) data <- stats::model.frame(model)
   data_y <- data[, 1]
   data_x <- data[, 2:ncol(data), drop = FALSE]
@@ -185,6 +200,9 @@ pretty_predictions_1d <- function(model, data = NULL,
       stop("Not all elements in 'x_var' are found in 'model.frame(model)'.", call. = FALSE)
   } else {
     x_var <- rhs
+  }
+  if (length(add_points_jitter) > 0L && any(!(names(add_points_jitter) %in% x_var))) {
+    stop("Unrecognised names (variables) in `add_points_jitter`.", call. = FALSE)
   }
 
   #### Define predictions and information required for plotting
@@ -347,6 +365,20 @@ pretty_predictions_1d <- function(model, data = NULL,
           }
           add_points$x <- data[, var]
           add_points$y <- data_y
+          for (a in c("x", "y")) {
+            if (inherits(add_points[[a]], "factor")) {
+              add_points[[a]] <- as.integer(add_points[[a]])
+            }
+          }
+          if (var %in% names(add_points_jitter)) {
+            jit <- add_points_jitter[[var]]
+            if (jit[1] != 0) {
+              add_points$x <- stats::runif(add_points$x, min = add_points$x - jit[1], max = add_points$x + jit[1])
+            }
+            if (jit[2] != 0) {
+              add_points$y <- stats::runif(add_points$y, min = add_points$y - jit[2], max = add_points$y + jit[2])
+            }
+          }
           args <- names(add_points)
           pars <- names(graphics::par())
           args_in_pars <- args[args %in% pars]
