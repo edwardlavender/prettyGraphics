@@ -8,7 +8,8 @@
 #' @param scheme A character that defines a colour scheme supported by \code{\link[RColorBrewer]{brewer.pal}}.
 #' @param select An integer vector that defines which colours to draw from the \code{scheme}.
 #' @param pal A colour palette function. If supplied \code{scheme} and \code{select} are silently ignored.
-#' @param n_breaks The number of breaks in the colour scheme.
+#' @param n_breaks The number of breaks in the colour scheme (but see \code{buffer}).
+#' @param buffer A logical input that defines whether or not to 'buffer' breaks along \code{zlim} at either end by the difference between sequential breaks.
 #' @param rev A logical value that defines whether or not to reverse sampled colours.
 #' @details This function is designed to work in conjunction with \code{\link[fields]{image.plot}}.
 #' @return The function returns a named list that contains the z limits (`zlim'), a numeric vector of breaks (`breaks'), the colour palette function (`pal') and the associated vector of colours (`col'). This can be passed to \code{\link[fields]{image.plot}}.
@@ -16,7 +17,7 @@
 #' @author Edward Lavender
 #' @export
 
-pretty_cols_brewer <- function(zlim,
+pretty_cols_brewer <- function(zlim, buffer = FALSE,
                                scheme = "YlOrRd",
                                select = 1:8,
                                pal = NULL,
@@ -27,15 +28,18 @@ pretty_cols_brewer <- function(zlim,
          call. = FALSE)
   }
   breaks <- seq(zlim[1], zlim[2], length.out = n_breaks)
+  if (buffer) {
+    breaks <- unique(sort(c(min(breaks) - abs(diff(breaks)[1]), breaks, max(breaks) + abs(diff(breaks)[1]))))
+  }
   if(is.null(pal)){
     n <- max(select)
     cols <- RColorBrewer::brewer.pal(n, scheme)
     cols <- cols[select]
     pal <- grDevices::colorRampPalette(cols)
   }
-  cols <- pal(n_breaks - 1)
+  cols <- pal(length(breaks) - 1)
   if(rev) cols <- rev(cols)
-  out <- list(zlim = zlim,
+  out <- list(zlim = range(breaks),
               breaks = breaks,
               pal = pal,
               col = cols)

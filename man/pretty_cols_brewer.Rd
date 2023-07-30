@@ -6,6 +6,7 @@
 \usage{
 pretty_cols_brewer(
   zlim,
+  buffer = FALSE,
   scheme = "YlOrRd",
   select = 1:8,
   pal = NULL,
@@ -16,13 +17,15 @@ pretty_cols_brewer(
 \arguments{
 \item{zlim}{A numeric range that the colour scheme should span.}
 
+\item{buffer}{A logical input that defines whether or not to 'buffer' breaks along \code{zlim} at either end by the difference between sequential breaks.}
+
 \item{scheme}{A character that defines a colour scheme supported by \code{\link[RColorBrewer]{brewer.pal}}.}
 
 \item{select}{An integer vector that defines which colours to draw from the \code{scheme}.}
 
 \item{pal}{A colour palette function. If supplied \code{scheme} and \code{select} are silently ignored.}
 
-\item{n_breaks}{The number of breaks in the colour scheme.}
+\item{n_breaks}{The number of breaks in the colour scheme (but see \code{buffer}).}
 
 \item{rev}{A logical value that defines whether or not to reverse sampled colours.}
 }
