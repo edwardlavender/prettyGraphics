@@ -491,7 +491,8 @@ pretty_axis <-
         lx <- c(2, 2)
       }
       # Create a dataframe and drop NAs
-      dat <- data.frame(do.call(cbind, x))
+      dat <- do.call(data.frame, x)
+      colnames(dat) <- paste0("V", 1:ncol(dat))
       dat <- dat[stats::complete.cases(dat), , drop = FALSE]
       # Check whether there are NAs and, if so, drop these.
       nrw <- nrow(dat)
